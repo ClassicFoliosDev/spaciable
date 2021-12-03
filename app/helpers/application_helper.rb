@@ -23,4 +23,13 @@ module ApplicationHelper
 
     base_link_class + " active"
   end
+
+  def image_link_to(object, url, image_tag_options = {}, link_to_options = {})
+    return nil unless object.picture?
+    return image_tag object.picture.url unless can?(:read, object)
+
+    link_to url, link_to_options do
+      image_tag object.picture.url, image_tag_options
+    end
+  end
 end

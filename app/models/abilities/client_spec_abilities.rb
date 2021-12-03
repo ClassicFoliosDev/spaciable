@@ -8,7 +8,7 @@ module Abilities
       # developer and user have to have CAS
       return unless Developer.find(developer).cas && user.cas
 
-      crud_finishes(developer, user)
+      crud_finishes(developer)
       crud_appliances(developer)
       cas_development_abilities(development_ids)
       true
@@ -19,26 +19,29 @@ module Abilities
     def cas_development_abilities(development_ids)
       Development.where(id: development_ids).find_each do |development|
         next unless development.cas
+        development.phases.each do |phase|
+          next if phase.free?
+          crud_rooms(development, phase)
+          crud_plot_rooms(development, phase)
+          crud_finish_rooms(development, phase)
+          crud_appliance_rooms(development, phase)
+        end
         crud_unit_types(development)
-        crud_rooms(development)
-        crud_plot_rooms(development)
-        crud_finish_rooms(development)
-        crud_appliance_rooms(development)
         crud_plots(development)
         can %i[bulk_edit progresses], Phase, development_id: development.id
       end
     end
 
-    def crud_finishes(developer_id, user)
-      crud_finclass(Finish, developer_id, user)
-      crud_finclass(FinishType, developer_id, user)
-      crud_finclass(FinishCategory, developer_id, user)
-      crud_finclass(FinishManufacturer, developer_id, user)
+    def crud_finishes(developer_id)
+      crud_finclass(Finish, developer_id, can_clone: true)
+      crud_finclass(FinishType, developer_id)
+      crud_finclass(FinishCategory, developer_id)
+      crud_finclass(FinishManufacturer, developer_id)
     end
 
     # Generic ability for any class with a developer_id attribute that
     # needs to be distinct from Admin objects
-    def crud_finclass(klass, developer_id, user)
+    def crud_finclass(klass, developer_id, can_clone: false)
       # Can read records developer_id is that of the developer trying to read
       can :read,
           klass,
@@ -51,7 +54,9 @@ module Abilities
       duc_class(klass, developer_id)
 
       # can clone klass if the developer id is nil
-      can :clone, klass, developer_id: nil unless user.cf_admin?
+      return unless can_clone
+      can :clone, klass, developer_id: nil
+      can :clone, klass, developer_id: developer_id
     end
 
     def crud_appliances(developer_id)
@@ -99,9 +104,14 @@ module Abilities
     end
 
     # restrict rooms
-    def crud_rooms(development)
-      can %i[create read],
-          Room, development_id: development.id
+    def crud_rooms(development, phase)
+      can :read, Room, development_id: development.id
+
+      can :create, Room, development_id: development.id,
+                         plot: nil
+
+      can :create, Room, development_id: development.id,
+                         plot: { phase: { id: phase.id } }
 
       can %i[update destroy remove_finish remove_appliance],
           Room, development_id: development.id,
@@ -114,32 +124,47 @@ module Abilities
     end
 
     # restrict rooms in plots
-    def crud_plot_rooms(development)
+    def crud_plot_rooms(development, phase)
       can :crud, PlotRoom do |plotroom|
         plotroom.development_id == development.id &&
+          plotroom.phase_id == phase.id &&
           plotroom.completion_release_date.present? &&
           plotroom.completion_release_date <= Time.zone.today
       end
     end
 
-    def crud_finish_rooms(development)
+    def crud_finish_rooms(development, phase)
       can %i[create destroy], FinishRoom,
           room: { development_id: development.id,
-                  unit_type: { restricted: false } }
+                  unit_type: { restricted: false },
+                  plot: nil }
 
       can %i[create destroy], FinishRoom,
           room: { development_id: development.id,
-                  unit_type: nil }
+                  unit_type: { restricted: false },
+                  plot: { phase_id: phase.id } }
+
+      can %i[create destroy], FinishRoom,
+          room: { development_id: development.id,
+                  unit_type: nil,
+                  plot: { phase_id: phase.id } }
     end
 
-    def crud_appliance_rooms(development)
+    def crud_appliance_rooms(development, phase)
       can %i[create destroy], ApplianceRoom,
           room: { development_id: development.id,
-                  unit_type: { restricted: false } }
+                  unit_type: { restricted: false },
+                  plot: { phase_id: phase.id } }
 
       can %i[create destroy], ApplianceRoom,
           room: { development_id: development.id,
-                  unit_type: nil }
+                  unit_type: { restricted: false },
+                  plot: nil }
+
+      can %i[create destroy], ApplianceRoom,
+          room: { development_id: development.id,
+                  unit_type: nil,
+                  plot: { phase_id: phase.id } }
     end
 
     def crud_plots(development)

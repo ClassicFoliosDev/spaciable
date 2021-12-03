@@ -3,7 +3,8 @@
 module PlotRoomsHelper
   def no_plot_rooms(plot)
     return "plots/rooms/empty_completed" if current_user.cf_admin? ||
-                                            (plot.cas && plot.completion_release_date.present?)
+                                            (!plot.free? && plot.cas &&
+                                              plot.completion_release_date.present?)
     return "plots/rooms/empty_not_completed" if plot.cas
     nil
   end

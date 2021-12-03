@@ -7,6 +7,8 @@ class Appliance < ApplicationRecord
   multisearchable against: %i[appliance_manufacturer_name model_num], using: %i[tsearch trigram]
 
   mount_uploader :primary_image, PictureUploader
+  alias picture primary_image
+  alias picture? primary_image?
   mount_uploader :secondary_image, PictureUploader
   mount_uploader :manual, DocumentUploader
   mount_uploader :guide, DocumentUploader

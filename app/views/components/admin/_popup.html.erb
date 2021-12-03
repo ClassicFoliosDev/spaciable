@@ -4,9 +4,9 @@
 %>
 
 <% if !current_user.cf_admin? || all_users %>
-  <div class="popup-resource", data-title="<%= title %>", data-preference="<%=preference&.to_s %>", data-type="<%= defined?(type) ? Toolbar::ICONS[type][:type] : nil %>", data-icon="<%= defined?(type) ? Toolbar::ICONS[type][:icon] : nil %>", data-width="<%= defined?(width) ? width : 400 %>", data-popup-on-load="<%= defined?(popup_on_load) ? popup_on_load : true %>" >
+  <div class="popup-resource", data-title="<%= title %>", data-preference="<%=preference&.to_s %>", data-type="<%= defined?(type) ? Toolbar::ICONS[type][:type] : nil %>", data-icon="<%= defined?(type) ? Toolbar::ICONS[type][:icon] : nil %>", data-width="<%= defined?(width) ? width : 400 %>", data-popup-on-load="<%= defined?(popup_on_load) ? popup_on_load : true %>", data-selector="<%= defined?(selector) ? selector : nil %>" >
     <% help.each do |message| %>
-      <%= simple_format message, {}, {sanitize: false} %>
+      <%= unsanitized message %>
     <% end %>
   </div>
 <% end %>

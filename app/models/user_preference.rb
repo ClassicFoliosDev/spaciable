@@ -17,5 +17,7 @@ class UserPreference < ApplicationRecord
     show_faq_restriction_dialog
     show_plot_template_dialog
     show_free_plots_rooms_dialog
+    show_finishes_info_dialog
+    show_appliances_info_dialog
   ]
 end

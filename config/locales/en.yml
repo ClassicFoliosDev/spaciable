@@ -377,8 +377,9 @@ en:
     admin_settings_edit: "Edit Global Settings"
     admin_settings: "Global Settings"
     admin_reports: "Reports"
+    appliances: "Appliances Catalogue"
     appliance_edit: "Edit %{name}"
-    appliance_add: "New Appliance"
+    appliance_add: "Create New Appliance"
     manufacturer_edit: "Edit %{name}"
     manufacturer_add: "New Finish Manufacturer"
     appliance_category_edit: "Edit %{name}"
@@ -405,9 +406,11 @@ en:
     services: "Services"
     services_add: "New Service"
     services_edit: "Edit Service"
+    finishes: "Finishes Catalogue"
     finish_categories: "Finish Categories"
     finish_edit: "Edit %{name}"
-    finish_add: "New Finish"
+    finish_add: "Create New Finish"
+    finish_clone: "Create New Finish from Clone"
     finish_category_edit: "Edit %{name}"
     finish_category_add: "New Finish Category"
     finish_type_edit: "Edit %{name}"
@@ -660,8 +663,8 @@ en:
       my_development: "My Development"
       documents: "Documents"
       users: "Admins"
-      appliances: "Appliances"
-      finishes: "Finishes"
+      appliances: "Appliances Catalogue"
+      finishes: "Finishes Catalogue"
       profile: "Profile"
       notifications: "Notifications"
       admin_notifications: "Admin Notifications"
@@ -2900,9 +2903,12 @@ en:
    update:
      success: "%{name} was updated successfully"
    index:
-     title: "Appliances."
+     title: "Appliances Catalogue."
+     info:
+       title: "Appliances Catalogue"
+       desc: "Some load of toilet"
    collection:
-     create: "Add Appliance"
+     create: "Create Appliance"
      assign: "Assign Appliance"
      appliance_category: "Category"
      remove: "Remove"
@@ -2919,7 +2925,7 @@ en:
      cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or plot templates. Deleting this appliance would remove it from all plots."
 
    new:
-     title: "New Appliance."
+     title: "Create New Appliance."
    show:
      back: "Back"
      download: "Download manual"
@@ -2928,7 +2934,7 @@ en:
      primary_image: "Primary Image"
      confirm-edit:
        title: "Edit %{name}"
-       body: "Any changes you make here will be reflected on all plots and plot templates containing this <strong>%{name}</strong> appliance.<br/><br/>If your intension is to replace the appliance for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
+       body: "Any changes you make here will be reflected on all plots and plot templates containing this <strong>%{name}</strong> appliance.<br/><br/>If your intention is to replace the appliance for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -2948,7 +2954,7 @@ en:
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
-     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and plot templates containing this appliance."
+     update: "Are you sure you want to update the catalogue entry for %{appliance}? Any changes will be reflected on all plots and plot templates containing this appliance."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -3028,12 +3034,15 @@ en:
     update:
       success: "%{name} was updated successfully"
     index:
-     title: "Finishes."
+     title: "Finishes Catalogue."
+     info:
+      title: "Finishes Catalogue"
+      desc: "This catalogue contains finishes managed by Spaciable staff (these appear grey to you and without a delete icon)"
     collection:
       finish: "Finish Name"
       finish_category: "Category"
       finish_type: "Type"
-      create: "Add Finish"
+      create: "Create Finish"
       assign: "Assign Finish"
       finishes: "Finishes"
       image: "Image"
@@ -3046,7 +3055,9 @@ en:
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
       cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or plot templates. Deleting this finish would remove it from all plots."
     new:
-      title: "New Finish."
+      title: "Create New Finish."
+    clone:
+      title: "Create New Finish from Clone"
     form:
       name: "Finish Name"
       submit: "Submit"
@@ -3057,12 +3068,13 @@ en:
       manufacturer: "Manufacturer"
       notes: "Notes"
       notes_disclaimer: "This is not visible to residents"
-      finish_description: "Use this page to update the database with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
+      finish_description: "Use this page to update the catalog with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
       disclaimer: "Can't find the %{item} you're looking for?"
       category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
       type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
       manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
-      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and plot templates containing this finish."
+      update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and plot templates containing this finish."
+      clone: "You have chosen to clone an existing finish. Edit the finish details and click Submit to create a new finish in the catelog."
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -3170,26 +3182,26 @@ en:
         submit: "Submit"
         back: "Back"
         search: "Search"
-        search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances database.
-                      Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/>
+        search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances Catalogue.<br/><br/>
+                      Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/><br/>
                       Narrow results by using quotation marks to return only exact matches."
         category: "Category"
         manufacturer: "Manufacturer"
-        cannot_find: "Unable to find the Appliance you’re looking for?<br/><br/>Appliances must first be <a href='%{url}'>created</a> before returning here to assign them to the room."
+        cannot_find: "Unable to find the Appliance you’re looking for?<br/><br/>Appliances must first be <a href='%{url}' target='_blank'>created in the Appliances Catalogue</a> before returning here to assign them to the room."
     finish_rooms:
       new:
         title: "Assign Finish."
         submit: "Submit"
         back: "Back"
         search: "Search"
-        search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes database.
-                      Click the <strong>Finish Name</strong> drop-down field on this page to select from the results.<br/>
+        search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes Catalogue.<br/><br/>
+                      Click the <strong>Finish Name</strong> drop-down field on this page to select from the results.<br/><br/>
                       Narrow results by searching for product codes or using quotation marks, e.g., \"White Oak\", to return only exact matches."
         choose: "Choose..."
         category: "Category"
         type: "Type"
         finish: "Finish Name"
-        cannot_find: "Unable to find the Finish you’re looking for?<br/><br/>Finishes must first be <a href='%{url}'>created</a> before returning here to assign them to the room."
+        cannot_find: "Unable to find the Finish you’re looking for?<br/><br/>Finishes must first be <a href='%{url}' target='_blank'>created in the Finishes Catalogue</a> before returning here to assign them to the room."
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:
@@ -4215,7 +4227,7 @@ en:
 
   stuck_with_specs:
     title: "Stuck with specs?"
-    help: "<p class='hangingindent'>Step 1: First, add Finishes and Appliances - click Finishes/Appliances in the left side menu.</p><p class='hangingindent'>Step 2: Then, use Plot Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Plot Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
+    help: "<p class='hangingindent'>Step 1: If necessary, add <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate catalogue using the main menu bar.</p><p class='hangingindent'>Step 2: Then, use Plot Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Plot Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
 
 
 

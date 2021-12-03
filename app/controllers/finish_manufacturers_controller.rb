@@ -51,12 +51,6 @@ class FinishManufacturersController < ApplicationController
     redirect_to finishes_path, alert: notice, active_tab: "finish_manufacturers"
   end
 
-  def clone
-    @source_finish_manufacturer = @finish_manufacturer
-    @finish_manufacturer = @finish_manufacturer.dup
-    render :new
-  end
-
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.

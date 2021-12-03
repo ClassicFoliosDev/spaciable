@@ -45,11 +45,6 @@ class ApplianceManufacturersController < ApplicationController
     redirect_to appliance_manufacturers_path, alert: notice
   end
 
-  def clone
-    @appliance_manufacturer = @appliance_manufacturer.dup
-    render :new
-  end
-
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
