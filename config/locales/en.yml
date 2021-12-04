@@ -2906,7 +2906,7 @@ en:
      title: "Appliances Catalogue."
      info:
        title: "Appliances Catalogue"
-       desc: "Some load of toilet"
+       desc: "This catalogue contains applainces managed by Spaciable (in grey) and %{developer}.<br/><br/>Appliances in this catalogue can be assigned to rooms in a Plot Template or an individual plot. Click the Plot Templates tab under a development to assign any finishes shared by a group of plots. Click the rooms tab under a plot to assign a plot-specific appliance."
    collection:
      create: "Create Appliance"
      assign: "Assign Appliance"
@@ -3037,7 +3037,7 @@ en:
      title: "Finishes Catalogue."
      info:
       title: "Finishes Catalogue"
-      desc: "This catalogue contains finishes managed by Spaciable staff (these appear grey to you and without a delete icon)"
+      desc: "This catalogue contains finishes managed by Spaciable (in grey) and %{developer}.<br/><br/>New Finsihes can be added and existing finishes can be cloned, respecified and renamed.<br/><br/>Finishes in this catalogue can be assigned to rooms in a Plot Template or an individual plot. Click Plot Templates tab under a development to assign any finishes shared by a group of plots. Click the rooms tab under a plot to assign a plot-specific finish."
     collection:
       finish: "Finish Name"
       finish_category: "Category"

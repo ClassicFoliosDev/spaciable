@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    byebug
     flash[:alert] = exception.message
     redirect_to previous_url
   end
