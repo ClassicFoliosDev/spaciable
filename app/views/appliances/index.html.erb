@@ -2,7 +2,7 @@
 
 <%= render "components/admin/popup", title: t("stuck_with_specs.title"), help: [t("stuck_with_specs.help")], type: :tip, all_users: true, popup_on_load: false, width: 500 %>
 
-<%= render "components/admin/popup", title: t(".info.title"), preference: :show_appliances_info_dialog, help: [t(".info.desc", developer: Developer.find(current_user.developer).identity)], type: :tip, all_users: false, popup_on_load: true, width: 500, selector: ".section-title #trigger" %>
+<%= render "components/admin/popup", title: t(".info.title"), preference: :show_appliances_info_dialog, help: [t(".info.desc", developer: Developer.find(current_user.developer).identity)], all_users: false, popup_on_load: true, width: 500, selector: ".section-title #trigger" %>
 
 <div class="section-header">
   <div class="section-title">

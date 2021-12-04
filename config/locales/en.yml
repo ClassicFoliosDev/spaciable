@@ -1321,7 +1321,7 @@ en:
       uneditable_title: "%{tile}"
       uneditable_text: "You do not have permission to edit this shortcut tile. Please contact your Classic Folios Account Manager for more details."
       help_title: "Free Package Restriction"
-      help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. They are restricted to custom shortcuts added by CF only. To enquire about upgrading, please contact Classic Folios."
+      help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
     new:
       title: "New Custom Shortcut"
     edit:
@@ -3070,9 +3070,9 @@ en:
       notes_disclaimer: "This is not visible to residents"
       finish_description: "Use this page to update the catalog with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
       disclaimer: "Can't find the %{item} you're looking for?"
-      category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
-      type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
-      manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
+      category_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the category you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes."
+      type_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the finish type you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish</strong> Type is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories.</strong>"
+      manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers.</a> to add a new Manufacturer entry to the Finishes Catalogue and associate it with any applicable Types.<br/><br/>If the manufacturer exists, but isn't associated with your required finish type, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of what finish type you would like to associate and we will review your request with a view of updating the Finishes Catalogue."
       update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and plot templates containing this finish."
       clone: "You have chosen to clone an existing finish. Edit the finish details and click Submit to create a new finish in the catelog."
     edit:

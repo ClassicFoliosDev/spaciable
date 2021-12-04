@@ -39,7 +39,7 @@
               <p><%= t(".disclaimer", item: "category") %></p>
               <i class="fa fa-question-circle" id="categoryHelp"></i>
               <div class="category-help">
-                <p class="help-description"><%= t(".category_help").html_safe %></p>
+                <p class="help-description"><%= unsanitized t(".category_help") %></p>
               </div>
             </div>
           </div>
@@ -50,7 +50,7 @@
               <p><%= t(".disclaimer", item: "type") %></p>
               <i class="fa fa-question-circle" id="typeHelp"></i>
               <div class="type-help">
-                <p class="help-description"><%= t(".type_help").html_safe %></p>
+                <p class="help-description"><%= unsanitized t(".type_help") %></p>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
               <p><%= t(".disclaimer", item: "manufacturer") %></p>
               <i class="fa fa-question-circle" id="manufacturerHelp"></i>
               <div class="manufacturer-help">
-                <p class="help-description"><%= t(".manufacturer_help").html_safe %></p>
+                <p class="help-description"><%= unsanitized t(".manufacturer_help", url: finish_manufacturers_path) %></p>
               </div>
             </div>
           </div>
