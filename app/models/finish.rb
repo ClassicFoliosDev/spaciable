@@ -60,7 +60,7 @@ class Finish < ApplicationRecord
 
   def check_dup
     developer_ids = [developer_id]
-    developer_ids << nil unless RequestStore.store[:current_user].cf_admin?
+    developer_ids << nil unless RequestStore.store[:current_user]&.cf_admin?
 
     return if Finish.where(finish_category_id: finish_category_id,
                            finish_type_id: finish_type_id,

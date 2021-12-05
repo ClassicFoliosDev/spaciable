@@ -152,7 +152,7 @@ class CustomTile < ApplicationRecord
 
   # was this record created by a CF user
   def set_cf
-    self.cf = RequestStore.store[:current_user].cf_admin?
+    self.cf ||= RequestStore.store[:current_user]&.cf_admin? || false
   end
 end
 #rubocop:enable all
