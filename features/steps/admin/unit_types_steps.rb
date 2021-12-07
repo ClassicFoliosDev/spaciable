@@ -159,7 +159,7 @@ end
 
 When(/^I add a room to the unit type$/) do
   visit "/unit_types/#{CreateFixture.unit_type.id}/rooms"
-  click_on t("rooms.collection.add")
+  click_on t("rooms.collection.add", name: CreateFixture.unit_type.name)
   find("#room_name")
   fill_in :room_name, with: CreateFixture.room_name
   click_on t("plots.rooms.form.submit")

@@ -21,11 +21,11 @@ module Abilities
         next unless development.cas
         development.phases.each do |phase|
           next if phase.free?
-          crud_rooms(development, phase)
           crud_plot_rooms(development, phase)
           crud_finish_rooms(development, phase)
           crud_appliance_rooms(development, phase)
         end
+        crud_rooms(development)
         crud_unit_types(development)
         crud_plots(development)
         can %i[bulk_edit progresses], Phase, development_id: development.id
@@ -104,14 +104,12 @@ module Abilities
     end
 
     # restrict rooms
-    def crud_rooms(development, phase)
+    # rubocop:disable Metrics/MethodLength
+    def crud_rooms(development)
       can :read, Room, development_id: development.id
 
       can :create, Room, development_id: development.id,
                          plot: nil
-
-      can :create, Room, development_id: development.id,
-                         plot: { phase: { id: phase.id } }
 
       can %i[update destroy remove_finish remove_appliance],
           Room, development_id: development.id,
@@ -121,10 +119,24 @@ module Abilities
       can :create_room_unittype, Room,
           development_id: development.id,
           unit_type: { restricted: false }
+
+      can %i[create destroy], FinishRoom,
+          room: { development_id: development.id,
+                  unit_type: { restricted: false },
+                  plot: nil }
+
+      can %i[create destroy], ApplianceRoom,
+          room: { development_id: development.id,
+                  unit_type: { restricted: false },
+                  plot: nil }
     end
+    # rubocop:enable Metrics/MethodLength
 
     # restrict rooms in plots
     def crud_plot_rooms(development, phase)
+      can :create, Room, development_id: development.id,
+                         plot: { phase: { id: phase.id } }
+
       can :crud, PlotRoom do |plotroom|
         plotroom.development_id == development.id &&
           plotroom.phase_id == phase.id &&
@@ -134,11 +146,6 @@ module Abilities
     end
 
     def crud_finish_rooms(development, phase)
-      can %i[create destroy], FinishRoom,
-          room: { development_id: development.id,
-                  unit_type: { restricted: false },
-                  plot: nil }
-
       can %i[create destroy], FinishRoom,
           room: { development_id: development.id,
                   unit_type: { restricted: false },
@@ -155,11 +162,6 @@ module Abilities
           room: { development_id: development.id,
                   unit_type: { restricted: false },
                   plot: { phase_id: phase.id } }
-
-      can %i[create destroy], ApplianceRoom,
-          room: { development_id: development.id,
-                  unit_type: { restricted: false },
-                  plot: nil }
 
       can %i[create destroy], ApplianceRoom,
           room: { development_id: development.id,

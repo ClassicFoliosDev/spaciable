@@ -17,7 +17,7 @@
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>
   </div>
-  <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate, empty_desc: empty_desc %>
+  <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate, empty_desc: empty_desc, button_text: t(".add", name: parent) %>
 <% else %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>

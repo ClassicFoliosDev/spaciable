@@ -16,7 +16,7 @@
     <% if create %>
       <% unless !(current_user.cf_admin?) && parent&.expired? %>
         <!-- pass the params to the link associated with the 'New' button so it can supply the country when required -->
-        <%= link_to t(".add", action: action, type_name: type.model_name.human.titleize), [:new, parent, type.name.underscore.to_sym, plot: @plot, params: params.to_h], class: "btn btn-primary" %>
+        <%= link_to (defined?(button_text) ? button_text : t(".add", action: action, type_name: type.model_name.human.titleize)), [:new, parent, type.name.underscore.to_sym, plot: @plot, params: params.to_h], class: "btn btn-primary" %>
       <% end %>
     <% elsif !defined?(empty_desc) %>
       <span><%= t(".request_add", type_names: type.model_name.human.downcase.pluralize) %></span>
