@@ -1,10 +1,8 @@
-Phase Name,Plot Number,Unit Type,UPRN,Postal Prefix,Postal Number/Name,Building Name,Road Name,Postcode,Legal Comp Date (dd/mm/yyyy),Build Progress
-First,1,Studio,123456,Flat,,,,,,
-Alpine,9,Studio,,,,The Glen,,,,
-Alpine,2,Penthouse,,,,The Glen,,,,
-Alpine,3,Studio,,,,,,,,wrong_progress
-Alpine,4,Studio,1248951445,Flat,9,The Glen,Cranbury Road,SO50 5TL,12/10/2021,Roof on
-Alpine,5,Studio,,,,,,,12/10/2012,
-Alpine,4,,,,5,,,,,
-Alpine,6,Studio,aaa,,,,,,,
-Alpine,7,Studio,1234567890123,,,,,,,
+Phase name,Plot Number,Plot Template,UPRN,Postal Prefix,Postal Number/Name,Building Name,Road Name,Postcode,Estimated Move In Date (dd/mm/yyyy),Build Progress,Reservation Order Number,Completion Order Number
+First,1,"3 Bedroom, 1 Bathroom",aaa,,,Hattie Squares,Mariam Fords,96198-0737,08/12/2021,Building soon,,
+Alpine,9,"3 Bedroom, 1 Bathroom",,,,Kessler Extension,Ratke View,86089,07/12/2021,Building soon,,
+Alpine,3,"Penthouse",,,,Cremin Coves,Samson Dale,47450,07/12/2021,Building soon,,
+Alpine,4,"Studio",1248951445,Flat,9,The Glen,Cranbury Road,SO50 5TL,12/10/2021,Roof on,,
+Alpine,5,"3 Bedroom, 1 Bathroom",,,,Kuvalis Street,Rolando Road,47137,07/12/2021,wrong_progress,,
+Alpine,6,"3 Bedroom, 1 Bathroom",1234567890123,,,Orn Park,Brakus Fort,70178-7012,07/12/2021,Building soon,,
+Alpine,4,"3 Bedroom, 1 Bathroom",,,,Monahan Wells,Halle Terrace,27303-4641,07/12/2021,Building soon,,

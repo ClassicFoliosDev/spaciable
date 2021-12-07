@@ -1,6 +1,6 @@
 <% if collection.empty? %>
   <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "plug", type: Appliance, parent: room %>
+    <%= render 'components/empty_list', icon_name: "plug", type: Appliance, parent: room, action: "Create"%>
   <% else %>
     <%= render 'components/empty_list', icon_name: "plug", type: ApplianceRoom, action: "Assign", parent: room %>
   <% end %>

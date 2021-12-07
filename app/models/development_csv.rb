@@ -43,7 +43,7 @@ class DevelopmentCsv
         next unless RequestStore.store[:current_user].cf_admin? || !phase.free?
 
         phase.plots.order(:number).each do | plot |
-          @file.puts filtered_columns.map { |k, _| datum(plot, k) }.join(",")
+          @file.puts filtered_columns.map { |k, _| "\"#{datum(plot, k)}\"" }.join(",")
         end
       end
     end

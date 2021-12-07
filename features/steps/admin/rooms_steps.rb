@@ -276,11 +276,11 @@ def navigate_to_unit_type
   case $current_user.role
     when "cf_admin", "developer_admin", "division_admin"
       within "[data-development='#{development_id}']" do
-        visit find('a', text: "Unit Types")[:href]
+        visit find('a', text: "Plot Templates")[:href]
       end
     when "development_admin", "site_admin"
       within ".tabs" do
-        visit find('a', text: "Unit Types")[:href]
+        visit find('a', text: "Plot Templates")[:href]
       end
   end
 end
