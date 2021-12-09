@@ -1,14 +1,20 @@
-Then(/^I should see the standard list of finishes$/) do
+Given(/^there are CF finishes$/) do
+  CreateFixture.create_finishes
+end
+
+Then(/^I should see all the CF finishes$/) do
   visit "/"
 
   click_on t("components.navigation.finishes")
   find(".tabs")
 
-  finishes_file = "#{Rails.root}/config/Finishes.csv"
-  # go through the file and confirm that there is row containing each item's details
-  CSV.parse(File.read(finishes_file), headers: true).each do |finish|
-    find_finish(finish[0], finish[1], finish[2], finish[3])
+  Finish.find_each do |finish|
+    find(:xpath, "//a[(text()='#{finish.name}')]")
   end
+end
+
+Then(/^I should not see a (.*) tab$/) do |text|
+  expect(page).not_to have_content text
 end
 
 When(/^I enable CAS for the developer$/) do
@@ -60,7 +66,7 @@ When(/^(.*) has a (.*) room with a (.*) finish$/) do |plot_number, room_name, fi
   # if the room is missing
   if room.nil?
     # add it
-    click_on t("rooms.collection.add")
+    click_on t("rooms.collection.add", name: plot)
     fill_in :room_name, with: eval(room_name)
     click_on t("plots.rooms.form.submit")
     room = plot.rooms.find_by(name: eval(room_name))
@@ -96,8 +102,13 @@ end
 
 When(/^I should see a developer copy of the (.*) finish$/) do |finish_name|
   visit "/finishes"
+
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
+
   developer = $current_user.developer
   cf_finish = CreateFixture.finish(finish_name)
+
+  byebug
 
   find_finish(finish_name,
               cf_finish.finish_category.name,

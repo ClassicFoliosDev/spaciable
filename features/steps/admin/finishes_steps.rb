@@ -7,6 +7,7 @@ When(/^I create a finish without a category$/) do
     click_on t("components.navigation.finishes")
   end
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   click_on t("finishes.collection.create")
 
   fill_in "finish_name", with: FinishFixture.finish_name
@@ -50,6 +51,7 @@ When(/^I create a ([^ ]*) finish with category ([^ ]*) type ([^ ]*) and manufact
     click_on t("components.navigation.finishes")
   end
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   click_on t("finishes.collection.create")
 
   fill_in "finish_name", with: eval(name)
@@ -63,6 +65,7 @@ end
 When(/^I update the finish$/) do
   visit "/finishes"
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.finish_name}')]]") do
     find("[data-action='edit']").click
   end
@@ -110,6 +113,7 @@ end
 When(/^I remove an image from a finish$/) do
   visit "/finishes"
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.updated_name}')]]") do
     find("[data-action='edit']").click
   end

@@ -45,7 +45,7 @@ var popup = {
     var $dialogContainer = $('<div>', { id: 'dialog' }).html(resource.html())
     if (can_turn_off) {
       $dialogContainer.append("<div class='input'>" +
-                                "<label><input type='checkbox' id='noshow' name='noshow'>Please dont show me this message again.</label>" +
+                                "<label><input type='checkbox' id='noshow' name='noshow'>Please don't show me this message again.</label>" +
                               "</div>")
     }
 

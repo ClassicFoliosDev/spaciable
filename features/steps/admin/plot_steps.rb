@@ -347,6 +347,18 @@ Then(/^I can not create a plot$/) do
   end
 end
 
+Then(/^I can edit a plot$/) do
+  within ".plots" do
+    edit_links = page.all("[data-action='edit']")
+    expect(edit_links.count).to eq 1
+  end
+
+  within ".record-list" do
+    click_on CreateFixture.phase_plot_name
+    find(:xpath, "//div[contains(text(),'Plot #{CreateFixture.phase_plot_name}')]")
+  end
+end
+
 Then(/^I can not edit a plot$/) do
   within ".plots" do
     edit_links = page.all("[data-action='edit']")
@@ -367,6 +379,7 @@ Then(/^I can not edit a plot$/) do
 end
 
 Then(/^I can update the completion date for a plot$/) do
+
   within ".tabs" do
     click_on t("plots.collection.completion")
   end

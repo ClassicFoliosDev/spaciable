@@ -254,7 +254,7 @@ Then(/^I should see dialog warning of the associated phase and plot$/) do
 end
 
 Then(/^I view the unit type$/) do
-  click_on CreateFixture.unit_type_name
+  find("a[title='#{CreateFixture.unit_type_name}']").trigger('click')
 end
 
 Then(/^I view a unit type room$/) do

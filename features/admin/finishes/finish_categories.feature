@@ -30,13 +30,9 @@ Feature: Developers
 
   Scenario Outline: Non CF Admin roles with CAS can CRUD finishes
     Given I am logged in as a <role> with CAS
-    Then I should see the standard list of finishes
-    When I create a finish category
-    Then I should see the created finish category
-    When I update the finish category
-    Then I should see the updated finish category
-    When I delete the updated finish category
-    Then I should see the updated finish category delete complete successfully
+    Given there are CF finishes
+    Then I should see all the CF finishes
+    And I should not see a Finish Categories tab
     Examples:
       | role              |
       | Developer Admin   |

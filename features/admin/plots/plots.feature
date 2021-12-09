@@ -90,7 +90,7 @@ Feature: Plots
     And there is a second resident
     And all the plots are release completed
     Then I can not create a plot
-    And I can not edit a plot
+    And I can edit a plot
     And I can update the completion date for a plot
     And the completion date has been set
     When I update the progress for the plot
