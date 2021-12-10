@@ -38,7 +38,6 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
     click_on t("phases.collection.bulk_edit")
   end
 
-
   within ".bulk-edit" do
     fill_in :phase_bulk_edit_list, with: "#{CreateFixture.phase_plot_name.to_i},179~181"
     find("#phase_bulk_edit_unit_type_id_check").set true
@@ -49,16 +48,22 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
          phase_bulk_edit_completion_release_date
          phase_bulk_edit_validity
          phase_bulk_edit_extended_access
-         phase_bulk_edit_prefix
-         phase_bulk_edit_building_name
-         phase_bulk_edit_road_name
-         phase_bulk_edit_postcode].each do |selector|
+         ].each do |selector|
         expect(page).not_to have_selector "##{selector}"
 
         find("#phase_bulk_edit_build_step_id_check").set true
         select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
         find("#phase_bulk_edit_completion_date_check").set true
         fill_in :phase_bulk_edit_completion_date, with: (Time.zone.now + 10.days)
+        find("#phase_bulk_edit_prefix_check").set true
+        fill_in :phase_bulk_edit_prefix, with: "Bulk edit"
+        find("#phase_bulk_edit_copy_plot_numbers").set true
+        find("#phase_bulk_edit_building_name_check").set true
+        fill_in :phase_bulk_edit_building_name, with: "Bulky Building"
+        find("#phase_bulk_edit_road_name_check").set true
+        fill_in :phase_bulk_edit_road_name, with: "New Bulky Road"
+        find("#phase_bulk_edit_postcode_check").set true
+        fill_in :phase_bulk_edit_postcode, with: "SO40 1AB"
       end
     else
       find("#phase_bulk_edit_reservation_release_date_check").set true
@@ -97,8 +102,9 @@ end
 
 Then(/^there are errors for plots that don't exist and cannot be updated$/) do
   message = I18n.t("activerecord.errors.models.plot.attributes.base.missing")
+
   within ".alert" do
-    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
+    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Plot Template changes are restricted until after the Completion work has been done by Classic Folios"
   end
 end
 
@@ -359,7 +365,7 @@ end
 
 Then(/^I see an error for the mandatory fields$/) do
   within ".flash" do
-    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Unit type")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Plot Template")
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Validity (Months)")
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Extended Access (Months)")
   end

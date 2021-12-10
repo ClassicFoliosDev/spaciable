@@ -1,6 +1,6 @@
 <% if collection.empty? %>
   <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "plug", type: Appliance, parent: room %>
+    <%= render 'components/empty_list', icon_name: "plug", type: Appliance, parent: room, action: "Create"%>
   <% else %>
     <%= render 'components/empty_list', icon_name: "plug", type: ApplianceRoom, action: "Assign", parent: room %>
   <% end %>
@@ -48,7 +48,7 @@
     <tbody>
       <% collection.each do |appliance| %>
         <tr <%= "class=view-only" if cannot?(:update, appliance)%> data-appliance="<%= appliance.id %>">
-          <td style="text-align:center;"><%= image_tag appliance.primary_image.url if appliance.primary_image? %></td>
+          <td style="text-align:center;"><%= image_link_to appliance,  appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity)%></td>
           <td colspan="2"><%= can?(:read, appliance) ? link_to(appliance.full_name, appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity), title: appliance.full_name) : appliance.full_name %></td>
           <td colspan="2"><%= appliance.appliance_category %></td>
           <td colspan="2"><%= appliance.model_num %></td>

@@ -1,6 +1,6 @@
 <% if collection.empty? %>
   <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room %>
+    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room, action: "Create"%>
   <% else %>
     <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, action: "Assign", parent: room, plot: plot %>
   <% end %>
@@ -50,7 +50,7 @@
       <% collection.each do |finish| %>
         <% tdc = cannot?(:update, finish) ? "class=view-only" : nil %>
         <tr>
-          <td <%= tdc %> style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
+          <td <%= tdc %> style="text-align:center;"><%= image_link_to finish, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity) %></td>
           <td <%= tdc %> colspan="2"><%= can?(:read, finish) ? link_to(finish.name, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity)) : finish.name %></td>
           <td <%= tdc %> colspan="2"><%= finish.finish_category %></td>
           <td <%= tdc %> colspan="2"><%= finish.finish_type %></td>

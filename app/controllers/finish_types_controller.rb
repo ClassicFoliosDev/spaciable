@@ -51,12 +51,6 @@ class FinishTypesController < ApplicationController
     redirect_to finish_types_path, alert: notice
   end
 
-  def clone
-    @source_finish_type = @finish_type
-    @finish_type = @finish_type.dup
-    render :new
-  end
-
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.

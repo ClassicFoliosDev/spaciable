@@ -31,14 +31,15 @@
     </thead>
     <tbody>
       <% collection.each do |appliance| %>
-        <tr <%="class=view-only" if cannot?(:update, appliance) %> data-appliance="<%= appliance.id %>">
-          <td style="text-align:center;"><%= image_tag appliance.primary_image.url if appliance.primary_image? %></td>
-          <td colspan="2"><%= can?(:read, appliance) ? link_to(appliance.full_name, appliance_path(appliance, warn_on_edit: true, origin: room&.identity), title: appliance.full_name) : appliance.name %></td>
-          <td colspan="2"><%= appliance.appliance_category %></td>
-          <td colspan="2"><%= appliance.model_num %></td>
-          <td colspan="2"><%= appliance.appliance_manufacturer %></td>
-          <td colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
-          <td colspan="2"><%= appliance.added_by %></td>
+        <% tdc = cannot?(:update, appliance) ? "class=view-only" : nil %>
+        <tr data-appliance="<%= appliance.id %>">
+          <td style="text-align:center;"><%= image_link_to appliance,  appliance_path(appliance, warn_on_edit: true, origin: room&.identity)%></td>
+          <td <%= tdc %> colspan="2"><%= can?(:read, appliance) ? link_to(appliance.full_name, appliance_path(appliance, warn_on_edit: true, origin: room&.identity), title: appliance.full_name) : appliance.name %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.appliance_category %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.model_num %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.appliance_manufacturer %></td>
+          <td <%= tdc %> colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.added_by %></td>
           <% if showing_icons %>
             <td colspan="2" class="actions">
               <% if appliance.choice == false %>

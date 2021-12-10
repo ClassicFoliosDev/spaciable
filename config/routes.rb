@@ -247,23 +247,15 @@ Rails.application.routes.draw do
     resource :content_management, only: [:show]
   end
 
-  resources :appliances do
-    get :clone, on: :member
-  end
+  resources :appliances
   resources :appliance_categories
-  resources :appliance_manufacturers do
-    get :clone, on: :member
-  end
+  resources :appliance_manufacturers
   resources :finishes do
     get :clone, on: :member
   end
   resources :finish_categories
-  resources :finish_types do
-    get :clone, on: :member
-  end
-  resources :finish_manufacturers do
-    get :clone, on: :member
-  end
+  resources :finish_types
+  resources :finish_manufacturers
 
   resources :globals do
     resource :build_sequence, only: [:show, :edit, :update]

@@ -25,7 +25,6 @@ Feature: Documents
       | Developer Admin   |
       | Division Admin    |
       | Development Admin |
-      | Site Admin        |
 
   Scenario Outline: CAS Admin unreleased bulk edit
     Given I am a <role> with CAS and there are many plots
@@ -39,7 +38,6 @@ Feature: Documents
       | Developer Admin   |
       | Division Admin    |
       | Development Admin |
-      | Site Admin        |
 
   Scenario: Unset and not set
     Given I am a CF admin and there is a plot with all fields set
@@ -56,14 +54,7 @@ Feature: Documents
     Then I can not edit bulk plots
     Examples:
       | role              |
-      | Developer Admin   |
-      | Development Admin |
       | Site Admin        |
-
-  Scenario: Division Admin
-    Given I am logged in as a Division Admin
-    And there is a division phase plot
-    Then I can not edit bulk plots
 
   Scenario: CF Admin
     Given I am a CF admin and there are many spanish plots

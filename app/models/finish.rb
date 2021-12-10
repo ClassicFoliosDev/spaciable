@@ -54,13 +54,24 @@ class Finish < ApplicationRecord
                    finish_manufacturers: { name: params[:manufacturer] })
         }
 
-  validates :name,
-            presence: true,
-            uniqueness:
-            {
-              scope: %i[finish_category finish_type finish_manufacturer developer],
-              case_sensitive: false
-            }
+  validates :name, presence: true
+
+  validate :check_dup
+
+  def check_dup
+    return unless RequestStore.store[:current_user]&.is_a? User
+    developer_ids = [developer_id]
+    developer_ids << nil unless RequestStore.store[:current_user]&.cf_admin?
+
+    return if Finish.where(finish_category_id: finish_category_id,
+                           finish_type_id: finish_type_id,
+                           finish_manufacturer_id: finish_manufacturer_id,
+                           name: name,
+                           developer_id: developer_ids)
+                    .where.not(id: id).count.zero?
+
+    errors.add(:finish, "Name/Category/Type/manufacturer combination already exists.")
+  end
 
   def to_s
     name

@@ -12,11 +12,6 @@
     </div>
   <% end %>
 
-  <!-- If an finish_type is being cloned, then the finish_type will have been 'duped' to force simple_forms_for to generate the correct html
-  REST action for a :new (i.e. :post to '/finishes'), however, we want to use the original source object to pre-populate the form details for
-  this 'clone' -->
-  <% f.object = @source_finish_type || f.object %>
-
   <div class="row finish_type">
     <p><%= t(".description").html_safe %></p>
     <div class="row-item half">

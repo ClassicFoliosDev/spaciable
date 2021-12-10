@@ -1,46 +1,51 @@
-var $popupResource = null
+var $resources = []
 
 document.addEventListener('turbolinks:load', function () {
 
-  $popupResource = $(".popup-resource")
-  if ($popupResource.length == 0 ) { return }
-  if ($popupResource.data("popup-on-load")) { popup.show(true) }
+  $(".popup-resource").each(function( index ) {
 
-  popup.buildToolbarIcon()
+    $resources[index] = $(this)
 
-  toolbar_icon = "i." + $popupResource.data("type")
+    if ($(this).data("popup-on-load")) { popup.show($(this), true) }
 
-  $(toolbar_icon).show()
+    if ($(this).data('selector') == "") {
+      popup.buildToolbarIcon($(this), index)
+      selector = "i." + $(this).data("type")
+      $(selector).show()
+    } else {
+      selector = $(this).data('selector')
+      $(selector).data('resource', index)
+    }
 
-  $(document).on('click', toolbar_icon, function (event) {
-    if ($(".ui-dialog").is(":visible")) { return }
-    popup.display(false)
+    $(document).on('click', selector, function (event) {
+      if ($(".ui-dialog").is(":visible")) { return }
+      popup.display($resources[$(this).data('resource')], false)
+    })
   })
-
 })
 
 var popup = {
 
-  show: function(can_turn_off) {
-    var dataIn = $popupResource.data()
+  show: function(resource, can_turn_off) {
+    var dataIn = resource.data()
 
     $.getJSON({
       url: '/user_preferences/preference',
       data: { 'preference' : dataIn.preference }
     }).done(function (results) {
       if (results['on']) {
-        popup.display(can_turn_off)
+        popup.display(resource, can_turn_off)
       }
     })
   },
 
-  display: function(can_turn_off){
-    dataIn = $popupResource.data()
+  display: function(resource, can_turn_off){
+    dataIn = resource.data()
 
-    var $dialogContainer = $('<div>', { id: 'dialog' }).html($popupResource.html())
+    var $dialogContainer = $('<div>', { id: 'dialog' }).html(resource.html())
     if (can_turn_off) {
       $dialogContainer.append("<div class='input'>" +
-                                "<label><input type='checkbox' id='noshow' name='noshow'>Please dont show me this message again.</label>" +
+                                "<label><input type='checkbox' id='noshow' name='noshow'>Please don't show me this message again.</label>" +
                               "</div>")
     }
 
@@ -52,13 +57,13 @@ var popup = {
       title.html( this.options.title );
     };
 
-    dialog.dialog('option', 'title', '<i class="fa ' + $popupResource.data("icon") + " " + $popupResource.data("type") + ' aria-hidden="true"></i>' + dataIn.title);
+    dialog.dialog('option', 'title', '<i class="fa ' + resource.data("icon") + " " + resource.data("type") + ' aria-hidden="true"></i>' + dataIn.title);
 
     dialog.dialog({
       show: 'show',
       modal: true,
       width: dataIn.width,
-      dialogClass: $popupResource.data("type") + '-dialog',
+      dialogClass: resource.data("type") + '-dialog',
       buttons: [
       {
         text: 'Close',
@@ -69,17 +74,23 @@ var popup = {
                     {'preference': dataIn.preference, 'on': false}
                   )
           }
+          $(".ui-widget-overlay").remove()
           $(this).dialog('close')
           $(this).dialog('destroy').remove()
         }
       }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 
+    $('body').append("<div class='ui-widget-overlay ui-front' style='z-index: 100;''></div>")
   },
 
-  buildToolbarIcon: function() {
-    if ($("i." + $popupResource.data("icon")).length > 0) { return }
-    var $toolbarIcon = $('<div>', { id: $popupResource.data("type") }).html('<i class="fa ' + $popupResource.data("icon") + " " + $popupResource.data("type") + ' aria-hidden="true"></i>')
-    $(".breadcrumb-container").append($toolbarIcon)
+  buildToolbarIcon: function(resource, index) {
+    if ($("i." + resource.data("icon")).length > 0) { return }
+    var toolbarIcon = $('<div>', { id: resource.data("type") }).html('<i class="fa ' +
+                        resource.data("icon") + " " +
+                        resource.data("type") +
+                        ' aria-hidden="true"' +
+                        ' data-resource="' + index +'" ></i>')
+    $(".breadcrumb-container").append(toolbarIcon)
   }
 }

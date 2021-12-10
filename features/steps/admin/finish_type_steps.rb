@@ -54,6 +54,8 @@ end
 
 When(/^I create a finish with the new finish type$/) do
   visit "/finishes"
+
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   click_on I18n.t("finishes.collection.create")
 
   within ".finish" do
@@ -73,6 +75,7 @@ Then(/^I should see the finish created successfully$/) do
   )
   expect(page).to have_content(success_flash)
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   within ".record-list" do
     click_on FinishFixture.name
   end

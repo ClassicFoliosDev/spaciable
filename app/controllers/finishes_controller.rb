@@ -58,7 +58,6 @@ class FinishesController < ApplicationController
   def clone
     @source_finish = @finish
     @finish = @finish.dup
-    render :new
   end
 
   def finish_types_list

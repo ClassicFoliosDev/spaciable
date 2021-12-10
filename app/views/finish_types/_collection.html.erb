@@ -20,13 +20,11 @@
     </thead>
     <tbody>
     <% collection.each do |finish_type| %>
-       <% tdc = cannot?(:update, finish_type) ? "class=view-only" : nil %>
-      <tr <%= tdc %> data-finish-type="<%= finish_type.id %>">
-        <td <%= tdc %> colspan="2"><%= link_to finish_type.name, finish_type_path(finish_type), title: finish_type.name %></td>
-        <td <%= tdc %> colspan="2"><%= l finish_type.updated_at.to_date, format: :digits %></td>
+      <tr data-finish-type="<%= finish_type.id %>">
+        <td colspan="2"><%= link_to finish_type.name, finish_type_path(finish_type), title: finish_type.name %></td>
+        <td colspan="2"><%= l finish_type.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= edit_btn edit_finish_type_path(finish_type), element: finish_type %>
-          <%= clone_btn clone_finish_type_path(finish_type), element: finish_type %>
           <%= delete_btn finish_type, path: url_for(finish_type), element: finish_type %>
         </td>
       </tr>

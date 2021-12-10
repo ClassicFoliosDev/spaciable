@@ -7,7 +7,7 @@ When(/^I create an appliance with no name$/) do
     click_on t("components.navigation.appliances")
   end
 
-  click_on t("appliances.collection.create")
+  find("a.btn.btn-primary").trigger('click')
 
   click_on t("appliances.form.submit")
 end
@@ -41,7 +41,7 @@ When(/^I create an appliance$/) do
     click_on t("components.navigation.appliances")
   end
 
-  click_on t("appliances.collection.create")
+  find("a.btn.btn-primary").trigger('click')
 
   fill_in "appliance_model_num", with: ApplianceFixture.model_num
 
@@ -64,8 +64,7 @@ Then(/^I should see the new ([^ ]*) appliance$/) do |appliance|
   visit "/appliances"
   expect(page).to have_content(eval(appliance))
 
-  click_on eval(appliance)
-
+  find(:xpath, "//a[contains(text(), '#{eval(appliance)}')]").trigger('click')
   click_on t("appliances.edit.back")
 end
 
@@ -80,7 +79,7 @@ end
 When(/^I update the appliance$/) do
   visit "/appliances"
 
-  find("[data-action='edit']").click
+  find("[data-action='edit']").trigger('click')
 
   sleep 0.1
   within ".appliance" do
@@ -134,7 +133,7 @@ Then(/^I should see the updated appliance$/) do
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_full_name
+  find(:xpath, "//a[contains(text(), '#{ApplianceFixture.updated_full_name}')]").trigger('click')
 
   within ".section-title" do
     expect(page).to have_content(ApplianceFixture.updated_full_name)
@@ -188,7 +187,7 @@ Then(/^I should see the updated appliance without the image$/) do
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_full_name
+  find(:xpath, "//a[contains(text(), '#{ApplianceFixture.updated_full_name}')]").trigger('click')
 
   # Make sure primary image has not been affected, we only deleted the second one
   within ".appliance_primary_image" do
@@ -221,7 +220,7 @@ Then(/^I should see the updated appliance without the file$/) do
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_full_name
+  find(:xpath, "//a[contains(text(), '#{ApplianceFixture.updated_full_name}')]").trigger('click')
 
   # Manual should still exist, we only deleted the guide
   within ".manual" do

@@ -106,8 +106,9 @@ class CustomTile < ApplicationRecord
 
   # what tiles are visible according to the current rules
   def self.visible_tiles(active_tiles, plot)
-    return active_tiles unless plot.free?
-    active_tiles.reject { |ct| !ct.cf? }
+    return active_tiles unless plot.free? || plot.essentials?
+    return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
+    active_tiles.reject { |ct| ct.snagging? }
   end
 
   def active_feature(plot)
@@ -152,7 +153,8 @@ class CustomTile < ApplicationRecord
 
   # was this record created by a CF user
   def set_cf
-    self.cf = RequestStore.store[:current_user].cf_admin?
+    return unless RequestStore.store[:current_user]&.is_a? User
+    self.cf = RequestStore.store[:current_user]&.cf_admin? || false
   end
 end
 #rubocop:enable all

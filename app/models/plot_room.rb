@@ -14,6 +14,7 @@ class PlotRoom
 
   delegate :development_id, to: :plot
   delegate :completion_release_date, to: :plot
+  delegate :phase_id, to: :plot
 
   def initialize(plot)
     @plot = plot

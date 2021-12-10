@@ -2,9 +2,10 @@
 
 When(/^I create a room with no room name$/) do
   navigate_to_unit_type
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
 
   click_on t("unit_types.collection.rooms")
-  click_on t("components.empty_list.add", action: "Add", type_name: Room.model_name.human.titleize)
+  click_on t("rooms.collection.add", name: CreateFixture.unit_type_name)
 
   click_on t("rooms.form.submit")
 end
@@ -60,6 +61,7 @@ end
 
 When(/^I (search for and )*add a finish$/) do |search|
   navigate_to_unit_type
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
 
   click_on t("unit_types.collection.rooms")
 
@@ -69,7 +71,7 @@ When(/^I (search for and )*add a finish$/) do |search|
     click_on t("rooms.collection.finishes")
   end
 
-  click_on t("components.empty_list.add", action: "Add", type_name: Finish.model_name.human.titleize)
+  click_on t("components.empty_list.add", action: "Assign", type_name: Finish.model_name.human.titleize)
 
   if search.present?
     full_name = Finish.find_by(name: CreateFixture.finish_name).full_name
@@ -135,7 +137,7 @@ Then(/^I should see the room with no finish$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Finish.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Assign", type_name: Finish.model_name.human)}}i
   end
 end
 
@@ -148,6 +150,7 @@ end
 
 When(/^I add an appliance$/) do
   navigate_to_unit_type
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
 
   click_on Room.model_name.human
 
@@ -157,7 +160,7 @@ When(/^I add an appliance$/) do
     click_on t("rooms.collection.appliances")
   end
 
-  click_on t("components.empty_list.add", action: "Add", type_name: Appliance.model_name.human.titleize)
+  click_on t("components.empty_list.add", action: "Assign", type_name: Appliance.model_name.human.titleize)
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
   select_from_selectmenu :appliance_manufacturer, with: CreateFixture.appliance_manufacturer_name
@@ -207,7 +210,7 @@ Then(/^I should see the room with no appliance$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Appliance.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Assign", type_name: Appliance.model_name.human)}}i
   end
 end
 
@@ -276,11 +279,11 @@ def navigate_to_unit_type
   case $current_user.role
     when "cf_admin", "developer_admin", "division_admin"
       within "[data-development='#{development_id}']" do
-        visit find('a', text: "Unit Types")[:href]
+        visit find('a', text: "Plot Templates")[:href]
       end
     when "development_admin", "site_admin"
       within ".tabs" do
-        visit find('a', text: "Unit Types")[:href]
+        visit find('a', text: "Plot Templates")[:href]
       end
   end
 end

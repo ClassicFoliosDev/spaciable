@@ -641,7 +641,7 @@ end
 # FINISHES
 
 crumb :finishes do
-  link Finish.model_name.human.pluralize, finishes_path
+  link t("breadcrumbs.finishes"), finishes_path
 end
 
 crumb :finish do | finish |
@@ -656,6 +656,11 @@ end
 
 crumb :finish_new do
   link t("breadcrumbs.finish_add")
+  parent :finishes
+end
+
+crumb :finish_clone do
+  link t("breadcrumbs.finish_clone")
   parent :finishes
 end
 
@@ -706,7 +711,7 @@ end
 # APPLIANCES
 
 crumb :appliances do
-  link Appliance.model_name.human.pluralize, appliances_path
+  link t("breadcrumbs.appliances"), appliances_path
 end
 
 crumb :appliance do |appliance|

@@ -18,13 +18,13 @@ end
 
 Then(/^I can download a CSV template$/) do
   within ".csv-download" do
-    page.assert_selector(:css, "a[href='/download_development_csv']")
+    page.assert_selector(:css, "a[href='/developments/#{CreateFixture.developer.id}/download_development_csv']")
     first(:link, "Download").click
   end
 end
 
 # First check the alert when no file is selected, then upload a file
-Then(/^I can upload a CSV$/) do
+Then(/^I can upload the (.*) file$/) do |csv_file|
   within ".csv-upload" do
     click_on t("development_csv.index.upload_csv")
   end
@@ -32,7 +32,7 @@ Then(/^I can upload a CSV$/) do
     expect(page).to have_content t("development_csv.errors.no_file")
   end
 
-  csv_full_path = FileFixture.file_path + FileFixture.csv_file_name
+  csv_full_path = FileFixture.file_path + csv_file
   within ".csv-upload" do
     attach_file("plot_file",
       File.absolute_path(csv_full_path),
@@ -44,30 +44,30 @@ end
 # Since allowed completion release dates are set between a particular range, the test_csv file
 # used in this test will need updating when the date set is outside of the specified range
 # this will be on 12 April 2021
-Then(/^I see the error messages$/) do
+Then(/^I see the (.*) error messages$/) do |user|
   within ".alert" do
     phase = PhasePlotFixture.phase_name
     expect(page).to have_content(t("development_csv.errors.phase_error_strip", phase: "First"))
     expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 9"))
-    expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "#{phase}: Penthouse"))
+    expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "#{phase}: Penthouse")) if user == "admin"
     expect(page).to have_content(t("development_csv.errors.progress_error_strip", progress: "#{phase}: wrong_progress"))
     expect(page).to have_content(t("development_csv.errors.duplicate_plots_strip", plots: "#{phase}: 4"))
-    expect(page).to have_content(t("development_csv.errors.uprn_error_strip", uprns: "#{phase}: aaa, 1234567890123"))
+    expect(page).to have_content(t("development_csv.errors.uprn_error_strip", uprns: "First: aaa #{phase}: 1234567890123"))
   end
 end
 
-Then(/^I see the notify messages$/) do
+Then(/^I see the (.*) notify messages$/) do |user|
   within ".notice" do
     phase = PhasePlotFixture.phase_name
-    expect(page).to have_content(t("development_csv.errors.success", plots: "#{phase}: 4"))
+    expect(page).to have_content(t("development_csv.errors.success", plots: "#{phase}: #{user == "admin" ? '4' : '3, 4' }"))
   end
 end
 
-Then(/^the valid plot has been updated$/) do
+Then(/^the valid (.*) plot has been updated$/) do |user|
   plot = Plot.find_by(number: 4)
   visit "/plots/#{plot.id}/edit"
   within ".edit_plot" do
-    expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
+    expect(page).to have_content(PhasePlotFixture.updated_unit_type_name) if user == "admin"
   end
   within ".build-progress .ui-selectmenu-text" do
     expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.roof_on"))
