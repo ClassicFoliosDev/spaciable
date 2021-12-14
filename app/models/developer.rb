@@ -32,15 +32,16 @@ class Developer < ApplicationRecord
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
 
-  has_many :stripe_codes
-  accepts_nested_attributes_for :stripe_codes, reject_if: :not_on_package?, allow_destroy: true
-  validate :check_stripe_codes
+  has_one :customer, as: :customerable, dependent: :destroy
+  accepts_nested_attributes_for :customer, reject_if: :not_on_package?, allow_destroy: true
+  has_many :package_prices, through: :customer
 
   scope :on_package,
         lambda {
           joins(:phases)
             .where(on_package: true)
-            .where(phases: { package: [Phase.packages[:essentials], Phase.packages[:professional]] })
+            .where(phases: { package: [Phase.packages[:essentials],
+                                       Phase.packages[:professional]] })
             .uniq
         }
 
@@ -102,12 +103,6 @@ class Developer < ApplicationRecord
     return if wecomplete_sign_in.present?
     errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
     errors.add(:wecomplete_quote, "please populate")
-  end
-
-  def check_stripe_codes
-    return unless on_package?
-    return if stripe_code.present?
-    errors.add(:stripe_code, "Please add the associated customer code from Stripe")
   end
 
   def not_on_package?(_)
@@ -315,9 +310,8 @@ class Developer < ApplicationRecord
       Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
     end
 
-    return unless stripe_codes.empty?
-    stripe_codes.build(package: :essentials)
-    stripe_codes.build(package: :professional)
+    build_customer unless customer
+    customer.build
   end
 
   def chart?(section)

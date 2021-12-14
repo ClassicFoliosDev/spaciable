@@ -3,11 +3,15 @@ class StripeCodes < ActiveRecord::Migration[5.0]
     reversible do |direction|
 
       direction.up {
-         add_column :developers, :on_package, :boolean, default: false
-         add_column :developers, :stripe_code, :string, default: nil
+        add_column :developers, :on_package, :boolean, default: false
 
-        create_table :stripe_codes do |t|
-          t.references :developer
+        create_table :customers do |t|
+          t.references :customerable, polymorphic: true, index: false
+          t.string :code
+        end
+
+        create_table :package_prices do |t|
+          t.references :customer
           t.integer :package
           t.string :code
         end
@@ -15,8 +19,8 @@ class StripeCodes < ActiveRecord::Migration[5.0]
 
       direction.down {
         remove_column :developers, :on_package
-        remove_column :developers, :stripe_code
-        drop_table :stripe_codes
+        drop_table :customers
+        drop_table :package_prices
       }
     end
   end

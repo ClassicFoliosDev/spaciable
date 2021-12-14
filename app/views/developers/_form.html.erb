@@ -57,14 +57,18 @@
         <%= f.check_box :on_package %>
         <p class="checkbox-description"><%= t(".package_description") %>
         <div id="package">
-          <%= f.input :stripe_code, label: t(".stripe_code") %>
-          <%= f.fields_for :stripe_codes do |sc| %>
-            <div>
-              <%= sc.hidden_field :id %>
-              <%= sc.hidden_field :package %>
-              <%= sc.input :code, label: t("activerecord.attributes.phase.packages.#{sc.object.package}") %>
-              <%= sc.hidden_field :_destroy, value: false %>
-            </div>
+          <%= f.fields_for :customer do |cc| %>
+            <%= cc.hidden_field :id %>
+            <%= cc.input :code, label: t("payments.customer_code") %>
+            <%= cc.hidden_field :_destroy, value: false %>
+            <%= cc.fields_for :package_prices do |pc| %>
+              <div>
+                <%= pc.hidden_field :id %>
+                <%= pc.hidden_field :package %>
+                <%= pc.input :code, label: t("activerecord.attributes.phase.packages.#{pc.object.package}") %>
+                <%= pc.hidden_field :_destroy, value: false %>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </fieldset>

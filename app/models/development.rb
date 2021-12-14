@@ -47,7 +47,7 @@ class Development < ApplicationRecord
   delegate :enable_premium_perks, :premium_licences_bought,
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
-  delegate :branded_perk, to: :parent_developer
+  delegate :branded_perk, :on_package, to: :parent_developer
   delegate :custom_url, to: :developer
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
@@ -86,6 +86,10 @@ class Development < ApplicationRecord
   after_save :update_custom_tiles
 
   alias_attribute :identity, :name
+
+  has_one :customer, as: :customerable, dependent: :destroy
+  accepts_nested_attributes_for :customer, allow_destroy: true
+  has_many :package_prices, through: :customer
 
   enum choice_option:
     %i[
@@ -226,9 +230,13 @@ class Development < ApplicationRecord
     end
   end
 
-  # Build the specified attribute if it is not already donw
-  def build(attribute)
-    send "build_#{attribute}".to_sym unless send attribute
+  # Build the specified attribute if it is not already done
+  def build
+    build_address unless address
+    build_maintenance unless maintenance
+    build_premium_perk unless premium_perk
+    build_customer unless customer
+    customer.build
   end
 
   def descendants
@@ -317,6 +325,10 @@ class Development < ApplicationRecord
   def all_phases_free?
     phases.count.positive? &&
       (phases.where(package: :free).count == phases.count)
+  end
+
+  def customer_details
+    customer || parent_developer.customer
   end
 end
 # rubocop:enable Metrics/ClassLength

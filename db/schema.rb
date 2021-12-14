@@ -359,6 +359,12 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string  "customerable_type"
+    t.integer "customerable_id"
+    t.string  "code"
+  end
+
   create_table "default_faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
@@ -421,7 +427,6 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
     t.boolean  "on_package",                  default: false
-    t.string   "stripe_code"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -857,6 +862,13 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
   end
 
+  create_table "package_prices", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "package"
+    t.string  "code"
+    t.index ["customer_id"], name: "index_package_prices_on_customer_id", using: :btree
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.string   "searchable_type"
@@ -1173,13 +1185,6 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.integer  "order",        default: 1
     t.integer  "stage_set_id",             null: false
     t.index ["stage_set_id"], name: "index_stages_on_stage_set_id", using: :btree
-  end
-
-  create_table "stripe_codes", force: :cascade do |t|
-    t.integer "developer_id"
-    t.integer "package"
-    t.string  "code"
-    t.index ["developer_id"], name: "index_stripe_codes_on_developer_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|

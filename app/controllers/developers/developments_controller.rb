@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Developers
+  # rubocop:disable Metrics/ClassLength
   class DevelopmentsController < ApplicationController
     include PaginationConcern
     include SortingConcern
@@ -33,18 +34,12 @@ module Developers
     # rubocop:enable Metrics/AbcSize
 
     def new
-      @development.build(:address)
-      @maintenance = Maintenance.new
-      @development.build(:maintenance)
+      build
       @development.cas = @development.parent_developer.cas
-      @premium_perk = PremiumPerk.new
-      @development.build(:premium_perk)
     end
 
     def edit
-      @development.build(:address)
-      @development.build(:maintenance)
-      @development.build(:premium_perk)
+      build
     end
 
     def create
@@ -58,7 +53,7 @@ module Developers
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, :developments], notice: notice
       else
-        @development.build(:address)
+        build
         render :new
       end
     end
@@ -70,7 +65,7 @@ module Developers
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, @development], notice: notice
       else
-        @development.build(:address)
+        build
         render :edit
       end
     end
@@ -106,6 +101,7 @@ module Developers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # rubocop:disable Metrics/MethodLength
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
@@ -119,8 +115,26 @@ module Developers
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],
         address_attributes: %i[postal_number road_name building_name
-                               locality city county postcode]
+                               locality city county postcode],
+        customer_attributes: [:id, :code, :_destroy,
+                              package_prices_attributes: %i[id package code _destroy]]
       )
     end
+    # rubocop:enable Metrics/MethodLength
+
+    def build
+      specialied_codes?
+      @development.build
+    end
+
+    def specialied_codes?
+      @specialised_codes = @development.customer.present? &&
+                           @development.customer&.persisted?
+      if params[:development] &&
+         params[:development][:specialised_codes]
+        @specialised_codes = params[:development][:specialised_codes]
+      end
+    end
   end
+  # rubocop:enable Metrics/ClassLength
 end

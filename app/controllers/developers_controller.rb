@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class DevelopersController < ApplicationController
   include Ahoy::AnalyticsHelper
   include PaginationConcern
@@ -85,7 +86,7 @@ class DevelopersController < ApplicationController
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, LineLength
   def developer_params
     p = params.require(:developer).permit(
       :country_id,
@@ -100,7 +101,8 @@ class DevelopersController < ApplicationController
       :conveyancing, :wecomplete_sign_in, :wecomplete_quote, :show_warranties,
       :account_manager_name, :account_manager_email, :account_manager_contact,
       :on_package, :stripe_code,
-      stripe_codes_attributes: %i[id code package _destroy],
+      customer_attributes: [:id, :code, :_destroy,
+                            package_prices_attributes: %i[id package code _destroy]],
       charts_attributes: %i[id section enabled],
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
@@ -108,11 +110,12 @@ class DevelopersController < ApplicationController
     )
 
     unless parse_boolean(p[:on_package])
-      p[:stripe_codes_attributes].each { |_, attribs| attribs[:_destroy] = "true" }
+      p[:customer_code_attributes][:_destroy] = "true"
+      p[:customer_code_attributes][:price_codes_attributes].each { |_, attribs| attribs[:_destroy] = "true" }
     end
     p
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, LineLength
 
   def default_tab
     return "developments" if !current_user.cf_admin? &&
@@ -122,3 +125,4 @@ class DevelopersController < ApplicationController
     "divisions"
   end
 end
+# rubocop:enable Metrics/ClassLength

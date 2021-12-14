@@ -1,0 +1,18 @@
+#developer_payment, #development_payment {
+
+    padding: 10 10 0 10;
+
+    label {
+      display: inline-block;
+    }
+
+    button {
+      float: right;
+    }
+}
+
+#developer_billing {
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+}

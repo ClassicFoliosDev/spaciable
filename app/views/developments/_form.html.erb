@@ -42,7 +42,49 @@
           <% end %>
         </div>
       </fieldset>
-       <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
+      <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
+
+      <% if development.on_package %>
+        <fieldset id="developer_billing">
+          <%= f.hidden_field :specialised_codes, value: specialised_codes %>
+          <div id="developer_payment">
+            <div>
+              <label><%= t("payments.developer_billing") %></label>
+              <button class="btn" type="button">
+                <i class="fa fa-files-o " aria-hidden="true"></i>
+              </button>
+            </div>
+            <label><%= t("payments.customer_code") %></label>
+            <p id="developer_customer_attributes_code"><%= development.parent_developer.customer.code%></p>
+            <% development.parent_developer.customer.package_prices.each_with_index do |pc, index| %>
+              <label><%= t("activerecord.attributes.phase.packages.#{pc.package}") %></label>
+              <p id=<%= "developer_customer_attributes_package_prices_attributes_#{index}_code" %>><%= pc.code%></p>
+            <% end %>
+          </div>
+          <div id="development_payment">
+            <div>
+              <label><%= t("payments.development_billing") %></label>
+              <button class="btn" type="button">
+                <i class="fa fa-trash-o " aria-hidden="true"></i>
+              </button>
+            </div>
+            <%= f.fields_for :customer do |c| %>
+              <%= c.hidden_field :id %>
+              <label><%= t("payments.customer_code") %></label>
+              <%= c.input :code, label: false %>
+              <%= c.hidden_field :_destroy, value: !specialised_codes %>
+              <%= c.fields_for :package_prices do |pp| %>
+                <div>
+                  <%= pp.hidden_field :id %>
+                  <%= pp.hidden_field :package %>
+                  <%= pp.input :code, label: t("activerecord.attributes.phase.packages.#{pp.object.package}") %>
+                  <%= pp.hidden_field :_destroy, value: !specialised_codes %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+      <% end %>
     </div>
     <div class="row-item third">
       <fieldset>

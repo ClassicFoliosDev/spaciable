@@ -39,3 +39,7 @@ end
 every :monday, at: '8:00am' do
   runner "Invitation.resident_invitation_summary"
 end
+
+every '0 0 1 * *' do
+  runner "Package.invoice_developers"
+end

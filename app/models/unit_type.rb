@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class UnitType < ApplicationRecord
   acts_as_paranoid
   belongs_to :development, optional: false
@@ -138,3 +139,4 @@ class UnitType < ApplicationRecord
     true
   end
 end
+# rubocop:enable Metrics/ClassLength

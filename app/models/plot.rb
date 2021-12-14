@@ -783,5 +783,15 @@ class Plot < ApplicationRecord
   def set_build_status
     self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
   end
+
+  # Plots are billable if the lesser of reservation/completion release date has passed
+  # less than 36 months ago
+  def self.billable(phase)
+    sql = "select number from plots where phase_id = #{phase.id} " \
+          "AND LEAST(completion_release_date, reservation_release_date) <= current_date " \
+          "AND LEAST(completion_release_date, reservation_release_date) > " \
+          "'#{Time.zone.now - 36.months}' "
+    ActiveRecord::Base.connection.exec_query(sql)
+  end
 end
 # rubocop:enable Metrics/ClassLength

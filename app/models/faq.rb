@@ -23,5 +23,4 @@ class Faq < ApplicationRecord
         lambda { |user, type|
           accessible_by(user).where(faq_type: type)
         }
-
 end
