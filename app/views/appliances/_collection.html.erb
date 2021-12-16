@@ -25,7 +25,8 @@
 
   <% include_added_by = collection.map { |a| a.added_by.present? }.include?(true) %>
   <% showing_icons = current_user&.cf_admin? ||
-                    collection.map { |app| can?(:update, app) ||
+                    collection.map { |app| can?(:clone, app) ||
+                                           can?(:update, app) ||
                                            can?(:destroy, ApplianceRoom.appliance_room(room, app))}.include?(true) %>
 
   <table class="record-list">
@@ -47,19 +48,23 @@
     </thead>
     <tbody>
       <% collection.each do |appliance| %>
-        <tr <%= "class=view-only" if cannot?(:update, appliance)%> data-appliance="<%= appliance.id %>">
-          <td style="text-align:center;"><%= image_link_to appliance,  appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity)%></td>
-          <td colspan="2"><%= can?(:read, appliance) ? link_to(appliance.full_name, appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity), title: appliance.full_name) : appliance.full_name %></td>
-          <td colspan="2"><%= appliance.appliance_category %></td>
-          <td colspan="2"><%= appliance.model_num %></td>
-          <td colspan="2"><%= appliance.appliance_manufacturer %></td>
-          <td colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
+        <% tdc = cannot?(:update, appliance) ? "class=view-only" : nil %>
+        <tr data-appliance="<%= appliance.id %>">
+          <td <%= tdc %> style="text-align:center;"><%= image_link_to appliance,  appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity)%></td>
+          <td <%= tdc %> colspan="2"><%= can?(:read, appliance) ? link_to(appliance.full_name, appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity), title: appliance.full_name) : appliance.full_name %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.appliance_category %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.model_num %></td>
+          <td <%= tdc %> colspan="2"><%= appliance.appliance_manufacturer %></td>
+          <td <%= tdc %> colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
            <% if include_added_by %>
-            <td colspan="2"><%= appliance.added_by %></td>
+            <td <%= tdc %> colspan="2"><%= appliance.added_by %></td>
           <%end%>
           <% if showing_icons %>
             <td colspan="2" class="actions">
-              <%= edit_btn edit_appliance_path(appliance), element: appliance %>
+              <% if room.nil? %>
+                <%= edit_btn edit_appliance_path(appliance), element: appliance %>
+                <%= clone_btn clone_appliance_path(appliance), element: appliance %>
+              <% end %>
               <% if action_name.to_sym == :index && appliance.in_use? %>
                  <%= info_btn appliance, text: t('.cannot_delete', appliance: appliance), element: appliance, title: t('buttons.info.cannot_delete', type: "Appliance")%>
               <% elsif room && can?(:destroy, ApplianceRoom.appliance_room(room, appliance)) %>

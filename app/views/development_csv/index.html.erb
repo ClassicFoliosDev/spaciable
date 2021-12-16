@@ -35,7 +35,12 @@
       </p>
     </div>
     <div class="row-item third upload">
-
+      <div class="csv-download">
+        <h4><%= t(".download_label") %></h4>
+        <a href="<%= development_download_development_csv_path %>" target="_blank">
+          <%= button_tag t(".download_csv"), type: "button", class: "btn" %>
+        </a>
+      </div>
       <div class="csv-upload">
         <h4><%= t(".title") %></h4>
         <%= simple_form_for @plot, url: development_development_csv_index_path do |f| %>
@@ -44,55 +49,6 @@
           <%= f.submit t(".upload_csv"), class: "btn upload-csv" %>
         <% end %>
       </div>
-      <div class="csv-download">
-        <label><%= t(".download_label") %></label>
-        <a href="<%= development_download_development_csv_path %>" target="_blank">
-          <%= button_tag t(".download_csv"), type: "button", class: "btn" %>
-        </a>
-      </div>
     </div>
   </div>
-
-  <div class="row attribute-list">
-    <div class="row-item third">
-      <div class="phases-list">
-        <table class="record-list">
-          <th><%= t(".phases") %></th>
-          <% csv_phases = @development.phases.where.not(name: "") %>
-          <% csv_phases.each do |phase| %>
-            <tr>
-              <td><%= phase.name %></td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
-
-    <div class="row-item third">
-      <div class="unit-types-list">
-        <table class="record-list">
-          <th><%= t(".unit_types") %></th>
-          <% csv_units = @development.unit_types.where.not(name: "") %>
-          <% csv_units.each do |unit_type| %>
-          <tr>
-            <td><%= unit_type.name %></td>
-          </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
-
-    <div class="row-item third">
-      <div class="progresses-list">
-        <table class="record-list">
-          <th><%= t(".build_progresses") %></th>
-          <% @development.build_steps.each do |step| %>
-          <tr>
-            <td><%= step.title %></td>
-          </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+ </div>

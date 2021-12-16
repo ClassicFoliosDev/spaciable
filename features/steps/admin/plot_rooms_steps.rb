@@ -306,7 +306,7 @@ end
 
 def check_belongs_to(roomname)
   room = Room.find_by(name: roomname)
-  find("[data-room='#{room.id}']", text: room.plot_id.nil? ? "Plot Template" : "Plot")
+  find("[data-room='#{room.id}']", text: room.plot_id.nil? ? "Spec Template" : "Plot")
 end
 
 And(/^I update the plot unit type with option (.*)$/) do |option|

@@ -1,0 +1,9 @@
+<% breadcrumb :appliance_clone, @appliance %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render 'form', appliance: @appliance, description: ".clone" %>

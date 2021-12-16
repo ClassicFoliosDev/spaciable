@@ -43,7 +43,6 @@
           <% if showing_icons %>
             <td colspan="2" class="actions">
               <% if appliance.choice == false %>
-                <%= edit_btn edit_appliance_path(appliance), element: appliance %>
                 <% if cancrud %>
                   <% if current_user.cf_admin? %>
                     <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>

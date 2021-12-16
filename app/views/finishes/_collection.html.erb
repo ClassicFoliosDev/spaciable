@@ -61,8 +61,10 @@
           <%end%>
           <% if showing_icons %>
             <td  colspan="2" class="actions">
-              <%= edit_btn edit_finish_path(finish), element: finish %>
-              <%= clone_btn clone_finish_path(finish), element: finish %>
+              <% if room.nil? %>
+                <%= edit_btn edit_finish_path(finish), element: finish %>
+                <%= clone_btn clone_finish_path(finish), element: finish %>
+              <% end %>
               <% if action_name.to_sym == :index && finish.in_use? %>
                  <%= info_btn finish, text: t('.cannot_delete', finish: finish), element: finish, title: t('buttons.info.cannot_delete', type: "Finish")%>
               <% elsif room && can?(:destroy, FinishRoom.room_finish(room,finish)) %>

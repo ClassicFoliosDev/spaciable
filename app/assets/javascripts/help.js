@@ -88,18 +88,18 @@ function unitTypeHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'The Plot Template feature allows you to create templates for your plots.' +
+        'The Spec Template feature allows you to create templates for your plots.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it. ' +
-        'Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Plot Template will not be reflected on the plot.' +
+        'Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it. ' +
+        'Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'We recommend that you use Plot Templates to populate any shared specifications, then add the remaining choices and changes at plot level.' +
+        'We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.' +
       '</p>' +
     '</div>'
   )
@@ -110,7 +110,7 @@ function unitTypeHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "What is a Plot Template?",
+    title: "What is a Spec Template?",
 
     buttons: [
       {
@@ -129,19 +129,19 @@ function roomBelongsHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'Every room either belongs to its Plot Template or that specific plot.' +
+        'Every room either belongs to its Spec Template or that specific plot.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'If a room belongs to its Plot Template, then any change made on the Plot Template will be reflected on the plot. ' +
+        'If a room belongs to its Spec Template, then any change made on the Spec Template will be reflected on the plot. ' +
         'This means you can add or remove one specification and affect all relevant plots at once!' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
         'Once a room is edited at plot level, you\'ll notice the room now belongs to the plot. ' +
-        'This means any changes made to the same room in the Plot Template will no longer be reflected.' +
+        'This means any changes made to the same room in the Spec Template will no longer be reflected.' +
       '</p>' +
     '</div>'
   )
@@ -152,7 +152,7 @@ function roomBelongsHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Rooms: Plot Template or Plot?",
+    title: "Rooms: Spec Template or Plot?",
 
     buttons: [
       {
@@ -171,7 +171,7 @@ function restrictedHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'Editing this Plot Template is restricted by Classic Folios.' +
+        'Editing this Spec Template is restricted by Classic Folios.' +
       '</p>' +
     '</div>' +
     '<div>' +
@@ -188,7 +188,7 @@ function restrictedHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Restricted Plot Template",
+    title: "Restricted Spec Template",
 
     buttons: [
       {

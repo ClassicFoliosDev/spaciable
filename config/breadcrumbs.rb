@@ -729,6 +729,11 @@ crumb :appliance_new do
   parent :appliances
 end
 
+crumb :appliance_clone do
+  link t("breadcrumbs.appliance_clone")
+  parent :appliances
+end
+
 # FINISH MANUFACTURERS
 
 crumb :finish_manufacturers do

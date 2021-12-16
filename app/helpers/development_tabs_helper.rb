@@ -39,7 +39,7 @@ module DevelopmentTabsHelper
         link: [development.parent, development, active_tab: :choice_configurations]
       },
       development_csv: {
-        icon: "fighter-jet",
+        icon: "file-excel-o",
         check_assoc: true, # check phase for development_csv permission
         permissions_on: -> { development },
         hide: !current_user.cf_admin? && development.all_phases_free?

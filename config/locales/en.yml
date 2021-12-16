@@ -380,6 +380,7 @@ en:
     appliances: "Appliances Catalogue"
     appliance_edit: "Edit %{name}"
     appliance_add: "Create New Appliance"
+    appliance_clone: "Create New Appliance from Clone"
     manufacturer_edit: "Edit %{name}"
     manufacturer_add: "New Finish Manufacturer"
     appliance_category_edit: "Edit %{name}"
@@ -440,8 +441,8 @@ en:
     room_edit: "Edit %{room_name}"
     room_add: "New Room"
     unit_type_edit: "Edit %{unit_type_name}"
-    unit_type_new: "New Plot Template"
-    unit_type_add: "New Plot Template"
+    unit_type_new: "New Spec Template"
+    unit_type_add: "New Spec Template"
     document_add: "New Document"
     document_edit: "Edit %{document_name}"
     contacts: "Contacts"
@@ -559,9 +560,9 @@ en:
         intro: "Please complete the fields to the right to set up your lettings account. All fields are required."
         management_type: "Management Type"
       unit_type_update_option_form:
-        header1: "You have requested a change in plot template"
-        header2: "Changing a plot's plot template could cause a number of changes, please select a change from the options below:"
-        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new plot template. The home address image will also change."
+        header1: "You have requested a change in Spec Template"
+        header2: "Changing a plot's Spec Template could cause a number of changes, please select a change from the options below:"
+        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new Spec Template. The home address image will also change."
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
       search:
         all: "All"
@@ -997,7 +998,7 @@ en:
         surname: "Surname"
         job_title: "Job Title"
         client_specifications: "Client Specifications"
-        adds_specifications: "Ability to modify plot templates, rooms, finishes and appliances."
+        adds_specifications: "Ability to modify Spec Templates, rooms, finishes and appliances."
         faq_emails: "FAQ Feedback Emails"
         receive_faq_emails: "Receive emails regarding resident FAQ feedback."
         invitation_emails: "Resident Activation Report"
@@ -1094,7 +1095,7 @@ en:
         development: "Development"
         division: "Division"
         developer: "Developer"
-        unit_type: "Plot Template"
+        unit_type: "Spec Template"
         role: "Role"
         name: "Name"
         email: "Email"
@@ -1368,7 +1369,7 @@ en:
     collection:
       plot_documents: "Plot Documents"
       phases: "Phases"
-      unit_types: "Plot Templates"
+      unit_types: "Spec Templates"
       documents: "Documents"
       plots: "Plots"
       add: "Add Development"
@@ -1452,7 +1453,7 @@ en:
   development_csv:
     index:
       phases: "Phases"
-      unit_types: "Plot Templates"
+      unit_types: "Spec Templates"
       build_progresses: "Build Progresses"
       download_csv: "Download"
       select_csv: "Select File"
@@ -1461,8 +1462,8 @@ en:
       download_label: "Download CSV Template"
       required: "Phase Name and Plot Number are required fields."
       required_details: "See the list of valid Phase values below. The phase name entered into the CSV must exactly match the phase name as it is displayed here."
-      format: "Plot Template and Build Progress must be entered in a specific format."
-      format_details: "See the list of valid Plot Templates and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
+      format: "Spec Template and Build Progress must be entered in a specific format."
+      format_details: "See the list of valid Spec Templates and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
       file: "Upload a CSV to update multiple plots."
       file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
       date: "The Legal Completion Date must be in the format DD/MM/YYYY."
@@ -1475,7 +1476,7 @@ en:
       free_phase_error: "<br/>Ignored Free Phase(s): %{errors}"
       phase_error: "<br/>Invalid Phase(s): %{errors}"
       plot_error: "<br/>Invalid Plot(s): %{errors}"
-      unit_error: "<br/>Invalid Plot Template(s): %{errors}"
+      unit_error: "<br/>Invalid Spec Template(s): %{errors}"
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
       completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
       duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
@@ -1487,14 +1488,14 @@ en:
       no_file: "Please select a valid CSV file to upload. You can download the template by clicking the 'Download CSV Template' button"
       phase_error_strip: "Invalid Phase(s): %{phase}"
       plot_error_strip: "Invalid Plot(s): %{plots}"
-      unit_errors_strip: "Invalid Plot Template(s): %{unit}"
+      unit_errors_strip: "Invalid Spec Template(s): %{unit}"
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
       uprn_error_strip: "Invalid UPRN(s): %{uprns}"
     phase: "Phase name"
     number: "Plot Number"
-    unit_type: "Plot Template"
+    unit_type: "Spec Template"
     uprn: "UPRN"
     prefix: "Postal Prefix"
     house_number: "Postal Number/Name"
@@ -2578,7 +2579,7 @@ en:
     form:
       submit: "Submit"
       back: "Back"
-      unit_type: "Clone Rooms From Plot Template"
+      unit_type: "Clone Rooms From Spec Template"
       plots: "Plots"
     index:
       title: "Choice Configurations."
@@ -2666,7 +2667,7 @@ en:
   plots:
     rooms:
       empty_completed:
-        desc: "Adding a room that applies to multiple plots?<br/><br/>Use the <a href='%{url}' target='_blank'>Plot Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Plot Template will not update on the plot."
+        desc: "Adding a room that applies to multiple plots?<br/><br/>Use the <a href='%{url}' target='_blank'>Spec Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Spec Template will not update on the plot."
       empty_not_completed:
         desc: "Sorry, you cannot edit rooms, finishes and appliances on this plot.<br/><br/>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after Classic Folios change the plot’s Status to Completion Information Added.<br/><br/>On the Plots tab at Phase level, a green circle in the Status column signifies Completion Information Added for that plot."
       index:
@@ -2719,11 +2720,11 @@ en:
       expiry_date: "Expiry Date: "
     form:
       address: "Postal Address"
-      unit_type: "Plot Template"
+      unit_type: "Spec Template"
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
-      update_ut: "You have requested a change in plot template from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
+      update_ut: "You have requested a change in Spec Template from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
 
     index:
       title: "%{parent_name} Plots"
@@ -2743,7 +2744,7 @@ en:
       rooms: "Rooms"
       documents: "Documents"
       residents: "Residents"
-      unit_type: "Plot Template"
+      unit_type: "Spec Template"
       date_c: "Status"
       choices: "Choices"
       name: "Plot"
@@ -2860,7 +2861,7 @@ en:
       walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
-      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Plot Template."
+      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Spec Template."
       tip_2: "For example <strong>https://my.matterport.com/show/?m=8qpReuQhuEE</strong>"
       tip_3: "Make sure you use the plugin-friendly version of the URL, so that your 3D walkthrough or video can be embedded in an 'iframe':
               <ul><li>You can find out more details regarding the Matterport 3D walkthrough <a href='https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-', target='_blank'>here.</a></li>
@@ -2870,7 +2871,7 @@ en:
       restricted: "Restrict Specifications to CF Admin"
       picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels."
     new:
-      add: "New Plot Template."
+      add: "New Spec Template."
     show:
       walkthrough: "3D Walkthrough Link: "
       build_type: "Build Type: "
@@ -2882,17 +2883,17 @@ en:
       appliances: "Appliances: "
       back: "Back"
     index:
-      title: "%{development_name} plot templates"
+      title: "%{development_name} Spec Templates"
     collection:
-      add: "Add Plot Template"
+      add: "Add Spec Template"
       rooms: "Rooms"
       documents: "Documents"
-      name: "Plot Template"
+      name: "Spec Template"
       last_edited: "Last Edited"
       logs: "Change Logs"
       plot_template:
-        title: "What is a Plot Template?"
-        help: "The Plot Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Plot Template will not be reflected on the plot.<br/><br/>We recommend that you use Plot Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
+        title: "What is a Spec Template?"
+        help: "The Spec Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.<br/><br/>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2907,8 +2908,8 @@ en:
      info:
        title: "Appliances Catalogue"
        desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.
-<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Plot Template or an individual plot. Click
-Plot Templates tab under a development to assign finishes shared by a group of plots. Click Rooms
+<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click
+Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms
 tab under a plot to assign a plot-specific finish."
    collection:
      create: "Create Appliance"
@@ -2925,10 +2926,12 @@ tab under a plot to assign a plot-specific finish."
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
-     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or plot templates. Deleting this appliance would remove it from all plots."
+     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or Spec Templates. Deleting this appliance would remove it from all plots."
 
    new:
      title: "Create New Appliance."
+   clone:
+      title: "Create New Appliance from Clo"
    show:
      back: "Back"
      download: "Download manual"
@@ -2937,7 +2940,7 @@ tab under a plot to assign a plot-specific finish."
      primary_image: "Primary Image"
      confirm-edit:
        title: "Edit %{name}"
-       body: "Any changes you make here will be reflected on all plots and plot templates containing this <strong>%{name}</strong> appliance.<br/><br/>If your intention is to replace the appliance for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
+       body: "Any changes you make here will be reflected on all plots and Spec Templates containing this <strong>%{name}</strong> appliance.<br/><br/>If your intention is to replace the appliance for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -2957,7 +2960,9 @@ tab under a plot to assign a plot-specific finish."
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
-     update: "Are you sure you want to update the catalogue entry for %{appliance}? Any changes will be reflected on all plots and plot templates containing this appliance."
+     update: "Are you sure you want to update the catalogue entry for %{appliance}? Any changes will be reflected on all plots and Spec Templates containing this appliance."
+     appliance_description: "Use this page to update the catalogue with appliances used across your developments. If you can, upload suitable images that will illustrate the appliance."
+     clone: "You have chosen to clone an existing appliance. Edit the appliance details and click Submit to create a new appliance in the catalogue."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -3041,7 +3046,7 @@ tab under a plot to assign a plot-specific finish."
      info:
       title: "Finishes Catalogue"
       desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the
-finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Plot Template or an individual plot. Click Plot
+finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot
 Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab
 under a plot to assign a plot-specific finish."
     collection:
@@ -3059,7 +3064,7 @@ under a plot to assign a plot-specific finish."
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
-      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or plot templates. Deleting this finish would remove it from all plots."
+      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or Spec Templates. Deleting this finish would remove it from all plots."
     new:
       title: "Create New Finish."
     clone:
@@ -3079,7 +3084,7 @@ under a plot to assign a plot-specific finish."
       category_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the category you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes."
       type_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the finish type you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish</strong> Type is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories.</strong>"
       manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers.</a> to add a new Manufacturer entry to the Finishes Catalogue and associate it with any applicable Types.<br/><br/>If the manufacturer exists, but isn't associated with your required finish type, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of what finish type you would like to associate and we will review your request with a view of updating the Finishes Catalogue."
-      update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and plot templates containing this finish."
+      update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and Spec Templates containing this finish."
       clone: "You have chosen to clone an existing finish. Edit the finish details and click Submit to create a new finish in the catalogue."
     edit:
       title: "Edit %{name}"
@@ -3089,7 +3094,7 @@ under a plot to assign a plot-specific finish."
       original_filename: "Original file name"
       confirm-edit:
        title: "Edit %{name}"
-       body: "Any changes you make here will be reflected on all plots and plot templates containing this <strong>%{name}</strong> finish.<br/><br/>If your intention is to replace the finish for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
+       body: "Any changes you make here will be reflected on all plots and Spec Templates containing this <strong>%{name}</strong> finish.<br/><br/>If your intention is to replace the finish for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
 
     no_match: "No matching finishes found"
 
@@ -3406,12 +3411,12 @@ under a plot to assign a plot-specific finish."
       description: "<strong>Select the plots you wish to edit below.</strong>"
       description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
                         Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
-      unit_type: "Plot Template"
+      unit_type: "Spec Template"
       update_progress: "Update Build Progress"
       comp_date: "Estimated Move In Date"
       back: "Back"
       submit: "Submit"
-      update_ut: "You have requested a change in plot template.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
+      update_ut: "You have requested a change in Spec Template.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
@@ -3439,7 +3444,7 @@ under a plot to assign a plot-specific finish."
       title: "Production overview of plots"
     collection:
       add: "Add Plot(s)"
-      unit_type: "Plot Template"
+      unit_type: "Spec Template"
       date_r: "R"
       date_c: "C"
       name: "Plot"
@@ -3467,7 +3472,7 @@ under a plot to assign a plot-specific finish."
       division: "Division"
       development: "Development"
       phase: "Phase"
-      unit_type: "Plot Template"
+      unit_type: "Spec Template"
       plot: "Plot"
       room: "Room"
       finish: "Finish"
@@ -3536,11 +3541,11 @@ under a plot to assign a plot-specific finish."
           professional: "Professional"
           legacy: "Legacy"
       unit_type:
-        name: "Plot Template name"
-        picture: "Plot Template picture"
+        name: "Spec Template name"
+        picture: "Spec Template picture"
         updated_at: "Last edited"
         build_types:
-          # Build type enums for plot template
+          # Build type enums for Spec Template
           house_semi: "House (semi-detached)"
           house_detached: "House (detached)"
           house_terraced: "House (terraced)"
@@ -3909,7 +3914,7 @@ under a plot to assign a plot-specific finish."
             base:
               missing: "Plot not found"
               number_taken: "Number has already been added."
-              cannot_update_unit_type : "Plot Template changes are restricted until after the Completion work has been done by Classic Folios"
+              cannot_update_unit_type : "Spec Template changes are restricted until after the Completion work has been done by Classic Folios"
         finish_type:
           attributes:
             finish_categories:
@@ -4234,7 +4239,7 @@ under a plot to assign a plot-specific finish."
   stuck_with_specs:
     title: "Stuck with specs?"
     help: "<p class='hangingindent'>Step 1: Create new <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate Catalogue using the left side menu. If entries
-already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then, use Plot Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Plot Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
+already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then, use Spec Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Spec Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
 
   payments:
     developer_billing: "Developer Billing"

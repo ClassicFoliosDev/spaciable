@@ -28,19 +28,37 @@ class Finish < ApplicationRecord
 
   scope :with_cat_type_man,
         lambda { |params|
-          joins(:finish_category, :finish_type, :finish_manufacturer)
-            .where(finish_types: { id: params[:type] },
-                   finish_categories: { id: params[:category] },
-                   finish_manufacturers: { id: params[:manufacturer] })
-            .order(:name)
+          finishes =
+            Finish.joins(:finish_category, :finish_type, :finish_manufacturer)
+                  .where(finish_types: { id: params[:type] },
+                         finish_categories: { id: params[:category] },
+                         finish_manufacturers: { id: params[:manufacturer] })
+
+          if RequestStore.store[:current_user].cf_admin?
+            finishes = finishes.where(developer_id: nil)
+          else
+            finishes =
+              finishes.where(developer_id: [nil, RequestStore.store[:current_user].developer])
+          end
+
+          finishes.order(:name)
         }
 
   scope :with_cat_type,
         lambda { |params|
-          joins(:finish_category, :finish_type)
-            .where(finish_types: { id: params[:type] },
-                   finish_categories: { id: params[:category] })
-            .order(:name)
+          finishes =
+            Finish.joins(:finish_category, :finish_type)
+                  .where(finish_types: { id: params[:type] },
+                         finish_categories: { id: params[:category] })
+
+          if RequestStore.store[:current_user].cf_admin?
+            finishes = finishes.where(developer_id: nil)
+          else
+            finishes =
+              finishes.where(developer_id: [nil, RequestStore.store[:current_user].developer])
+          end
+
+          finishes.order(:name)
         }
 
   scope :with_params,

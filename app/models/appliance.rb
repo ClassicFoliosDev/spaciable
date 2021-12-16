@@ -41,12 +41,9 @@ class Appliance < ApplicationRecord
             .order(:model_num)
         }
 
-  validates :model_num, presence: true,
-                        uniqueness:
-                        {
-                          scope: %i[developer],
-                          case_sensitive: false
-                        }
+  validates :model_num, presence: true
+
+  validate :check_dup
 
   delegate :link, :name, to: :appliance_manufacturer, prefix: true
 
@@ -76,6 +73,20 @@ class Appliance < ApplicationRecord
     f
     g
   ]
+
+  def check_dup
+    return unless RequestStore.store[:current_user]&.is_a? User
+    developer_ids = [developer_id]
+    developer_ids << nil unless RequestStore.store[:current_user]&.cf_admin?
+
+    return if Appliance.where(appliance_category_id: appliance_category_id,
+                              appliance_manufacturer_id: appliance_manufacturer_id,
+                              model_num: model_num,
+                              developer_id: developer_ids)
+                       .where.not(id: id).count.zero?
+
+    errors.add(:appliance, "Model Num/Category/manufacturer combination already exists.")
+  end
 
   def short_name
     full_name

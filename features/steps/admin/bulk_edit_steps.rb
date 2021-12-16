@@ -104,7 +104,7 @@ Then(/^there are errors for plots that don't exist and cannot be updated$/) do
   message = I18n.t("activerecord.errors.models.plot.attributes.base.missing")
 
   within ".alert" do
-    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Plot Template changes are restricted until after the Completion work has been done by Classic Folios"
+    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Spec Template changes are restricted until after the Completion work has been done by Classic Folios"
   end
 end
 
@@ -365,7 +365,7 @@ end
 
 Then(/^I see an error for the mandatory fields$/) do
   within ".flash" do
-    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Plot Template")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Spec Template")
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Validity (Months)")
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Extended Access (Months)")
   end
