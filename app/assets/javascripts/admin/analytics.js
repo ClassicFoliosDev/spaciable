@@ -4,20 +4,19 @@
   $(document).on('mouseup', '.report-targets .ui-menu-item', function (event) {
     var eventVal = event.target.innerHTML
     var $parent = $(event.target).closest('.select-container')
-    var $submitButton
+    var $submitButtons =[]
 
     if ($parent.hasClass('developer-id')) {
-      $submitButton = $('.developer-csv')
+      $submitButtons.push($('.developer-csv'))
+      $submitButtons.push($('.invoice-csv'))
     } else if ($parent.hasClass('development-id')) {
-      $submitButton = $('.development-csv')
+      $submitButtons.push($('.development-csv'))
     } else {
       return
     }
 
-    if (eventVal === 'Choose...') {
-      $submitButton.prop('disabled', true)
-    } else {
-      $submitButton.prop('disabled', false)
+    for (let i = 0; i < $submitButtons.length; i++) {
+      $submitButtons[i].prop('disabled', eventVal === 'Choose...')
     }
   })
 })(document, window.jQuery)

@@ -1181,6 +1181,7 @@ en:
         title: "Reports."
         developer: "Developer Report"
         development: "Development Report"
+        invoice: "Package Invoice Report"
         all: "Summary Report (All Developers)"
         billing: "Billing Report (All Developers)"
         perks: "Buyers' Club Report"

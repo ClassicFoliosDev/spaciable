@@ -12,12 +12,12 @@ module Divisions
     end
 
     def new
-      build
+      @development.build
       @development.cas = @development.parent_developer.cas
     end
 
     def edit
-      build
+      @development.build
     end
 
     def show
@@ -43,7 +43,7 @@ module Divisions
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, :developments], notice: notice
       else
-        build
+        @development.build
         render :new
       end
     end
@@ -55,7 +55,7 @@ module Divisions
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, @development], notice: notice
       else
-        build
+        @development.build
         render :new
       end
     end
@@ -79,7 +79,6 @@ module Divisions
       @development.update_attributes(construction_name: nil) if @development.residential?
     end
 
-    # rubocop:disable Metrics/MethodLength
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
@@ -92,32 +91,15 @@ module Divisions
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],
         address_attributes: %i[postal_number road_name building_name
-                               locality city county postcode],
-        customer_attributes: [:id, :code, :_destroy,
-                              package_prices_attributes: %i[id package code _destroy]]
+                               locality city county postcode]
       )
     end
-    # rubocop:enable Metrics/MethodLength
 
     def clone_default_faqs
       developer = Developer.find_by(id: @division.developer_id)
       CloneDefaultFaqsJob.perform_later(faqable_type: "Development",
                                         faqable_id: @development.id,
                                         country_id: developer.country)
-    end
-
-    def build
-      specialied_codes?
-      @development.build
-    end
-
-    def specialied_codes?
-      @specialised_codes = @development.customer.present? &&
-                           @development.customer&.persisted?
-      if params[:development] &&
-         params[:development][:specialised_codes]
-        @specialised_codes = params[:development][:specialised_codes]
-      end
     end
   end
 end

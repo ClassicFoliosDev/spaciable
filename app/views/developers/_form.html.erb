@@ -52,25 +52,6 @@
           <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
           <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
         </div>
-
-        <%= f.label :package, t(".package") %>
-        <%= f.check_box :on_package %>
-        <p class="checkbox-description"><%= t(".package_description") %>
-        <div id="package">
-          <%= f.fields_for :customer do |cc| %>
-            <%= cc.hidden_field :id %>
-            <%= cc.input :code, label: t("payments.customer_code") %>
-            <%= cc.hidden_field :_destroy, value: false %>
-            <%= cc.fields_for :package_prices do |pc| %>
-              <div>
-                <%= pc.hidden_field :id %>
-                <%= pc.hidden_field :package %>
-                <%= pc.input :code, label: t("activerecord.attributes.phase.packages.#{pc.object.package}") %>
-                <%= pc.hidden_field :_destroy, value: false %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
       </fieldset>
     </div>
 

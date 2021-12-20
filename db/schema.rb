@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211201103646) do
+ActiveRecord::Schema.define(version: 20211217105349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -359,12 +359,6 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string  "customerable_type"
-    t.integer "customerable_id"
-    t.string  "code"
-  end
-
   create_table "default_faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
@@ -426,7 +420,6 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
-    t.boolean  "on_package",                  default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -737,6 +730,15 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "phase_id"
+    t.integer  "package"
+    t.integer  "plots"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phase_id"], name: "index_invoices_on_phase_id", using: :btree
+  end
+
   create_table "lettings_accounts", force: :cascade do |t|
     t.string  "reference"
     t.integer "access_token_id"
@@ -860,13 +862,6 @@ ActiveRecord::Schema.define(version: 20211201103646) do
     t.datetime "updated_at",                  null: false
     t.string   "description"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
-  end
-
-  create_table "package_prices", force: :cascade do |t|
-    t.integer "customer_id"
-    t.integer "package"
-    t.string  "code"
-    t.index ["customer_id"], name: "index_package_prices_on_customer_id", using: :btree
   end
 
   create_table "pg_search_documents", force: :cascade do |t|

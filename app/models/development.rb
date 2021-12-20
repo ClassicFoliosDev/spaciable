@@ -87,10 +87,6 @@ class Development < ApplicationRecord
 
   alias_attribute :identity, :name
 
-  has_one :customer, as: :customerable, dependent: :destroy
-  accepts_nested_attributes_for :customer, allow_destroy: true
-  has_many :package_prices, through: :customer
-
   enum choice_option:
     %i[
       choices_disabled
@@ -235,8 +231,6 @@ class Development < ApplicationRecord
     build_address unless address
     build_maintenance unless maintenance
     build_premium_perk unless premium_perk
-    build_customer unless customer
-    customer.build
   end
 
   def descendants
@@ -325,10 +319,6 @@ class Development < ApplicationRecord
   def all_phases_free?
     phases.count.positive? &&
       (phases.where(package: :free).count == phases.count)
-  end
-
-  def customer_details
-    customer || parent_developer.customer
   end
 end
 # rubocop:enable Metrics/ClassLength

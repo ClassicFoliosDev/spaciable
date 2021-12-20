@@ -30,6 +30,7 @@ class Phase < ApplicationRecord
   has_many :phase_timelines, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
+  has_many :invoices
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy

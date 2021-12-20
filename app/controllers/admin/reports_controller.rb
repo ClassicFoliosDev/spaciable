@@ -29,7 +29,8 @@ module Admin
         :all,
         :developer,
         :billing,
-        :perks
+        :perks,
+        :invoice
       ).to_h
     end
   end
