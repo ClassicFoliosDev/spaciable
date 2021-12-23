@@ -42,11 +42,11 @@ module Rooms
     end
 
     def appliance_categories
-      sort(ApplianceCategory.visible_to(current_user), default: :name)
+      ApplianceCategory.accessible_by(current_ability).order(:name)
     end
 
     def appliance_manufacturers
-      sort(ApplianceManufacturer.visible_to(current_user), default: :name)
+      ApplianceManufacturer.accessible_by(current_ability).order(:name)
     end
   end
 end

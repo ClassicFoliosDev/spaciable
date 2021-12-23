@@ -15,5 +15,7 @@
   </div>
 </div>
 
+<%= render 'components/admin/finish_search', ufilter: @ffilter, path: finishes_path, finish_search_path: admin_finish_search_path, search: t(".search")%>
+
 <%= render 'components/tabs', tabs: finish_tabs(nil, @active_tab, current_user.developer) %>
-<%= render_collection @finishes, room: nil %>
+<%= render_collection @finishes, room: nil, filter: @filter %>

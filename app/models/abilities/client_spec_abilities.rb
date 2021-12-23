@@ -33,21 +33,21 @@ module Abilities
     end
 
     def crud_finishes(developer_id)
-      crud_class(Finish, developer_id, read_only: false)
-      crud_class(FinishType, developer_id)
-      crud_class(FinishCategory, developer_id)
+      crud_class(Finish, developer_id)
+      can :read, FinishType
+      can :read, FinishCategory
       crud_class(FinishManufacturer, developer_id)
     end
 
     def crud_appliances(developer_id)
-      crud_class(Appliance, developer_id, read_only: false)
-      crud_class(ApplianceCategory, developer_id)
-      crud_class(ApplianceManufacturer, developer_id)
+      crud_class(Appliance, developer_id)
+      can :read, ApplianceCategory
+      can :read, ApplianceManufacturer
     end
 
     # Generic ability for any class with a developer_id attribute that
     # needs to be distinct from Admin objects
-    def crud_class(klass, developer_id, read_only: true)
+    def crud_class(klass, developer_id)
       # Can read records developer_id is that of the developer trying to read
       can :read,
           klass,
@@ -56,8 +56,6 @@ module Abilities
            do |instance|
         instance.developer_id == developer_id || instance.developer_id.nil?
       end
-
-      return if read_only
 
       # Can only destroy or update an instance if the developer_id matches
       # the developer trying to delete

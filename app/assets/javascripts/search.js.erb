@@ -14,6 +14,7 @@ $document.on('keypress', 'form', function (event) {
     var $searchField = $('.search-field')
     var $searchApplianceField = $('.search-appliance-field')
     var $searchFinishField = $('.search-finish-field')
+    var $searchIndexFinishField = $('.search-index-finish-field')
     var $searchUserField = $('.search-user-field')
     // If there is a search value, process the search
     if ($searchField.val()) {
@@ -22,6 +23,8 @@ $document.on('keypress', 'form', function (event) {
       searchAppliance()
     } else if ($searchFinishField.val()) {
       searchFinish()
+    } else if ($searchIndexFinishField.val()) {
+      searchIndexFinish()
     } else if ($searchUserField.val()) {
       searchUser()
     }
@@ -53,7 +56,7 @@ function searchGlobal () {
 
   var data = { search_term: searchText.trim() }
   var $searchList = $('.search-results')
-  setSearchFields($searchList, url, data)
+  setSearchResults($searchList, url, data, false)
 }
 
 $document.on('click', '.search-appliance-btn', function (event) {
@@ -101,40 +104,61 @@ function searchFinish () {
 
 $document.on('click', '.search-user-btn', function (event) {
   searchUser()
+  return false
 })
 
 function searchUser () {
-  var $searchField = $('.search-user-field')
-  var searchText = $searchField[0].value
-  var data = { search_term: searchText.trim() }
-  var $searchList = $('.user-search-results')
-  setSearchFields($searchList, $searchField.data('path') , data)
+  setSearchFields($('.search-user-field'), $('.user-search-results'), false)
 }
 
-function setSearchFields ($searchList, url, data) {
+$document.on('click', '.search-index-finish-btn', function (event) {
+  searchIndexFinish()
+  return false
+})
+
+function searchIndexFinish() {
+  setSearchFields($('.search-index-finish-field'), $('.search-finish-results'), true)
+}
+
+function setSearchFields(search_field, search_results, scroll_overflow) {
+  var searchText = search_field[0].value
+  var search_term = { search_term: searchText.trim() }
+  setSearchResults(search_results, search_field.data('path') , search_term, scroll_overflow)
+}
+
+function setSearchResults (search_results, url, search_term, scroll_overflow) {
+  if (search_term.search_term === "") { return }
   $.getJSON({
     url: url,
-    data: data
+    data: search_term
   }).done(function (results) {
-    $searchList.empty()
+    search_results.empty()
+
+    if (results.length > 6 && scroll_overflow) {
+      search_results.addClass("overflow")
+    } else {
+      search_results.removeClass("overflow")
+    }
 
     $.each(results, function (key, value) {
-      var span1 = document.createElement('span')
-      span1.className = 'strong'
-      span1.innerHTML = value.type + ' '
+      if (value.type != undefined ) {
+        var span1 = document.createElement('span')
+        span1.className = 'strong'
+        span1.innerHTML = value.type + ' '
+      }
 
       var span2 = document.createElement('span')
       span2.innerHTML = value.name
 
       var a = document.createElement('a')
       a.setAttribute('href', value.path)
-      a.appendChild(span1)
+      if (span1 != undefined ) { a.appendChild(span1)}
       a.appendChild(span2)
 
       var li = document.createElement('li')
       li.appendChild(a)
 
-      $searchList.append(li)
+      search_results.append(li)
     })
   })
 }

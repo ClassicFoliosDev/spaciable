@@ -7,7 +7,9 @@ class FinishesController < ApplicationController
   skip_authorization_check only: %i[finish_types_list manufacturers_list finish_list]
 
   def index
-    @finishes = @finishes.includes(:finish_category, :finish_type, :finish_manufacturer)
+    @filter = filter
+    @ffilter = FinishFilter.new(filter_params)
+    @finishes = Finish.filtered(@ffilter, current_ability)
     @finishes = paginate(sort(@finishes, default: :name))
     @active_tab = "finishes"
   end
@@ -108,5 +110,20 @@ class FinishesController < ApplicationController
   # tailors the security and avoids problems perculiar to this controller
   def current_ability
     @current_ability ||= ::Ability.new(current_user, non_development: true)
+  end
+
+  def filter_params
+    return unless params.include?("finish_filter")
+    params.require("finish_filter").permit(:finish_category_id,
+                                           :finish_type_id,
+                                           :finish_manufacturer_id)
+  end
+
+  def filter
+    return {} unless params.include?("finish_filter")
+    f = params.permit(finish_filter: %i[finish_category_id
+                                        finish_type_id
+                                        finish_manufacturer_id])
+    f.to_h
   end
 end

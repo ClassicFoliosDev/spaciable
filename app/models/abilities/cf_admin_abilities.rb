@@ -9,11 +9,7 @@ module Abilities
       can %i[development_csv], Development
 
       restricted(Appliance,
-                 ApplianceCategory,
-                 ApplianceManufacturer,
                  Finish,
-                 FinishType,
-                 FinishCategory,
                  FinishManufacturer)
     end
 

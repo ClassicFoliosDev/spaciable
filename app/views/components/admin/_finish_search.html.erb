@@ -1,0 +1,39 @@
+<div class="search">
+  <%= simple_form_for ufilter, url: path do |f| %>
+    <div class="row-item third finish-filter">
+      <div class="collapse"><i class="fa fa-angle-up"></i></div>
+      <fieldset>
+        <%= f.input :finish_category_id,
+          as: :select,
+          collection: FinishCategory.all.order(:name),
+          selected: ufilter.finish_category_id,
+          include_blank: t(".all") %>
+        <%= f.input :finish_type_id,
+          as: :select,
+          collection: FinishType.all.order(:name),
+          selected: ufilter.finish_type_id,
+          include_blank: t(".all") %>
+        <%= f.input :finish_manufacturer_id,
+          as: :select,
+          collection: FinishManufacturer.all.order(:name),
+          selected: ufilter.finish_manufacturer_id,
+          include_blank: t(".all") %>
+      </fieldset>
+    </div>
+    <div class="row-item third search-finish">
+      <div class="search-container">
+        <%= simple_fields_for :search do |s| %>
+          <span>
+            <%= s.text_field :search_finish_text, class: "search-index-finish-field", autocomplete: "off", placeholder: search, data: {path: finish_search_path}  %>
+            <%= link_to "", class: "btn search-index-finish-btn" do %>
+              <i class="fa fa-search"></i>
+            <% end %>
+          </span>
+        <% end %>
+        <div class="search-results-container">
+          <ul class="search-finish-results"></ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

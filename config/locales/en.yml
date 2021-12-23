@@ -566,6 +566,8 @@ en:
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
       search:
         all: "All"
+      finish_search:
+        all: "All"
 
     choices:
       resident:
@@ -1015,7 +1017,7 @@ en:
         division: "Division"
         development: "Development"
         accepted_at: "Activation Date"
-        search: "Admin users search"
+        search: "Search users"
         export_csv: "Export to CSV"
       new:
         add: "New User."
@@ -3043,10 +3045,11 @@ tab under a plot to assign a plot-specific finish."
     update:
       success: "%{name} was updated successfully"
     index:
-     title: "Finishes Catalogue."
-     info:
-      title: "Finishes Catalogue"
-      desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the
+      search: "Search finishes"
+      title: "Finishes Catalogue."
+      info:
+        title: "Finishes Catalogue"
+        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the
 finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot
 Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab
 under a plot to assign a plot-specific finish."
@@ -3193,7 +3196,7 @@ under a plot to assign a plot-specific finish."
         title: "Assign Appliance."
         submit: "Submit"
         back: "Back"
-        search: "Search"
+        search: "Search appliances"
         search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances Catalogue.<br/><br/>
                       Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/><br/>
                       Narrow results by using quotation marks to return only exact matches."
@@ -3205,7 +3208,7 @@ under a plot to assign a plot-specific finish."
         title: "Assign Finish."
         submit: "Submit"
         back: "Back"
-        search: "Search"
+        search: "Search finishes"
         search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes Catalogue.<br/><br/>
                       Click the <strong>Finish Name</strong> drop-down field on this page to select from the results.<br/><br/>
                       Narrow results by searching for product codes or using quotation marks, e.g., \"White Oak\", to return only exact matches."

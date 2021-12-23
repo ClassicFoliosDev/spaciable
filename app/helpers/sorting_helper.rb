@@ -5,6 +5,7 @@ module SortingHelper
     # duplicate sort parameters so they are not changed on return
     sp = sort_params.dup
     sp[:active_tab] = params[:active_tab]
+    sp[:page] = params[:page]
     return sort_on_association(klass, column, title, sp) if klass.is_a? Hash
 
     title ||= klass.human_attribute_name(column)

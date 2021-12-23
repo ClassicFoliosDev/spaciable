@@ -33,11 +33,11 @@
     <thead>
       <tr>
         <th class="icon" style="text-align:center;"><%= t(".image") %></th>
-        <th colspan="2"><%= sortable(Finish, :name, t(".finish")) %></th>
-        <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></th>
-        <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
-        <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer")) %></th>
-        <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
+        <th colspan="2"><%= sortable(Finish, :name, t(".finish"), sort_params: filter) %></th>
+        <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category"), sort_params: filter) %></th>
+        <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t(".finish_type"), sort_params: filter) %></th>
+        <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer"), sort_params: filter) %></th>
+        <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited"), sort_params: filter) %></th>
         <% if include_added_by %>
           <th colspan="2"><%=t(".added_by")%></th>
         <%end%>

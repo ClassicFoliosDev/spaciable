@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211217105349) do
+ActiveRecord::Schema.define(version: 20211221101611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,18 +103,16 @@ ActiveRecord::Schema.define(version: 20211217105349) do
   create_table "appliance_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "appliance_manufacturers", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
     t.string   "link"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_appliance_manufacturer_name", using: :btree
   end
 
@@ -607,9 +605,8 @@ ActiveRecord::Schema.define(version: 20211217105349) do
   create_table "finish_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "finish_categories_types", id: false, force: :cascade do |t|
@@ -633,9 +630,8 @@ ActiveRecord::Schema.define(version: 20211217105349) do
   create_table "finish_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_type_name", using: :btree
   end
 
@@ -1346,8 +1342,6 @@ ActiveRecord::Schema.define(version: 20211217105349) do
 
   add_foreign_key "access_tokens", "crms"
   add_foreign_key "actions", "tasks"
-  add_foreign_key "appliance_categories", "developers"
-  add_foreign_key "appliance_manufacturers", "developers"
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
@@ -1369,9 +1363,6 @@ ActiveRecord::Schema.define(version: 20211217105349) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_categories", "developers"
-  add_foreign_key "finish_manufacturers", "developers"
-  add_foreign_key "finish_types", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

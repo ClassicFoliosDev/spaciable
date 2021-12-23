@@ -72,6 +72,18 @@ class Finish < ApplicationRecord
                    finish_manufacturers: { name: params[:manufacturer] })
         }
 
+  scope :filtered,
+        lambda { |filter, ability|
+          finishes = accessible_by(ability)
+                     .includes(:finish_category, :finish_type, :finish_manufacturer)
+
+          %i[finish_category_id finish_type_id finish_manufacturer_id].each do |f|
+            finishes = finishes.where(f => filter.send(f)) if filter.send(f)
+          end
+
+          finishes
+        }
+
   validates :name, presence: true
 
   validate :check_dup
