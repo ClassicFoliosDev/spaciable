@@ -247,9 +247,7 @@ Rails.application.routes.draw do
     resource :content_management, only: [:show]
   end
 
-  resources :appliances do
-    get :clone, on: :member
-  end
+  resources :appliances
   resources :appliance_categories
   resources :appliance_manufacturers
   resources :finishes do
