@@ -25,10 +25,10 @@
           <%= f.text_area :description %>
         </div>
         <div class="appliance_category ui-front select-container">
-          <%= f.association :appliance_category, label: t(".category"), collection: ApplianceCategory.visible_to(current_user).order(:name) %>
+          <%= f.association :appliance_category, label: t(".category"), collection: ApplianceCategory.accessible_by(current_ability).order(:name) %>
         </div>
         <div class="manufacturer ui-front select-container">
-          <%= f.association :appliance_manufacturer, label: t(".manufacturer"), collection: ApplianceManufacturer.visible_to(current_user).order(:name) %>
+          <%= f.association :appliance_manufacturer, label: t(".manufacturer"), collection: ApplianceManufacturer.accessible_by(current_ability).order(:name) %>
         </div>
         <div class="warranty ui-front">
         <%= f.input :warranty_length, label: t(".warranty_length"), as: :select, collection: warranty_collection, include_blank: true %>
