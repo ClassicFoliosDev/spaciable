@@ -45,6 +45,12 @@ class CustomTile < ApplicationRecord
     conveyancing: 8
   }
 
+  enum appears: %i[
+    always
+    moved_in
+    completed
+  ]
+
   delegate :snag_name, to: :development
 
   def proforma

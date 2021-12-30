@@ -465,8 +465,8 @@ en:
     phase_timelines_add: "New Phase Timeline"
     phase_timelines_edit: "Edit Phase Timeline"
     development_csv: "Upload CSV"
-    custom_tiles: "Custom Shortcuts"
-    custom_tile_add: "New Custom Shortcut"
+    custom_tiles: "Resident Spotlights"
+    custom_tile_add: "New Spotlight"
     custom_tile_edit: "Edit %{tile}"
     timeline_add: "Add Timeline"
     timelines: "Timelines"
@@ -1317,8 +1317,8 @@ en:
 
   custom_tiles:
     collection:
-      create: "New Custom Shortcut"
-      title: "Title"
+      create: "New Spotlight"
+      spotlight: "Spotlight"
       category: "Category"
       editable: "Editable"
       cf: "CF Tile"
@@ -1327,7 +1327,7 @@ en:
       help_title: "Free Package Restriction"
       help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
     new:
-      title: "New Custom Shortcut"
+      title: "New Spotlight"
     edit:
       title: "Edit %{tile}"
     show:
@@ -1351,6 +1351,12 @@ en:
       render_title: "Render title on tile?"
       render_description: "Render description on tile?"
       render_button: "Render button on tile?"
+      appears:
+        title: "Resident sees Spotlight"
+        always: "Always"
+        moved_in: "After moving in"
+        completed: "After completion by Spaciable"
+
   home:
     show:
      home: "Home"
@@ -1385,7 +1391,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
-      custom_tiles: "Custom Shortcuts"
+      custom_tiles: "Resident Spotlights"
       calendar: "Calendar"
     edit:
       back: "Back"
@@ -2098,7 +2104,7 @@ en:
       wecomplete_quote: "Branded WeComplete Quoting Form URL"
       is_demo: "Exclude from global reports"
       how_tos: "How To Guides"
-      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
+      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 resident spotlights."
       show_warranties: "Appliance Warranties"
       show_warranties_description: "Display appliance warranty durations to this developer's residents."
       analytics_dashboard_label: "Client Analytics Dashboard"
@@ -4250,6 +4256,10 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     development_billing: "Development Billing"
     customer_code: "Customer Code"
 
+  spotlight:
+    moved_in: "Show this Spotlight when a plot's <strong>Estimated Move In Date</strong> has passed. This date can be set in the plot's Completion tab and edit page."
+    completed: "Show this Spotlight when a plot reaches 'Completion Information Added' Status.  The Spaciable Team update a plot's Status to 'Completion Information Added' when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the 'Completion Information Added' Status from their creation."
+    completed_e: "Show this Spotlight when a plot reaches 'Completion Information Added' Status.  The Spaciable Team update a plot's Status to 'Completion Information Added' when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the 'Completion Information Added' Status from their creation."
 
 
 

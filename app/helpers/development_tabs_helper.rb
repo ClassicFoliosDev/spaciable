@@ -44,7 +44,9 @@ module DevelopmentTabsHelper
         permissions_on: -> { development },
         hide: !current_user.cf_admin? && development.all_phases_free?
       },
-      custom_tiles: { icon: "external-link-square" },
+      custom_tiles: {
+        icon: "external-link-square"
+      },
       calendar: {
         icon: "calendar", link: [development, :calendars],
         permissions_on: -> { development },

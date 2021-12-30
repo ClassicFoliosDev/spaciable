@@ -10,23 +10,22 @@ $document.on('keypress', 'form', function (event) {
     }
   }
 
-  if (event.keyCode === RETURN) {
-    var $searchField = $('.search-field')
-    var $searchApplianceField = $('.search-appliance-field')
-    var $searchFinishField = $('.search-finish-field')
-    var $searchIndexFinishField = $('.search-index-finish-field')
-    var $searchUserField = $('.search-user-field')
-    // If there is a search value, process the search
-    if ($searchField.val()) {
-      searchGlobal()
-    } else if ($searchApplianceField.val()) {
-      searchAppliance()
-    } else if ($searchFinishField.val()) {
-      searchFinish()
-    } else if ($searchIndexFinishField.val()) {
-      searchIndexFinish()
-    } else if ($searchUserField.val()) {
-      searchUser()
+  searches = [
+    [$('.search-field'), searchGlobal],
+    [$('.search-appliance-field'), searchAppliance],
+    [$('.search-finish-field'), searchFinish],
+    [$('.search-index-finish-field'), searchIndexFinish],
+    [$('.search-user-field'), searchUser]
+  ];
+
+  if (event.keyCode === RETURN && event.target.value != "") {
+    for (i = 0; i < searches.length; ++i) {
+      if (event.target == searches[i][0][0]) {
+        clearSearchResults()
+        if (event.target.value != "") {
+          searches[i][1]()
+        }
+      }
     }
 
     // Whether or not there is a search value, don't allow the user
@@ -56,19 +55,22 @@ function searchGlobal () {
 
   var data = { search_term: searchText.trim() }
   var $searchList = $('.search-results')
-  setSearchResults($searchList, url, data, false)
+  setSearchResults($searchField, url, data, false)
 }
 
 $document.on('click', '.search-appliance-btn', function (event) {
   event.preventDefault()
-  var $categorySelect = $('.appliance_category').find('select')
-  $categorySelect.val('')
-  $categorySelect.selectmenu('refresh')
-  clearFields($('.appliance_manufacturer'))
   searchAppliance()
 })
 
 function searchAppliance () {
+  var $categorySelect = $('.appliance_category').find('select')
+  $categorySelect.val('')
+  $categorySelect.selectmenu('refresh')
+  var $manufacturerSelect = $('.appliance_manufacturer').find('select')
+  $manufacturerSelect.val('')
+  $manufacturerSelect.selectmenu('refresh')
+
   var $searchField = $('.search-appliance-field')
   var searchText = $searchField[0].value
 
@@ -82,15 +84,16 @@ function searchAppliance () {
 
 $document.on('click', '.search-finish-btn', function (event) {
   event.preventDefault()
+  searchFinish()
+})
+
+function searchFinish () {
   var $categorySelect = $('.finish_category').find('select')
   $categorySelect.val('')
   $categorySelect.selectmenu('refresh')
   clearFields($('.finish_type'))
   clearFields($('.finish_manufacturer'))
-  searchFinish()
-})
 
-function searchFinish () {
   var $searchField = $('.search-finish-field')
   var searchText = $searchField[0].value
 
@@ -103,37 +106,37 @@ function searchFinish () {
 }
 
 $document.on('click', '.search-user-btn', function (event) {
+  event.preventDefault()
   searchUser()
-  return false
 })
 
 function searchUser () {
-  setSearchFields($('.search-user-field'), $('.user-search-results'), false)
+  setSearchFields($('.search-user-field'), false)
 }
 
 $document.on('click', '.search-index-finish-btn', function (event) {
+  event.preventDefault()
   searchIndexFinish()
-  return false
 })
 
 function searchIndexFinish() {
-  setSearchFields($('.search-index-finish-field'), $('.search-finish-results'), true)
+  setSearchFields($('.search-index-finish-field'), true)
 }
 
-function setSearchFields(search_field, search_results, scroll_overflow) {
+function setSearchFields(search_field, scroll_overflow) {
   var searchText = search_field[0].value
   var search_term = { search_term: searchText.trim() }
-  setSearchResults(search_results, search_field.data('path') , search_term, scroll_overflow)
+  setSearchResults(search_field, search_field.data('path') , search_term, scroll_overflow)
 }
 
-function setSearchResults (search_results, url, search_term, scroll_overflow) {
+function setSearchResults (search_field, url, search_term, scroll_overflow) {
+  clearSearchResults()
+  search_results = search_field.closest(".search-container").find(".search-results")
   if (search_term.search_term === "") { return }
   $.getJSON({
     url: url,
     data: search_term
   }).done(function (results) {
-    search_results.empty()
-
     if (results.length > 6 && scroll_overflow) {
       search_results.addClass("overflow")
     } else {
@@ -161,4 +164,8 @@ function setSearchResults (search_results, url, search_term, scroll_overflow) {
       search_results.append(li)
     })
   })
+}
+
+function clearSearchResults() {
+  $( ".search-results" ).each(function( index ) { $(this).empty() })
 }

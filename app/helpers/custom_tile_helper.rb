@@ -22,4 +22,18 @@ module CustomTileHelper
 
     disabled
   end
+
+  def appears_help(spotlight, appears)
+    case appears.to_sym
+    when :moved_in
+      unsanitized t("spotlight.moved_in")
+    when :completed
+      if spotlight.development.phases.first
+        return unsanitized t("spotlight.completed",
+                             url: development_phase_path(spotlight.development,
+                                                         spotlight.development.phases.first))
+      end
+      t("spotlight.completed_e")
+    end
+  end
 end

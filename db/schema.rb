@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211221101611) do
+ActiveRecord::Schema.define(version: 20211230115646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -352,6 +352,7 @@ ActiveRecord::Schema.define(version: 20211221101611) do
     t.boolean "render_button",      default: true
     t.boolean "full_image",         default: false
     t.boolean "cf",                 default: true
+    t.integer "appears",            default: 0
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree

@@ -242,3 +242,7 @@ function plotStatusHelp() {
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 }
+
+$(document).on('click', '.dropdown-help', function (event) {
+  $(this).closest('div').find("#dropdown-help").toggle()
+})

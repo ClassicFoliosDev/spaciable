@@ -7,6 +7,11 @@ $search-width: 460px;
   width: $search-width + 40px;
   font-size: $base-small-font-size;
   line-height: $base-small-font-size;
+  height: 40;
+
+  form {
+    height: 40;
+  }
 
   // accommodate the different brousers
   ::placeholder {
@@ -79,7 +84,7 @@ $search-width: 460px;
     font-weight: bold;
   }
 
-  .search-finish-results.overflow {
+  .search-results.overflow {
     height: 200;
     overflow-y: scroll;
   }
