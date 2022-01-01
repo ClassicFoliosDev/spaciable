@@ -185,6 +185,9 @@ module BulkPlots
     end
 
     def validate_params
+      validate_date_param(:completion_release_date)
+      validate_date_param(:reservation_release_date)
+
       validate_mandatory_param(:unit_type_id, UnitType.model_name.human)
       validate_mandatory_param(:validity,
                                I18n.t("activerecord.attributes.plot.validity"))
@@ -211,6 +214,22 @@ module BulkPlots
 
       @attribute_params.delete(param_sym)
     end
+
+    # rubocop:disable LineLength
+    def validate_date_param(param_sym)
+      return unless @attribute_params.include? param_sym
+      return if @attribute_params[param_sym].blank?
+      return unless Date.parse(@attribute_params[param_sym]) > Time.zone.today
+
+      plots_scope.where(number: update_plot_numbers).each do |plot|
+        plot.errors[:base] << I18n.t("activerecord.errors.messages.bulk_edit_date_future",
+                                     field_name: I18n.t("activerecord.attributes.plot.#{param_sym}"))
+        @errors << plot
+      end
+
+      @attribute_params.delete(param_sym)
+    end
+    # rubocop:enable LineLength
 
     def bulk_attribute(key)
       @attribute_params[key] = true if key == :copy_plot_numbers && params[key].to_i.positive?

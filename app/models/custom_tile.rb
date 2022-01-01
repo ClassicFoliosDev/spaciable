@@ -112,6 +112,7 @@ class CustomTile < ApplicationRecord
 
   # what tiles are visible according to the current rules
   def self.visible_tiles(active_tiles, plot)
+    active_tiles = plot.visible_tiles(active_tiles)
     return active_tiles unless plot.free? || plot.essentials?
     return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
     active_tiles.reject { |ct| ct.snagging? }

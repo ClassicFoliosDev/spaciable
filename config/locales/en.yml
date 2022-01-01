@@ -1355,7 +1355,7 @@ en:
         title: "Resident sees Spotlight"
         always: "Always"
         moved_in: "After moving in"
-        completed: "After completion by Spaciable"
+        completed: "After Spaciable Completion"
 
   home:
     show:
@@ -1722,7 +1722,7 @@ en:
         new: "New"
       address:
         view_more: "View %{construction}"
-        switch_plot: "Switch Plot"
+        spotlights: "Spotlights"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
@@ -1778,6 +1778,7 @@ en:
     dashboard:
       show:
         my_title: "%{construction}."
+        switch_plot: "Switch Plot"
       contacts:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
@@ -3887,6 +3888,7 @@ under a plot to assign a plot-specific finish."
         bulk_edit_not_save: "%{title} %{numbers} could not be saved: %{messages}"
         bulk_edit_field_blank: "You can not remove %{field_name} from plots, a value must be provided"
         url_format: "Please check your links are in the correct format"
+        bulk_edit_date_future: "%{field_name} cannot me in the future"
       models:
         developer:
           attributes:
@@ -4258,8 +4260,8 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
 
   spotlight:
     moved_in: "Show this Spotlight when a plot's <strong>Estimated Move In Date</strong> has passed. This date can be set in the plot's Completion tab and edit page."
-    completed: "Show this Spotlight when a plot reaches 'Completion Information Added' Status.  The Spaciable Team update a plot's Status to 'Completion Information Added' when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the 'Completion Information Added' Status from their creation."
-    completed_e: "Show this Spotlight when a plot reaches 'Completion Information Added' Status.  The Spaciable Team update a plot's Status to 'Completion Information Added' when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the 'Completion Information Added' Status from their creation."
+    completed: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
+    completed_e: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
 
 
 

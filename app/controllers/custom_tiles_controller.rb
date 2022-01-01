@@ -53,6 +53,7 @@ class CustomTilesController < ApplicationController
                                         :image, :remove_image, :image_cache, :category, :link,
                                         :feature, :guide, :file, :document_id, :development_id,
                                         :tileable_id, :tileable_type, :full_image,
-                                        :render_title, :render_description, :render_button)
+                                        :render_title, :render_description, :render_button,
+                                        :appears)
   end
 end

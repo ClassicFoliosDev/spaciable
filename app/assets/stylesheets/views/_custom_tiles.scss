@@ -274,7 +274,7 @@
   }
 }
 
-.appears div {
+#appears div {
 
   input {
     margin-bottom: 2;
@@ -287,6 +287,15 @@
 
   p {
     margin: 10 0 10;
+  }
+}
+
+.dialog-image {
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
   }
 }
 

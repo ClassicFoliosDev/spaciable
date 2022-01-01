@@ -111,6 +111,8 @@
         if ($("#featureSelector select").val()) {
           $("#" + $("#featureSelector select").val()).show()
         }
+
+        check_access()
       }
     })
 
@@ -248,6 +250,8 @@
       $(contentSection).show()
       customTilePreview() // show preview
     }
+
+    check_access()
   }
 
   // category resets
@@ -408,6 +412,16 @@
     } else {
       $("#full_image").hide()
       $("#custom_tile_full_image").prop("checked", false)
+    }
+  }
+
+  function check_access() {
+    if ($("#custom_tile_category").find(":selected").val() != "feature" ||
+        $("#custom_tile_feature").find(":selected").val() == "timeline") {
+      $("#appears").show()
+    } else {
+      $("#appears").hide()
+      $("#spotlight_always").prop('checked',true)
     }
   }
 

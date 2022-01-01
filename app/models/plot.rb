@@ -80,6 +80,7 @@ class Plot < ApplicationRecord
   }
   validates_with PlotCombinationValidator
   validate :move_in_date
+  validate :release_complete_dates
 
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, :external_link?, to: :unit_type
@@ -767,6 +768,19 @@ class Plot < ApplicationRecord
   end
   # rubocop:enable Rails/Date, Style/CaseEquality
 
+  def release_complete_dates
+    result = true
+
+    %i[completion_release_date reservation_release_date].each do |f|
+      if send(f).present? && send(f) > Time.zone.today
+        errors.add(f, "cannot be in the future")
+        result = false
+      end
+    end
+
+    result
+  end
+
   def videos
     videos = []
     [developer, division, development].each do |level|
@@ -792,6 +806,18 @@ class Plot < ApplicationRecord
           "AND LEAST(completion_release_date, reservation_release_date) > " \
           "'#{Time.zone.now - 36.months}' "
     ActiveRecord::Base.connection.exec_query(sql)
+  end
+
+  # filter tiles according to the plot status
+  def visible_tiles(active_tiles)
+    [%i[moved_in completion_date],
+     %i[completed completion_release_date]].each do |appear, date|
+      if send(date).blank? || (send(date).present? && send(date) > Time.zone.today)
+        active_tiles.reject! { |t| t.send("#{appear}?") }
+      end
+    end
+
+    active_tiles
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -9,13 +9,14 @@
     if ($parent.hasClass('developer-id')) {
       $submitButtons.push($('.developer-csv'))
       $submitButtons.push($('.invoice-csv'))
+      $('.development-csv').prop('disabled', true)
     } else if ($parent.hasClass('development-id')) {
       $submitButtons.push($('.development-csv'))
     } else {
       return
     }
 
-    for (let i = 0; i < $submitButtons.length; i++) {
+    for (var i = 0; i < $submitButtons.length; i++) {
       $submitButtons[i].prop('disabled', eventVal === 'Choose...')
     }
   })

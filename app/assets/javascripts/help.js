@@ -28,6 +28,19 @@ $(document).on('mouseout', '#unitTypeHelp', function (event) {
   questionMouseOut($(this))
 })
 
+// Spotlght
+$(document).on('click', '#spotlightHelp', function (event) {
+  spotlightHelp($(this))
+})
+
+$(document).on('mouseover', '#spotlightHelp', function (event) {
+  questionMouseOver($(this))
+})
+
+$(document).on('mouseout', '#spotlightHelp', function (event) {
+  questionMouseOut($(this))
+})
+
 // restricted unit type
 $(document).on('click', '#restrictedHelp', function (event) {
   restrictedHelp()
@@ -83,9 +96,31 @@ function questionMouseOut(question) {
   question.css('font-size', '14px')
 }
 
+function spotlightHelp(container) {
+
+  showHelpDialog(
+    'spotlight-help',
+    'Resident Spotlights',
+    '<div class="dialog-image">' +
+      '<img src="' + container.data('image') + '">' +
+      '<p>' +
+        'Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.' +
+      '</p>' +
+      '<p>' +
+          'The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.' +
+      '</p>' +
+      '<p>' +
+          "Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots." +
+      '</p>' +
+    '</div>'
+  )
+}
+
 function unitTypeHelp() {
-  var $unitHelpContainer = $('<div>', { class: 'unit-type-help' })
-  .html(
+
+  showHelpDialog(
+    'unit-type-help',
+    'What is a Spec Template?',
     '<div>' +
       '<p>' +
         'The Spec Template feature allows you to create templates for your plots.' +
@@ -103,25 +138,6 @@ function unitTypeHelp() {
       '</p>' +
     '</div>'
   )
-
-  $('body').append($unitHelpContainer)
-
-  $unitHelpContainer.dialog({
-    show: 'show',
-    modal: true,
-    width: 700,
-    title: "What is a Spec Template?",
-
-    buttons: [
-      {
-        text: "Back",
-        class: 'btn',
-        click: function () {
-          $(this).dialog('destroy')
-          $(".unit-type-help").hide()
-        }
-      }]
-  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 }
 
 function roomBelongsHelp() {
@@ -238,6 +254,29 @@ function plotStatusHelp() {
         click: function () {
           $(this).dialog('destroy')
           $(".plot-status-help").hide()
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+}
+
+function showHelpDialog(klass, title, body) {
+  var $dialogContainer = $('<div>', { class: klass })
+  .html(body)
+
+  $('body').append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    modal: true,
+    width: 700,
+    title: title,
+    buttons: [
+      {
+        text: "Back",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $("." + klass).hide()
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button

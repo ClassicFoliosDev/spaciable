@@ -1,5 +1,5 @@
-<% tiles.each do | tile | %>
-  <div class="card article dash-tile branded-border <%= "#{tile&.feature}-component" if tile.feature %> <%= 'reservation-component' if tile.reservation? %> <%= 'completion-component' if tile.completion? %> ">
+<% tiles.each_with_index do |tile,i| %>
+  <div class="card article dash-tile branded-border <%= "#{tile&.feature}-component" if tile.feature %> <%= 'reservation-component' if tile.reservation? %> <%= 'completion-component' if tile.completion? %> " id=<%="dashtile#{i}"%>>
     <div class="tile-content">
       <% if tile.feature? %>
         <%= render "homeowners/dashboard/tiles/#{tile.feature}", plot: plot %>
