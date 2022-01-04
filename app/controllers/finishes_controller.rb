@@ -34,7 +34,7 @@ class FinishesController < ApplicationController
       @finish.set_original_filename
       redirect_to finishes_path, notice: t("controller.success.create", name: @finish.name)
     else
-      if params[:finish][:copy_of]
+      if params[:finish][:copy_of].present?
         @source_finish = Finish.find(params[:finish][:copy_of])
       end
       render :new

@@ -7,6 +7,7 @@ module CreateFixture
 
   RESOURCES ||= {
     appliance: "WAB28161GB",
+    developer_appliance: "D-WAB28161GB",
     appliance_without_manual: "Appliance without manual",
     developer: "Hamble & Rice Developer",
     branded_developer: "_-+':,&%Developer",
@@ -24,6 +25,7 @@ module CreateFixture
     spanish_division_phase: "Beta (Division) Phase",
     division_contact: "John",
     finish: "Fluffy carpet",
+    developer_finish: "Shagpile Carpet",
     finish_dup: "Fluffier carpet",
     phase: "Alpha Phase",
     spanish_phase: "Barca Phase",
@@ -302,11 +304,11 @@ module CreateFixture
   end
 
   def appliance_category(developer=nil, name=appliance_category_name)
-    ApplianceCategory.find_or_create_by(name: name, developer: developer)
+    ApplianceCategory.find_or_create_by(name: name)
   end
 
   def developer_appliance_category
-    ApplianceCategory.find_or_create_by(name: developer_appliance_category_name, developer: developer)
+    ApplianceCategory.find_or_create_by(name: developer_appliance_category_name)
   end
 
   def create_finish_manufacturer(developer=nil)
@@ -316,12 +318,11 @@ module CreateFixture
                        developer: developer)
   end
 
-  def create_appliance_manufacturer(developer=nil, name=appliance_manufacturer_name)
-    return ApplianceManufacturer.find_by(name: name, developer: developer) ||
+  def create_appliance_manufacturer(name=appliance_manufacturer_name)
+    return ApplianceManufacturer.find_by(name: name) ||
     FactoryGirl.create(:appliance_manufacturer,
                        name: name,
-                       link: manufacturer_link,
-                       developer: developer)
+                       link: manufacturer_link)
   end
 
   def create_countries
@@ -395,25 +396,24 @@ module CreateFixture
     FactoryGirl.create(:appliance_room, room: room, appliance: appliance)
   end
 
-  def create_finish_category(developer=nil)
-    FinishCategory.find_or_create_by(name: finish_category_name, developer: developer)
+  def create_finish_category
+    FinishCategory.find_or_create_by(name: finish_category_name)
   end
 
-  def create_finish_type(developer=nil)
-    finish_category = create_finish_category(developer)
-    finish_type = FinishType.find_by(name: finish_type_name, developer: developer)
-    if finish_type.blank?
-      FactoryGirl.create(:finish_type,
-                         name: finish_type_name,
-                         finish_categories: [finish_category],
-                         developer: developer)
-    end
+  def create_finish_type
+    finish_category = create_finish_category
+    finish_type = FinishType.find_by(name: finish_type_name)
+    return finish_type unless finish_type.blank?
+    FactoryGirl.create(:finish_type,
+                       name: finish_type_name,
+                       finish_categories: [finish_category])
   end
 
-  def create_finish(developer=nil)
-    FactoryGirl.create(:finish, name: finish_name,
-                       finish_category: create_finish_category(developer),
-                       finish_type: create_finish_type(developer),
+  def create_finish(developer=nil, fname=finish_name)
+    FactoryGirl.create(:finish,
+                       name: fname,
+                       finish_category: create_finish_category,
+                       finish_type: create_finish_type,
                        developer: developer)
   end
 

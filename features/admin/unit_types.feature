@@ -53,7 +53,7 @@ Feature: UnitTypes
     And I clone the unit type
     Then I should see a duplicate unit type with finish and appliance created successfully
     And the document has not been cloned
-    And I cannot delete the appliance
+    And I cannot delete the CreateFixture.appliance_name appliance
     And I cannot delete the finish
 
   @javascript

@@ -27,7 +27,7 @@ class AppliancesController < ApplicationController
       notice = t(".success", name: @appliance.full_name)
       redirect_to appliances_path, notice: notice
     else
-      if params[:appliance][:copy_of]
+      if params[:appliance][:copy_of].present?
         @source_appliance = Appliance.find(params[:appliance][:copy_of])
       end
       render :new

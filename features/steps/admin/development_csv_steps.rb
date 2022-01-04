@@ -23,15 +23,7 @@ Then(/^I can download a CSV template$/) do
   end
 end
 
-# First check the alert when no file is selected, then upload a file
 Then(/^I can upload the (.*) file$/) do |csv_file|
-  within ".csv-upload" do
-    click_on t("development_csv.index.upload_csv")
-  end
-  within ".alert" do
-    expect(page).to have_content t("development_csv.errors.no_file")
-  end
-
   csv_full_path = FileFixture.file_path + csv_file
   within ".csv-upload" do
     attach_file("plot_file",

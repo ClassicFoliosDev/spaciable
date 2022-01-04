@@ -80,7 +80,8 @@ class UnitType < ApplicationRecord
                       "Please reassign the following plots to other unit types " \
                       "before deleting"
       effected_phases.each do |phase, plots|
-        confirmation += "<br><br>#{phase}: #{plots.to_sentence}"
+        confirmation += "<br><br>#{phase}: " \
+                        "#{plots.count > 1 ? 'Plots' : 'Plot'} #{plots.to_sentence}"
       end
     end
 

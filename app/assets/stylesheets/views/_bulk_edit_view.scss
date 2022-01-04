@@ -41,6 +41,14 @@
   .phase_bulk_edit_copy_plot_numbers {
     margin-bottom: $spacing-small;
   }
+
+  label p {
+    margin: 0;
+
+    label i {
+      margin-right: 5;
+    }
+  }
 }
 
 .plot-field .build-progress {

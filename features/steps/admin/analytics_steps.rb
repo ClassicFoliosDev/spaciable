@@ -57,7 +57,7 @@ Then(/^I cannot export a Developer Report$/) do
   within ".report-buttons" do
     disabled_btns = page.all("[disabled]").map(&:value)
 
-    expect(disabled_btns).to match_array [t("admin.reports.new.developer"), t("admin.reports.new.development")]
+    expect(disabled_btns).to match_array [t("admin.reports.new.developer"), t("admin.reports.new.development"), t("admin.reports.new.invoice")]
   end
 end
 

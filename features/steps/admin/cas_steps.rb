@@ -108,8 +108,6 @@ When(/^I should see a developer copy of the (.*) finish$/) do |finish_name|
   developer = $current_user.developer
   cf_finish = CreateFixture.finish(finish_name)
 
-  byebug
-
   find_finish(finish_name,
               cf_finish.finish_category.name,
               cf_finish.finish_type.name,

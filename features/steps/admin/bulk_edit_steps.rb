@@ -67,9 +67,9 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
       end
     else
       find("#phase_bulk_edit_reservation_release_date_check").set true
-      fill_in :phase_bulk_edit_reservation_release_date, with: (Time.zone.now + 10.days)
+      fill_in :phase_bulk_edit_reservation_release_date, with: (Time.zone.now - 10.days)
       find("#phase_bulk_edit_completion_release_date_check").set true
-      fill_in :phase_bulk_edit_completion_release_date, with: (Time.zone.now + 20.days)
+      fill_in :phase_bulk_edit_completion_release_date, with: (Time.zone.now - 2.days)
       find("#phase_bulk_edit_validity_check").set true
       fill_in :phase_bulk_edit_validity, with: 23
       find("#phase_bulk_edit_extended_access_check").trigger('click')
@@ -223,8 +223,8 @@ Given(/^I am a CF admin and there is a plot with all fields set$/) do
       unit_type: CreateFixture.unit_type,
       phase: CreateFixture.phase,
       number: 17,
-      reservation_release_date: (Time.zone.now).to_date,
-      completion_release_date: (Time.zone.now + 12.days).to_date,
+      reservation_release_date: (Time.zone.now - 1.day).to_date,
+      completion_release_date: (Time.zone.now).to_date,
       validity: 20,
       extended_access: 12,
       prefix: "Unset Me",
@@ -275,13 +275,13 @@ Then(/^the plot fields are all unchanged$/) do
     expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
     expect(selected_unit_type).to have_content plot.unit_type.to_s
 
-    reservation_date = Time.zone.now.to_date
-    wrong_reservation_date = (Time.zone.now + 10.days).to_date
+    reservation_date = (Time.zone.now - 1.day).to_date
+    wrong_reservation_date = (Time.zone.now - 10.days).to_date
     res_rel_date = page.find(".plot_reservation_release_date")
     expect(res_rel_date['innerHTML']).to include reservation_date.html
     expect(res_rel_date['innerHTML']).not_to include wrong_reservation_date.html
 
-    completion_date = (Time.zone.now + 12.days).to_date
+    completion_date = (Time.zone.now).to_date
     wrong_completion_date = (Time.zone.now + 20.days).to_date
     comp_rel_date = page.find(".plot_completion_release_date")
     expect(comp_rel_date['innerHTML']).to include completion_date.html
@@ -431,11 +431,11 @@ def test_plot_fields(plot_number, cas)
       expect(res_move_in_date['innerHTML']).to include mode_in_date.html
       expect(page).to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     else
-      reservation_date = (Time.zone.now + 10.days).to_date
+      reservation_date = (Time.zone.now - 10.days).to_date
       res_rel_date = page.find(".plot_reservation_release_date")
       expect(res_rel_date['innerHTML']).to include reservation_date.html
 
-      completion_date = (Time.zone.now + 20.days).to_date
+      completion_date = (Time.zone.now - 2.days).to_date
       comp_rel_date = page.find(".plot_completion_release_date")
       expect(comp_rel_date['innerHTML']).to include completion_date.html
 

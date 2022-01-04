@@ -61,12 +61,8 @@ Feature: Finishes
     Then I should see successfully deleted message
     When I review the finish category
     Then I should see the finish type shown
-    When I delete the finish category
-    Then I should see a failed to delete message
     When I review the finish type
     Then I should see the finish manufacturer shown
-    When I delete the CreateFixture.seed_finish_type_name finish type
-    Then I should see a failed to delete message
     When I update the finish
     Then I should see the updated finish
     When I remove an image from a finish

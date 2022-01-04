@@ -38,11 +38,11 @@ Feature: Plot Rooms
     Then I should see the updated plot room
     And I should see a PlotRoomsFixture.updated_plot_room_name created plot log entry for CreateFixture.phase_plot created by $current_user.full_name
     Given there is a finish for developer CreateFixture.developer
-    When I add a finish to one of the default unit type rooms
-    Then I should see the new plot room with the finish
+    When I add a developer finish to one of the default unit type rooms
+    Then I should see the new plot room with the developer finish
     And I should see a PlotRoomsFixture.template_room_to_add_finish created plot log entry for CreateFixture.phase_plot created by $current_user.full_name
     And I should see a PlotRoomsFixture.template_room_to_add_finish deleted plot log entry for CreateFixture.phase_plot created by $current_user.full_name
-    And I should see a "Finish: Fluffy carpet" added plot log entry for CreateFixture.phase_plot created by $current_user.full_name
+    And I should see a "Finish: Shagpile Carpet" added plot log entry for CreateFixture.phase_plot created by $current_user.full_name
     Given there is an appliance manufacturer
     And there is an appliance
     When I add an appliance to one of the default unit type rooms

@@ -14,12 +14,7 @@ class FinishManufacturer < ApplicationRecord
         }
 
   validates :finish_types, length: { minimum: 1 }
-  validates :name, presence: true,
-                   uniqueness:
-                   {
-                     scope: %i[developer],
-                     case_sensitive: false
-                   }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   delegate :to_s, to: :name
 

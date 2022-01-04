@@ -133,8 +133,8 @@ Given(/^there is an appliance category$/) do
   CreateFixture.appliance_category
 end
 
-Given(/^there is a ([^ ]*) appliance category for developer ([^ ]*)$/) do |name, developer|
-  CreateFixture.appliance_category(eval(developer), eval(name))
+Given(/^there is a ([^ ]*) appliance category$/) do |category|
+  CreateFixture.appliance_category(eval(category))
 end
 
 Given(/^there is a developer appliance category$/) do
@@ -156,7 +156,7 @@ Given(/^there is a (.*) finish$/) do |role|
 end
 
 Given(/^there is a finish for developer (.*)$/) do |developer|
-  CreateFixture.create_finish(developer.empty? ? nil : eval(developer))
+  CreateFixture.create_finish(developer.empty? ? nil : eval(developer), CreateFixture.developer_finish_name)
 end
 
 Given(/^there is a finish category$/) do
@@ -164,7 +164,7 @@ Given(/^there is a finish category$/) do
 end
 
 Given(/^there is a (.*) finish category$/) do |role|
-  CreateFixture.create_finish_category(CreateFixture.developer)
+  CreateFixture.create_finish_category
 end
 
 Given(/^there is a finish type$/) do
@@ -172,7 +172,7 @@ Given(/^there is a finish type$/) do
 end
 
 Given(/^there is a (.*) finish type$/) do |role|
-  CreateFixture.create_finish_type(CreateFixture.developer)
+  CreateFixture.create_finish_type
 end
 
 Given(/^there is an appliance with a guide$/) do
@@ -188,8 +188,6 @@ Given(/^I have seeded the database as a developer$/) do
   CreateFixture.create_countries
   seed
   # Update relevant tables with developer id
-  FinishCategory.update_all developer_id: CreateFixture.developer.id
-  FinishType.update_all developer_id: CreateFixture.developer.id
   FinishManufacturer.update_all developer_id: CreateFixture.developer.id
 end
 
@@ -227,12 +225,8 @@ Given(/^there is an appliance manufacturer$/) do
   CreateFixture.create_appliance_manufacturer
 end
 
-Given(/^there is a ([^ ]*) appliance manufacturer for developer ([^ ]*)$/) do |manufacturer, developer|
-  CreateFixture.create_appliance_manufacturer(eval(developer), eval(manufacturer))
-end
-
-Given(/^there is a developer appliance manufacturer$/) do
-  CreateFixture.create_appliance_manufacturer(CreateFixture.developer)
+Given(/^there is a ([^ ]*) appliance manufacturer$/) do |manufacturer|
+  CreateFixture.create_appliance_manufacturer(eval(manufacturer))
 end
 
 Given(/^there is a finish manufacturer$/) do

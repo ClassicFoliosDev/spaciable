@@ -28,7 +28,10 @@
               <%= f.hidden_field :ut_update_option, value: UnitType::SUPPLEMENT%>
               <%= f.input_field :unit_type_id_check, as: :boolean, label: false %>
             </div>
-            <%= f.input :unit_type_id, label: t(".unit_type"), as: :select, collection: unit_type_collection(@phase) %>
+
+            <% lab = unsanitized("<label><i class='fa fa-question-circle-o' id='unitTypeHelp'/></i>#{t('.unit_type')}")%>
+
+            <%= f.input :unit_type_id, label: lab, as: :select, collection: unit_type_collection(@phase) %>
           </div>
 
           <div class="plot-field">
