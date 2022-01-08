@@ -4,18 +4,28 @@ require "rails_helper"
 
 RSpec.describe Finish do
   let(:finish_category) { create(:finish_category, name: "Test category") }
-  let(:finish_type) { create(:finish_type, name: "Test type", finish_categories: [finish_category]) }
+  let(:finish_type) { create(:finish_type, name: "Test type",
+                             finish_categories: [finish_category]) }
+  let(:finish_manufacturer) { create(:finish_manufacturer, name: "Test man",
+                              finish_types: [finish_type]) }
+  RequestStore.store[:current_user] = User.new(first_name: "Test", email: "test@test.com")
 
   describe "#name=" do
     it "should not allow duplicate name/cat/type combos" do
       name = "Only finish named this"
-      create(:finish, name: name, finish_type: finish_type, finish_category: finish_category)
-      finish = Finish.new(name: name, finish_type: finish_type, finish_category: finish_category)
+      create(:finish, name: name,
+              finish_type: finish_type,
+              finish_category: finish_category,
+              finish_manufacturer: finish_manufacturer)
+      finish = Finish.new(name: name,
+                          finish_type: finish_type,
+                          finish_category: finish_category,
+                          finish_manufacturer: finish_manufacturer)
+
+
 
       finish.validate
-      name_errors = finish.errors.details[:name]
-
-      expect(name_errors).to include(error: :taken, value: name)
+      expect(finish.errors.details[:finish][0][:error]).to eq(I18n.t("finishes.duplicate.message"))
     end
   end
 
