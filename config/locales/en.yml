@@ -2913,6 +2913,8 @@ en:
      success: "%{name} was created successfully"
    update:
      success: "%{name} was updated successfully"
+   duplicate:
+     message: "Model Num/Category/manufacturer combination already exists."
    index:
      title: "Appliances Catalogue."
      info:
@@ -3051,6 +3053,8 @@ tab under a plot to assign a plot-specific finish."
       success: "%{name} was created successfully"
     update:
       success: "%{name} was updated successfully"
+    duplicate:
+      message: "Name/Category/Type/manufacturer combination already exists."
     index:
       search: "Search finishes"
       title: "Finishes Catalogue."

@@ -312,6 +312,7 @@ module CreateFixture
   end
 
   def create_finish_manufacturer(developer=nil)
+    return FinishManufacturer.find_by(name: finish_manufacturer_name) ||
     FactoryGirl.create(:finish_manufacturer,
                        name: finish_manufacturer_name,
                        finish_types: [create_finish_type],
@@ -414,6 +415,7 @@ module CreateFixture
                        name: fname,
                        finish_category: create_finish_category,
                        finish_type: create_finish_type,
+                       finish_manufacturer: create_finish_manufacturer,
                        developer: developer)
   end
 

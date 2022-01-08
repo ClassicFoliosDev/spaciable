@@ -85,7 +85,7 @@ class Appliance < ApplicationRecord
                               developer_id: developer_ids)
                        .where.not(id: id).count.zero?
 
-    errors.add(:appliance, "Model Num/Category/manufacturer combination already exists.")
+    errors.add(:appliance, I18n.t("appliances.duplicate.message"))
   end
 
   def short_name

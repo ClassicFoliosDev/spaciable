@@ -19,11 +19,4 @@ class FinishType < ApplicationRecord
   validates :finish_categories, length: { minimum: 1 }
 
   delegate :to_s, to: :name
-
-  def self.find_or_create(name, developer, category)
-    type = FinishType.find_or_initialize_by(name: name, developer_id: developer)
-    type.finish_category_ids |= [category.id] # add if unique
-    type.save!
-    type
-  end
 end

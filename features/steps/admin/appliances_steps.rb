@@ -295,3 +295,25 @@ def submit_confirm
   click_on t("unit_types.form.submit")
   click_on t("buttons.confirm_dialog.title")
 end
+
+When(/^I try to clone the (.*) appliance$/) do |appliance_name|
+  within ".navbar" do
+    click_on t("components.navigation.appliances")
+  end
+  find(:xpath, "//tbody/tr[td//text()[contains(., '#{eval(appliance_name)}')]]").find(".fa-files-o").trigger('click')
+  click_on t("finishes.form.submit")
+end
+
+When(/^I cannot produce a duplicate appliance$/) do
+  expect(page).to have_content(I18n.t("appliances.duplicate.message"))
+end
+
+When(/^I update the appliance name to (.*)$/) do |appliance_name|
+  fill_in "appliance[model_num]", with: eval(appliance_name)
+  click_on t("appliances.form.submit")
+end
+
+Then(/^I can see a (.*) appliance$/) do |appliance_name|
+  find(:xpath, "//tbody/tr[td//text()[contains(., '#{eval(appliance_name)}')]]")
+end
+

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class FinishesController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -127,3 +128,4 @@ class FinishesController < ApplicationController
     f.to_h
   end
 end
+# rubocop:enable Metrics/ClassLength

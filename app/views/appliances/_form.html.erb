@@ -12,13 +12,13 @@
     </div>
   <% end %>
 
-  <% f.object = @source_appliance || f.object %>
+  <% f.object = source_appliance || f.object %>
 
   <div class="row appliance">
     <p><%= t(defined?(description) ? description : ".appliance_description") %></p>
     <div class="row-item third">
       <fieldset>
-        <%= f.hidden_field :copy_of, value: @source_appliance&.id %>
+        <%= f.hidden_field :copy_of, value: source_appliance&.id %>
         <%= f.input :model_num, required: true %>
         <div class="name">
           <%= f.label t(".description") %>
@@ -56,7 +56,7 @@
         <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
         <% if appliance.manual&.url %>
           <span class="appliance-actions">
-            <%= link_to (@source_appliance ? @source_appliance.manual.url : appliance.manual.url), class: "btn manual-download",  target: "_blank" do %>
+            <%= link_to (source_appliance ? source_appliance.manual.url : appliance.manual.url), class: "btn manual-download",  target: "_blank" do %>
               <%= icon "search-plus" %>
             <% end %>
             <label class="btn remove-btn fa fa-trash-o" for="appliance_remove_manual"></label>
@@ -75,7 +75,7 @@
         <%= label_tag('appliance_guide', t("choose"), class: "choose-file") %>
         <% if appliance.guide&.url %>
           <span class="appliance-actions">
-            <%= link_to (@source_appliance ? @source_appliance.guide.url : appliance.guide.url), class: "btn guide-download",  target: "_blank" do %>
+            <%= link_to (source_appliance ? source_appliance.guide.url : appliance.guide.url), class: "btn guide-download",  target: "_blank" do %>
               <%= icon "search-plus" %>
             <% end %>
             <label class="btn remove-btn fa fa-trash-o" for="appliance_remove_guide"></label>

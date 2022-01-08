@@ -61,17 +61,6 @@ class Finish < ApplicationRecord
           finishes.order(:name)
         }
 
-  scope :with_params,
-        lambda { |params, developer|
-          joins(:finish_type,
-                :finish_category,
-                :finish_manufacturer)
-            .where(name: params[:name], developer_id: developer,
-                   finish_types: { name: params[:type] },
-                   finish_categories: { name: params[:category] },
-                   finish_manufacturers: { name: params[:manufacturer] })
-        }
-
   scope :filtered,
         lambda { |filter, ability|
           finishes = accessible_by(ability)
@@ -100,7 +89,7 @@ class Finish < ApplicationRecord
                            developer_id: developer_ids)
                     .where.not(id: id).count.zero?
 
-    errors.add(:finish, "Name/Category/Type/manufacturer combination already exists.")
+    errors.add(:finish, I18n.t("finishes.duplicate.message"))
   end
 
   def to_s

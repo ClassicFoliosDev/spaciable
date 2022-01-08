@@ -89,7 +89,7 @@ When(/^I (search for and )*add a finish$/) do |search|
   else
     select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
     select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
-    select_from_selectmenu :finishes, with: CreateFixture.finish_name
+    select_from_selectmenu :finishes, with: "#{CreateFixture.finish_manufacturer_name} #{CreateFixture.finish_name}"
   end
 
   click_on t("rooms.form.submit")

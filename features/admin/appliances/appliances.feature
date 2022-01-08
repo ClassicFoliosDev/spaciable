@@ -17,6 +17,11 @@ Feature: Appliances
     Then I should see a failed to delete message
     When I delete the CreateFixture.appliance_category_name appliance category
     Then I should see a failed to delete message
+    When I try to clone the ApplianceFixture.model_num appliance
+    Then I cannot produce a duplicate appliance
+    When I update the appliance name to ApplianceFixture.clone_model_num
+    Then I can see a ApplianceFixture.clone_model_num appliance
+    Then I delete the ApplianceFixture.clone_model_num appliance
     When I update the appliance
     Then I should see the updated appliance
     When I remove an image
@@ -41,6 +46,10 @@ Feature: Appliances
     Then I should see the updated appliance without the image
     When I remove a file
     Then I should see the updated appliance without the file
+    When I try to clone the ApplianceFixture.updated_model_num appliance
+    Then I cannot produce a duplicate appliance
+    When I update the appliance name to ApplianceFixture.clone_model_num
+    Then I can see a ApplianceFixture.clone_model_num appliance
     Examples:
       | role              |
       | Developer Admin   |
