@@ -11,7 +11,7 @@ end
 
 Then(/^I should see the finish in the search results$/) do
   within ".search-results" do
-    expect(page).to have_content("Finish #{CreateFixture.finish_name}")
+    expect(page).to have_content("Finish #{CreateFixture.finish_manufacturer_name} #{CreateFixture.finish_name}")
   end
 end
 
@@ -23,7 +23,7 @@ end
 
 Then(/^I should be able to navigate to the finish$/) do
   within ".search-results" do
-    click_on("Finish #{CreateFixture.finish_name}")
+    click_on("Finish #{CreateFixture.finish_manufacturer_name} #{CreateFixture.finish_name}")
   end
 
   within ".section-title" do

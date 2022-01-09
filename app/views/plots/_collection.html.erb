@@ -23,8 +23,6 @@
 
   <%
     country = parent.is_a?(Developer) ? parent.country  : parent.developer.country
-    showing_icons = current_user&.cf_admin? ||
-                    collection.map { |plot| can? :cas_update, plot }.include?(true)
   %>
 
   <table class="record-list plots">
@@ -35,13 +33,13 @@
         <th><%= sortable({Plot => Address}, :building_name, t(".#{country.name}.building_name")) %></th>
         <th><%= sortable({Plot => Address}, :road_name, t(".#{country.name}.road_name")) %></th>
         <th><%= sortable({Plot => Address}, :postcode, t(".#{country.name}.postcode")) %></th>
-        <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
+        <% if current_user.cf_admin? || !parent.free? %>
+          <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
+        <% end %>
         <th><%= t(".progress") %></th>
         <th><%= t(".activation") %></th>
         <th><span class="date"><i class="fa fa-question-circle-o" id="plotStatusHelp"></i> <%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
-        <% if showing_icons %>
-          <th>&nbsp;</th>
-        <% end %>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -52,7 +50,9 @@
           <td><%= plot.building_name %></td>
           <td><%= plot.road_name %></td>
           <td><%= plot.postcode %></td>
-          <td><%= plot.unit_type %></td>
+          <% if current_user.cf_admin? || !parent.free? %>
+            <td><%= plot.unit_type %></td>
+          <% end %>
           <td><%= plot.build_step_title %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
           <% comp = "white" %>
@@ -60,12 +60,10 @@
             <% comp = plot.expired? ? "red" : "green" %>
           <% end %>
           <td><span class = 'circle <%= comp %>'>&nbsp;</span></td>
-          <% if showing_icons %>
-            <td class="actions">
-              <%= edit_btn [:edit, plot], element: plot %>
-              <%= delete_btn plot, path: url_for(plot), element: plot %>
-            </td>
-          <% end %>
+          <td class="actions">
+            <%= edit_btn [:edit, plot], element: plot %>
+            <%= delete_btn plot, path: url_for(plot), element: plot %>
+          </td>
         </tr>
       <% end %>
     </tbody>

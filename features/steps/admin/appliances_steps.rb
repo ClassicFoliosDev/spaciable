@@ -7,7 +7,7 @@ When(/^I create an appliance with no name$/) do
     click_on t("components.navigation.appliances")
   end
 
-  click_on t("appliances.collection.create")
+  find("a.btn.btn-primary").trigger('click')
 
   click_on t("appliances.form.submit")
 end
@@ -41,7 +41,7 @@ When(/^I create an appliance$/) do
     click_on t("components.navigation.appliances")
   end
 
-  click_on t("appliances.collection.create")
+  find("a.btn.btn-primary").trigger('click')
 
   fill_in "appliance_model_num", with: ApplianceFixture.model_num
 
@@ -64,8 +64,7 @@ Then(/^I should see the new ([^ ]*) appliance$/) do |appliance|
   visit "/appliances"
   expect(page).to have_content(eval(appliance))
 
-  click_on eval(appliance)
-
+  find(:xpath, "//a[contains(text(), '#{eval(appliance)}')]").trigger('click')
   click_on t("appliances.edit.back")
 end
 
@@ -80,7 +79,7 @@ end
 When(/^I update the appliance$/) do
   visit "/appliances"
 
-  find("[data-action='edit']").click
+  find("[data-action='edit']").trigger('click')
 
   sleep 0.1
   within ".appliance" do
@@ -134,7 +133,7 @@ Then(/^I should see the updated appliance$/) do
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_full_name
+  find(:xpath, "//a[contains(text(), '#{ApplianceFixture.updated_full_name}')]").trigger('click')
 
   within ".section-title" do
     expect(page).to have_content(ApplianceFixture.updated_full_name)
@@ -188,7 +187,7 @@ Then(/^I should see the updated appliance without the image$/) do
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_full_name
+  find(:xpath, "//a[contains(text(), '#{ApplianceFixture.updated_full_name}')]").trigger('click')
 
   # Make sure primary image has not been affected, we only deleted the second one
   within ".appliance_primary_image" do
@@ -221,7 +220,7 @@ Then(/^I should see the updated appliance without the file$/) do
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_full_name
+  find(:xpath, "//a[contains(text(), '#{ApplianceFixture.updated_full_name}')]").trigger('click')
 
   # Manual should still exist, we only deleted the guide
   within ".manual" do
@@ -233,20 +232,10 @@ Then(/^I should see the updated appliance without the file$/) do
   end
 end
 
-When(/^I delete the appliance$/) do
+When(/^I delete the (.*) appliance$/) do |appliance|
   visit "/appliances"
-  delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
+  delete_scope = find(:xpath, "//a[contains(text(),'#{eval(appliance)}')]/parent::td/parent::tr")
   delete_and_confirm!(scope: delete_scope)
-end
-
-When(/^I cannot delete the appliance$/) do
-  visit "/appliances"
-  appliance_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
-  within appliance_scope do
-    find(".info-btn").trigger(:click)
-  end
-  expect(page).to have_content(t("appliances.collection.cannot_delete", appliance: CreateFixture.appliance_name))
-  click_on t("back")
 end
 
 Then(/^I should see the ([^ ]*) appliance category delete complete successfully$/) do |category|
@@ -306,3 +295,25 @@ def submit_confirm
   click_on t("unit_types.form.submit")
   click_on t("buttons.confirm_dialog.title")
 end
+
+When(/^I try to clone the (.*) appliance$/) do |appliance_name|
+  within ".navbar" do
+    click_on t("components.navigation.appliances")
+  end
+  find(:xpath, "//tbody/tr[td//text()[contains(., '#{eval(appliance_name)}')]]").find(".fa-files-o").trigger('click')
+  click_on t("finishes.form.submit")
+end
+
+When(/^I cannot produce a duplicate appliance$/) do
+  expect(page).to have_content(I18n.t("appliances.duplicate.message"))
+end
+
+When(/^I update the appliance name to (.*)$/) do |appliance_name|
+  fill_in "appliance[model_num]", with: eval(appliance_name)
+  click_on t("appliances.form.submit")
+end
+
+Then(/^I can see a (.*) appliance$/) do |appliance_name|
+  find(:xpath, "//tbody/tr[td//text()[contains(., '#{eval(appliance_name)}')]]")
+end
+

@@ -47,7 +47,7 @@ class Development < ApplicationRecord
   delegate :enable_premium_perks, :premium_licences_bought,
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
-  delegate :branded_perk, to: :parent_developer
+  delegate :branded_perk, :on_package, to: :parent_developer
   delegate :custom_url, to: :developer
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
@@ -226,9 +226,11 @@ class Development < ApplicationRecord
     end
   end
 
-  # Build the specified attribute if it is not already donw
-  def build(attribute)
-    send "build_#{attribute}".to_sym unless send attribute
+  # Build the specified attribute if it is not already done
+  def build
+    build_address unless address
+    build_maintenance unless maintenance
+    build_premium_perk unless premium_perk
   end
 
   def descendants
@@ -292,7 +294,10 @@ class Development < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def resources
-    plots.order(:id).pluck(:id, :number)
+    Plot.joins(phase: :development)
+        .where(developments: { id: id })
+        .where.not(phases: { package: Phase.packages[:free] })
+        .order(:id).pluck(:id, :number)
   end
 
   def signature
@@ -309,6 +314,11 @@ class Development < ApplicationRecord
 
   def branding
     brand || parent&.brand || parent_developer&.brand
+  end
+
+  def all_phases_free?
+    phases.count.positive? &&
+      (phases.where(package: :free).count == phases.count)
   end
 end
 # rubocop:enable Metrics/ClassLength

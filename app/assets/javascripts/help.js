@@ -28,6 +28,19 @@ $(document).on('mouseout', '#unitTypeHelp', function (event) {
   questionMouseOut($(this))
 })
 
+// Spotlght
+$(document).on('click', '#spotlightHelp', function (event) {
+  spotlightHelp($(this))
+})
+
+$(document).on('mouseover', '#spotlightHelp', function (event) {
+  questionMouseOver($(this))
+})
+
+$(document).on('mouseout', '#spotlightHelp', function (event) {
+  questionMouseOut($(this))
+})
+
 // restricted unit type
 $(document).on('click', '#restrictedHelp', function (event) {
   restrictedHelp()
@@ -83,45 +96,48 @@ function questionMouseOut(question) {
   question.css('font-size', '14px')
 }
 
-function unitTypeHelp() {
-  var $unitHelpContainer = $('<div>', { class: 'unit-type-help' })
-  .html(
-    '<div>' +
+function spotlightHelp(container) {
+
+  showHelpDialog(
+    'spotlight-help',
+    'Resident Spotlights',
+    '<div class="dialog-image">' +
+      '<img src="' + container.data('image') + '">' +
       '<p>' +
-        'The Unit Type feature allows you to create templates for your plots.' +
+        'Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.' +
       '</p>' +
-    '</div>' +
-    '<div>' +
       '<p>' +
-        'Any room, finish and appliance that you add to a Unit Type will also be shown in each plot assigned to it. ' +
-        'Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Unit Type will not be reflected on the plot.' +
+          'The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.' +
       '</p>' +
-    '</div>' +
-    '<div>' +
       '<p>' +
-        'We recommend that you use Unit Types to populate any shared specifications, then add the remaining choices and changes at plot level.' +
+          "Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots." +
       '</p>' +
     '</div>'
   )
+}
 
-  $('body').append($unitHelpContainer)
+function unitTypeHelp() {
 
-  $unitHelpContainer.dialog({
-    show: 'show',
-    modal: true,
-    width: 700,
-    title: "What is a Unit Type?",
-
-    buttons: [
-      {
-        text: "Back",
-        class: 'btn',
-        click: function () {
-          $(this).dialog('destroy')
-          $(".unit-type-help").hide()
-        }
-      }]
-  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  showHelpDialog(
+    'unit-type-help',
+    'What is a Spec Template?',
+    '<div>' +
+      '<p>' +
+        'The Spec Template feature allows you to create templates for your plots.' +
+      '</p>' +
+    '</div>' +
+    '<div>' +
+      '<p>' +
+        'Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it. ' +
+        'Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.' +
+      '</p>' +
+    '</div>' +
+    '<div>' +
+      '<p>' +
+        'We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.' +
+      '</p>' +
+    '</div>'
+  )
 }
 
 function roomBelongsHelp() {
@@ -129,19 +145,19 @@ function roomBelongsHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'Every room either belongs to its Unit Type or that specific plot.' +
+        'Every room either belongs to its Spec Template or that specific plot.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'If a room belongs to its Unit Type, then any change made on the Unit Type will be reflected on the plot. ' +
+        'If a room belongs to its Spec Template, then any change made on the Spec Template will be reflected on the plot. ' +
         'This means you can add or remove one specification and affect all relevant plots at once!' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
         'Once a room is edited at plot level, you\'ll notice the room now belongs to the plot. ' +
-        'This means any changes made to the same room in the Unit Type will no longer be reflected.' +
+        'This means any changes made to the same room in the Spec Template will no longer be reflected.' +
       '</p>' +
     '</div>'
   )
@@ -152,7 +168,7 @@ function roomBelongsHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Rooms: Unit Type or Plot?",
+    title: "Rooms: Spec Template or Plot?",
 
     buttons: [
       {
@@ -171,7 +187,7 @@ function restrictedHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'Editing this Unit Type is restricted by Classic Folios.' +
+        'Editing this Spec Template is restricted by Classic Folios.' +
       '</p>' +
     '</div>' +
     '<div>' +
@@ -188,7 +204,7 @@ function restrictedHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Restricted Unit Type",
+    title: "Restricted Spec Template",
 
     buttons: [
       {
@@ -242,3 +258,30 @@ function plotStatusHelp() {
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 }
+
+function showHelpDialog(klass, title, body) {
+  var $dialogContainer = $('<div>', { class: klass })
+  .html(body)
+
+  $('body').append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    modal: true,
+    width: 700,
+    title: title,
+    buttons: [
+      {
+        text: "Back",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $("." + klass).hide()
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+}
+
+$(document).on('click', '.dropdown-help', function (event) {
+  $(this).closest('div').find("#dropdown-help").toggle()
+})

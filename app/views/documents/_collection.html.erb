@@ -1,3 +1,10 @@
+
+<% if parent.is_a?(Phase) && parent.free? %>
+  <%= render "components/admin/popup", title: t("restricted.documents.phase.title"), preference: :show_phase_document_restriction_dialog, help: [t("restricted.documents.phase.free", url: ENV["PACKAGE_URL"])], type: :warn %>
+<% elsif any_phases_free?(parent) %>
+  <%= render "components/admin/popup", title: t("restricted.documents.title"), preference: :show_document_restriction_dialog, help: [t("restricted.documents.free", url: ENV["PACKAGE_URL"])], type: :warn %>
+<% end %>
+
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "file-pdf-o", type: Document, parent: parent %>
 <% end %>
@@ -7,7 +14,9 @@
 
   <% if collection.present? %>
     <% if parent && can_create(Document, parent) %>
-      <% unless parent.expired? && !(current_user.cf_admin?) %>
+      <% unless (parent.expired? && !(current_user.cf_admin?)) ||
+                 free_phase_at_feature_limit?(parent, parent.documents)
+                 %>
         <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
           <span class="btn-label"><%= t(".add") %></span>

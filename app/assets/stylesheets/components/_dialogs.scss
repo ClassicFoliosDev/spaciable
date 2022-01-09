@@ -190,3 +190,34 @@ input:checked + .feedback {
     display: inline-block;
   }
 }
+
+.warning-dialog, .tip-dialog {
+  span i {
+    padding-right: 10;
+  }
+}
+
+.warning-dialog .ui-dialog-titlebar {
+    background-color: #fc2803 !important;
+}
+
+.popup-resource {
+  display: none;
+}
+
+#warning, #tip {
+  display: inline-block;
+  float: right;
+  margin: 12 38;
+  cursor: pointer;
+
+  i {
+    font-size: 20;
+    color: #FFBF00;
+  }
+}
+
+#trigger {
+  cursor: pointer;
+  padding-right: 5;
+}

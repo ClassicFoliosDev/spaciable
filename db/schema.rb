@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210801125628) do
+ActiveRecord::Schema.define(version: 20211230115646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,18 +103,16 @@ ActiveRecord::Schema.define(version: 20210801125628) do
   create_table "appliance_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "appliance_manufacturers", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
     t.string   "link"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_appliance_manufacturer_name", using: :btree
   end
 
@@ -353,6 +351,8 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.boolean "render_description", default: true
     t.boolean "render_button",      default: true
     t.boolean "full_image",         default: false
+    t.boolean "cf",                 default: true
+    t.integer "appears",            default: 0
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
@@ -362,12 +362,13 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.text     "question"
     t.text     "answer"
     t.string   "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.datetime "deleted_at"
-    t.integer  "country_id",      null: false
+    t.integer  "country_id",                  null: false
     t.integer  "faq_type_id"
     t.integer  "faq_category_id"
+    t.integer  "faq_package",     default: 0
     t.index ["faq_category_id"], name: "index_default_faqs_on_faq_category_id", using: :btree
     t.index ["faq_type_id"], name: "index_default_faqs_on_faq_type_id", using: :btree
   end
@@ -570,12 +571,13 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
     t.integer  "faq_type_id"
     t.integer  "faq_category_id"
+    t.integer  "faq_package",     default: 2
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
     t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id", using: :btree
     t.index ["faq_type_id"], name: "index_faqs_on_faq_type_id", using: :btree
@@ -604,9 +606,8 @@ ActiveRecord::Schema.define(version: 20210801125628) do
   create_table "finish_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "finish_categories_types", id: false, force: :cascade do |t|
@@ -630,9 +631,8 @@ ActiveRecord::Schema.define(version: 20210801125628) do
   create_table "finish_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "developer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_type_name", using: :btree
   end
 
@@ -725,6 +725,15 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.datetime "updated_at", null: false
     t.index ["how_to_id", "tag_id"], name: "how_to_tag_index", using: :btree
     t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "phase_id"
+    t.integer  "package"
+    t.integer  "plots"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phase_id"], name: "index_invoices_on_phase_id", using: :btree
   end
 
   create_table "lettings_accounts", force: :cascade do |t|
@@ -881,6 +890,7 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.integer  "unresolved_snags", default: 0
     t.integer  "business",         default: 0
     t.boolean  "conveyancing",     default: true
+    t.integer  "package",          default: 3
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree
@@ -1333,8 +1343,6 @@ ActiveRecord::Schema.define(version: 20210801125628) do
 
   add_foreign_key "access_tokens", "crms"
   add_foreign_key "actions", "tasks"
-  add_foreign_key "appliance_categories", "developers"
-  add_foreign_key "appliance_manufacturers", "developers"
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
@@ -1356,9 +1364,6 @@ ActiveRecord::Schema.define(version: 20210801125628) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_categories", "developers"
-  add_foreign_key "finish_manufacturers", "developers"
-  add_foreign_key "finish_types", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

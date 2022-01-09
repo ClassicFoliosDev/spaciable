@@ -1,8 +1,8 @@
 <% if collection.empty? %>
   <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room %>
+    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room, action: "Create"%>
   <% else %>
-    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot %>
+    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, action: "Assign", parent: room, plot: plot %>
   <% end %>
 <% else %>
   <div class="section-actions">
@@ -10,7 +10,7 @@
       <% if can_create(FinishRoom, room) %>
         <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".create") %></span>
+          <span class="btn-label"><%= t(".assign") %></span>
         <% end %>
       <% end %>
     <% else %>
@@ -25,18 +25,20 @@
 
   <% include_added_by = collection.map { |f| f.added_by.present? }.include?(true) %>
   <% showing_icons = current_user&.cf_admin? ||
-                    collection.map { |finish| can?(:update, finish) ||
+                    collection.map { |finish| can?(:clone, finish) ||
+                                              can?(:update, finish) ||
                                               can?(:destroy, FinishRoom.room_finish(room,finish))}.include?(true) %>
+  <% sort_filter = defined?(filter) ? filter : {} %>
 
   <table class="record-list">
     <thead>
       <tr>
         <th class="icon" style="text-align:center;"><%= t(".image") %></th>
-        <th colspan="2"><%= sortable(Finish, :name, t(".finish")) %></th>
-        <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></th>
-        <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
-        <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer")) %></th>
-        <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
+        <th colspan="2"><%= sortable(Finish, :name, t(".finish"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t(".finish_type"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited"), sort_params: sort_filter) %></th>
         <% if include_added_by %>
           <th colspan="2"><%=t(".added_by")%></th>
         <%end%>
@@ -47,19 +49,23 @@
     </thead>
     <tbody>
       <% collection.each do |finish| %>
-        <tr <%="class=view-only" if cannot?(:update, finish) %>>
-          <td style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
-          <td colspan="2"><%= link_to finish.name, finish_path(finish)%></td>
-          <td colspan="2"><%= finish.finish_category %></td>
-          <td colspan="2"><%= finish.finish_type %></td>
-          <td colspan="2"><%= finish.finish_manufacturer %></td>
-          <td colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
+        <% tdc = cannot?(:update, finish) ? "class=view-only" : nil %>
+        <tr>
+          <td <%= tdc %> style="text-align:center;"><%= image_link_to finish, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity) %></td>
+          <td <%= tdc %> colspan="2"><%= can?(:read, finish) ? link_to(finish.name, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity)) : finish.name %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_category %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_type %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_manufacturer %></td>
+          <td <%= tdc %> colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
           <% if include_added_by %>
-            <td colspan="2"><%= finish.added_by %></td>
+            <td <%= tdc %> colspan="2"><%= finish.added_by %></td>
           <%end%>
           <% if showing_icons %>
             <td  colspan="2" class="actions">
-              <%= edit_btn edit_finish_path(finish), element: finish %>
+              <% if room.nil? %>
+                <%= edit_btn edit_finish_path(finish), element: finish %>
+                <%= clone_btn clone_finish_path(finish), element: finish %>
+              <% end %>
               <% if action_name.to_sym == :index && finish.in_use? %>
                  <%= info_btn finish, text: t('.cannot_delete', finish: finish), element: finish, title: t('buttons.info.cannot_delete', type: "Finish")%>
               <% elsif room && can?(:destroy, FinishRoom.room_finish(room,finish)) %>

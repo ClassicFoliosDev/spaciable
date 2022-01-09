@@ -144,6 +144,10 @@
   }
 }
 
+.spotlights-btn {
+  display: none;
+}
+
 // mobile portrait view
 @include media($mobile-down) {
   .dash-tile {
@@ -160,4 +164,8 @@
   }
 }
 
-
+@include media($tablet-landscape-down) {
+  .spotlights-btn {
+     display: inline-block;
+  }
+}

@@ -27,7 +27,8 @@ class CloneDefaultFaqsJob < ApplicationJob
         answer: default_faq.answer,
         category: 0, # This should be removed after successful release #remove
         faq_type: default_faq.faq_type,
-        faq_category: default_faq.faq_category
+        faq_category: default_faq.faq_category,
+        faq_package: default_faq.faq_package
       }
     end
   end

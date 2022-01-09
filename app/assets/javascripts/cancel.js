@@ -41,3 +41,25 @@ $(document).on('click', '.cancel-btn', function (event) {
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 })
+
+function cancel_dialog(title, message) {
+  var $dialogContainer = $('<div>', { id: 'dialog' }).html(
+                             '<p>' + message + '</p>')
+
+  $body.append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    modal: true,
+    title: title,
+    buttons: [
+      {
+        text: "Cancel",
+        class: 'btn-cancel',
+        click: function () {
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+}

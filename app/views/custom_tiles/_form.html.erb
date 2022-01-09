@@ -71,6 +71,25 @@
               include_blank: true %>
           </div>
         </fieldset>
+
+        <fieldset id="customTileAppears">
+          <div id="appears">
+            <%= f.label :appears, label: t(".appears.title") %>
+            <% CustomTile.appears.each do |k,v| %>
+              <div>
+                <%= f.radio_button :appears, k, checked: (custom_tile.appears == k), id: "spotlight_#{k}" %>
+                <label for=<%="spotlight_#{k}"%>><%=t(".appears.#{k}")%></label>
+                <% unless k == :always.to_s %>
+                  <i class="fa fa-question-circle dropdown-help" id="plotfiltersHelp" aria-hidden="true"></i>
+                  <div id="dropdown-help" class="hidden">
+                    <%=appears_help(custom_tile, k)%>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </fieldset>
+
       </div>
 
       <div class="half">

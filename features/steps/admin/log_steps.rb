@@ -26,7 +26,7 @@ When(/^I add a finish to the unit type room$/) do
   end
 
   within ".empty" do
-    click_on t("rooms.form.add_finish")
+    click_on "Assign Finish"
   end
 
   within ".search-finish" do
@@ -61,7 +61,7 @@ When(/^I add an appliance to the unit type room$/) do
   visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.bedroom_name).id}?active_tab=appliances"
 
   within ".empty" do
-    click_on t("appliances.collection.create")
+    click_on "Assign Appliance"
   end
 
   within ".search-appliance" do

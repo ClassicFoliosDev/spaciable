@@ -50,6 +50,8 @@ class Room < ApplicationRecord
   after_destroy -> { finishes.delete_all }
   before_save :make_mark
 
+  alias_attribute :identity, :name
+
   before_create -> { @previous_rooms = current_rooms }
   after_create -> { log :created }
   before_update -> { @previous_rooms = current_rooms }

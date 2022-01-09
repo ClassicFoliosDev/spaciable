@@ -142,7 +142,7 @@ class PlotsController < ApplicationController
   end
 
   def check_access
-    return if current_user.cf_admin? || can?(:cas_update, @plot)
+    return if current_user.cf_admin? || can?(:update, @plot)
 
     render file: "public/401.html", status: :unauthorized
   end

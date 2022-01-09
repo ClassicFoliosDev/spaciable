@@ -2,7 +2,7 @@
 <div class="branded-body">
   <div class="outer-container dashboard" id="homeownerDashboard">
     <!-- find out how many active custom tiles the plot has -->
-    <% tiles = @custom_tiles %>
+    <% tiles = visible_tiles = @custom_tiles %>
 
     <% if tiles.size == 1 || tiles.size == 4 %>
     <!-- if one or four tiles is activated then the page styling is different -->
@@ -16,6 +16,9 @@
             <% end %>
             <div class="card-header">
               <h2 class="card-title-alt"><%= t('.my_title', construction: @plot.my_home_name) %></h2>
+              <% if @plots.count > 1 %>
+                <%= link_to t(".switch_plot"), plots_path, class: "btn switch-plot-btn" %>
+              <% end %>
             </div>
             <%= render "homeowners/components/address", plot: @plot, plots: @plots %>
             </div>
@@ -48,6 +51,9 @@
         <% end %>
             <div class="card-header">
               <h2 class="card-title-alt"><%= t('.my_title', construction: @plot.my_home_name) %></h2>
+              <% if @plots.count > 1 %>
+                <%= link_to t(".switch_plot"), plots_path, class: "btn switch-plot-btn" %>
+              <% end %>
             </div>
             <%= render "homeowners/components/address", plot: @plot, plots: @plots %>
           </div>

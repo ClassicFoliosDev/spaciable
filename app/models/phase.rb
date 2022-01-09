@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class Phase < ApplicationRecord
   attribute :number, :integer
+  include PackageEnum
 
   acts_as_paranoid
 
@@ -29,6 +30,7 @@ class Phase < ApplicationRecord
   has_many :phase_timelines, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
+  has_many :invoices
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
@@ -77,6 +79,14 @@ class Phase < ApplicationRecord
     :mhf,
     :commercial
   ]
+
+  validates :package, presence: true
+
+  def res_comp?
+    plots.where("plots.completion_release_date IS NOT NULL OR " \
+                "plots.reservation_release_date IS NOT NULL")
+         .count.positive?
+  end
 
   def build_address_with_defaults
     return if address.present?
@@ -138,6 +148,7 @@ class Phase < ApplicationRecord
   def self.snagging(current_ability)
     Phase.joins(:development)
          .where(developments: { enable_snagging: true })
+         .where.not(package: %i[free essentials])
          .accessible_by(current_ability)
   end
 
@@ -223,6 +234,7 @@ class Phase < ApplicationRecord
   # Retrieve relevant calendar events
   # rubocop:disable Metrics/AbcSize
   def events(params)
+    return if free?
     # parent development events
     evts = Event.within_range(Development.to_s, [development.id],
                               params[:start], params[:end]).to_a

@@ -13,7 +13,7 @@ module TabsConcern
       when "appliances"
         return homeowner_appliance_manuals_path if Appliance.accessible_by(current_ability).any?
       when "videos"
-        if @plot&.development&.videos&.where("created_at <= ?", @plot.expiry_date)
+        if !@plot.free? && @plot&.development&.videos&.where("created_at <= ?", @plot.expiry_date)
           return homeowner_videos_path
         end
       when "my_documents"

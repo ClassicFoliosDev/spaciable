@@ -7,6 +7,7 @@ When(/^I create a finish without a category$/) do
     click_on t("components.navigation.finishes")
   end
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   click_on t("finishes.collection.create")
 
   fill_in "finish_name", with: FinishFixture.finish_name
@@ -50,6 +51,7 @@ When(/^I create a ([^ ]*) finish with category ([^ ]*) type ([^ ]*) and manufact
     click_on t("components.navigation.finishes")
   end
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   click_on t("finishes.collection.create")
 
   fill_in "finish_name", with: eval(name)
@@ -63,6 +65,7 @@ end
 When(/^I update the finish$/) do
   visit "/finishes"
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.finish_name}')]]") do
     find("[data-action='edit']").click
   end
@@ -110,6 +113,7 @@ end
 When(/^I remove an image from a finish$/) do
   visit "/finishes"
 
+  find(".btn-cancel").trigger('click') unless RequestStore.store[:current_user]&.cf_admin? # info dialog
   within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.updated_name}')]]") do
     find("[data-action='edit']").click
   end
@@ -246,3 +250,43 @@ Then(/^I should see the finish manufacturer shown$/) do
     expect(page).to have_content("Cormar Carpets")
   end
 end
+
+When(/^I try to clone the (.*) finish$/) do |finish_name|
+  within ".navbar" do
+    click_on t("components.navigation.finishes")
+  end
+
+  find(:xpath, "//tbody/tr[td//text()[contains(., '#{eval(finish_name)}')]]").find(".fa-files-o").trigger('click')
+  click_on t("finishes.form.submit")
+end
+
+When(/^I cannot produce an exact duplicate$/) do
+  expect(page).to have_content(I18n.t("finishes.duplicate.message"))
+end
+
+When(/^I update the finish name to (.*)$/) do |finish_name|
+  fill_in "finish[name]", with: eval(finish_name)
+  click_on t("finishes.form.submit")
+end
+
+Then(/^I can see a (.*) finish$/) do |finish_name|
+  find(:xpath, "//tbody/tr[td//text()[contains(., '#{eval(finish_name)}')]]")
+end
+
+Then(/^I view the finishes$/) do
+  within ".navbar" do
+    click_on t("components.navigation.finishes")
+  end
+
+  # close the help dialog
+  unless RequestStore.store[:current_user].cf_admin?
+    find(".btn-cancel").trigger('click')
+  end
+end
+
+Then(/^I do not not see a (.*) tab$/) do |link_text|
+  expect(page).not_to have_content(eval(link_text))
+end
+
+
+

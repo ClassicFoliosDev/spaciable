@@ -132,6 +132,11 @@ $homeowner-margin: 12px;
   .card-header {
     margin-top: -220px;
     margin-left: $homeowner-margin;
+    margin-right: $homeowner-margin;
+
+    .switch-plot-btn {
+      float: right;
+    }
   }
 
   .card-content {

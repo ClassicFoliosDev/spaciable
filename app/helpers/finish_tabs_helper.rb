@@ -18,12 +18,14 @@ module FinishTabsHelper
       finish_categories: {
         icon: "folder-o",
         link: ["finish_categories", active_tab: :finish_categories],
-        permissions_on: -> { Finish.new(developer_id: developer_id) }
+        permissions_on: -> { Finish.new(developer_id: developer_id) },
+        hide: !RequestStore.store[:current_user].cf_admin?
       },
       finish_types: {
         icon: "folder-o",
         link: ["finish_types", active_tab: :finish_types],
-        permissions_on: -> { Finish.new(developer_id: developer_id) }
+        permissions_on: -> { Finish.new(developer_id: developer_id) },
+        hide: !RequestStore.store[:current_user].cf_admin?
       },
       finish_manufacturers: {
         icon: :industry,

@@ -1,3 +1,7 @@
+<% if parent.is_a?(Development) && parent.cas?  %>
+  <%= render "components/admin/popup", title: t(".plot_template.title"), preference: :show_plot_template_dialog, help: [t(".plot_template.help")], width: 700%>
+<% end %>
+
 <% if collection.empty? %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>
@@ -31,7 +35,7 @@
         <td><%= l unit_type.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
-          <% if current_user.cas? && !current_user.cf_admin? %>
+          <% if current_user.cas? && !current_user.cf_admin? && unit_type.restricted? %>
             <div class="btn" id="restrictedHelp"><i class="fa fa-info"></i></div>
           <% end %>
           <% if can? :update, unit_type %>

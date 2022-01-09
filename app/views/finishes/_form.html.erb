@@ -12,8 +12,10 @@
     </div>
   <% end %>
 
+  <% f.object = source_finish || f.object %>
+
     <div class="row finish">
-      <p><%= t(".finish_description") %></p>
+      <p><%= t(defined?(description) ? description : ".finish_description") %></p>
       <div class="row-item third">
         <fieldset>
           <div class="image-container">
@@ -21,6 +23,7 @@
           </div>
         </fieldset>
         <fieldset>
+          <%= f.hidden_field :copy_of, value: source_finish&.id %>
           <%= f.input :name, label: t(".name") %>
           <%= label_tag t(".notes") %>
           <p class="notes-disclaimer"><%= t(".notes_disclaimer") %></p>
@@ -31,12 +34,12 @@
         <fieldset>
           <div class="finish_category ui-front select-container">
             <%= f.association :finish_category, label: t(".category"),
-                collection: FinishCategory.visible_to(current_user).order(:name) %>
+                collection: FinishCategory.accessible_by(current_ability).order(:name), data: :developer_id %>
             <div class="category-disclaimer">
               <p><%= t(".disclaimer", item: "category") %></p>
               <i class="fa fa-question-circle" id="categoryHelp"></i>
               <div class="category-help">
-                <p class="help-description"><%= t(".category_help").html_safe %></p>
+                <p class="help-description"><%= unsanitized t(".category_help") %></p>
               </div>
             </div>
           </div>
@@ -47,7 +50,7 @@
               <p><%= t(".disclaimer", item: "type") %></p>
               <i class="fa fa-question-circle" id="typeHelp"></i>
               <div class="type-help">
-                <p class="help-description"><%= t(".type_help").html_safe %></p>
+                <p class="help-description"><%= unsanitized t(".type_help") %></p>
               </div>
             </div>
           </div>
@@ -57,7 +60,7 @@
               <p><%= t(".disclaimer", item: "manufacturer") %></p>
               <i class="fa fa-question-circle" id="manufacturerHelp"></i>
               <div class="manufacturer-help">
-                <p class="help-description"><%= t(".manufacturer_help").html_safe %></p>
+                <p class="help-description"><%= unsanitized t(".manufacturer_help", url: finish_manufacturers_path) %></p>
               </div>
             </div>
           </div>

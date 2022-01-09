@@ -18,6 +18,7 @@ module Homeowners
       contacts = @contacts.where(category: @category)
       contacts = contacts.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       @contacts = contacts.order(pinned: :desc, updated_at: :desc)
+      @contacts = @contacts.where(contactable_type: "Phase") if @plot.free?
 
       redirect_to @contacts_for.values[0] if @contacts.none? && @contacts_for.any?
     end
@@ -35,6 +36,8 @@ module Homeowners
       @contacts_for = {}
       @categories.each do |cat|
         contacts = Contact.accessible_by(current_ability).where(category: cat)
+        contacts = contacts.where(contactable_type: "Phase") if @plot.free?
+
         if @plot.expiry_date.present?
           contacts = contacts.where("created_at <= ?", @plot.expiry_date)
         end

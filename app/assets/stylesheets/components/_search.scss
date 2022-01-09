@@ -7,6 +7,11 @@ $search-width: 460px;
   width: $search-width + 40px;
   font-size: $base-small-font-size;
   line-height: $base-small-font-size;
+  height: 40;
+
+  form {
+    height: 40;
+  }
 
   // accommodate the different brousers
   ::placeholder {
@@ -53,11 +58,11 @@ $search-width: 460px;
 }
 
 .search-btn {
-  display: inline-block;
-  padding: $spacing-small;
+  position: relative;
+  top: -48px;
+  left: 2px;
+  padding: 12 10 11 10;
   border: none;
-  margin-top: -47px;
-  margin-left: 2px;
   color: $primary-navy;
 
   &:hover {
@@ -66,10 +71,10 @@ $search-width: 460px;
 }
 
 .search-results-container {
+  position: relative;
+  top: -48;
   width: $search-width + 40px ;
   margin-top: 0;
-  position: absolute;
-  z-index: 20;
 
   .search-results {
     width: 100%;
@@ -78,6 +83,15 @@ $search-width: 460px;
   .strong {
     font-weight: bold;
   }
+
+  .search-results.overflow {
+    height: 200;
+    overflow-y: scroll;
+  }
+}
+
+.search-user, .search-finish {
+  height: 85;
 }
 
 @include media($tablet-landscape-down) {

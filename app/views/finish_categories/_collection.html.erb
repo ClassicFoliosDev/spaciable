@@ -20,7 +20,7 @@
     </thead>
     <tbody>
     <% collection.each do |finish_category| %>
-      <tr data-finish-category="<%= finish_category.id %>">
+      <tr <%= "class=view-only" if cannot?(:update, finish_category) %> data-finish-category="<%= finish_category.id %>">
         <td><%= link_to finish_category.name, finish_category_path(finish_category), title: finish_category.name %></td>
         <td><%= l finish_category.updated_at.to_date, format: :digits %></td>
         <td class="actions">

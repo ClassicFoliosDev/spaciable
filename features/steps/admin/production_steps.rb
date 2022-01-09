@@ -6,8 +6,8 @@ Given(/^there is another plot with completion and reservation release dates$/) d
                      unit_type: unit_type,
                      phase: CreateFixture.phase,
                      number: PlotFixture.another_plot_number,
-                     reservation_release_date: Time.zone.now.to_date,
-                     completion_release_date: (Time.zone.now.to_date + 14.days),
+                     reservation_release_date: Time.zone.now.to_date - 1.day,
+                     completion_release_date: (Time.zone.now.to_date),
                      road_name: "Plot road",
                      building_name: "Plot building",
                      postcode: "AB1 3ED")

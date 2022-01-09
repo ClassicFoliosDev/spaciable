@@ -1,3 +1,9 @@
+<% if parent.is_a?(Phase) && parent.free? %>
+  <%= render "components/admin/popup", title: t("restricted.contacts.phase.title"), preference: :show_phase_document_restriction_dialog, help: [t("restricted.contacts.phase.free", url: ENV["PACKAGE_URL"])], type: :warn %>
+<% elsif any_phases_free?(parent) %>
+  <%= render "components/admin/popup", title: t("restricted.contacts.title"), preference: :show_document_restriction_dialog, help: [t("restricted.contacts.free", url: ENV["PACKAGE_URL"])], type: :warn %>
+<% end %>
+
 <% if collection.empty? %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>
@@ -6,10 +12,9 @@
 <% else %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>
-
     <% if can_create(Contact, parent) %>
-      <% unless parent.expired? && !(current_user.cf_admin?) %>
-
+      <% unless parent.expired? && !(current_user.cf_admin?) ||
+                free_phase_at_feature_limit?(parent, parent.contacts) %>
           <%= link_to [:new, parent, :contact], class: "btn btn-primary" do %>
             <i class="fa fa-plus"></i>
             <span class="btn-label"><%= t(".create") %></span>

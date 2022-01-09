@@ -94,7 +94,6 @@
 }
 
 .search-appliance, .search-finish, .search-user {
-  margin-top: 30px;
 
   input[type="text"] {
     display: inline-block;
@@ -104,10 +103,11 @@
   }
 }
 
-.search-appliance-btn, .search-finish-btn, .search-user-btn {
-  margin-top: -46px;
-  margin-left: 2px;
-  padding: $spacing-small;
+.search-appliance-btn, .search-index-finish-btn,, .search-finish-btn, .search-user-btn {
+  position: relative;
+  top: -48px;
+  left: 1.5px;
+  padding: 12 10 11 10;
   border: none;
   color: $primary-navy;
 
@@ -227,4 +227,9 @@
   .finish_manufacturer {
     padding-bottom: $spacing-small;
   }
+}
+
+.hangingindent {
+  padding-left: 50px;
+  text-indent: -50px;
 }

@@ -91,6 +91,12 @@
             name: :perks,
             class: "perks-csv btn-primary" %><br/>
       </div>
+
+      <%= f.button :submit, t(".invoice"),
+          data: { disable_with: false },
+          name: :invoice,
+          class: "invoice-csv btn-primary",
+          disabled: true %><br/>
     </div>
   </div>
 <% end %>

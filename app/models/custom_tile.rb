@@ -5,7 +5,7 @@ class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
 
-
+  before_create :set_cf
   belongs_to :development
   belongs_to :tileable, polymorphic: true
 
@@ -44,6 +44,12 @@ class CustomTile < ApplicationRecord
     timeline: 7,
     conveyancing: 8
   }
+
+  enum appears: %i[
+    always
+    moved_in
+    completed
+  ]
 
   delegate :snag_name, to: :development
 
@@ -101,7 +107,15 @@ class CustomTile < ApplicationRecord
       active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
     end
 
-    active_tiles
+    visible_tiles(active_tiles, plot)
+  end
+
+  # what tiles are visible according to the current rules
+  def self.visible_tiles(active_tiles, plot)
+    active_tiles = plot.visible_tiles(active_tiles)
+    return active_tiles unless plot.free? || plot.essentials?
+    return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
+    active_tiles.reject { |ct| ct.snagging? }
   end
 
   def active_feature(plot)
@@ -142,6 +156,12 @@ class CustomTile < ApplicationRecord
 
   def formatted_link
     link !~ /\A(http)/ ? "https://#{link}" : link
+  end
+
+  # was this record created by a CF user
+  def set_cf
+    return unless RequestStore.store[:current_user]&.is_a? User
+    self.cf = RequestStore.store[:current_user]&.cf_admin? || false
   end
 end
 #rubocop:enable all

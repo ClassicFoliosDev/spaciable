@@ -1,0 +1,9 @@
+<% breadcrumb :finish_clone, @finish %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render 'form', finish: @finish, description: ".clone", source_finish: @source_finish %>

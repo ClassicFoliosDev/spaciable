@@ -6,6 +6,7 @@
     <% categories.each do |cat, num| %>
       <% documents = Document.accessible_by(current_ability)
                              .where(category: cat) %>
+      <% documents = documents.where(documentable_type: "Phase") if plot.free? %>
       <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
       <% if documents.any? %>
         <li>
@@ -25,7 +26,7 @@
     <% end %>
 
     <% videos = plot&.videos %>
-    <% if videos.any? %>
+    <% if !plot.free? && videos.any? %>
       <li>
         <%= link_to t(".videos"),
                     homeowner_videos_path,

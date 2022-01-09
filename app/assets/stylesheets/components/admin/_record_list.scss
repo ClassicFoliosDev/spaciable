@@ -57,8 +57,10 @@ table.record-list, table.section-list {
     background-color: white;
   }
 
-  tr.view-only {
-    opacity: 0.5;
+  tr, td {
+    &.view-only {
+      opacity: 0.5;
+    }
   }
 
   .actions {

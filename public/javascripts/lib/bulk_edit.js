@@ -7,7 +7,13 @@ $(document).ready(function() {
 
   // Is the unit type being updated?
   function CheckUnitType() {
+
+    if ($('#phase_bulk_edit_build_step_id_check').prop("checked") &&
+        $("#phase_bulk_edit_build_step_id :selected").text() === "") {
+      cancel_dialog("Select Build Progress", "Please make a Build Progress selection")
+    } else {
       $('#phase_bulk_edit_unit_type_id_check').prop("checked") ? Confirm() : Submit()
+    }
   }
 
   // Confirm which unit type update option you want

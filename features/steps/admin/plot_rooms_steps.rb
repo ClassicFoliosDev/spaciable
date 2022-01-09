@@ -126,7 +126,15 @@ Then(/^I should see the unchanged unit type rooms$/) do
   end
 end
 
+When(/^I add a developer finish to one of the default unit type rooms$/) do
+  add_a_finish(CreateFixture.developer_finish_name)
+end
+
 When(/^I add a finish to one of the default unit type rooms$/) do
+  add_a_finish(CreateFixture.finish_name)
+end
+
+def add_a_finish(name)
   within ".record-list" do
     click_on PlotRoomsFixture.template_room_to_add_finish
   end
@@ -136,12 +144,12 @@ When(/^I add a finish to one of the default unit type rooms$/) do
   end
 
   within ".search-finish" do
-    fill_in "finish_room_search_finish_text", with: CreateFixture.finish_name
+    fill_in "finish_room_search_finish_text", with: name
     find(".search-finish-btn", visible: true).trigger(:click)
   end
 
   within ".finish" do
-    finish = Finish.find_by(name: CreateFixture.finish_name)
+    finish = Finish.find_by(name: name)
     select_from_selectmenu :finishes, with: finish.full_name
   end
 
@@ -157,6 +165,16 @@ Then(/^I should see the new plot room with the finish$/) do
 
   within ".record-list" do
     expect(page).to have_content(CreateFixture.finish_name)
+  end
+end
+
+Then(/^I should see the new plot room with the developer finish$/) do
+  within ".breadcrumbs" do
+    expect(page).to have_content(CreateFixture.phase_name)
+  end
+
+  within ".record-list" do
+    expect(page).to have_content(CreateFixture.developer_finish_name)
   end
 end
 
@@ -306,7 +324,7 @@ end
 
 def check_belongs_to(roomname)
   room = Room.find_by(name: roomname)
-  find("[data-room='#{room.id}']", text: room.plot_id.nil? ? "Unit Type" : "Plot")
+  find("[data-room='#{room.id}']", text: room.plot_id.nil? ? "Spec Template" : "Plot")
 end
 
 And(/^I update the plot unit type with option (.*)$/) do |option|

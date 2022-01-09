@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class UnitType < ApplicationRecord
   acts_as_paranoid
   belongs_to :development, optional: false
@@ -19,6 +20,8 @@ class UnitType < ApplicationRecord
 
   delegate :cas, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
+
+  alias_attribute :identity, :name
 
   amoeba do
     include_association :rooms
@@ -77,7 +80,8 @@ class UnitType < ApplicationRecord
                       "Please reassign the following plots to other unit types " \
                       "before deleting"
       effected_phases.each do |phase, plots|
-        confirmation += "<br><br>#{phase}: #{plots.to_sentence}"
+        confirmation += "<br><br>#{phase}: " \
+                        "#{plots.count > 1 ? 'Plots' : 'Plot'} #{plots.to_sentence}"
       end
     end
 
@@ -128,4 +132,12 @@ class UnitType < ApplicationRecord
   def log_threshold
     :none
   end
+
+  # are all the associated plots on the free package?
+  def free?
+    return false unless plots.count.positive?
+    plots.each { |p| return false unless p.free? }
+    true
+  end
 end
+# rubocop:enable Metrics/ClassLength

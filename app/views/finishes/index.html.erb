@@ -1,10 +1,21 @@
 <% breadcrumb :finishes %>
 
+<%= render "components/admin/popup", title: t("stuck_with_specs.title"), help: [t("stuck_with_specs.help")], type: :tip, all_users: true, popup_on_load: false, width: 500 %>
+
+<% unless current_user.cf_admin? %>
+  <%= render "components/admin/popup", title: t(".info.title"), preference: :show_finishes_info_dialog, help: [t(".info.desc")], all_users: false, popup_on_load: true, width: 500, selector: ".section-title #trigger" %>
+<% end %>
+
 <div class="section-header">
   <div class="section-title">
+    <% unless current_user.cf_admin? %>
+      <i id="trigger" class="fa fa-question-circle"></i>
+    <% end %>
     <%= t(".title") %>
   </div>
 </div>
 
+<%= render 'components/admin/finish_search', ufilter: @ffilter, path: finishes_path, finish_search_path: admin_finish_search_path, search: t(".search")%>
+
 <%= render 'components/tabs', tabs: finish_tabs(nil, @active_tab, current_user.developer) %>
-<%= render_collection @finishes, room: nil %>
+<%= render_collection @finishes, room: nil, filter: @filter %>

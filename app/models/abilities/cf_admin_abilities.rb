@@ -7,14 +7,9 @@ module Abilities
 
       can %i[production bulk_edit release_plots], Phase
       can %i[development_csv], Development
-      cannot :cas_update, :all
 
       restricted(Appliance,
-                 ApplianceCategory,
-                 ApplianceManufacturer,
                  Finish,
-                 FinishType,
-                 FinishCategory,
                  FinishManufacturer)
     end
 
@@ -27,6 +22,7 @@ module Abilities
                ["#{klass.table_name}.developer_id IS NOT ?", nil] do |k|
           k.developer_id.present?
         end
+        can :clone, klass, developer_id: nil
       end
     end
   end

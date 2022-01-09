@@ -47,6 +47,20 @@ en:
   construction_type:
     home: "Home"
 
+  restricted:
+    documents:
+      title: "Document Visibility"
+      free: "Your plots on the Free package only see Phase level documents. To release these documents to those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+      phase:
+        title: "Document Restriction"
+        free: "This Phase is on the Free package and is restricted to 3 documents only. To remove this restriction please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+    contacts:
+      title: "Contacts Visibility"
+      free: "Your plots on the Free package only see Phase level contacts. To release these contacts to those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+      phase:
+        title: "Contacts Restriction"
+        free: "This Phase is on the Free package and is restricted to 3 contacts only. To remove this restriction please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+
   lists:
     all_value: "*"
     all_name: "*"
@@ -94,6 +108,7 @@ en:
   buttons:
     edit: "Edit"
     trash: "Delete"
+    clone: "Clone"
     info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"
@@ -364,8 +379,10 @@ en:
     admin_settings_edit: "Edit Global Settings"
     admin_settings: "Global Settings"
     admin_reports: "Reports"
+    appliances: "Appliances Catalogue"
     appliance_edit: "Edit %{name}"
-    appliance_add: "New Appliance"
+    appliance_add: "Create New Appliance"
+    appliance_clone: "Create New Appliance from Clone"
     manufacturer_edit: "Edit %{name}"
     manufacturer_add: "New Finish Manufacturer"
     appliance_category_edit: "Edit %{name}"
@@ -392,9 +409,11 @@ en:
     services: "Services"
     services_add: "New Service"
     services_edit: "Edit Service"
+    finishes: "Finishes Catalogue"
     finish_categories: "Finish Categories"
     finish_edit: "Edit %{name}"
-    finish_add: "New Finish"
+    finish_add: "Create New Finish"
+    finish_clone: "Create New Finish from Clone"
     finish_category_edit: "Edit %{name}"
     finish_category_add: "New Finish Category"
     finish_type_edit: "Edit %{name}"
@@ -413,8 +432,8 @@ en:
     room_configuration_edit: "Edit %{room_configuration_name}"
     room_item_add: "New Room Item"
     room_item_edit: "Edit %{room_item_name}"
-    room_finish: "New Finish"
-    room_appliance: "New Appliance"
+    room_finish: "Assign Finish"
+    room_appliance: "Assign Appliance"
     plot_add: "New Plot"
     plot_edit: "Edit %{plot_name}"
     residents: "Residents"
@@ -424,8 +443,8 @@ en:
     room_edit: "Edit %{room_name}"
     room_add: "New Room"
     unit_type_edit: "Edit %{unit_type_name}"
-    unit_type_new: "New Unit Type"
-    unit_type_add: "New Unit Type"
+    unit_type_new: "New Spec Template"
+    unit_type_add: "New Spec Template"
     document_add: "New Document"
     document_edit: "Edit %{document_name}"
     contacts: "Contacts"
@@ -448,8 +467,8 @@ en:
     phase_timelines_add: "New Phase Timeline"
     phase_timelines_edit: "Edit Phase Timeline"
     development_csv: "Upload CSV"
-    custom_tiles: "Custom Shortcuts"
-    custom_tile_add: "New Custom Shortcut"
+    custom_tiles: "Resident Spotlights"
+    custom_tile_add: "New Spotlight"
     custom_tile_edit: "Edit %{tile}"
     timeline_add: "Add Timeline"
     timelines: "Timelines"
@@ -543,11 +562,13 @@ en:
         intro: "Please complete the fields to the right to set up your lettings account. All fields are required."
         management_type: "Management Type"
       unit_type_update_option_form:
-        header1: "You have requested a change in unit type"
-        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
-        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
+        header1: "You have requested a change in Spec Template"
+        header2: "Changing a plot's Spec Template could cause a number of changes, please select a change from the options below:"
+        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new Spec Template. The home address image will also change."
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
       search:
+        all: "All"
+      finish_search:
         all: "All"
 
     choices:
@@ -647,8 +668,8 @@ en:
       my_development: "My Development"
       documents: "Documents"
       users: "Admins"
-      appliances: "Appliances"
-      finishes: "Finishes"
+      appliances: "Appliances Catalogue"
+      finishes: "Finishes Catalogue"
       profile: "Profile"
       notifications: "Notifications"
       admin_notifications: "Admin Notifications"
@@ -981,7 +1002,7 @@ en:
         surname: "Surname"
         job_title: "Job Title"
         client_specifications: "Client Specifications"
-        adds_specifications: "Ability to modify unit types, rooms, finishes and appliances."
+        adds_specifications: "Ability to modify Spec Templates, rooms, finishes and appliances."
         faq_emails: "FAQ Feedback Emails"
         receive_faq_emails: "Receive emails regarding resident FAQ feedback."
         invitation_emails: "Resident Activation Report"
@@ -1013,7 +1034,7 @@ en:
         division: "Division"
         development: "Development"
         accepted_at: "Activation Date"
-        search: "Admin users search"
+        search: "Search users"
         export_csv: "Export to CSV"
         associated_role_user: "This belongs to %{developer}"
         associated_role_user_title: "Associated Role User"
@@ -1102,7 +1123,7 @@ en:
         development: "Development"
         division: "Division"
         developer: "Developer"
-        unit_type: "Unit type"
+        unit_type: "Spec Template"
         role: "Role"
         name: "Name"
         email: "Email"
@@ -1188,6 +1209,7 @@ en:
         title: "Reports."
         developer: "Developer Report"
         development: "Development Report"
+        invoice: "Package Invoice Report"
         all: "Summary Report (All Developers)"
         billing: "Billing Report (All Developers)"
         perks: "Buyers' Club Report"
@@ -1204,6 +1226,7 @@ en:
         last_edited: "Last Edited"
         empty: "You have no default %{type} FAQs"
         confirm_delete: Are you sure you wish to delete this %{type} FAQ?
+        faq_category: "FAQ Category"
       show:
         title: "%{parent}"
         type: "Type"
@@ -1236,6 +1259,8 @@ en:
 
   faqs:
     collection:
+      restricted_title: "FAQs restricted"
+      help: "help!"
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
       faq_category: "FAQ Category"
@@ -1250,6 +1275,7 @@ en:
       submit: "Submit"
       back: "Back"
       category: "Category"
+      faq_package: "FAQ Package"
       notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
@@ -1309,6 +1335,7 @@ en:
       create: "Add Video"
       title: "Video"
       link: "Link"
+      help: "Residents of plots on the Free package cannot view videos. To unlock videos for those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
     show:
       back: "Back"
     edit:
@@ -1316,14 +1343,17 @@ en:
 
   custom_tiles:
     collection:
-      create: "New Custom Shortcut"
-      title: "Title"
+      create: "New Spotlight"
+      spotlight: "Spotlight"
       category: "Category"
       editable: "Editable"
+      cf: "CF Tile"
       uneditable_title: "%{tile}"
       uneditable_text: "You do not have permission to edit this shortcut tile. Please contact your Classic Folios Account Manager for more details."
+      help_title: "Free Package Restriction"
+      help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
     new:
-      title: "New Custom Shortcut"
+      title: "New Spotlight"
     edit:
       title: "Edit %{tile}"
     show:
@@ -1347,6 +1377,12 @@ en:
       render_title: "Render title on tile?"
       render_description: "Render description on tile?"
       render_button: "Render button on tile?"
+      appears:
+        title: "Resident sees Spotlight"
+        always: "Always"
+        moved_in: "After moving in"
+        completed: "After Spaciable Completion"
+
   home:
     show:
      home: "Home"
@@ -1368,7 +1404,7 @@ en:
     collection:
       plot_documents: "Plot Documents"
       phases: "Phases"
-      unit_types: "Unit Types"
+      unit_types: "Spec Templates"
       documents: "Documents"
       plots: "Plots"
       add: "Add Development"
@@ -1381,7 +1417,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
-      custom_tiles: "Custom Shortcuts"
+      custom_tiles: "Resident Spotlights"
       calendar: "Calendar"
     edit:
       back: "Back"
@@ -1445,11 +1481,17 @@ en:
       sync: "Sync?"
       back: "Back"
       upload: "Upload Documents"
+    calendar:
+      index:
+        help_some_free: "Some plots have the Spaciable Free package, so they do not have calendar access. To unlock the calendar for all plots, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        help_some_free_title: "Calendar Inactive for Some Plots"
+        help_all_free: "No plots have calendar access, as all plots have the Spaciable Free package. To unlock the calendar, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        help_all_free_title: "Calendar Inactive for All Plots"
 
   development_csv:
     index:
       phases: "Phases"
-      unit_types: "Unit Types"
+      unit_types: "Spec Templates"
       build_progresses: "Build Progresses"
       download_csv: "Download"
       select_csv: "Select File"
@@ -1458,16 +1500,21 @@ en:
       download_label: "Download CSV Template"
       required: "Phase Name and Plot Number are required fields."
       required_details: "See the list of valid Phase values below. The phase name entered into the CSV must exactly match the phase name as it is displayed here."
-      format: "Unit Type and Build Progress must be entered in a specific format."
-      format_details: "See the list of valid Unit Types and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
+      format: "Spec Template and Build Progress must be entered in a specific format."
+      format_details: "See the list of valid Spec Templates and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
       file: "Upload a CSV to update multiple plots."
       file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
       date: "The Legal Completion Date must be in the format DD/MM/YYYY."
       date_details: "Ensure the date field is formatted DD/MM/YYYY. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
+      restricted:
+        title: "Cannot Update Some Plots"
+        help: "Some of your plots are on the Spaciable Free package and cannot be updated with a CSV upload. To unlock CSV updates for all plots, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
     errors:
+      invalid_column_error: "<br/>Invalid column(s): %{errors}"
+      free_phase_error: "<br/>Ignored Free Phase(s): %{errors}"
       phase_error: "<br/>Invalid Phase(s): %{errors}"
       plot_error: "<br/>Invalid Plot(s): %{errors}"
-      unit_error: "<br/>Invalid Unit Type(s): %{errors}"
+      unit_error: "<br/>Invalid Spec Template(s): %{errors}"
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
       completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
       duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
@@ -1479,11 +1526,24 @@ en:
       no_file: "Please select a valid CSV file to upload. You can download the template by clicking the 'Download CSV Template' button"
       phase_error_strip: "Invalid Phase(s): %{phase}"
       plot_error_strip: "Invalid Plot(s): %{plots}"
-      unit_errors_strip: "Invalid Unit Type(s): %{unit}"
+      unit_errors_strip: "Invalid Spec Template(s): %{unit}"
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
       uprn_error_strip: "Invalid UPRN(s): %{uprns}"
+    phase: "Phase name"
+    number: "Plot Number"
+    unit_type: "Spec Template"
+    uprn: "UPRN"
+    prefix: "Postal Prefix"
+    house_number: "Postal Number/Name"
+    building_name: "Building Name"
+    road_name: "Road Name"
+    postcode: "Postcode"
+    completion_date: "Estimated Move In Date (dd/mm/yyyy)"
+    build_step: "Build Progress"
+    reservation_order_number: "Reservation Order Number"
+    completion_order_number: "Completion Order Number"
 
   homeowners:
     my_home_name: "My %{construction}"
@@ -1691,7 +1751,7 @@ en:
         new: "New"
       address:
         view_more: "View %{construction}"
-        switch_plot: "Switch Plot"
+        spotlights: "Spotlights"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
@@ -1747,6 +1807,7 @@ en:
     dashboard:
       show:
         my_title: "%{construction}."
+        switch_plot: "Switch Plot"
       contacts:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
@@ -2073,13 +2134,16 @@ en:
       wecomplete_quote: "Branded WeComplete Quoting Form URL"
       is_demo: "Exclude from global reports"
       how_tos: "How To Guides"
-      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
+      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 resident spotlights."
       show_warranties: "Appliance Warranties"
       show_warranties_description: "Display appliance warranty durations to this developer's residents."
       analytics_dashboard_label: "Client Analytics Dashboard"
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
       plot_invite_label: "Enable Plot Invite/Activations Charts"
       competition_label: "Enable Division/Development Competition"
+      package: "Packages"
+      package_description: "Enable Spaciable Phase Packages"
+      customer_code: "Customer code"
       account_manager:
         title: "Account manager"
         name: "Name"
@@ -2318,7 +2382,7 @@ en:
           <li><strong>Affordable Rent/Housing Association </strong>- The resident renting directly from the Housing Association</li></ul>"
       limited_access_description:
         title_html: "Limited Access User"
-        overview: "Cannot add additional users.</br>
+        overview: "Cannot add additional users.<br/>
                   Can only view documents designated by a Full Access User.</p><h5>Suitable for:</h5>"
         suitable_html: "<ul>
           <li><strong>Traditional Sale</strong> - A resident of the property who is not the main owner/purchaser</li>
@@ -2542,6 +2606,9 @@ en:
 
         add_all_plots: "Add All Plots"
         clear_all_plots: "Clear All Plots"
+    calendar:
+      index:
+        help: "Plots on the Spaciable Free package do not benefit from the calendar. To unlock the calendar, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
 
   choice_configurations:
     create:
@@ -2554,7 +2621,7 @@ en:
     form:
       submit: "Submit"
       back: "Back"
-      unit_type: "Clone Rooms From Unit Type"
+      unit_type: "Clone Rooms From Spec Template"
       plots: "Plots"
     index:
       title: "Choice Configurations."
@@ -2641,6 +2708,10 @@ en:
         add: "Add %{type_name}"
   plots:
     rooms:
+      empty_completed:
+        desc: "Adding a room that applies to multiple plots?<br/><br/>Use the <a href='%{url}' target='_blank'>Spec Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Spec Template will not update on the plot."
+      empty_not_completed:
+        desc: "Sorry, you cannot edit rooms, finishes and appliances on this plot.<br/><br/>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after Classic Folios change the plot’s Status to Completion Information Added.<br/><br/>On the Plots tab at Phase level, a green circle in the Status column signifies Completion Information Added for that plot."
       index:
         title: "%{parent_name} rooms"
       edit:
@@ -2688,13 +2759,14 @@ en:
     edit:
       back: "Back"
       title: "Edit %{plot_name}"
+      expiry_date: "Expiry Date: "
     form:
       address: "Postal Address"
-      unit_type: "Unit Type"
+      unit_type: "Spec Template"
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
-      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
+      update_ut: "You have requested a change in Spec Template from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
 
     index:
       title: "%{parent_name} Plots"
@@ -2714,7 +2786,7 @@ en:
       rooms: "Rooms"
       documents: "Documents"
       residents: "Residents"
-      unit_type: "Unit Type"
+      unit_type: "Spec Template"
       date_c: "Status"
       choices: "Choices"
       name: "Plot"
@@ -2741,6 +2813,7 @@ en:
       back: "Back"
       completion: "Completion date"
       preview: "Preview"
+      help: "Plots on the Spaciable Free package do not benefit from the calendar. To unlock the calendar, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>."
     plot:
       expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
       letable: "Lettings: "
@@ -2830,7 +2903,7 @@ en:
       walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
-      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Unit Type."
+      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Spec Template."
       tip_2: "For example <strong>https://my.matterport.com/show/?m=8qpReuQhuEE</strong>"
       tip_3: "Make sure you use the plugin-friendly version of the URL, so that your 3D walkthrough or video can be embedded in an 'iframe':
               <ul><li>You can find out more details regarding the Matterport 3D walkthrough <a href='https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-', target='_blank'>here.</a></li>
@@ -2840,7 +2913,7 @@ en:
       restricted: "Restrict Specifications to CF Admin"
       picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels."
     new:
-      add: "New Unit Type."
+      add: "New Spec Template."
     show:
       walkthrough: "3D Walkthrough Link: "
       build_type: "Build Type: "
@@ -2852,14 +2925,17 @@ en:
       appliances: "Appliances: "
       back: "Back"
     index:
-      title: "%{development_name} unit types"
+      title: "%{development_name} Spec Templates"
     collection:
-      add: "Add Unit Type"
+      add: "Add Spec Template"
       rooms: "Rooms"
       documents: "Documents"
-      name: "Unit Type"
+      name: "Spec Template"
       last_edited: "Last Edited"
       logs: "Change Logs"
+      plot_template:
+        title: "What is a Spec Template?"
+        help: "The Spec Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.<br/><br/>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2869,10 +2945,18 @@ en:
      success: "%{name} was created successfully"
    update:
      success: "%{name} was updated successfully"
+   duplicate:
+     message: "Model Num/Category/manufacturer combination already exists."
    index:
-     title: "Appliances."
+     title: "Appliances Catalogue."
+     info:
+       title: "Appliances Catalogue"
+       desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.
+<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click
+Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms
+tab under a plot to assign a plot-specific finish."
    collection:
-     create: "Add Appliance"
+     create: "Create Appliance"
      assign: "Assign Appliance"
      appliance_category: "Category"
      remove: "Remove"
@@ -2886,16 +2970,21 @@ en:
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
-     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this appliance would remove it from all plots."
+     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or Spec Templates. Deleting this appliance would remove it from all plots."
 
    new:
-     title: "New Appliance."
+     title: "Create New Appliance."
+   clone:
+      title: "Create New Appliance from Clo"
    show:
      back: "Back"
      download: "Download manual"
      documents: "Appliance manual"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
+     confirm-edit:
+       title: "Edit %{name}"
+       body: "Any changes you make here will be reflected on all plots and Spec Templates containing this <strong>%{name}</strong> appliance.<br/><br/>If your intention is to replace the appliance for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -2915,7 +3004,9 @@ en:
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
-     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and unit types containing this appliance."
+     update: "Are you sure you want to update the catalogue entry for %{appliance}? Any changes will be reflected on all plots and Spec Templates containing this appliance."
+     appliance_description: "Use this page to update the catalogue with appliances used across your developments. If you can, upload suitable images that will illustrate the appliance."
+     clone: "You have chosen to clone an existing appliance. Edit the appliance details and click Submit to create a new appliance in the catalogue."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -2966,6 +3057,7 @@ en:
    form:
      back: "Back"
      submit: "Submit"
+     link: "Warranty Registration Link"
 
   appliance_categories:
     index:
@@ -2993,13 +3085,22 @@ en:
       success: "%{name} was created successfully"
     update:
       success: "%{name} was updated successfully"
+    duplicate:
+      message: "Name/Category/Type/manufacturer combination already exists."
     index:
-     title: "Finishes."
+      search: "Search finishes"
+      title: "Finishes Catalogue."
+      info:
+        title: "Finishes Catalogue"
+        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the
+finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot
+Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab
+under a plot to assign a plot-specific finish."
     collection:
       finish: "Finish Name"
       finish_category: "Category"
       finish_type: "Type"
-      create: "Add Finish"
+      create: "Create Finish"
       assign: "Assign Finish"
       finishes: "Finishes"
       image: "Image"
@@ -3010,9 +3111,11 @@ en:
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
-      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this finish would remove it from all plots."
+      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or Spec Templates. Deleting this finish would remove it from all plots."
     new:
-      title: "New Finish."
+      title: "Create New Finish."
+    clone:
+      title: "Create New Finish from Clone"
     form:
       name: "Finish Name"
       submit: "Submit"
@@ -3023,18 +3126,23 @@ en:
       manufacturer: "Manufacturer"
       notes: "Notes"
       notes_disclaimer: "This is not visible to residents"
-      finish_description: "Use this page to update the database with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
+      finish_description: "Use this page to update the catalogue with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
       disclaimer: "Can't find the %{item} you're looking for?"
-      category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
-      type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
-      manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
-      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and unit types containing this finish."
+      category_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the category you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes."
+      type_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the finish type you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish</strong> Type is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories.</strong>"
+      manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers.</a> to add a new Manufacturer entry to the Finishes Catalogue and associate it with any applicable Types.<br/><br/>If the manufacturer exists, but isn't associated with your required finish type, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of what finish type you would like to associate and we will review your request with a view of updating the Finishes Catalogue."
+      update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and Spec Templates containing this finish."
+      clone: "You have chosen to clone an existing finish. Edit the finish details and click Submit to create a new finish in the catalogue."
     edit:
       title: "Edit %{name}"
       back: "Back"
     show:
       back: "Back"
       original_filename: "Original file name"
+      confirm-edit:
+       title: "Edit %{name}"
+       body: "Any changes you make here will be reflected on all plots and Spec Templates containing this <strong>%{name}</strong> finish.<br/><br/>If your intention is to replace the finish for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
+
     no_match: "No matching finishes found"
 
   finish_categories:
@@ -3098,13 +3206,17 @@ en:
       # Add room to Plot 'Plot 1'
       # Add room to Plot 'Apartment 5'
       # Add room to Unit Type 'Kempton'
-      add: "Add Room"
+      add: "Add Room to %{name}"
       finishes: "Finishes"
       appliances: "Appliances"
       belongs_to: "Belongs To"
       name: "Room"
       last_edited: "Last Edited"
       last_edited_by: "Last Edited By"
+      free:
+        title: "Cannot Populate Rooms"
+        help: "Sorry, you cannot assign finishes or appliances to rooms with your current Spaciable Free package. To supply specifications on each plot and fully inform your customers, please ask Classic Folios to upgrade you to one of the packages below:<br/><br/>Essentials package - Give your admins the power to easily enter plot finishes and reduce customer queries.<br/><br>Professional package - Our experts sort through specifications and add finishes to each plot on your behalf, freeing up your aftercare team.<br/><br/>Find out more about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+
     edit:
       title: "Edit %{room_name}"
     form:
@@ -3124,28 +3236,30 @@ en:
     appliance_rooms:
       new:
         choose: "Choose..."
-        title: "New Appliance."
+        title: "Assign Appliance."
         submit: "Submit"
         back: "Back"
-        search: "Search"
-        search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances database.
-                      Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/>
+        search: "Search appliances"
+        search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances Catalogue.<br/><br/>
+                      Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/><br/>
                       Narrow results by using quotation marks to return only exact matches."
         category: "Category"
         manufacturer: "Manufacturer"
+        cannot_find: "Unable to find the Appliance you’re looking for?<br/><br/>Appliances must first be <a href='%{url}' target='_blank'>created in the Appliances Catalogue</a> before returning here to assign them to the room."
     finish_rooms:
       new:
-        title: "New Finish."
+        title: "Assign Finish."
         submit: "Submit"
         back: "Back"
-        search: "Search"
-        search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes database.
-                      Click the <strong>Finish Name</strong> drop-down field on this page to select from the results.<br/>
+        search: "Search finishes"
+        search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes Catalogue.<br/><br/>
+                      Click the <strong>Finish Name</strong> drop-down field on this page to select from the results.<br/><br/>
                       Narrow results by searching for product codes or using quotation marks, e.g., \"White Oak\", to return only exact matches."
         choose: "Choose..."
         category: "Category"
         type: "Type"
         finish: "Finish Name"
+        cannot_find: "Unable to find the Finish you’re looking for?<br/><br/>Finishes must first be <a href='%{url}' target='_blank'>created in the Finishes Catalogue</a> before returning here to assign them to the room."
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:
@@ -3344,12 +3458,12 @@ en:
       description: "<strong>Select the plots you wish to edit below.</strong>"
       description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
                         Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
-      unit_type: "Unit Type"
+      unit_type: "Spec Template"
       update_progress: "Update Build Progress"
       comp_date: "Estimated Move In Date"
       back: "Back"
       submit: "Submit"
-      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
+      update_ut: "You have requested a change in Spec Template.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
@@ -3377,7 +3491,7 @@ en:
       title: "Production overview of plots"
     collection:
       add: "Add Plot(s)"
-      unit_type: "Unit Type"
+      unit_type: "Spec Template"
       date_r: "R"
       date_c: "C"
       name: "Plot"
@@ -3405,7 +3519,7 @@ en:
       division: "Division"
       development: "Development"
       phase: "Phase"
-      unit_type: "Unit type"
+      unit_type: "Spec Template"
       plot: "Plot"
       room: "Room"
       finish: "Finish"
@@ -3468,12 +3582,17 @@ en:
           nhbc: "NHBC"
           mhf: "Migrated"
           commercial: "Commercial"
+        packages:
+          free: "Free"
+          essentials: "Essentials"
+          professional: "Professional"
+          legacy: "Legacy"
       unit_type:
-        name: "Unit type name"
-        picture: "Unit type picture"
+        name: "Spec Template name"
+        picture: "Spec Template picture"
         updated_at: "Last edited"
         build_types:
-          # Build type enums for unit type
+          # Build type enums for Spec Template
           house_semi: "House (semi-detached)"
           house_detached: "House (detached)"
           house_terraced: "House (terraced)"
@@ -3805,6 +3924,7 @@ en:
         bulk_edit_not_save: "%{title} %{numbers} could not be saved: %{messages}"
         bulk_edit_field_blank: "You can not remove %{field_name} from plots, a value must be provided"
         url_format: "Please check your links are in the correct format"
+        bulk_edit_date_future: "%{field_name} cannot me in the future"
       models:
         developer:
           attributes:
@@ -3842,7 +3962,7 @@ en:
             base:
               missing: "Plot not found"
               number_taken: "Number has already been added."
-              cannot_update_unit_type : "Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
+              cannot_update_unit_type : "Spec Template changes are restricted until after the Completion work has been done by Classic Folios"
         finish_type:
           attributes:
             finish_categories:
@@ -4136,7 +4256,12 @@ en:
 
   build_sequences:
     show:
+      help_title: "Build Progress"
       help: "If you navigate to a plot on Spaciable and update the Build Progress status, an email notification is sent to the plot resident(s). You can view the Build Progress stages and email content on this page.<br/><br/>This Build Progress content is the <strong>%{level}</strong> list."
+      restricted:
+        title: "Cannot Customise Build Progress "
+        help: "Sorry, you cannot customise Build Progress stages or emails with your current Spaciable Free package.  To create unique Build Progress content for your customers, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>."
+
     form:
       global: "Here, you can edit the Build Progress stages and email content: add stages above and below, delete stages or use the up/down arrows to swap a stage with the one above/below."
       global_warn: "All live and future plots on all developers without a custom Build Progress list will be updated with these new build progress stages."
@@ -4150,6 +4275,30 @@ en:
         new: "Please confirm to create a new Build Progress list specific to %{parent} with the following build sequence:"
         update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
         global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
+
+  faq_package:
+    title: "FAQ Package"
+    standard: "Standard"
+    enhanced: "Enhanced"
+    custom: "Custom"
+    free_help: "Your plots on the Free package will only see <strong>standard</strong> FAQs."
+    essentials_help: "Your plots on the Essentials package will only see <strong>standard</strong> and <strong>enhanced</strong> FAQs."
+
+  stuck_with_specs:
+    title: "Stuck with specs?"
+    help: "<p class='hangingindent'>Step 1: Create new <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate Catalogue using the left side menu. If entries
+already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then, use Spec Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Spec Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
+
+  payments:
+    developer_billing: "Developer Billing"
+    development_billing: "Development Billing"
+    customer_code: "Customer Code"
+
+  spotlight:
+    moved_in: "Show this Spotlight when a plot's <strong>Estimated Move In Date</strong> has passed. This date can be set in the plot's Completion tab and edit page."
+    completed: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
+    completed_e: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
+
 
 
 

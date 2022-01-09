@@ -44,6 +44,8 @@ var release = {
     // Check that the minimum data set is populated
     if (fd.list == "" || fd.release_date == "") {
       $('.flash').empty().append('<p class=alert>' + "Please populate plots and date" + '</p>')
+    } else if ($('#phase_release_plots_release_date')[0].valueAsNumber > new Date().getTime()) {
+      $('.flash').empty().append('<p class=alert>' + "Release date cannot be in the future" + '</p>')
     } else {
       // Call the controller to do the analysis
       $.getJSON({

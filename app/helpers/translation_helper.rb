@@ -8,4 +8,8 @@ module TranslationHelper
 
     t("activerecord.attributes.#{model_name}.#{attribute.to_s.pluralize}.#{key.to_sym}")
   end
+
+  def unsanitized(message)
+    simple_format message, {}, sanitize: false
+  end
 end

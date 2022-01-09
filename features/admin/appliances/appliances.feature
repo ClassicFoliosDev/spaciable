@@ -17,6 +17,11 @@ Feature: Appliances
     Then I should see a failed to delete message
     When I delete the CreateFixture.appliance_category_name appliance category
     Then I should see a failed to delete message
+    When I try to clone the ApplianceFixture.model_num appliance
+    Then I cannot produce a duplicate appliance
+    When I update the appliance name to ApplianceFixture.clone_model_num
+    Then I can see a ApplianceFixture.clone_model_num appliance
+    Then I delete the ApplianceFixture.clone_model_num appliance
     When I update the appliance
     Then I should see the updated appliance
     When I remove an image
@@ -31,22 +36,20 @@ Feature: Appliances
     Then I should see the appliance model num error
     When I create an appliance with no category
     Then I should see the appliance category error
-    # Create an overriding developer copy of the appliance_manufacturer_name appliance manufacturer
-    And there is a CreateFixture.appliance_manufacturer_name appliance manufacturer for developer CreateFixture.developer
-    # Create an overriding developer copy of the appliance_category_name appliance manufacturer
-    And there is a CreateFixture.appliance_category_name appliance category for developer CreateFixture.developer
+    And there is a CreateFixture.appliance_manufacturer_name appliance manufacturer
+    And there is a CreateFixture.appliance_category_name appliance category
     When I create an appliance
     Then I should see the new ApplianceFixture.model_num appliance
-    When I delete the CreateFixture.appliance_manufacturer_name appliance manufacturer
-    Then I should see a failed to delete message
-    When I delete the CreateFixture.appliance_category_name appliance category
-    Then I should see a failed to delete message
     When I update the appliance
     Then I should see the updated appliance
     When I remove an image
     Then I should see the updated appliance without the image
     When I remove a file
     Then I should see the updated appliance without the file
+    When I try to clone the ApplianceFixture.updated_model_num appliance
+    Then I cannot produce a duplicate appliance
+    When I update the appliance name to ApplianceFixture.clone_model_num
+    Then I can see a ApplianceFixture.clone_model_num appliance
     Examples:
       | role              |
       | Developer Admin   |
@@ -58,7 +61,7 @@ Feature: Appliances
     Given I am logged in as an admin
     And there is an appliance manufacturer
     And there is a CreateFixture.appliance_name appliance for developer nil
-    When I delete the appliance
+    When I delete the CreateFixture.appliance_name appliance
     Then I should see the CreateFixture.appliance_name appliance deletion complete successfully
 
   Scenario Outline: CAS Admin Delete
@@ -68,9 +71,9 @@ Feature: Appliances
     And there is a CreateFixture.appliance_name appliance for developer nil
     Then I cannot delete the CreateFixture.appliance_name appliance
     # Create and delete a duplicate developer appliance
-    And there is a CreateFixture.appliance_name appliance for developer CreateFixture.developer
-    When I delete the appliance
-    Then I should see the CreateFixture.appliance_name appliance deletion complete successfully
+    And there is a CreateFixture.developer_appliance_name appliance for developer CreateFixture.developer
+    When I delete the CreateFixture.developer_appliance_name appliance
+    Then I should see the CreateFixture.developer_appliance_name appliance deletion complete successfully
     Examples:
       | role              |
       | Developer Admin   |

@@ -38,7 +38,6 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
     click_on t("phases.collection.bulk_edit")
   end
 
-
   within ".bulk-edit" do
     fill_in :phase_bulk_edit_list, with: "#{CreateFixture.phase_plot_name.to_i},179~181"
     find("#phase_bulk_edit_unit_type_id_check").set true
@@ -49,22 +48,28 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
          phase_bulk_edit_completion_release_date
          phase_bulk_edit_validity
          phase_bulk_edit_extended_access
-         phase_bulk_edit_prefix
-         phase_bulk_edit_building_name
-         phase_bulk_edit_road_name
-         phase_bulk_edit_postcode].each do |selector|
+         ].each do |selector|
         expect(page).not_to have_selector "##{selector}"
 
         find("#phase_bulk_edit_build_step_id_check").set true
         select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
         find("#phase_bulk_edit_completion_date_check").set true
         fill_in :phase_bulk_edit_completion_date, with: (Time.zone.now + 10.days)
+        find("#phase_bulk_edit_prefix_check").set true
+        fill_in :phase_bulk_edit_prefix, with: "Bulk edit"
+        find("#phase_bulk_edit_copy_plot_numbers").set true
+        find("#phase_bulk_edit_building_name_check").set true
+        fill_in :phase_bulk_edit_building_name, with: "Bulky Building"
+        find("#phase_bulk_edit_road_name_check").set true
+        fill_in :phase_bulk_edit_road_name, with: "New Bulky Road"
+        find("#phase_bulk_edit_postcode_check").set true
+        fill_in :phase_bulk_edit_postcode, with: "SO40 1AB"
       end
     else
       find("#phase_bulk_edit_reservation_release_date_check").set true
-      fill_in :phase_bulk_edit_reservation_release_date, with: (Time.zone.now + 10.days)
+      fill_in :phase_bulk_edit_reservation_release_date, with: (Time.zone.now - 10.days)
       find("#phase_bulk_edit_completion_release_date_check").set true
-      fill_in :phase_bulk_edit_completion_release_date, with: (Time.zone.now + 20.days)
+      fill_in :phase_bulk_edit_completion_release_date, with: (Time.zone.now - 2.days)
       find("#phase_bulk_edit_validity_check").set true
       fill_in :phase_bulk_edit_validity, with: 23
       find("#phase_bulk_edit_extended_access_check").trigger('click')
@@ -97,8 +102,9 @@ end
 
 Then(/^there are errors for plots that don't exist and cannot be updated$/) do
   message = I18n.t("activerecord.errors.models.plot.attributes.base.missing")
+
   within ".alert" do
-    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
+    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Spec Template changes are restricted until after the Completion work has been done by Classic Folios"
   end
 end
 
@@ -217,8 +223,8 @@ Given(/^I am a CF admin and there is a plot with all fields set$/) do
       unit_type: CreateFixture.unit_type,
       phase: CreateFixture.phase,
       number: 17,
-      reservation_release_date: (Time.zone.now).to_date,
-      completion_release_date: (Time.zone.now + 12.days).to_date,
+      reservation_release_date: (Time.zone.now - 1.day).to_date,
+      completion_release_date: (Time.zone.now).to_date,
       validity: 20,
       extended_access: 12,
       prefix: "Unset Me",
@@ -269,13 +275,13 @@ Then(/^the plot fields are all unchanged$/) do
     expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
     expect(selected_unit_type).to have_content plot.unit_type.to_s
 
-    reservation_date = Time.zone.now.to_date
-    wrong_reservation_date = (Time.zone.now + 10.days).to_date
+    reservation_date = (Time.zone.now - 1.day).to_date
+    wrong_reservation_date = (Time.zone.now - 10.days).to_date
     res_rel_date = page.find(".plot_reservation_release_date")
     expect(res_rel_date['innerHTML']).to include reservation_date.html
     expect(res_rel_date['innerHTML']).not_to include wrong_reservation_date.html
 
-    completion_date = (Time.zone.now + 12.days).to_date
+    completion_date = (Time.zone.now).to_date
     wrong_completion_date = (Time.zone.now + 20.days).to_date
     comp_rel_date = page.find(".plot_completion_release_date")
     expect(comp_rel_date['innerHTML']).to include completion_date.html
@@ -359,7 +365,7 @@ end
 
 Then(/^I see an error for the mandatory fields$/) do
   within ".flash" do
-    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Unit type")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Spec Template")
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Validity (Months)")
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Extended Access (Months)")
   end
@@ -425,11 +431,11 @@ def test_plot_fields(plot_number, cas)
       expect(res_move_in_date['innerHTML']).to include mode_in_date.html
       expect(page).to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     else
-      reservation_date = (Time.zone.now + 10.days).to_date
+      reservation_date = (Time.zone.now - 10.days).to_date
       res_rel_date = page.find(".plot_reservation_release_date")
       expect(res_rel_date['innerHTML']).to include reservation_date.html
 
-      completion_date = (Time.zone.now + 20.days).to_date
+      completion_date = (Time.zone.now - 2.days).to_date
       comp_rel_date = page.find(".plot_completion_release_date")
       expect(comp_rel_date['innerHTML']).to include completion_date.html
 

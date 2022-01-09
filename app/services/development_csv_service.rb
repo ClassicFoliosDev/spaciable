@@ -4,20 +4,6 @@
 module DevelopmentCsvService
   module_function
 
-  PHASE = 0
-  PLOT = 1
-  UNIT = 2
-  UPRN = 3
-  PREFIX = 4
-  HOUSE_NUMBER = 5
-  BUILDING_NAME = 6
-  ROAD_NAME = 7
-  POSTCODE = 8
-  LEGAL_COMP_DATE = 9
-  PROGRESS = 10
-  ORDER_RES = 11
-  ORDER_COMP = 12
-
   require "date"
 
   def call(file, development, flash)
@@ -38,138 +24,156 @@ module DevelopmentCsvService
 
   # the loop will exit once an error is encountered, so will not check any further fields,
   # meaning only the first found error for each plot will be stored for the alert
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def import(file, development)
-    CSV.foreach(file.path, headers: true) do |row|
+    csv = CSV.open(file.path, headers: true).read
+    return unless headers_check?(csv.headers.reject(&:nil?))
+
+    csv.each do |row|
       catch(:next_row) do
         # find the phase from development
-        phase_name = row[PHASE]
+        phase_name = datum(row, :phase)
         phase = Phase.find_by(development_id: development.id, name: phase_name)
         @parsed[phase_name] ||= {} # Create the hash for this phase_name name
         @parsed[phase_name][:success] ||= [] # initialise array for phase successes
 
         # Check the phase
-        next unless phase_check?(phase_name, phase)
+        results = []
+        results << phase_check?(phase_name, phase)
 
         # Get the plot
-        plot = Plot.find_by(phase_id: phase.id, number: row[PLOT])
+        plot = if phase.present?
+                 Plot.find_by(phase_id: phase&.id, number: datum(row, :number))
+               end
 
         # go through the checks
         %i[plot duplicate unit completion progress uprn].each do |stage|
-          throw(:next_row, true) unless send("#{stage}_check?", phase_name, row, plot, development)
+          results << send("#{stage}_check?", phase_name, phase, row, plot, development)
         end
+
+        throw(:next_row, true) if results.include?(false)
 
         # store the successful plot number for notifying
         @parsed[phase_name][:success] << plot.number if plot.save!
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # store an error if the phase is unknown
+  # store an error if the phase is unknown/free
   def phase_check?(phase_name, phase)
     @parsed[phase_name][:phase] ||= []
     @parsed[phase_name][:phase] << phase_name unless phase
-    phase.present?
+    if phase&.free? && !RequestStore.store[:current_user].cf_admin?
+      @parsed[phase_name][:free_phase] ||= []
+      @parsed[phase_name][:free_phase] << phase_name
+    end
+    phase.present? && (!phase.free? || RequestStore.store[:current_user].cf_admin?)
   end
 
   # store an error if the plot is unknown
-  # rubocop:disable all
-  def plot_check?(phase_name, row, plot, _)
+  def plot_check?(phase_name, phase, row, plot, _)
     @parsed[phase_name][:plot] ||= []
-    @parsed[phase_name][:plot] << (row[PLOT]) unless plot
+    @parsed[phase_name][:plot] << datum(row, :number) if phase.present? && plot.blank?
 
     if plot.present?
-      plot.prefix = row[PREFIX] if row[PREFIX].present?
-      plot.house_number = row[HOUSE_NUMBER] if row[HOUSE_NUMBER].present?
-      plot.building_name = row[BUILDING_NAME] if row[BUILDING_NAME].present?
-      plot.road_name = row[ROAD_NAME] if row[ROAD_NAME].present?
-      plot.postcode = row[POSTCODE] if row[POSTCODE].present?
-      plot.reservation_order_number = row[ORDER_RES] if row[ORDER_RES].present?
-      plot.completion_order_number = row[ORDER_COMP] if row[ORDER_COMP].present?
+      set(plot, row, :prefix)
+      set(plot, row, :house_number)
+      set(plot, row, :building_name)
+      set(plot, row, :road_name)
+      set(plot, row, :postcode)
+      set(plot, row, :reservation_order_number)
+      set(plot, row, :completion_order_number)
     end
 
     plot.present?
   end
-  # rubocop:enable all
 
   # store an error if the plot number is duplicated in the CSV for that phase
   # if a previous instance of the plot was successfully saved then those values will remain
   # if a previous instance of the plot was unsuccessful then the duplicate plot attributes will
   # not be updated, even if they are valid
-  def duplicate_check?(phase_name, row, _, _)
+  def duplicate_check?(phase_name, _, row, _, _)
     @parsed[phase_name][:duplicate] ||= []
-    if @parsed[phase_name][:plot].include?(row[PLOT]) ||
-       @parsed[phase_name][:success].include?(row[PLOT])
-      @parsed[phase_name][:duplicate] << (row[PLOT])
-      return false
-    else
-      return true
-    end
+    return true unless @parsed[phase_name][:success].include?(datum(row, :number))
+
+    @parsed[phase_name][:duplicate] << datum(row, :number)
+    false
   end
 
   # check the unit type exists and store an error if it does not
-  def unit_check?(phase_name, row, plot, development)
+  def unit_check?(phase_name, _, row, plot, development)
     @parsed[phase_name][:unit] ||= []
-    passed = row[UNIT].blank?
+    passed = datum(row, :unit_type).blank?
 
     unless passed
-      unit_id = UnitType.find_by(development_id: development.id, name: row[UNIT])
+      unit_id = UnitType.find_by(development_id: development.id, name: datum(row, :unit_type))
       passed = unit_id.present?
-      plot.unit_type_id = unit_id.id if passed
+      plot.unit_type_id = unit_id.id if passed && plot.present?
     end
 
-    @parsed[phase_name][:unit] << row[UNIT] unless passed
+    @parsed[phase_name][:unit] << datum(row, :unit_type) unless passed
     passed
   end
 
   # check the uprn is in the correct format and store an error if it is not
-  def uprn_check?(phase_name, row, plot, _)
+  def uprn_check?(phase_name, _, row, plot, _)
     @parsed[phase_name][:uprn] ||= []
     passed = true
 
-    if row[UPRN].present?
-      passed = row[UPRN].length <= 12 && (row[UPRN] =~ /\A\d*\z/ ? true : false)
-      plot.uprn = row[UPRN] if passed
+    if datum(row, :uprn).present?
+      passed = datum(row, :uprn).length <= 12 && (datum(row, :uprn) =~ /\A\d*\z/ ? true : false)
+      plot.uprn = datum(row, :uprn) if passed && plot.present?
     end
 
-    @parsed[phase_name][:uprn] << row[UPRN] unless passed
+    @parsed[phase_name][:uprn] << datum(row, :uprn) unless passed
     passed
   end
 
   # check the legal completion date is in date format and within the specified range
   # and store an error if it is not
-  def completion_check?(phase_name, row, plot, _)
+  def completion_check?(phase_name, _, row, plot, _)
     @parsed[phase_name][:completion] ||= []
-    passed = row[LEGAL_COMP_DATE].blank?
+    passed = datum(row, :completion_date).blank?
 
     # check the legal completion date is in date format and within the specified range
     # and store an error if it is not
     unless passed
       begin
-        date = Date.parse(row[LEGAL_COMP_DATE])
+        date = Date.parse(datum(row, :completion_date))
         passed = date.between?((Time.zone.today - 6.months), (Time.zone.today + 1.year))
-        plot.completion_date = date if passed
+        plot.completion_date = date if passed && plot.present?
       rescue
         passed = false
       end
     end
 
-    @parsed[phase_name][:completion] << row[PLOT] unless passed
+    @parsed[phase_name][:completion] << datum(row, :completion_date) unless passed
     passed
   end
 
   # check the build progress is valid and store an error if it is not
-  def progress_check?(phase_name, row, plot, _)
+  def progress_check?(phase_name, phase, row, plot, _)
     @parsed[phase_name][:progress] ||= []
-    passed = true
+    passed = phase.present? && plot.present?
 
-    if row[PROGRESS].present?
-      build_step = Phase.find_by(name: phase_name).build_steps.find_by(title: row[PROGRESS])
+    if passed && datum(row, :build_step).present?
+      build_step = phase&.build_steps
+                        &.find_by(title: datum(row, :build_step))
       passed = build_step.present?
-      plot.build_step = build_step if passed
-      @parsed[phase_name][:progress] << row[PROGRESS] unless passed
+      plot.build_step = build_step if passed && plot.present?
+      @parsed[phase_name][:progress] << datum(row, :build_step) unless passed
     end
 
     passed
+  end
+
+  def headers_check?(headers)
+    @parsed["H"] ||= {}
+    @parsed["H"][:invalid_column] ||= []
+    legal_columns = DevelopmentCsv.filtered_column_names
+    headers.each { |h| @parsed["H"][:invalid_column] << h unless legal_columns.include?(h) }
+    @parsed["H"][:invalid_column].count.zero?
   end
 
   # error message for incorrect file type
@@ -216,6 +220,7 @@ module DevelopmentCsvService
   # Finally, all the error and success messages for each stage are joined together and
   # inserted into their configured text translations and returned as single error and
   # success messages
+  # rubocop:disable LineLength
   def build_messages
     messages = {}
     @parsed.each do |phase_name, stages|
@@ -223,13 +228,14 @@ module DevelopmentCsvService
         next if errs.empty?
         messages[stage] ||= []
         messages[stage] <<
-          "#{stage == :phase ? nil : phase_name + ':'} #{errs.reject(&:blank?).uniq.join(', ')}"
+          "#{%i[phase invalid_column].include?(stage) ? nil : phase_name + ':'} #{errs.reject(&:blank?).uniq.join(', ')}"
       end
     end
 
     yield messages.except(:success).map { |k, v| get_errors(k, v) }.join(" "),
           messages.slice(:success).map { |_, v| get_successes(v) }.join(" ")
   end
+  # rubocop:enable LineLength
 
   def notify_flash(flash, alert, notice)
     flash[:alert] = unless alert.present? || notice.present?
@@ -247,6 +253,14 @@ module DevelopmentCsvService
   # get the successes
   def get_successes(successes)
     I18n.t("development_csv.errors.success", plots: successes.join(" "))
+  end
+
+  def datum(row, column_name)
+    row[I18n.t("development_csv.#{column_name}")]
+  end
+
+  def set(plot, row, column_name)
+    plot.send("#{column_name}=", datum(row, column_name)) if datum(row, column_name).present?
   end
 end
 # rubocop:enable ModuleLength

@@ -14,14 +14,6 @@ var admin = {
     calendarConfig = {
         displayEventEnd: false,
         timezone:"local",
-        customButtons: {
-          addEvent: {
-            text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
-            click: function() {
-              admin.newEvent(dataIn, moment())
-            }
-          }
-        },
         header:{
           left: 'prev, next, today',
           center: 'month, agendaWeek, agendaDay',
@@ -104,10 +96,25 @@ var admin = {
         }
       }
 
+      if (admin.unrestricted()) {
+        calendarConfig.customButtons = {
+          addEvent: {
+            text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
+            click: function() {
+              admin.newEvent(dataIn, moment())
+            }
+          }
+        }
+      }
+
     // If the calendar is editable then add extras to support editing
     if (dataIn.editable) {
       calendarConfig.select = function(start, end, allday){
-          admin.newEvent(dataIn, start)
+          if (admin.unrestricted()) {
+            admin.newEvent(dataIn, start)
+          } else {
+                restricted.display(false)
+          }
         },
       calendarConfig.header.center = "addEvent, month, agendaWeek, agendaDay"
     }
@@ -115,6 +122,11 @@ var admin = {
     calendar = calendarEl.fullCalendar(calendarConfig)
 
     admin.loadFilter()
+ },
+
+ unrestricted: function() {
+  if (typeof $events_enabled == 'undefined') { $events_enabled = false }
+  return ($(".popup-resource").length == 0 || $events_enabled)
  },
 
  loadFilter: function()

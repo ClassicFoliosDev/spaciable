@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class FinishesController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -7,7 +8,9 @@ class FinishesController < ApplicationController
   skip_authorization_check only: %i[finish_types_list manufacturers_list finish_list]
 
   def index
-    @finishes = @finishes.includes(:finish_category, :finish_type, :finish_manufacturer)
+    @filter = filter
+    @ffilter = FinishFilter.new(filter_params)
+    @finishes = Finish.filtered(@ffilter, current_ability)
     @finishes = paginate(sort(@finishes, default: :name))
     @active_tab = "finishes"
   end
@@ -16,16 +19,29 @@ class FinishesController < ApplicationController
 
   def edit; end
 
-  def show; end
+  def show
+    @warn_on_edit = parse_boolean(params[:warn_on_edit])
+    @origin = params[:origin]
+  end
 
+  # rubocop:disable LineLength, Metrics/AbcSize
   def create
+    if !params[:finish][:picture] &&
+       !parse_boolean(params[:finish][:remove_picture]) &&
+       params[:finish][:copy_of].present?
+      CopyCarrierwaveFile::CopyFileService.new(Finish.find(params[:finish][:copy_of]), @finish, :picture).set_file if Finish.find(params[:finish][:copy_of]).picture?
+    end
     if @finish.save
       @finish.set_original_filename
       redirect_to finishes_path, notice: t("controller.success.create", name: @finish.name)
     else
+      if params[:finish][:copy_of].present?
+        @source_finish = Finish.find(params[:finish][:copy_of])
+      end
       render :new
     end
   end
+  # rubocop:enable LineLength, Metrics/AbcSize
 
   def update
     if @finish.update(finish_params)
@@ -43,6 +59,11 @@ class FinishesController < ApplicationController
       name: @finish.name
     )
     redirect_to finishes_url, notice: notice
+  end
+
+  def clone
+    @source_finish = @finish
+    @finish = @finish.dup
   end
 
   def finish_types_list
@@ -71,7 +92,7 @@ class FinishesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def finish_params
-    params.require(:finish).permit(
+    p = params.require(:finish).permit(
       :name,
       :description,
       :finish_category_id,
@@ -82,6 +103,8 @@ class FinishesController < ApplicationController
       :picture_cache,
       documents_attributes: %i[id title file _destroy]
     )
+    p[:remove_picture] = "0" if p[:picture].present?
+    p
   end
 
   # Override the current_ability - supplying the non_development value
@@ -89,4 +112,20 @@ class FinishesController < ApplicationController
   def current_ability
     @current_ability ||= ::Ability.new(current_user, non_development: true)
   end
+
+  def filter_params
+    return unless params.include?("finish_filter")
+    params.require("finish_filter").permit(:finish_category_id,
+                                           :finish_type_id,
+                                           :finish_manufacturer_id)
+  end
+
+  def filter
+    return {} unless params.include?("finish_filter")
+    f = params.permit(finish_filter: %i[finish_category_id
+                                        finish_type_id
+                                        finish_manufacturer_id])
+    f.to_h
+  end
 end
+# rubocop:enable Metrics/ClassLength

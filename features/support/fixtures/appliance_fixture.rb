@@ -11,6 +11,10 @@ module ApplianceFixture
     "FF 456 T UK"
   end
 
+  def clone_model_num
+    "FF 789 T UK"
+  end
+
   def updated_model_num
     "HH 654 F EU"
   end

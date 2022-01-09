@@ -14,7 +14,7 @@ module Abilities
       development_custom_tiles(developments)
       development_calendar
       crud_residents(developments)
-      read_developments(developer_id, division_id, developments, role)
+      developments(developer_id, division_id, developments, user)
     end
 
     private
@@ -25,14 +25,13 @@ module Abilities
       can :reinvite, Resident
     end
 
-    def read_developments(developer_id, division_id, developments, role)
+    def developments(developer_id, division_id, developments, user)
       can :read, Developer, id: developer_id
       can :read, Division, id: division_id
-      can :read, Development, id: developments
-      can :read, Phase, development_id: developments
+      can %i[read development_csv], Development, id: developments
+      can %i[read update bulk_edit], Phase, development_id: developments
       can :read, Room, development_id: developments
-      can :read, Plot, development_id: developments
-      can %i[update complete], Plot, development_id: developments
+      can %i[read update complete], Plot, development_id: developments
 
       can :read, UnitType, development_id: developments
 

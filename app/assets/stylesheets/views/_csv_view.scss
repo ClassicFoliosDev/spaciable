@@ -21,11 +21,19 @@
   }
 
   .csv-download {
-    margin-top: $spacing-medium;
+    margin-bottom: $spacing-medium;
   }
 
   .third {
     margin-bottom: $spacing-small;
+  }
+
+  h4 {
+    margin: 0 0 10;
+  }
+
+  .upload-csv {
+    display: none;
   }
 }
 

@@ -30,6 +30,8 @@ module Homeowners
     def fetch_faqs
       faqs = Faq.accessible_by(current_ability)
       faqs = faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      faqs = faqs.where(faq_package: :standard) if @plot.free?
+      faqs = faqs.where(faq_package: %i[standard enhanced]) if @plot.essentials?
       @faqs = faqs.order(updated_at: :desc).limit(5)
     end
 
@@ -37,11 +39,13 @@ module Homeowners
       contacts = Contact.accessible_by(current_ability)
       contacts = contacts.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       @contacts = contacts.order(pinned: :desc, updated_at: :desc).limit(4)
+      @contacts = @contacts.where(contactable_type: "Phase") if @plot.free?
     end
 
     def build_documents
       docs = @all_docs
       docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      docs = docs.where(documentable_type: "Phase") if @plot.free?
       docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 
       appliances = Appliance.accessible_by(current_ability)

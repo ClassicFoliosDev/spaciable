@@ -11,8 +11,10 @@ module Developers
       @developments = paginate(sort(@developments, default: :name))
     end
 
+    # rubocop:disable Metrics/AbcSize
     def show
-      @active_tab = params[:active_tab] || "phases"
+      @selected_tab = params[:active_tab]
+      @active_tab = @selected_tab || "phases"
 
       @collection = if @active_tab == "unit_types"
                       paginate(sort(@development.unit_types, default: :name))
@@ -28,20 +30,15 @@ module Developers
                       @development.plots
                     end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def new
-      @development.build(:address)
-      @maintenance = Maintenance.new
-      @development.build(:maintenance)
+      @development.build
       @development.cas = @development.parent_developer.cas
-      @premium_perk = PremiumPerk.new
-      @development.build(:premium_perk)
     end
 
     def edit
-      @development.build(:address)
-      @development.build(:maintenance)
-      @development.build(:premium_perk)
+      @development.build
     end
 
     def create
@@ -55,7 +52,7 @@ module Developers
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, :developments], notice: notice
       else
-        @development.build(:address)
+        @development.build
         render :new
       end
     end
@@ -67,7 +64,7 @@ module Developers
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, @development], notice: notice
       else
-        @development.build(:address)
+        @development.build
         render :edit
       end
     end

@@ -5,8 +5,6 @@
 
   <div><%= plot %></div>
 
-  <% cas_update = current_user&.cf_admin? || can?(:cas_update, plot) %>
-
   <div class="about">
     <br/>
     <span class="overview">
@@ -23,20 +21,18 @@
       <% if current_user.cf_admin? || plot.cas %>
         <%= t("cas_enabled", status: plot.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
       <% end %>
-      <% if cas_update %>
-        <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
-        <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
-        <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>
-      <% end %>
+      <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
+      <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
+      <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>
     </span>
   </div>
 </div>
 
 <div class="section-data">
   <%= render 'address/address', address: plot %><br/>
-  <strong><%= plot.unit_type %></strong><br/>
-  <% if cas_update %>
-    <%= edit_btn [:edit, plot], element: plot %>
+  <% if current_user.cf_admin? || !plot.free? %>
+    <strong><%= plot.unit_type %></strong><br/>
   <% end %>
+  <%= edit_btn [:edit, plot], element: plot %>
   <%= (link_to t(".preview"), plot_preview_path(plot), class: "btn") unless plot.expired? && !(current_user.cf_admin?) %>
 </div>

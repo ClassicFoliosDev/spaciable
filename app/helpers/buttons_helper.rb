@@ -104,4 +104,12 @@ module ButtonsHelper
       icon "envelope-o"
     end
   end
+
+  def clone_btn(clone_path, label = "", element:)
+    return unless element && (can? :clone, element)
+
+    link_to clone_path, class: "btn", data: { action: "clone" }, title: I18n.t("buttons.clone") do
+      icon "files-o", label
+    end
+  end
 end

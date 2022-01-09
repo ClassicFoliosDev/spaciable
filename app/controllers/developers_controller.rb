@@ -16,17 +16,11 @@ class DevelopersController < ApplicationController
   end
 
   def new
-    @developer.build_address unless @developer.address
-
     @branded_perk = BrandedPerk.new
-    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def edit
-    @developer.build_address unless @developer.address
-
     @branded_perk = BrandedPerk.new
-    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def show
@@ -105,6 +99,7 @@ class DevelopersController < ApplicationController
       :enable_perks, :is_demo, :enable_how_tos,
       :conveyancing, :wecomplete_sign_in, :wecomplete_quote, :show_warranties,
       :account_manager_name, :account_manager_email, :account_manager_contact,
+      :on_package, :stripe_code,
       charts_attributes: %i[id section enabled],
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name

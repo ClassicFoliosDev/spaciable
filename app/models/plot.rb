@@ -59,6 +59,7 @@ class Plot < ApplicationRecord
 
   delegate :build_steps, to: :parent
   delegate :title, to: :build_step, prefix: true
+  delegate :free?, :essentials?, :professional?, :legacy?, to: :phase
 
   alias_attribute :identity, :number
 
@@ -79,6 +80,7 @@ class Plot < ApplicationRecord
   }
   validates_with PlotCombinationValidator
   validate :move_in_date
+  validate :release_complete_dates
 
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, :external_link?, to: :unit_type
@@ -108,7 +110,6 @@ class Plot < ApplicationRecord
 
   after_create :post_create
   after_update :post_update
-  after_save :check_completion
 
   # Retrieve all plots for the phase that are allocated to a specified
   # timeline
@@ -635,15 +636,6 @@ class Plot < ApplicationRecord
     PlotLog.unit_type_update(self)
   end
 
-  # perform post completion initialisation
-  def check_completion
-    return unless developer.cas
-    return if completion_release_date.blank?
-    return unless unit_type_id_changed? || completion_release_date_changed?
-
-    Cas::Finishes.initalise_plots([self])
-  end
-
   def log_threshold
     return :none if RequestStore.store[:current_user].cf_admin?
 
@@ -776,6 +768,19 @@ class Plot < ApplicationRecord
   end
   # rubocop:enable Rails/Date, Style/CaseEquality
 
+  def release_complete_dates
+    result = true
+
+    %i[completion_release_date reservation_release_date].each do |f|
+      if send(f).present? && send(f) > Time.zone.today
+        errors.add(f, "cannot be in the future")
+        result = false
+      end
+    end
+
+    result
+  end
+
   def videos
     videos = []
     [developer, division, development].each do |level|
@@ -791,6 +796,28 @@ class Plot < ApplicationRecord
 
   def set_build_status
     self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
+  end
+
+  # Plots are billable if the lesser of reservation/completion release date has passed
+  # less than 36 months ago
+  def self.billable(phase)
+    sql = "select number from plots where phase_id = #{phase.id} " \
+          "AND LEAST(completion_release_date, reservation_release_date) <= current_date " \
+          "AND LEAST(completion_release_date, reservation_release_date) > " \
+          "'#{Time.zone.now - 36.months}' "
+    ActiveRecord::Base.connection.exec_query(sql)
+  end
+
+  # filter tiles according to the plot status
+  def visible_tiles(active_tiles)
+    [%i[moved_in completion_date],
+     %i[completed completion_release_date]].each do |appear, date|
+      if send(date).blank? || (send(date).present? && send(date) > Time.zone.today)
+        active_tiles.reject! { |t| t.send("#{appear}?") }
+      end
+    end
+
+    active_tiles
   end
 end
 # rubocop:enable Metrics/ClassLength

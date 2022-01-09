@@ -83,7 +83,8 @@ module Admin
         :faq_type_id,
         :faq_category_id,
         :category,
-        :country_id
+        :country_id,
+        :faq_package
       )
     end
 

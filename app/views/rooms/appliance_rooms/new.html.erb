@@ -1,5 +1,7 @@
 <% breadcrumb :room_appliance_edit, @room %>
 
+<%= render "components/admin/popup", title: t("stuck_with_specs.title"), help: [t("stuck_with_specs.help")], type: :tip, all_users: true, popup_on_load: false, width: 500 %>
+
 <div class="section-header add_appliance">
   <div class="section-title">
     <%= t(".title") %><br>
@@ -44,6 +46,7 @@
             <%= label_tag Appliance.model_name.human %>
             <%= select_tag :appliances, required: true %>
             <span class="match-errors"></span>
+            <p><%= unsanitized t(".cannot_find", url: new_appliance_path) %></p>
           </div>
         </fieldset>
       </div>

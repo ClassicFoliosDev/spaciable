@@ -19,7 +19,8 @@ class SyncFaq
                  category: faq.category,
                  faqable: parent,
                  faq_type_id: faq.faq_type_id,
-                 faq_category_id: faq.faq_category_id)
+                 faq_category_id: faq.faq_category_id,
+                 faq_package: faq.faq_package)
     end
   end
 end

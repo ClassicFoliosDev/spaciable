@@ -86,16 +86,17 @@ $row-bg-color: $ui-white;
     @include span-columns(16 of 16);
     border-bottom: 1px solid $ui-grey;
     position: fixed;
+    background-color: $ui-white;
     top: 66px;
 
     //For tablet portrait and up
     @include media($tablet-landscape-up) {
-      @include span-columns(13 of 13);
+      width: 80%;
     }
 
     //For large desktop up
     @include media($desktop-large-up) {
-      @include span-columns(14 of 14);
+      width: 85%;
     }
   }
 }

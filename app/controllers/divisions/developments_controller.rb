@@ -12,22 +12,17 @@ module Divisions
     end
 
     def new
-      @development.build(:address)
-      @maintenance = Maintenance.new
-      @development.build(:maintenance)
+      @development.build
       @development.cas = @development.parent_developer.cas
-      @premium_perk = PremiumPerk.new
-      @development.build(:premium_perk)
     end
 
     def edit
-      @development.build(:address)
-      @development.build(:maintenance)
-      @development.build(:premium_perk)
+      @development.build
     end
 
     def show
-      @active_tab = params[:active_tab] || "phases"
+      @selected_tab = params[:active_tab]
+      @active_tab = @selected_tab || "phases"
 
       @collection = if @active_tab == "unit_types"
                       paginate(sort(@development.unit_types, default: :name))
@@ -48,7 +43,7 @@ module Divisions
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, :developments], notice: notice
       else
-        @development.build(:address)
+        @development.build
         render :new
       end
     end
@@ -60,8 +55,8 @@ module Divisions
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, @development], notice: notice
       else
-        @development.build(:address)
-        render :edit
+        @development.build
+        render :new
       end
     end
 

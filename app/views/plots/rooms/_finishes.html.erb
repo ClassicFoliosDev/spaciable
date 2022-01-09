@@ -30,19 +30,19 @@
     </thead>
     <tbody>
       <% collection.each do |finish| %>
-        <tr <%="class=view-only" if cannot?(:update, finish) %>>
-          <td style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
-          <td colspan="2"><%= link_to finish.name, finish_path(finish)%></td>
-          <td colspan="2"><%= finish.finish_category %></td>
-          <td colspan="2"><%= finish.finish_type %></td>
-          <td colspan="2"><%= finish.finish_manufacturer %></td>
-          <td colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
-          <td colspan="2"><%= finish.added_by %></td>
+        <% tdc = cannot?(:update, finish) ? "class=view-only" : nil %>
+        <tr>
+          <td <%= tdc %> style="text-align:center;"><%= image_link_to finish, finish_path(finish, warn_on_edit: true, origin: room&.identity) %></td>
+          <td <%= tdc %>  colspan="2"><%= can?(:read, finish) ? link_to(finish.name, finish_path(finish, warn_on_edit: true, origin: room&.identity)) : finish.name %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_category %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_type %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_manufacturer %></td>
+          <td <%= tdc %> colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
+          <td <%= tdc %> colspan="2"><%= finish.added_by %></td>
 
           <% if showing_icons %>
             <td  colspan="2" class="actions">
             <% if finish.choice == false %>
-              <%= edit_btn edit_finish_path(finish), element: finish %>
               <% if cancrud %>
                 <% if current_user.cf_admin? %>
                   <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>

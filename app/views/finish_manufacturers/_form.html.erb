@@ -20,7 +20,7 @@
       </fieldset>
       <fieldset class="skip-global-selectmenu">
         <div class="finish_manufacturer_finish_type ui-front select-container">
-          <%= f.association :finish_types, label: t(".types"), collection: FinishType.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
+          <%= f.association :finish_types, label: t(".types"), collection: FinishType.accessible_by(current_ability).order(:name), multiple: true, class: "multiple" %>
           <p class="help"><%= t(".type_help").html_safe %></p>
         </div>
       </fieldset>

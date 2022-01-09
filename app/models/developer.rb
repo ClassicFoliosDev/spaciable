@@ -32,6 +32,14 @@ class Developer < ApplicationRecord
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
 
+  scope :on_package,
+        lambda {
+          joins(:phases)
+            .where(phases: { package: [Phase.packages[:essentials],
+                                       Phase.packages[:professional]] })
+            .uniq
+        }
+
   has_many :charts, -> { order("id") }, as: :chartable, dependent: :destroy
   accepts_nested_attributes_for :charts
 
@@ -286,8 +294,10 @@ class Developer < ApplicationRecord
   end
 
   def build
-    return unless charts.empty?
+    build_address unless address
+    build_branded_perk unless branded_perk
 
+    return if charts.empty?
     Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
   end
 
@@ -334,12 +344,6 @@ class Developer < ApplicationRecord
 
     # Migrate finishes for the developer if CAS
     return unless cas
-
-    MigrateFinishesJob.perform_later(
-      id,
-      RequestStore.store[:current_user]&.full_name,
-      RequestStore.store[:current_user]&.role
-    )
   end
   # rubocop:enable SkipsModelValidations
 

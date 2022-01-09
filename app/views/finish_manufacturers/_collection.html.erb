@@ -20,9 +20,9 @@
     </thead>
     <tbody>
       <% collection.each do |finish_manufacturer| %>
-        <tr data-finish-manufacturer="<%= finish_manufacturer.id %>">
+        <tr <%= cannot?(:update, finish_manufacturer) ? "class=view-only" : nil %> data-finish-manufacturer="<%= finish_manufacturer.id %>">
           <td colspan="2"><%= link_to finish_manufacturer.name, finish_manufacturer_path(finish_manufacturer), title: finish_manufacturer.name %></td>
-          <td><%= l finish_manufacturer.updated_at.to_date, format: :digits %></td>
+          <td ><%= l finish_manufacturer.updated_at.to_date, format: :digits %></td>
           <td class="actions">
             <%= edit_btn edit_finish_manufacturer_path(finish_manufacturer), element: finish_manufacturer %>
             <%= delete_btn finish_manufacturer, path: url_for(finish_manufacturer), element: finish_manufacturer %>

@@ -33,20 +33,17 @@
 
       </div>
     </div>
-    <div class="row-item third user-search">
+    <div class="row-item third search-user">
       <div class="search-container">
-        <%= label_tag "Search" %>
         <%= simple_fields_for :search do |s| %>
-        <span>
-              <%= s.text_field :search_user_text, class: "search-user-field", autocomplete: "off", placeholder: search, data: {path: user_search_path}  %>
-              <%= link_to "", class: "btn search-user-btn" do %>
-                <i class="fa fa-search"></i>
-              <% end %>
-            </span>
-        <div class="search-results-container">
-          <ul class="user-search-results"></ul>
-        </div>
+          <%= s.text_field :search_user_text, class: "search-user-field", autocomplete: "off", placeholder: search, data: {path: user_search_path}  %>
+          <%= link_to "", class: "btn search-user-btn" do %>
+            <i class="fa fa-search"></i>
+          <% end %>
         <% end %>
+        <div class="search-results-container">
+          <ul class="search-results"></ul>
+        </div>
       </div>
     </div>
   <% end %>

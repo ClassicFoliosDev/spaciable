@@ -1,3 +1,7 @@
+<% if any_phases_free?(parent) %>
+  <%= render "components/admin/popup", title: t(".help_title"), preference: :show_custom_tile_restriction_dialog, help: [t(".help")], type: :warn %>
+<% end %>
+
 <% if collection.empty? %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>
@@ -20,9 +24,16 @@
   <table class="record-list">
     <thead>
     <tr>
-      <th><%= t(".title") %></th>
+      <th>
+        <i class="fa fa-question-circle-o popup-help" id="spotlightHelp" data-image=<%= image_path "resident_spotlights.png"%>></i>
+        <%= t(".spotlight") %>
+      </th>
       <th><%= t(".category") %></th>
       <th><%= t(".editable") %></th>
+      <% if !current_user.cf_admin? && any_phases_free?(parent) %>
+        <th><%= t(".cf") %></th>
+      <% end %>
+
       <th>&nbsp;</th>
     </tr>
     </thead>
@@ -33,6 +44,10 @@
       <td><%= custom_tile.category.titleize %></td>
       <td><%= custom_tile.editable? ? "Yes" : "No" %></td>
       </td>
+      <% if !current_user.cf_admin? && any_phases_free?(parent) %>
+        <td><%= custom_tile.cf? ? "Yes" : "No" %></td>
+      <% end %>
+
       <td class="actions">
         <% if current_user.cf_admin? || custom_tile.editable? %>
           <%= (edit_btn edit_custom_tile_path(custom_tile), element: custom_tile) unless parent.expired? && !(current_user.cf_admin?) %>

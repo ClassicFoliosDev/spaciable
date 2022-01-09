@@ -73,7 +73,7 @@
           <% end %>
         <% end %>
 
-        <% if plot.enable_roomsketcher? %>
+        <% if !plot.free? && plot.enable_roomsketcher? %>
           <%= link_to home_designer_path, class: "navbar-link" do %>
             <li class="navbar-item">
               <%= t("layouts.homeowner.nav.home_designer", construction: plot.my_construction_name) %>
@@ -98,7 +98,7 @@
           <% end %>
         <% end %>
 
-        <% if plot.enable_perks? %>
+        <% if !plot.free? && plot.enable_perks? %>
           <% Vaboo.perks_account_activated?(current_resident, plot) do |response, error| %>
             <% if error == true %>
               <li class="navbar-item unavailable">
@@ -145,7 +145,7 @@
           </li>
         <% end %>
 
-        <% if plot.development_calendar %>
+        <% if !plot.free? && plot.development_calendar %>
           <%= link_to homeowner_calendar_path, active_tab: "faqs", class: "navbar-link" do %>
             <li class="navbar-item">
               <%= t('.calendar') %>
@@ -160,9 +160,11 @@
         <% end %>
 
         <% if current_resident&.plot_residency_homeowner?(plot) %>
-          <% if plot.snagging_valid %>
-            <%= link_to snags_path, active_tab: "snagging", class: "navbar-link" do %>
-            <li class="navbar-item"><%= plot.snag_name %></li>
+          <% unless plot.free? || plot.essentials? %>
+            <% if plot.snagging_valid %>
+              <%= link_to snags_path, active_tab: "snagging", class: "navbar-link" do %>
+              <li class="navbar-item"><%= plot.snag_name %></li>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>

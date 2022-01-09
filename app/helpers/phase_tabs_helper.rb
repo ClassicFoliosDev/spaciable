@@ -37,7 +37,8 @@ module PhaseTabsHelper
         icon: "pencil-square-o",
         link: [phase, :bulk_edit_index],
         check_assoc: true, # check phase for bulk_edit permission
-        permissions_on: -> { phase }
+        permissions_on: -> { phase },
+        hide: RequestStore.store[:current_user].site_admin?
       },
       release_plots: {
         icon: "rocket",

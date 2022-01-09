@@ -33,6 +33,7 @@
 
             <%= f.hidden_field :faq_type_id, value: faq_type.id %>
             <%= f.association :faq_category, label: t(".category"), collection: faq_type.categories %>
+            <%= f.input :faq_package, as: :select, collection: default_faq_packages_collection, include_blank: true %>
           </fieldset>
         </div>
       </div>

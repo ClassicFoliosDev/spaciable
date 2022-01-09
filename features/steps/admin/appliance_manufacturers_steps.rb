@@ -34,7 +34,7 @@ end
 
 When(/^I create an appliance with the new appliance manufacturer$/) do
   visit "/appliances"
-  click_on I18n.t("appliances.collection.create")
+  find("a.btn.btn-primary").trigger('click')
 
   within ".appliance" do
     fill_in "appliance_model_num", with: ApplianceFixture.model_num
