@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, user]) do |f| %>
+<%= simple_form_for([:admin, user] , :html => { main:true, dup_message: t("admin.users.form.duplicate_role"), prec_message: t("admin.users.form.higher_precidence"), prec_message_title: t("admin.users.form.higher_precidence_title"), data: { cf: current_user.cf_admin? } }) do |f| %>
   <% if user.errors.any? %>
     <div class="submission-errors">
       <ul>
@@ -13,53 +13,97 @@
   <% end %>
 
   <div class="row user-form">
-    <div class="user-details form-row">
+    <div class=<%= current_user.cf_admin? ? "cf-user-details" : "form-row"%>>
       <fieldset class="form-column contact-details">
         <%= f.input :email, label: t(".email"), readonly: user.id.present? %>
         <%= f.input :first_name, label: t(".first_name") %>
         <%= f.input :last_name, label: t(".surname") %>
-      </fieldset>
-      <fieldset class="form-column permission-level skip-global-selectmenu">
         <%= f.input :job_title, label: t(".job_title") %>
+        <div class="image-container">
+          <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-column permission-level skip-global-selectmenu">
         <%= f.input :role,
         as: :select,
         collection: User::accessible_admin_roles(current_user),
         label_method: ->(role) { t(role.first) },
         value_method: :first,
         include_blank: t("users.choose"),
-        selected: selected_role %>
-        <%= cascade_select_input f, :developer_id, Developer %>
-        <%= cascade_select_input f, :division_id, Division %>
-        <%= cascade_select_input f, :development_id, Development %>
-      </fieldset>
-      <fieldset class="form-column user-image">
-        <div class="image-container">
-          <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
-        </div>
+        selected: selected_role,
+        label: t(".primary.role"),
+        disabled: (user == current_user && !user.cf_admin? && controller.action_name == 'edit') %>
+        <%= cascade_select_input f, :developer_id, Developer, label: t(".primary.developer") %>
+        <%= cascade_select_input f, :division_id, Division, label: t(".primary.division") %>
+        <%= cascade_select_input f, :development_id, Development, label: t(".primary.development") %>
       </fieldset>
 
-      <div class="separator"></div>
+      <% if current_user.cf_admin? %>
+        <fieldset class="form-column su-permission-level skip-global-selectmenu">
+          <div class="su-controls">
+            <%= f.input :su_role,
+            as: :select,
+            collection: User::accessible_admin_roles(current_user),
+            label_method: ->(role) { t(role.first) },
+            value_method: :first,
+            include_blank: t("users.choose"),
+            label: t(".additional.role") %>
+            <%= cascade_select_input f, :su_developer_id, Developer %>
+            <%= cascade_select_input f, :su_division_id, Division %>
+            <%= cascade_select_input f, :su_development_id, Development %>
+            <%= button_tag t(".add_role"), :type => 'button', class: "btn", id: 'add_role' %>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <fieldset class="form-column su-additional-roles ">
+        <div>
+          <%= help_btn text: t('.additional_roles_info'), title: t('.additional_roles')%>
+          <label class='inline'><%= t(".additional_roles") %></label>
+        </div>
+        <div class="additional-roles ">
+          <%= f.fields_for :grants do |g| %>
+            <% grant = g.object %>
+            <div class=<%= "additional-role" + (grant.permission_level.nil? ? " hidden": "") %>>
+              <%= g.hidden_field :role %>
+              <%= g.hidden_field :permission_level_type %>
+              <%= g.hidden_field :permission_level_id %>
+              <%= g.hidden_field :_destroy, value: false, deletefield: true %>
+              <div id="metadata">
+                <% if grant.permission_level.present? %>
+                  <div class="header">
+                    <span class="additional-role-meta inline"><%= t(grant.role) %></span>
+                    <% if current_user.cf_admin? %>
+                      <i class='fa fa-times delete'></i>
+                    <% end %>
+                  </div>
+                  <span class="additional-role-meta"><%= grant.developer %></span>
+                  <% if grant.division.present? %>
+                    <span class="additional-role-meta"><%= grant.division %></span>
+                  <% end %>
+                  <% if grant.development.present? %>
+                    <span class="additional-role-meta"><%= grant.development %></span>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </fieldset>
     </div>
 
-    <div class="user-permissions form-row">
-      <fieldset class="form-column features">
-        <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
-        <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
-          <%= f.label :cas_enabled, t(".client_specifications"), class: "checkbox-label" %>
-          <%= f.check_box :cas, id: :cas_check,
-          disabled: (user.division_admin? || user.developer_admin?) %>
-          <span class="checkbox-description"><%= t(".adds_specifications") %></span>
-        </div>
-        <div class="administer_lettings">
-          <%= f.label :branch_admin, t(".lettings_branch_admin"), class: "checkbox-label" %>
-          <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
-          <span class="checkbox-description"><%= t(".administer_branch") %></span>
-        </div>
-      </fieldset>
+    <hr class="solid">
 
+    <div class="form-row-head">
+      <%= help_btn text: t('.email_pref_info'), title: t('.email_pref_title')%>
+      <p><%= simple_format t(".email_pref_title") %></p>
+    </div>
+
+    <div class="form-row">
       <fieldset class="form-column emails">
         <div class="email-fields">
-          <div class="receive_release_emails">
+          <div class="receive_release_emails toggle">
             <%= f.label :plot_emails, t(".plot_emails"), class: "checkbox-label" %>
             <%= f.check_box :receive_release_emails, id: :plot_check,
             disabled: !user.enable_receive_release_emails?(current_user) %>
@@ -73,17 +117,17 @@
             <span class="checkbox-description"><%= t(".receive_choice_emails") %></span>
           </div>
         -->
-          <div class="snag_notifications">
+          <div class="snag_notifications toggle">
             <%= f.label :snag_emails, t(".snag_emails"), class: "checkbox-label" %>
             <%= f.check_box :snag_notifications, id: :snag_check %>
             <span class="checkbox-description"><%= t(".receive_snag_emails") %></span>
           </div>
-          <div class="receive_faq_emails">
+          <div class="receive_faq_emails toggle">
             <%= f.label :faq_emails, t(".faq_emails"), class: "checkbox-label" %>
             <%= f.check_box :receive_faq_emails, id: :faq_check %>
             <span class="checkbox-description"><%= t(".receive_faq_emails") %></span>
           </div>
-          <div class="receive_invitation_emails">
+          <div class="receive_invitation_emails toggle">
             <%= f.label :invitation_emails, t(".invitation_emails"), class: "checkbox-label" %>
             <%= f.check_box :receive_invitation_emails, id: :invitations_check %>
             <span class="checkbox-description"><%= t(".receive_invitation_emails") %></span>
@@ -100,6 +144,20 @@
         </div>
       </fieldset>
 
+      <fieldset class="form-column">
+        <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
+        <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
+          <%= f.label :cas_enabled, t(".client_specifications"), class: "checkbox-label" %>
+          <%= f.check_box :cas, id: :cas_check,
+          disabled: (user.division_admin? || user.developer_admin?) %>
+          <span class="checkbox-description"><%= t(".adds_specifications") %></span>
+        </div>
+        <div class="administer_lettings">
+          <%= f.label :branch_admin, t(".lettings_branch_admin"), class: "checkbox-label" %>
+          <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
+          <span class="checkbox-description"><%= t(".administer_branch") %></span>
+        </div>
+      </fieldset>
       <div class="separator"></div>
     </div>
 
@@ -126,7 +184,7 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), admin_users_path, class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit_user' %>
     </div>
   </div>
 <% end %>

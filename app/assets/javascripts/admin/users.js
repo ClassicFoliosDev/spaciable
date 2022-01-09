@@ -1,86 +1,98 @@
 /* global $, clearFields, setFields */
+var $num_additional_roles = 0
 
 document.addEventListener('turbolinks:load', function () {
+  $num_additional_roles = $('.additional-role').length
+  var $primary = ""
+  var $su = "_su"
   var $roleSelect = $('.user_role select, change')
   if ($roleSelect.length == 0) { return }
 
-  var $developerSelect = $('.user_developer_id select')
-  var $divisionSelect = $('.user_division_id select')
-  var $developmentSelect = $('.user_development_id select')
+  var $developer = "developer"
+  var $division = "division"
+  var $development = "development"
+  //var $developerSelect = $('.user_developer_id select')
+  //var $divisionSelect = $('.user_division_id select')
+  //var $developmentSelect = $('.user_development_id select')
   var $user_role = $('#cas').attr('data-userrole')
 
-  $roleSelect.selectmenu({
-    create: function (event, ui) {
-      var $selectInput = $(event.target)
-      var role = $selectInput.find('option:selected').attr('value')
+  const prefixes = [$primary, $su]
+  prefixes.forEach(function (prefix, index) {
+     $('.user' + prefix + '_role select, change').selectmenu({
+      create: function (event, ui) {
+        var $selectInput = $(event.target)
+        var role = $selectInput.find('option:selected').attr('value')
+        if (prefix == $su) { $selectInput.find("option[value='cf_admin']").remove() }
 
-      showRoleResourcesOnly(role)
-    },
-    select: function (event, ui) {
-      var role = ui.item.value
+        showRoleResourcesOnly(role, prefix == $primary)
+      },
+      select: function (event, ui) {
+        var role = ui.item.value
 
-      showRoleResourcesOnly(role)
+        showRoleResourcesOnly(role, ui.item.element[0].parentElement.id == "user_role")
 
-      setCas()
-    }
+        setCas()
+      }
+    })
   })
 
-  showRoleResourcesOnly ($('#user_role').val())
+  showRoleResourcesOnly ($('#user_role').val(), true)
+  showHideAdditionalEmailPreferences()
 
-  function developerSelectmenuCallbacks () {
+  function developerSelectmenuCallbacks (primary) {
     return {
       create: function (event, ui) {
         var $selectInput = $(event.target)
         var developerId = $selectInput.val()
 
         if (developerId) {
-          fetchDeveloperResources(developerId)
-          $divisionSelect.selectmenu(divisionSelectmenuCallbacks(developerId))
+          fetchDeveloperResources(developerId, primary)
+          getSelector($division, primary).selectmenu(divisionSelectmenuCallbacks(developerId, primary))
         } else {
-          fetchDeveloperResources()
-          $divisionSelect.selectmenu(divisionSelectmenuCallbacks())
+          fetchDeveloperResources(0, primary)
+          getSelector($division, primary).selectmenu(divisionSelectmenuCallbacks(0, primary))
         };
       },
       select: function (event, ui) {
         var developerId = ui.item.value
 
-        fetchDivisionResources({ developerId: developerId })
-        fetchDevelopmentResources({ developerId: developerId })
+        fetchDivisionResources({ developerId: developerId }, primary)
+        fetchDevelopmentResources({ developerId: developerId }, primary)
 
-        setCasEnabledFromDeveloper(developerId)
+        if (primary) { setCasEnabledFromDeveloper(developerId) }
       }
     }
   };
 
-  function divisionSelectmenuCallbacks (developerId) {
+  function divisionSelectmenuCallbacks (developerId, primary) {
     return {
       create: function (event, ui) {
         var $selectInput = $(event.target)
         var divisionId = $selectInput.val()
 
         if (divisionId) {
-          fetchDivisionResources({developerId: developerId, divisionId: divisionId})
+          fetchDivisionResources({developerId: developerId, divisionId: divisionId}, primary)
         } else if (developerId) {
-          fetchDivisionResources({ developerId: developerId })
+          fetchDivisionResources({ developerId: developerId }, primary)
         } else {
-          clearFields($('.user_division_id'))
+          clearFields($('.user' + (primary ? $primary : $su) + '_division_id'))
         };
 
-        $developmentSelect.selectmenu(developmentSelectmenuCallbacks(developerId, divisionId))
+        getSelector($development, primary).selectmenu(developmentSelectmenuCallbacks(developerId, divisionId, primary))
       },
       select: function (event, ui) {
         var divisionId = ui.item.value
 
         if (divisionId !== '') {
-          fetchDevelopmentResources({divisionId: divisionId})
+          fetchDevelopmentResources({divisionId: divisionId}, primary)
         } else {
-          fetchDevelopmentResources({developerId: $developerSelect.val()})
+          fetchDevelopmentResources({developerId: getSelector($developer, primary).val()}, primary)
         };
       }
     }
   };
 
-  function developmentSelectmenuCallbacks (developerId, divisionId) {
+  function developmentSelectmenuCallbacks (developerId, divisionId, primary) {
     return {
       create: function (event, ui) {
         var $selectInput = $(event.target)
@@ -90,79 +102,185 @@ document.addEventListener('turbolinks:load', function () {
           fetchDevelopmentResources({
             developerId: developerId,
             divisionId: divisionId,
-            developmentId: developmentId
-          })
+            developmentId: developmentId,
+          }, primary)
         } else if (divisionId) {
           fetchDevelopmentResources({
             developerId: developerId,
             divisionId: divisionId
-          })
+          }, primary)
         } else {
-          clearFields($('.user_development_id'))
+          clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
+          setAdditionalState()
         };
+      },
+      select: function (event, ui) {
+        setAdditionalState()
       }
     }
   };
 
-  function fetchDeveloperResources (developerId) {
-    var developerSelect = clearFields($('.user_developer_id'))
+  function fetchDeveloperResources (developerId, primary) {
+    var developerSelect = clearFields($('.user' + (primary ? $primary : $su) + '_developer_id'))
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, {developerId: developerId})
+    setFields(developerSelect, url, {developerId: developerId}, true, setAdditionalState)
   };
 
-  function fetchDivisionResources (data) {
-    var divisionSelect = clearFields($('.user_division_id'))
+  function fetchDivisionResources (data, primary) {
+    var divisionSelect = clearFields($('.user' + (primary ? $primary : $su) + '_division_id'))
     var url = '/admin/divisions'
 
-    setFields(divisionSelect, url, data)
+    setFields(divisionSelect, url, data, true, setAdditionalState)
   };
 
-  function fetchDevelopmentResources (data) {
-    var developmentSelect = clearFields($('.user_development_id'))
+  function fetchDevelopmentResources (data, primary) {
+    var developmentSelect = clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
     var url = '/admin/developments'
 
-    setFields(developmentSelect, url, data)
+    setFields(developmentSelect, url, data, true, setAdditionalState)
   };
 
-  function showRoleResourcesOnly (role) {
+  function showRoleResourcesOnly (role, primary) {
     if (role !== 'cf_admin' && role !== '') {
-      $developerSelect.selectmenu(developerSelectmenuCallbacks())
+      getSelector($developer, primary).selectmenu(developerSelectmenuCallbacks(primary))
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
-         .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
-         .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, .cc-receive_faq_emails').hide()
-      $("#plot_check").prop("checked", true);
-      $("#choice_check").prop("checked", true);
-      $("#snag_check").prop("checked", true)
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
+           .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
+           .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, \
+           .cc-receive_faq_emails').hide()
+        $("#plot_check").prop("checked", true);
+        $("#choice_check").prop("checked", true);
+        $("#snag_check").prop("checked", true)
+        hideAdditionalRoles()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_ development_id').hide()
+      }
     } else if (role === 'developer_admin') {
-      $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
-         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
-      $('.user_division_id, .user_development_id, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .su-permission-level').show()
+        $('.user_division_id, .user_development_id, .administer_lettings').hide()
+        showAdditionalRoles()
+      } else {
+        $('.user_su_developer_id').show()
+        $('.user_su_division_id, .user_su_development_id').hide()
+      }
     } else if (role === 'division_admin') {
-      $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
-      $('.user_development_id, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, \
+           .cc-receive_invitation_emails, .su-permission-level').show()
+        $('.user_development_id, .administer_lettings').hide()
+        showAdditionalRoles()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id').show()
+        $('.user_su_development_id').hide()
+      }
     } else if (role === 'development_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, .cc-snag_notifications').show()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, \
+           .cc-snag_notifications, .su-permission-level').show()
+        showAdditionalRoles()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
+      }
     } else if (role === 'site_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
-      $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, \
+           .cc-receive_invitation_emails, .su-permission-level').show()
+        $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+        showAdditionalRoles()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
+      }
     } else if (role === 'concierge') {
-      $('.user_developer_id, .user_division_id, .user_development_id').show()
-      $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
-         .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id').show()
+        $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
+           .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+        showAdditionalRoles()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
+      }
     } else {
-      $('.user_developer_id, .user_division_id, .user_development_id').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id').hide()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').hide()
+      }
     };
 
+    setAdditionalState()
     setCcLabels()
   };
+
+  function showAdditionalRoles() {
+    if ($("form[main='true']").data('cf')) {
+      $('.su-permission-level, .su-additional-roles').show()
+    }
+  }
+
+  function hideAdditionalRoles() {
+    if ($("form[main='true']").data('cf')) {
+      deleteAdditionalRoles()
+      $('.su-permission-level, .su-additional-roles').hide()
+    }
+  }
+
+  function deleteAdditionalRoles() {
+    $(".additional-role:visible").each(function() {
+      deleteAdditionalRole($(this))
+    })
+  }
+
+  function getSelector(type, primary) {
+    return $developerSelect = $('.user' + (primary ? $primary : $su) + '_' + type + '_id select')
+  }
+
+  function setAdditionalState (){
+    primary = userDefined(true)
+    additional = userDefined(false)
+
+    $("#add_role").toggle(primary && additional)
+
+    try {
+      const selects = ["#user_su_role", "#user_su_developer_id", "#user_su_division_id", "#user_su_development_id"]
+      selects.forEach(function (s, index) {
+        if (primary && $(s + " option:selected").val() != undefined) {
+          $(s).removeAttr('disabled').removeClass('disabled')
+          $(s).selectmenu('enable')
+        } else {
+          $(s).attr('disabled', 'disabled').addClass('disabled')
+          $(s).selectmenu('disable')
+        }
+      })
+    }
+    catch(err) {
+       x = 1
+    }
+  }
+
+  function userDefined(primary) {
+    defined = false
+
+    // set defined according to the last visible select's selection
+    $("." + (primary ? "" : "su-") + "permission-level select").each(function() {
+      if ($("." + $(this).prop("id")).is(":visible")) {
+        defined = !($(this).children("option:selected").val() == "" ||
+                    $(this).children("option:selected").val() == undefined)
+      }
+    })
+
+    return defined
+  }
+
 
   // Get the CAS enablement from the developer and display the CAS enablement
   // if necessary
@@ -212,6 +330,10 @@ document.addEventListener('turbolinks:load', function () {
   };
 })
 
+function showHideAdditionalEmailPreferences()  {
+  $(".form-row-head").toggle(($(".additional-role:visible").length != 0))
+}
+
 // send the positive feedback on positive response
 $(document).on('click', '#resendInvitation', function (event) {
   var dataIn = $(this).data()
@@ -231,7 +353,7 @@ $(document).on('click', '#resendInvitation', function (event) {
   $invitationContainer.dialog({
     show: 'show',
     modal: true,
-    width: 600,
+    width: 500,
     title: "Send Invitation",
 
     buttons: [
@@ -308,5 +430,174 @@ function displayFilterSelections() {
       "<label>Developer: </label><span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
       "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
     )
+  }
+}
+
+// Add a new grant into the DOM. Make a copy of the html for the
+// first grant on the page.  Grants are streamed as
+// arrays e.g. name=user[grants_attributes][0][role] and
+// id = user_grants_attributes_0_role.  This function
+// clones the first grant and resets all the indices then
+// sets the fields.  Finally it prepends itself
+$(document).on('click', '#add_role', function (event) {
+
+  additional_role = getRole(true)
+  duplicate = duplicateOf(additional_role)
+
+  if (duplicate != null) {
+    meta = duplicate.clone().find("#metadata")
+    meta.find("i").remove()
+    infoDialog("Duplicate Role", $("form[main='true']").attr("dup_message"), meta.html())
+  } else {
+    newrole = $('.additional-role').first().clone()
+    $('.additional-role').last().after(newrole)
+    newrole.find("#metadata").empty()
+    newrole.find("input").each(function() { initialiseRole($(this)) })
+    newrole.find("input")[0].value = additional_role.role
+    newrole.find("input")[1].value = additional_role.permission_level_type
+    newrole.find("input")[2].value = additional_role.permission_level_id
+    newrole.find("input[deletefield='true']").val(false)
+
+    additional_role.meta.forEach(function (text, index) { newrole.find("#metadata").append(text) })
+
+    newrole.show()
+    $num_additional_roles += 1
+  }
+
+  showHideAdditionalEmailPreferences()
+})
+
+function initialiseRole(role){
+  const attribs = ["name", "id"]
+  attribs.forEach(function(attrib, index){
+    var prop = role.prop(attrib);
+    if (typeof prop !== typeof undefined && prop !== false) {
+      role.prop(attrib, role.prop(attrib).replace(/0/g, $num_additional_roles))
+    }
+  })
+  role.val("")
+}
+
+function createRoleHeader(text) {
+  return "<div class='header'>" +
+            "<span class='additional-role-meta inline'>" + text + "</span>" +
+            "<i class='fa fa-times delete'></i>" +
+          "</div>"
+}
+
+function createRoleMetadata(text) {
+  return "<span class='additional-role-meta'>" + text + "</span>"
+}
+
+$(document).on('click', '.additional-role .delete', function (event) {
+  role = $(this).closest('.additional-role')
+  meta = role.clone().find("#metadata")
+  meta.find("i").remove()
+  confirmDelete(meta.html(), role, deleteAdditionalRole)
+})
+
+function deleteAdditionalRole(role) {
+  role.find("input[deletefield='true']").val(true)
+  role.hide()
+
+  showHideAdditionalEmailPreferences()
+}
+
+function duplicateOf(additional_role) {
+  duplicate = null
+
+  $(".additional-role:visible").each(function() {
+    if ($(this).find("input")[0].value == additional_role.role &&
+        $(this).find("input")[1].value == additional_role.permission_level_type &&
+        $(this).find("input")[2].value == additional_role.permission_level_id) {
+      duplicate = $(this)
+    }
+  })
+
+  return duplicate
+}
+
+function getRole(additional)
+{
+  prefix = (additional ? "#user_su_" : "#user_")
+  const selection = {role : $(prefix + "role option:selected").val(),
+                     meta: [createRoleHeader($(prefix + "role option:selected").text())] }
+
+  switch(selection.role) {
+    case "developer_admin":
+      selection.permission_level_type = "Developer"
+      selection.permission_level_id = $(prefix + "developer_id option:selected").val()
+      selection.meta.push(createRoleMetadata($(prefix + "developer_id option:selected").text()))
+    break;
+      break;
+    case "division_admin":
+      selection.permission_level_type = "Division"
+      selection.permission_level_id = $(prefix + "division_id option:selected").val()
+      selection.meta.push(createRoleMetadata($(prefix + "developer_id option:selected").text()))
+      selection.meta.push(createRoleMetadata($(prefix + "division_id option:selected").text()))
+      break;
+    case "development_admin":
+    case "site_admin":
+      selection.permission_level_type = "Development"
+      selection.permission_level_id = $(prefix + "development_id option:selected").val()
+      selection.meta.push(createRoleMetadata($(prefix + "developer_id option:selected").text()))
+      if ($(prefix + "division_id option:selected").val() != "" &&
+          $(prefix + "division_id option:selected").val() != undefined) {
+        selection.meta.push(createRoleMetadata($(prefix + "division_id option:selected").text()))
+      }
+      selection.meta.push(createRoleMetadata($(prefix + "development_id option:selected").text()))
+      break;
+    default:
+      // code block
+    }
+
+  return selection
+}
+
+$(document).on('click', '#submit_user', function (event) {
+  validate_user()
+})
+
+// Primary role has precidence over additional roles
+function havePrecedence() {
+  have_precedence = []
+  primary_role_precidence = rolePrecedence($("#user_role option:selected").val())
+
+  $(".additional-role:visible").each(function() {
+    if (rolePrecedence($(this).find("input")[0].value) < primary_role_precidence) {
+      have_precedence.push($(this))
+    }
+  })
+
+  return have_precedence
+}
+
+function rolePrecedence(role) {
+  precedence = 0
+  const roles = ["cf_admin", "developer_admin", "division_admin", "development_admin", "site_admin"]
+  roles.forEach(function (r, index) { if (r == role) { precedence = index } })
+  return precedence
+}
+
+
+function validate_user() {
+  duplicate = duplicateOf(getRole(false))
+  have_precidence = havePrecedence()
+  if (duplicate != null) {
+    meta = duplicate.clone().find("#metadata")
+    meta.find("i").remove()
+    infoDialog("Duplicate Role", $("form[main='true']").attr("dup_message"), meta.html())
+  } else if (have_precedence.length > 0) {
+    precidence = ""
+    have_precedence.forEach(function(item, index, array) {
+      meta = item.clone().find("#metadata")
+      meta.find("i").remove()
+      precidence += meta.html()
+    })
+    infoDialog($("form[main='true']").attr("prec_message_title"),
+               $("form[main='true']").attr("prec_message"),
+               precidence)
+  } else {
+   $("form[main='true']")[0].submit();
   }
 }

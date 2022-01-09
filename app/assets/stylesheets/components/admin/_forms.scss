@@ -1,8 +1,28 @@
 // ****** globals ******
 
+.cf-user-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.form-row-head {
+  margin: 0 38;
+
+  p {
+    display: inline-block;
+    margin: 0;
+    font-size: 16;
+    font-weight: bold;
+  }
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
+  input.remove-image.hidden {
+    display: none;
+  }
 
   .input {
     margin-bottom: $spacing-medium;
@@ -44,11 +64,55 @@
   padding: $spacing-medium $spacing-large;
 }
 
+.trim-form-column {
+  padding: 0 $spacing-large;
+}
+
 // ****** specific forms ******
 
 // user form
 
+.role p {
+  margin: 0 0 4;
+}
+
+.su-controls {
+  background-color: #ececec;
+  padding: 1 10 10 10;
+
+  button {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
+.additional-role-meta {
+  margin-left: $spacing-small / 2;
+  display: block;
+  font-size: $base-small-font-size;
+  padding-bottom: $label-margin;
+  margin-left: 0;
+}
+
+.user-roles-desc {
+  padding: 0 $spacing-large 0 $spacing-large;
+
+  p {
+    padding: 10 0 0 0;
+    margin: 0;
+  }
+
+  mark {
+    background-color: #ececec;
+  }
+}
+
 .user-form {
+
+  hr.solid {
+    margin: 0 $spacing-large;
+  }
   .user-permissions {
     display: grid;
   }
@@ -82,8 +146,8 @@
   // email checkbox fields
 
   .emails {
-    grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
 
@@ -91,6 +155,15 @@
       display: grid;
       grid-template-rows: auto auto auto auto;
       grid-template-columns: 1fr 1fr;
+
+      .toggle {
+        padding-right: 38px;
+      }
+
+      .cc-email-fields {
+        padding-left: 22px;
+        padding-right: unset;
+      }
 
       .receive_release_emails {
         grid-column-start: 1;
@@ -159,6 +232,31 @@
       textarea {
         min-height: 50px;
       }
+    }
+  }
+
+  .additional-roles {
+    border:1px solid black;
+    height: 320px;
+    overflow: auto;
+  }
+
+  .additional-role {
+    background-color: #ececec;
+    padding: 5;
+    margin: 10;
+
+    .inline {
+      display: inline;
+    }
+
+    .delete {
+      float: right;
+      color: red;
+    }
+
+    .header {
+      padding-bottom: 4px;
     }
   }
 

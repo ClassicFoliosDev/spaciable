@@ -3,8 +3,9 @@
 class DivisionsController < ApplicationController
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource :developer
-  load_and_authorize_resource :division, through: :developer
+  load_and_authorize_resource :developer, except: %i[index]
+  load_and_authorize_resource :division, through: :developer, except: %i[index]
+  load_and_authorize_resource :division, only: %i[index]
 
   def index
     @divisions = paginate(sort(@divisions, default: :division_name))

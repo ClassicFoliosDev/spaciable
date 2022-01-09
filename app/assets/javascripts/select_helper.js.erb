@@ -33,7 +33,7 @@ function setFields (selectList, url, data, prompt, callback) {
     url: url,
     data: data
   }).done(function (results) {
-    if (prompt){
+    if (prompt && results.length > 0){
       var promptOption = document.createElement('option')
       promptOption.value = ''
       promptOption.name = ''

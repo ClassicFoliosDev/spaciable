@@ -2,10 +2,11 @@
 
 module Admin
   module SelectOptionsHelper
+    # rubocop:disable Metrics/ParameterLists
     def cascade_select_input(form, attribute, source_model = Developer, blank: -> { true },
-                             show_all: false)
+                             show_all: false, label: nil)
       selected_id = form.object.send(attribute) || current_user.send(attribute)
-      form.input attribute do
+      form.input attribute, label: (label.present? ? label : source_model.to_s) do
         form.select(
           attribute,
           selected_option(selected_id, source_model),
@@ -15,6 +16,7 @@ module Admin
         )
       end
     end
+    # rubocop:enable Metrics/ParameterLists
 
     private
 

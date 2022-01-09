@@ -187,6 +187,10 @@ end
 
 # DIVISIONS
 
+crumb :divisions do
+  link Division.model_name.human.pluralize, divisions_path
+end
+
 crumb :developer_divisions do |developer|
   link Division.model_name.human.pluralize, [developer, active_tab: :divisions]
   parent :developer, developer
@@ -257,6 +261,8 @@ crumb :developments do |developments_parent|
   when Division
     link Development.model_name.human.pluralize, division_developments_path(developments_parent)
     parent :division, developments_parent
+  else
+    link Development.model_name.human.pluralize, developments_path
   end
 end
 

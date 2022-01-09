@@ -5,8 +5,9 @@ module Admin
     skip_authorization_check
 
     def index
+      ability = Ability.new(current_user, primary: true)
       developments = Development
-                     .accessible_by(current_ability)
+                     .accessible_by(ability)
                      .select(:id, :name)
                      .order(:name)
 

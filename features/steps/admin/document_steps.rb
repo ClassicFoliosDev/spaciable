@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-When(/^I upload a document for the developer$/) do
+When(/^I upload a document for the (additional )?developer$/) do |additional|
   visit "/developers"
 
   within ".developers" do
-    click_on CreateFixture.developer_name
+    click_on AdditionalRoleFixture.developer(additional).company_name
   end
 
   within ".tabs" do
@@ -64,8 +64,8 @@ When(/^I update the developer's document$/) do
   end
 end
 
-Then(/^I should see the updated (\w+) document$/) do |parent_type|
-  parent_name = CreateFixture.send("#{parent_type}_name")
+Then(/^I should see the updated (additional )?(\w+) document$/) do |additional, parent_type|
+  parent_name = additional ? AdditionalRoleFixture::ADDITIONAL : CreateFixture.send("#{parent_type}_name")
 
   success_flash = t(
     "controller.success.update",
@@ -96,11 +96,11 @@ Then(/^I should see the updated (\w+) document$/) do |parent_type|
   end
 end
 
-When(/^I create another document$/) do
+When(/^I create another (additional )?document$/) do |additional|
   visit "/developers"
 
   within ".developers" do
-    click_on CreateFixture.developer_name
+    click_on AdditionalRoleFixture.developer(additional).company_name
   end
 
   within ".tabs" do
@@ -169,8 +169,8 @@ Then(/^I should see that the deletion was successful for the document$/) do
   end
 end
 
-When(/^I upload a document for the division$/) do
-  division = CreateFixture.division
+When(/^I upload a document for the (additional )?division$/) do |additional|
+  division = AdditionalRoleFixture.division(additional)
   visit "/developers/#{division.developer.id}/divisions/#{division.id}?active_tab=documents"
 
   within ".empty" do
@@ -187,12 +187,12 @@ When(/^I upload a document for the division$/) do
   end
 end
 
-When(/^I upload a document for the development$/) do
-  upload_development_doc
+When(/^I upload a document for the (additional )?development$/) do |additional|
+  upload_development_doc(additional)
 end
 
 When(/^I upload a document for the development with notifications off$/) do
-  upload_development_doc(notify: false)
+  upload_development_doc(nil, notify: false)
 end
 
 When(/^I upload a document for the division development$/) do
@@ -568,8 +568,8 @@ Then(/^I should see that the document has been deleted$/) do
   end
 end
 
-def upload_development_doc(notify: true)
-  goto_development_show_page
+def upload_development_doc(additional = null, notify: true)
+  goto_development_show_page(additional)
 
   within ".tabs" do
     click_on t("developments.collection.documents")
