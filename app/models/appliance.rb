@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Appliance < ApplicationRecord
   acts_as_paranoid
 
@@ -39,6 +40,18 @@ class Appliance < ApplicationRecord
                    user.developer,
                    user.developer)
             .order(:model_num)
+        }
+
+  scope :filtered,
+        lambda { |filter, ability|
+          appliances = accessible_by(ability)
+                       .includes(:appliance_category, :appliance_manufacturer)
+
+          %i[appliance_category_id appliance_manufacturer_id].each do |f|
+            appliances = appliances.where(f => filter.send(f)) if filter.send(f)
+          end
+
+          appliances
         }
 
   validates :model_num, presence: true
@@ -116,3 +129,4 @@ class Appliance < ApplicationRecord
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -3,8 +3,8 @@ var $finish_filter_cookie = "finish-filter-open"
 
 document.addEventListener('turbolinks:load', function () {
 
-  form = $(".new_finish_filter")
-  if (form.length == 0) { return }
+  finishFilterForm = $(".new_finish_filter")
+  if (finishFilterForm.length == 0) { return }
 
   if (getCookie($finish_filter_cookie) != "true") {
     toggleFinishFilter()
@@ -19,7 +19,7 @@ document.addEventListener('turbolinks:load', function () {
   for (i = 0; i < controls.length; ++i) {
     controls[i].selectmenu({
       select: function (event, ui) {
-        window.location = form.attr('action') + '?' + form.serialize()
+        window.location = finishFilterForm.attr('action') + '?' + finishFilterForm.serialize()
       }
     })
   }

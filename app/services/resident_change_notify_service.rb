@@ -19,13 +19,15 @@ module ResidentChangeNotifyService
 
   module_function
 
+  # rubocop:disable LineLength
   def subscribed_residents(parent, resource, is_private_document)
-    plot_residencies = PlotResidency.where(plot_id: plots_for(parent, resource).pluck(:id))
+    plot_residencies = PlotResidency.where(plot_id: notifyable_plots_for(parent, resource).pluck(:id))
     plot_residencies = plot_residencies.where(role: :homeowner) if is_private_document
 
     plot_residents = plot_residencies.map(&:resident)
     plot_residents.select(&:developer_email_updates?)
   end
+  # rubocop:enable LineLength
 
   def build_notification(resource, user, verb, parent, subject)
     return unless resource && parent
@@ -47,6 +49,18 @@ module ResidentChangeNotifyService
   def all_residents_for(parent, resource)
     plots = plots_for(parent, resource)
     plots.map(&:residents).flatten
+  end
+
+  # Free plots are only able to receive notifications for Phase Documents
+  def notifyable_plots_for(parent, resource)
+    notifyable_plots = []
+
+    plots_for(parent, resource).each do |plot|
+      next if plot.free? && !(parent.is_a?(Phase) && resource.is_a?(Document))
+      notifyable_plots << plot
+    end
+
+    notifyable_plots
   end
 
   def plots_for(parent, resource)

@@ -7,7 +7,15 @@ module Admin
 
     def new
       results = appliance_search(params[:search_term])
-      render json: results
+
+      full = results.map do |appliance|
+        a = Appliance.find(appliance.id)
+        { id: a.id,
+          name: a.full_name,
+          path: appliance_path(a.id) }
+      end
+
+      render json: full
     end
   end
 end

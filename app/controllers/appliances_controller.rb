@@ -7,7 +7,9 @@ class AppliancesController < ApplicationController
   skip_authorization_check only: %i[appliance_manufacturers_list appliance_list]
 
   def index
-    @appliances = @appliances.includes(:appliance_category, :appliance_manufacturer)
+    @filter = filter
+    @afilter = ApplianceFilter.new(filter_params)
+    @appliances = Appliance.filtered(@afilter, @current_ability)
     @appliances = paginate(sort(@appliances, default: :id))
     @active_tab = "appliances"
   end
@@ -95,5 +97,18 @@ class AppliancesController < ApplicationController
     end
 
     p
+  end
+
+  def filter_params
+    return unless params.include?("appliance_filter")
+    params.require("appliance_filter").permit(:appliance_category_id,
+                                              :appliance_manufacturer_id)
+  end
+
+  def filter
+    return {} unless params.include?("appliance_filter")
+    f = params.permit(appliance_filter: %i[appliance_category_id
+                                           appliance_manufacturer_id])
+    f.to_h
   end
 end

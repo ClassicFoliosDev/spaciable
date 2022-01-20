@@ -111,7 +111,7 @@ en:
     clone: "Clone"
     info:
       title: "Information"
-      cannot_delete: "Cannot delete %{type}"
+      cannot_delete: "Cannot Delete %{type}"
       help: "Help"
     share_tenants: "Private: click to share with tenants of this plot"
     share_all: "Private: click to share with tenants and other residents of this plot"
@@ -569,6 +569,8 @@ en:
       search:
         all: "All"
       finish_search:
+        all: "All"
+      appliance_search:
         all: "All"
 
     choices:
@@ -1751,7 +1753,7 @@ en:
         new: "New"
       address:
         view_more: "View %{construction}"
-        spotlights: "Spotlights"
+        spotlights: "View Spotlights"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
@@ -2949,6 +2951,7 @@ en:
      message: "Model Num/Category/manufacturer combination already exists."
    index:
      title: "Appliances Catalogue."
+     search: "Search"
      info:
        title: "Appliances Catalogue"
        desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.
@@ -2975,7 +2978,7 @@ tab under a plot to assign a plot-specific finish."
    new:
      title: "Create New Appliance."
    clone:
-      title: "Create New Appliance from Clo"
+      title: "Create New Appliance from Clone"
    show:
      back: "Back"
      download: "Download manual"
@@ -3031,7 +3034,7 @@ tab under a plot to assign a plot-specific finish."
                    A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
                    A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
      types: "Associated Finish Types"
-     type_help: "The <strong>Manufacturer</strong> drop-down list found when creating finishes on the database or assigning finishes to plots relies on making associations with Finish Types.<br/>
+     type_help: "The <strong>Manufacturer</strong> drop-down list found when creating finishes in the catalogue or assigning finishes to plots relies on making associations with Finish Types.<br/>
                  Populate the Associated Finish Types field with any Types this Manufacturer should feature under."
      back: "Back"
      submit: "Submit"
@@ -3601,6 +3604,8 @@ under a plot to assign a plot-specific finish."
           coach_house: "Coach house"
           penthouse: "Penthouse"
           studio: "Studio"
+        warnings:
+          destroy: "This Spec Tempate cannot be deleted because it is in use. Please reassign the following plots to other Spec Templates before deleting this one."
       plot:
         title: "Plots"
         one: "Plot"

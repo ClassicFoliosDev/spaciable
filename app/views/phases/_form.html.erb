@@ -24,7 +24,7 @@
             <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
           <% end %>
         <% end %>
-        <% if phase.res_comp? && !phase.free? %>
+        <% if phase.res_comp? && phase.package.present? && !phase.free? %>
           <label>Package</label>
           <p><%= t("activerecord.attributes.phase.packages.#{phase.package}") %></p>
         <% elsif !current_user.cf_admin? %>

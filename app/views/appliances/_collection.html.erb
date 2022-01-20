@@ -29,15 +29,17 @@
                                            can?(:update, app) ||
                                            can?(:destroy, ApplianceRoom.appliance_room(room, app))}.include?(true) %>
 
+  <% sort_filter = defined?(filter) ? filter : {} %>
+
   <table class="record-list">
     <thead>
       <tr>
         <th class="icon" style="text-align:center;"><%= t(".image") %></th>
-        <th colspan="2"><%= sortable(Appliance, :id, t(".name")) %></th>
-        <th colspan="2"><%= sortable({ Appliance => ApplianceCategory }, :name, t(".category")) %></th>
-        <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
-        <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name, t(".manufacturer")) %></th>
-        <th colspan="2"><%= sortable(Appliance, :updated_at, t(".last_edited")) %></th>
+        <th colspan="2"><%= sortable(Appliance, :id, t(".name"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable({ Appliance => ApplianceCategory }, :name, t(".category"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable(Appliance, :model_num, sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name, t(".manufacturer"), sort_params: sort_filter) %></th>
+        <th colspan="2"><%= sortable(Appliance, :updated_at, t(".last_edited"), sort_params: sort_filter) %></th>
         <% if include_added_by %>
           <th colspan="2"><%= t(".added_by") %></th>
         <%end%>

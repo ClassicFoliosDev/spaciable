@@ -297,7 +297,7 @@ class Developer < ApplicationRecord
     build_address unless address
     build_branded_perk unless branded_perk
 
-    return if charts.empty?
+    return unless charts.empty?
     Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
   end
 

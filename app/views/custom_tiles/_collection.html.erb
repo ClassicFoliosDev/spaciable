@@ -30,7 +30,7 @@
       </th>
       <th><%= t(".category") %></th>
       <th><%= t(".editable") %></th>
-      <% if !current_user.cf_admin? && any_phases_free?(parent) %>
+      <% if any_phases_free?(parent) %>
         <th><%= t(".cf") %></th>
       <% end %>
 
@@ -44,7 +44,7 @@
       <td><%= custom_tile.category.titleize %></td>
       <td><%= custom_tile.editable? ? "Yes" : "No" %></td>
       </td>
-      <% if !current_user.cf_admin? && any_phases_free?(parent) %>
+      <% if any_phases_free?(parent) %>
         <td><%= custom_tile.cf? ? "Yes" : "No" %></td>
       <% end %>
 

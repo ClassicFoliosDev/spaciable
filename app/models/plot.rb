@@ -51,7 +51,8 @@ class Plot < ApplicationRecord
   has_many :events, as: :eventable, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
-  delegate :cas, :snag_duration, to: :development
+  delegate :snag_duration, to: :development
+  delegate :cas, to: :developer
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
@@ -96,7 +97,7 @@ class Plot < ApplicationRecord
   delegate :name, to: :development, prefix: true
   delegate :name, to: :phase, prefix: true
   delegate :choices_email_contact, to: :development
-  delegate :business, to: :phase
+  delegate :business, :package, to: :phase
   delegate :list_id, to: :developer
   delegate :construction, :construction_name, to: :development, allow_nil: true
 
@@ -645,6 +646,7 @@ class Plot < ApplicationRecord
   def hide_logs?
     return true unless cas
     return false if RequestStore.store[:current_user].cf_admin?
+    return true if free?
 
     completion_release_date.blank? || completion_release_date > Time.zone.today
   end
@@ -804,7 +806,8 @@ class Plot < ApplicationRecord
     sql = "select number from plots where phase_id = #{phase.id} " \
           "AND LEAST(completion_release_date, reservation_release_date) <= current_date " \
           "AND LEAST(completion_release_date, reservation_release_date) > " \
-          "'#{Time.zone.now - 36.months}' "
+          "(select current_date - interval '36 months')"
+
     ActiveRecord::Base.connection.exec_query(sql)
   end
 

@@ -15,7 +15,8 @@ FactoryGirl.define do
 
       after(:create) do |division, evaluator|
         development = create(:division_development, division: division)
-        create_list(:plot, evaluator.plots_count, :with_resident, development: development)
+        phase = create(:phase, development: development)
+        create_list(:plot, evaluator.plots_count, :with_resident, development: development, phase: phase)
       end
     end
 

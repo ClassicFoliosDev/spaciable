@@ -1,7 +1,5 @@
 $search-width: 460px;
 
-
-
 .search-container {
   float: right;
   width: $search-width + 40px;
@@ -105,4 +103,8 @@ $search-width: 460px;
       opacity: 1;
     }
   }
+}
+
+.search {
+  overflow: hidden;
 }
