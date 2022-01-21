@@ -46,7 +46,7 @@
           <%= edit_btn edit_development_unit_type_path(unit_type.development, unit_type), element: unit_type %>
           <!-- if the unit type has plots it cannot be deleted so show the info button, otherwise show the delete button -->
           <% if unit_type.plots_by_phase.present? %>
-            <%= info_btn unit_type, text: unit_type.delete_confirmation, element: unit_type, title: t('buttons.info.cannot_delete', type: "Unit Type")%>
+            <%= info_btn unit_type, text: unit_type.delete_confirmation, element: unit_type, title: t('buttons.info.cannot_delete', type: "Spec Template")%>
           <% else %>
             <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]), text: unit_type.delete_confirmation, element: unit_type %>
           <% end %>

@@ -440,6 +440,10 @@ fieldset {
 
 i.popup-help {
   padding-right: 5;
+
+  &:hover {
+        cursor: pointer;
+  }
 }
 
 .submission-errors {

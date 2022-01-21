@@ -40,7 +40,6 @@ module PhaseBusinessHelper
   end
 
   def free_phase_at_feature_limit?(parent, features)
-    return false if current_user.cf_admin?
     parent.is_a?(Phase) && parent.free? && features.count >= 3
   end
 

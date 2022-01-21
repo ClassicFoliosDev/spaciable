@@ -1,6 +1,6 @@
 <% breadcrumb :room, @room %>
 
-<%= render "components/admin/popup", title: t("stuck_with_specs.title"), help: [t("stuck_with_specs.help")], type: :tip, all_users: true, popup_on_load: false, width: 500 %>
+<%= render "components/admin/stuck_with_specs", cas: @room.cas %>
 
 <div class="room">
   <div class="section-header">

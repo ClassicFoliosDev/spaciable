@@ -28,6 +28,7 @@
                     collection.map { |finish| can?(:clone, finish) ||
                                               can?(:update, finish) ||
                                               can?(:destroy, FinishRoom.room_finish(room,finish))}.include?(true) %>
+
   <% sort_filter = defined?(filter) ? filter : {} %>
 
   <table class="record-list">

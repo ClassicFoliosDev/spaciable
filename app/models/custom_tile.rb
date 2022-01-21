@@ -6,6 +6,7 @@ class CustomTile < ApplicationRecord
   include GuideEnum
 
   before_create :set_cf
+  before_save :set_cf
   belongs_to :development
   belongs_to :tileable, polymorphic: true
 
@@ -158,9 +159,10 @@ class CustomTile < ApplicationRecord
     link !~ /\A(http)/ ? "https://#{link}" : link
   end
 
-  # was this record created by a CF user
+  # was this record created/updated by a CF user
   def set_cf
     return unless RequestStore.store[:current_user]&.is_a? User
+    return unless changed?
     self.cf = RequestStore.store[:current_user]&.cf_admin? || false
   end
 end

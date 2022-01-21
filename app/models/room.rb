@@ -27,6 +27,7 @@ class Room < ApplicationRecord
   has_one :mark, as: :markable, dependent: :destroy
 
   delegate :marker, to: :mark, allow_nil: true
+  delegate :cas, to: :developer
 
   amoeba do
     include_association :finish_rooms

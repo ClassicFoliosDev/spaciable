@@ -20,7 +20,7 @@ module Csv
     def self.headers
       [
         "Account Manager", "Developer", "Division", "Development", "Phase", "Plot",
-        "Business Stream", "Reservation Order Number", "Completion Order Number",
+        "Business Stream", "Package", "Reservation Order Number", "Completion Order Number",
         "Reservation Release Date", "Completion Release Date",
         "Validity", "Extended Access", "Expiry Date", "Expired",
         "Maintenance", "Residents Invited", "Residents Accepted"
@@ -46,6 +46,7 @@ module Csv
     def self.plot_info(plot)
       [
         I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),
+        I18n.t("activerecord.attributes.phase.packages.#{plot.package}"),
         plot.reservation_order_number,
         plot.completion_order_number,
         build_date(plot, "reservation_release_date"),

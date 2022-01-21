@@ -25,9 +25,11 @@ module Csv
       "#{now}_#{file_name}.csv"
     end
 
+    # rubocop:disable Metrics/MethodLength
     def self.headers
       [
-        "Account Manager", "Developer", "Division", "Development", "Phase", "Plot", "Business",
+        "Account Manager", "Developer", "Division", "Development",
+        "Phase", "Plot", "Business", "Package",
         "Reservation Order", "Completion Order", "Reservation Release", "Completion Release",
         "Validity", "Extended Access", "Expiry Date", "Legal Completion Date", "Build Progress",
         "Resident Count", "Resident Email", "Resident Name", "Resident Invited On",
@@ -41,6 +43,7 @@ module Csv
         "My Journey", "Content Proforma", "Build Progress List", "Spaciable Legal"
       ]
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.sort_plot_numbers(plots)
       plot_array = plots.sort
@@ -55,6 +58,7 @@ module Csv
         plot.company_name, plot_division(plot), plot.development_name,
         plot.phase.to_s, plot.number,
         I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),
+        I18n.t("activerecord.attributes.phase.packages.#{plot.package}"),
         plot.reservation_order_number, plot.completion_order_number,
         build_date(plot, "reservation_release_date"),
         build_date(plot, "completion_release_date"),

@@ -18,7 +18,7 @@ class UnitType < ApplicationRecord
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
-  delegate :cas, to: :development
+  delegate :cas, to: :developer
   delegate :construction, :construction_name, to: :development, allow_nil: true
 
   alias_attribute :identity, :name
@@ -72,13 +72,11 @@ class UnitType < ApplicationRecord
   # Returns a confirmation message detailing the list of plots effected
   # by the deletion of the unit_type.
   def delete_confirmation
-    confirmation = "Are you sure you wish to delete the <b>#{name}</b> unit type?"
+    confirmation = "Are you sure you wish to delete the <b>#{name}</b> Spec Template?"
 
     effected_phases = plots_by_phase
     if effected_phases.present?
-      confirmation = " This unit type cannot be deleted because it is in use. " \
-                      "Please reassign the following plots to other unit types " \
-                      "before deleting"
+      confirmation = I18n.t("activerecord.attributes.unit_type.warnings.destroy")
       effected_phases.each do |phase, plots|
         confirmation += "<br><br>#{phase}: " \
                         "#{plots.count > 1 ? 'Plots' : 'Plot'} #{plots.to_sentence}"
@@ -138,6 +136,15 @@ class UnitType < ApplicationRecord
     return false unless plots.count.positive?
     plots.each { |p| return false unless p.free? }
     true
+  end
+
+  def self.new_by_development(params, development)
+    unit_type = new(params)
+    unit_type.development_id = development.id
+    unit_type.developer_id = development.parent_developer.id
+    unit_type.division_id = development.division_id
+
+    unit_type
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -4,7 +4,7 @@ class UnitTypesController < ApplicationController
   include PaginationConcern
   include SortingConcern
   load_and_authorize_resource :development
-  load_and_authorize_resource :unit_type, through: :development, except: [:clone]
+  load_and_authorize_resource :unit_type, through: :development, except: %i[clone create]
 
   def index
     @unit_types = paginate(sort(@unit_types, default: :name))
@@ -34,6 +34,9 @@ class UnitTypesController < ApplicationController
   end
 
   def create
+    authorize! :create, UnitType
+    @unit_type = UnitType.new_by_development(unit_type_params, @development)
+
     if @unit_type.save
       notice = t(
         "controller.success.create",

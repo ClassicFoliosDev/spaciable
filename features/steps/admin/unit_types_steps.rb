@@ -250,7 +250,7 @@ When(/^I press the information button for the unit type associated with a plot$/
 end
 
 Then(/^I should see dialog warning of the associated phase and plot$/) do
-  expect(page).to have_content("This unit type cannot be deleted because it is in use. Please reassign the following plots to other unit types before deleting")
+  expect(page).to have_content(I18n.t("activerecord.attributes.unit_type.warnings.destroy"))
 end
 
 Then(/^I view the unit type$/) do

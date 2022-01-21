@@ -1,6 +1,6 @@
 <% breadcrumb :finish_manufacturers %>
 
-<%= render "components/admin/popup", title: t("stuck_with_specs.title"), help: [t("stuck_with_specs.help")], type: :tip, all_users: true, popup_on_load: false, width: 500 %>
+<%= render "components/admin/stuck_with_specs", cas: Developer.find_by(id: current_user&.developer)&.cas %>
 
 <div class="section-header">
   <div class="section-title">
