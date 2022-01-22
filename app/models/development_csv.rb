@@ -18,7 +18,6 @@ class DevelopmentCsv
       road_name: ALL,
       postcode: ALL,
       completion_date: ALL,
-      build_step: ALL,
       reservation_order_number: CF_ONLY,
       completion_order_number: CF_ONLY
     }

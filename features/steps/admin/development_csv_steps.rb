@@ -42,7 +42,6 @@ Then(/^I see the (.*) error messages$/) do |user|
     expect(page).to have_content(t("development_csv.errors.phase_error_strip", phase: "First"))
     expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 9"))
     expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "#{phase}: Penthouse")) if user == "admin"
-    expect(page).to have_content(t("development_csv.errors.progress_error_strip", progress: "#{phase}: wrong_progress"))
     expect(page).to have_content(t("development_csv.errors.duplicate_plots_strip", plots: "#{phase}: 4"))
     expect(page).to have_content(t("development_csv.errors.uprn_error_strip", uprns: "First: aaa #{phase}: 1234567890123"))
   end
@@ -60,9 +59,6 @@ Then(/^the valid (.*) plot has been updated$/) do |user|
   visit "/plots/#{plot.id}/edit"
   within ".edit_plot" do
     expect(page).to have_content(PhasePlotFixture.updated_unit_type_name) if user == "admin"
-  end
-  within ".build-progress .ui-selectmenu-text" do
-    expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.roof_on"))
   end
   expect(find_field("plot_prefix").value).to eq "Flat"
   expect(find_field("plot_house_number").value).to eq "9"
