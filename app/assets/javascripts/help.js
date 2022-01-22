@@ -41,6 +41,19 @@ $(document).on('mouseout', '#spotlightHelp', function (event) {
   questionMouseOut($(this))
 })
 
+// Contact Tag
+$(document).on('click', '#contactTagHelp', function (event) {
+  contactTagHelp($(this))
+})
+
+$(document).on('mouseover', '#contactTagHelp', function (event) {
+  questionMouseOver($(this))
+})
+
+$(document).on('mouseout', '#contactTagHelp', function (event) {
+  questionMouseOut($(this))
+})
+
 // restricted unit type
 $(document).on('click', '#restrictedHelp', function (event) {
   restrictedHelp()
@@ -111,6 +124,20 @@ function spotlightHelp(container) {
       '</p>' +
       '<p>' +
           "Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots." +
+      '</p>' +
+    '</div>'
+  )
+}
+
+function contactTagHelp(container) {
+
+  showHelpDialog(
+    'spotlight-help',
+    'Contact Tag',
+    '<div class="dialog-image">' +
+      '<img src="' + container.data('image') + '">' +
+      '<p>' +
+        'Contact tag.' +
       '</p>' +
     '</div>'
   )

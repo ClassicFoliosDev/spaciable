@@ -20,7 +20,8 @@
         </div>
         <%= f.input :organisation %>
         <div class="ui-front select-container">
-          <%= f.input :contact_type, label: t(".contact_type"), as: :select, collection: contact_types_collection, include_blank: true %>
+          <label><i class="fa fa-question-circle-o popup-help" id="contactTagHelp" data-image=<%= image_path "resident_spotlights.png"%>></i><%= t(".contact_type") %></label>
+          <%= f.input :contact_type, label: false, as: :select, collection: contact_types_collection, include_blank: true %>
         </div>
         <%= f.input :position %>
         <div class="ui-front select-container">
