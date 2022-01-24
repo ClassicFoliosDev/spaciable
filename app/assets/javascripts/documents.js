@@ -21,6 +21,12 @@ document.addEventListener('turbolinks:load', function (event) {
       resetGuide()
     }
   }
+
+  $("#document_guide").selectmenu({
+    select: function (event, ui) {
+      if($("#document_guide").val() != "") { $("#document_override").prop("checked", true) }
+    }
+  })
 })
 
 // check for multiple documents and selected category

@@ -74,6 +74,6 @@ class PlotDocumentsController < ApplicationController
 
   def plot_document_params
     params.require(:document).permit(:category, :user_id, :notify,
-                                     :pinned, :lau_visible, :guide, files: [])
+                                     :pinned, :lau_visible, :override, :guide, files: [])
   end
 end

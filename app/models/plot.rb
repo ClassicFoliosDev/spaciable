@@ -796,6 +796,11 @@ class Plot < ApplicationRecord
     videos
   end
 
+  def package_videos
+    return videos unless free?
+    videos.select(&:override)
+  end
+
   def set_build_status
     self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
   end

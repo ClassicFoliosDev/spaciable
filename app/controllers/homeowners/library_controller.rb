@@ -18,13 +18,14 @@ module Homeowners
       record_event(:view_library, category1: "Appliances")
     end
 
+    # rubocop:disable LineLength
     def index
       @category = document_params[:category]
 
       @documents = Document.accessible_by(current_ability)
                            .where(category: @category)
                            .order(pinned: :desc, updated_at: :desc)
-      @documents = @documents.where(documentable_type: "Phase") if @plot.free?
+      @documents = @documents.where(documentable_type: "Phase").or(@documents.where(override: true)) if @plot.free?
       @documents = remove_expired_plots if @plot.expiry_date.present?
 
       @appliances = []
@@ -33,6 +34,7 @@ module Homeowners
       # If there are no documents of the required category, redirect to the next tab with content
       redirect_to first_populated_tab_after(@category) if @documents.none?
     end
+    # rubocop:enable LineLength
 
     def update
       unless current_resident&.plot_residency_homeowner?(@plot)

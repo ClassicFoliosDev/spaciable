@@ -59,7 +59,13 @@
               <p class="checkbox-description"><%= t(".pinned_description") %></p>
               <%= f.label :lau_visible, t(".lau_visible") %>
               <%= f.check_box :lau_visible %>
-              <p class="checkbox-description"><%= t(".lau_visible_description") %></p>
+              <p class="checkbox-description"><%= t(".lau_visible_description") %>
+              </p>
+              <% if current_user.cf_admin? %>
+                <%= f.label :override, t(".override") %>
+                <%= f.check_box :override %>
+                <p class="checkbox-description"><%= t(".override_description") %></p>
+              <% end %>
             </fieldset>
           <% end %>
         </div>
@@ -95,6 +101,11 @@
           <%= f.label :lau_visible, t(".lau_visible") %>
           <%= f.check_box :lau_visible %>
           <p class="checkbox-description"><%= t(".lau_visible_description") %></p>
+          <% if current_user.cf_admin? %>
+            <%= f.label :override, t(".override") %>
+            <%= f.check_box :override %>
+            <p class="checkbox-description"><%= t(".override_description") %></p>
+          <% end %>
         </fieldset>
       <% end %>
     </div>

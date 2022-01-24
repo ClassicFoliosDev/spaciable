@@ -1333,11 +1333,15 @@ en:
       other: "Other Video Streaming Sites"
       other_description: "<ul><li>Click the 'share' option, found within or below the online video player, then find the 'embed video' option</li>
                           <li>There should be a long &#60;iframe&#62; code - delete everything except the embed video URL, which will be in quotation marks (do not paste the quotation marks into the 'Embedded Link' box in Spaciable)</ul>"
+      override: "Visible to All Plots"
+      override_description: "Override any Package restrictions and allow all residents of all Plots to view this video."
     collection:
       create: "Add Video"
       title: "Video"
       link: "Link"
       help: "Residents of plots on the Free package cannot view videos. To unlock videos for those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+      override_title: "Classic Folios Content"
+      override_info: "This is a protected video added by Classic Folios and is visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280."
     show:
       back: "Back"
     edit:
@@ -2864,6 +2868,8 @@ en:
       lau_visible: "Visible to Limited Access Users"
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
       lau_visible_description: "Allow Limited Access User residents to view this document. Full Access User residents can override this and show/hide documents to/from Limited Access residents. Please see the Residents tab for details of resident permissions."
+      override: "Visible to All Plots"
+      override_description: "Override any Package restrictions and allow all residents of all Plots to view this document."
     collection:
       plot: "Plot"
       processing: "Processing..."
@@ -3323,6 +3329,8 @@ under a plot to assign a plot-specific finish."
       lau_visible: "Visible to Limited Access Users"
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages, ordered by last edited. There is no limit to the number of pinned documents."
       lau_visible_description: "Allow Limited Access User residents to view this document. Full Access User residents can override this and show/hide documents to/from Limited Access residents. Please see the Residents tab for details of resident permissions."
+      override: "Visible to All Plots"
+      override_description: "Override any Package restrictions and allow all residents of all Plots to view this document."
     collection:
       add: "Add Document(s)"
       processing: "Processing..."
@@ -3333,6 +3341,8 @@ under a plot to assign a plot-specific finish."
       sync: "CRM Sync"
       delete_info: "<p>This document cannot be replaced, renamed, recategorised or deleted, because it has been tagged as a %{tag} Manual written by Classic Folios.</p><p>
 %{tag} Manuals are protected to ensure they always remain visible to residents.</p>"
+      override_title: "Classic Folios Content"
+      override_info: "This is a protected document produced by Classic Folios. Visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280."
     edit:
       title: "Edit %{name}"
 

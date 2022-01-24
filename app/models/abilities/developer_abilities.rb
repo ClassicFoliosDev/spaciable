@@ -24,6 +24,8 @@ module Abilities
       polymorphic_abilities Video, :videoable do
         type "Developer", id: developer, actions: :manage
       end
+
+      cannot %i[update destroy], Video, override: true
     end
 
     def developer_build_progress(developer)
@@ -64,6 +66,8 @@ module Abilities
           type "Plot", id: Plot.where(developer_id: developer_id).lazy.pluck(:id)
         end
       end
+
+      cannot %i[update destroy], Document, override: true
     end
 
     def read_developers(developer_id)

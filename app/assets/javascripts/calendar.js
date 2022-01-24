@@ -113,7 +113,7 @@ var admin = {
           if (admin.unrestricted()) {
             admin.newEvent(dataIn, start)
           } else {
-                restricted.display(false)
+            $("#warning i").trigger('click')
           }
         },
       calendarConfig.header.center = "addEvent, month, agendaWeek, agendaDay"
