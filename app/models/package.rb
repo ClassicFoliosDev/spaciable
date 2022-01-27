@@ -22,7 +22,6 @@ class Package
          Phase.packages[:professional]].each do |p|
           development.phases.where(package: p).find_each do |phase|
             package_plots = Plot.billable(phase)
-            byebug
             ff_plots = if %w[standard full_works].include?(phase.maintenance_account_type)
                          Plot.billable(phase, kind: :ff).count
                        end

@@ -50,7 +50,6 @@ module Csv
         if prev_invoice.present? &&
            (prev_invoice.created_at != invoice.created_at ||
             prev_invoice.phase.developer.id != invoice.phase.developer.id)
-          byebug
           csv << Csv::CsvService.empty_line(headers.length)
           if ff_plots.present? && ff_plots.positive?
             csv << [prev_invoice.created_at,
