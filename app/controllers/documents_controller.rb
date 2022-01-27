@@ -123,7 +123,8 @@ class DocumentsController < ApplicationController
   def document_params
     # single document doesn't come as array but in order for everything to work it needs
     # to be converted
-    unless params[:document][:files].is_a? Array
+    unless params[:document][:files].blank? ||
+           params[:document][:files].is_a?(Array)
       params[:document][:files] = [params[:document][:files]]
     end
 
