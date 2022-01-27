@@ -49,7 +49,7 @@
           </div>
 
           <% if current_user.cf_admin? %>
-            <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
+            <%= render "components/admin/plot_date_fields", f: f, plot: nil, phase: @phase %>
           <% end %>
         </fieldset>
       </div>

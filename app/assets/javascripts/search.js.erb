@@ -19,12 +19,14 @@ $document.on('keypress', 'form', function (event) {
     [$('.search-user-field'), searchUser]
   ];
 
-  if (event.keyCode === RETURN && event.target.value != "") {
-    for (i = 0; i < searches.length; ++i) {
-      if (event.target == searches[i][0][0]) {
-        clearSearchResults()
-        if (event.target.value != "") {
-          searches[i][1]()
+  if (event.keyCode === RETURN) {
+    if (event.target.value != "") {
+      for (i = 0; i < searches.length; ++i) {
+        if (event.target == searches[i][0][0]) {
+          clearSearchResults()
+          if (event.target.value != "") {
+            searches[i][1]()
+          }
         }
       }
     }

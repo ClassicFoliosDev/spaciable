@@ -38,13 +38,15 @@
                   input_html: { type: :date } %>
       </div>
 
-      <div class="plot-field validity">
-        <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
-      </div>
+      <% if @phase.legacy? %>
+        <div class="plot-field validity">
+          <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
+        </div>
 
-      <div class="plot-field extended_access">
-        <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
-      </div>
+        <div class="plot-field extended_access">
+          <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
+        </div>
+      <% end %>
 
     </div>
 

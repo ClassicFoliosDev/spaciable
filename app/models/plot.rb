@@ -11,6 +11,7 @@ class Plot < ApplicationRecord
   DASHBOARD_TILES = 5 # total number of customisable tiles on the homeowner dashboard
 
   before_save :set_build_status
+  before_save :set_validity
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -60,7 +61,7 @@ class Plot < ApplicationRecord
 
   delegate :build_steps, to: :parent
   delegate :title, to: :build_step, prefix: true
-  delegate :free?, :essentials?, :professional?, :legacy?, to: :phase
+  delegate :free?, :essentials?, :professional?, :legacy?, to: :phase, allow_nil: true
 
   alias_attribute :identity, :number
 
@@ -100,6 +101,7 @@ class Plot < ApplicationRecord
   delegate :business, :package, to: :phase
   delegate :list_id, to: :developer
   delegate :construction, :construction_name, to: :development, allow_nil: true
+  delegate :maintenance_account_typeaccount_type, to: :development, allow_nil: true
 
   delegate :enable_perks?, :perks_branded_link, :branded_perk, to: :developer
   delegate :enable_premium_perks, :premium_licence_duration, to: :development
@@ -805,16 +807,36 @@ class Plot < ApplicationRecord
     self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
   end
 
-  # Plots are billable if the lesser of reservation/completion release date has passed
-  # less than 36 months ago
-  def self.billable(phase)
-    sql = "select number from plots where phase_id = #{phase.id} " \
-          "AND LEAST(completion_release_date, reservation_release_date) <= current_date " \
-          "AND LEAST(completion_release_date, reservation_release_date) > " \
-          "(select current_date - interval '36 months')"
+  # Everything other than Legacy plots has a default validity of 36 months
+  def set_validity
+    return if legacy?
+    self.validity = 36
+  end
+
+  # rubocop:disable Metrics/MethodLength
+  def self.billable(phase, kind: :package)
+    return [] if kind == :ff && !%w[standard full_works].include?(phase.maintenance_account_type)
+    return [] if kind == :package && phase.free?
+
+    case kind
+    when :package
+      sql = "select number from plots where phase_id = #{phase.id} " \
+            "AND LEAST(completion_release_date, reservation_release_date) <= current_date " \
+            "AND LEAST(completion_release_date, reservation_release_date) > " \
+            "(select current_date - interval '36 months')"
+    when :ff
+      sql = "select number from plots where phase_id = #{phase.id} " \
+            "AND completion_release_date <= current_date " \
+            "AND LEAST(completion_release_date, reservation_release_date) > " \
+            "(select current_date - interval '36 months')"
+    else
+      sql = "select number from plots completion_release_date < " \
+            "(select current_date - interval '100 years')"
+    end
 
     ActiveRecord::Base.connection.exec_query(sql)
   end
+  # rubocop:enable Metrics/MethodLength
 
   # filter tiles according to the plot status
   def visible_tiles(active_tiles)

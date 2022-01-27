@@ -17,14 +17,21 @@ class Package
 
       # Invoice by development
       developer.all_developments.each do |development|
-        [Phase.packages[:essentials], Phase.packages[:professional]].each do |p|
+        [Phase.packages[:free],
+         Phase.packages[:essentials],
+         Phase.packages[:professional]].each do |p|
           development.phases.where(package: p).find_each do |phase|
-            plots_billable = Plot.billable(phase)
-            if plots_billable.rows.count.positive?
+            package_plots = Plot.billable(phase)
+            byebug
+            ff_plots = if %w[standard full_works].include?(phase.maintenance_account_type)
+                         Plot.billable(phase, kind: :ff).count
+                       end
+            if package_plots.count.positive? || ff_plots
               Invoice.create(created_at: created_at,
                              phase_id: phase.id,
                              package: p,
-                             plots: plots_billable.rows.count)
+                             plots: package_plots.count,
+                             ff_plots: ff_plots)
             end
           end
         end
