@@ -44,6 +44,10 @@ Then(/^I should see the created finish$/) do
 end
 
 
+Then(/^I do not see a (.*) tab$/) do |tab_name|
+  expect(page).not_to have_content tab_name
+end
+
 When(/^I create a ([^ ]*) finish with category ([^ ]*) type ([^ ]*) and manufacturer ([^ ]*)$/) do |name, category, type, manufacturer|
   visit "/"
 

@@ -24,6 +24,10 @@
               <% if document.persisted? %>
                 <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload"%>
                 <%= label_tag('document_file', t("choose"), class: "choose-file") %>
+              <% elsif parent.is_a?(Phase) && parent.free? %>
+                <%= f.file_field :files, multiple: false, class: "file-upload" %>
+                <%= label_tag(:document_files, t("choose_single"), class: "choose-file choose-files") %>
+                <div class="left"><p><%= t(".choose_single_explanation_html").html_safe %></p></div>
               <% else %>
                 <%= f.file_field :files, multiple: true, class: "file-upload" %>
                 <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>

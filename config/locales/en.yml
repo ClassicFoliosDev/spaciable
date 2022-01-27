@@ -296,6 +296,7 @@ en:
 
   choose: "Choose File"
   choose_multiple: "Choose Files"
+  choose_single: "Choose File"
   no_image: "No image available"
   plot: "Plot %{number}"
 
@@ -3323,6 +3324,9 @@ under a plot to assign a plot-specific finish."
       of the <i>CTRL</i> or <i>CMD</i> key to select individual files.</p><p>If uploading multiple files, do not use the
       <i>Document Title</i> field below or this name will be applied to all files being uploaded.</p><p>Files keep their original file names.
       </strong><br/>Special characters such as . , ( ) _ ' & \" will be removed.<br/>
+      After uploading, click the pencil icon on a file to edit the file name.</p>"
+      choose_single_explanation_html: "<p><strong>Files keep their original file names.</strong>
+      <br/>Special characters such as . , ( ) _ ' & \" will be removed.<br/>
       After uploading, click the pencil icon on a file to edit the file name.</p>"
       title_explanation: "Only use when uploading a single file, as name will apply to all files."
       pinned: "Pinned"
