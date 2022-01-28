@@ -17,7 +17,7 @@ When(/^I upload a document using (\w+) plot$/) do |plot_name|
                 visible: false)
   end
 
-  check :document_notify
+  find("#document_notify").trigger('click')
 
   click_on(t("plot_documents.form.upload_all"))
 end

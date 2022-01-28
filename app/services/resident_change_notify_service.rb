@@ -56,7 +56,9 @@ module ResidentChangeNotifyService
     notifyable_plots = []
 
     plots_for(parent, resource).each do |plot|
-      next if plot.free? && !(parent.is_a?(Phase) && resource.is_a?(Document))
+      next if plot.free? &&
+              !((parent.is_a?(Phase) && resource.is_a?(Document)) ||
+              (resource.is_a?(Document) && resource.override))
       notifyable_plots << plot
     end
 

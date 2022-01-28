@@ -37,7 +37,7 @@
       <div class="search-container">
         <%= simple_fields_for :search do |s| %>
           <%= s.text_field :search_user_text, class: "search-user-field", autocomplete: "off", placeholder: search, data: {path: user_search_path}  %>
-          <%= link_to "", class: "btn search-user-btn" do %>
+          <%= link_to "", class: "btn search-btn" do %>
             <i class="fa fa-search"></i>
           <% end %>
         <% end %>

@@ -37,6 +37,9 @@
         <td class="actions">
           <%= (edit_btn edit_video_path(video), element: video) unless parent.expired? && !(current_user.cf_admin?) %>
           <%= (delete_btn video, path: video_path(video), element: video) unless parent.expired? && !(current_user.cf_admin?) %>
+          <% if video.override && !current_user.cf_admin? %>
+            <%= info_btn video, text: t(".override_info"), element: nil, title: t('.override_title') %>
+          <% end %>
         </td>
       </tr>
       <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211230115646) do
+ActiveRecord::Schema.define(version: 20220126125029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -498,6 +498,7 @@ ActiveRecord::Schema.define(version: 20211230115646) do
     t.integer  "user_id"
     t.integer  "guide"
     t.boolean  "lau_visible",       default: false
+    t.boolean  "override",          default: false
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
     t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
@@ -731,8 +732,9 @@ ActiveRecord::Schema.define(version: 20211230115646) do
     t.integer  "phase_id"
     t.integer  "package"
     t.integer  "plots"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "ff_plots",   default: 0
     t.index ["phase_id"], name: "index_invoices_on_phase_id", using: :btree
   end
 
@@ -1336,8 +1338,9 @@ ActiveRecord::Schema.define(version: 20211230115646) do
     t.string   "link"
     t.string   "videoable_type"
     t.integer  "videoable_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "override",       default: false
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
@@ -1364,6 +1367,7 @@ ActiveRecord::Schema.define(version: 20211230115646) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
+  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

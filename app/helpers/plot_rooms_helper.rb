@@ -5,7 +5,7 @@ module PlotRoomsHelper
     return "plots/rooms/empty_completed" if current_user.cf_admin? ||
                                             (!plot.free? && plot.cas &&
                                               plot.completion_release_date.present?)
-    return "plots/rooms/empty_not_completed" if plot.cas
+    return "plots/rooms/empty_not_completed" if plot.free? || plot.cas
     nil
   end
 

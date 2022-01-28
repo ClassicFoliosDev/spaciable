@@ -18,12 +18,14 @@
              placeholder: "DD/MM/YYYY",
              input_html: { type: :date, :value => f.object&.completion_release_date&.html } %>
 </div>
-<div class="plot-field validity">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :validity_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
-</div>
-<div class="plot-field extended_access">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
-</div>
+<% if phase.legacy? %>
+  <div class="plot-field validity">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :validity_check, as: :boolean, label: false %></span><% end %>
+    <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
+  </div>
+  <div class="plot-field extended_access">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
+    <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
+  </div>
+<% end %>
 

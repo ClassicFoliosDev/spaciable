@@ -76,6 +76,8 @@ module Abilities
       polymorphic_abilities Video, :videoable do
         type "Development", id: developments, actions: :manage
       end
+
+      cannot %i[update destroy], Video, override: true
     end
 
     def development_custom_tiles(developments)
@@ -112,6 +114,8 @@ module Abilities
           type "Plot", id: Plot.where(development_id: developments).lazy.pluck(:id)
         end
       end
+
+      cannot %i[update destroy], Document, override: true
     end
 
     def development_calendar

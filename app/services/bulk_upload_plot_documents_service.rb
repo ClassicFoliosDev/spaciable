@@ -107,6 +107,7 @@ module BulkUploadPlotDocumentsService
                                  pinned: plot_document_params[:pinned],
                                  lau_visible: plot_document_params[:lau_visible],
                                  guide: plot_document_params[:guide],
+                                 override: plot_document_params[:override],
                                  user_id: plot_document_params[:user_id])
 
       if doc.save then saved << doc

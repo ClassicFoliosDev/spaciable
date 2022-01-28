@@ -21,6 +21,8 @@ module Abilities
       polymorphic_abilities Video, :videoable do
         type "Division", id: division, actions: :manage
       end
+
+      cannot %i[update destroy], Video, override: true
     end
 
     def division_build_progress(division)
@@ -72,6 +74,8 @@ module Abilities
           type "Plot", id: Plot.where(division_id: division).lazy.pluck(:id)
         end
       end
+
+      cannot %i[update destroy], Document, override: true
     end
 
     def division_calendar

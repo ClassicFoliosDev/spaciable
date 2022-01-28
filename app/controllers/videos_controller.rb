@@ -67,6 +67,7 @@ class VideosController < ApplicationController
     params.require(:video).permit(
       :title,
       :link,
+      :override,
       :notify
     )
   end

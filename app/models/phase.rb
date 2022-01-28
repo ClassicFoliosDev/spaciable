@@ -40,7 +40,7 @@ class Phase < ApplicationRecord
   delegate :calendar, to: :development, prefix: true
   delegate :time_zone, to: :developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
-
+  delegate :maintenance_account_type, to: :development, allow_nil: true
   delegate :timeline, to: :developer
 
   has_many :contacts, as: :contactable, dependent: :destroy

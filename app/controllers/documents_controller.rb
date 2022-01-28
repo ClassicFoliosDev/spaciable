@@ -87,6 +87,7 @@ class DocumentsController < ApplicationController
                              category: document_params[:category],
                              pinned: document_params[:pinned],
                              lau_visible: document_params[:lau_visible],
+                             override: document_params[:override],
                              guide: document_params[:guide])
     @document.set_original_filename
     @document.save
@@ -120,8 +121,15 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
+    # single document doesn't come as array but in order for everything to work it needs
+    # to be converted
+    unless params[:document][:files].blank? ||
+           params[:document][:files].is_a?(Array)
+      params[:document][:files] = [params[:document][:files]]
+    end
+
     params.require(:document).permit(:title, :category, :documentable_id, :notify, :file,
-                                     :pinned, :lau_visible, :guide, files: [])
+                                     :pinned, :lau_visible, :override, :guide, files: [])
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

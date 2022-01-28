@@ -26,7 +26,7 @@
         <%= simple_fields_for :search do |s| %>
           <span>
             <%= s.text_field :search_appliance_text, class: "search-index-finish-field", autocomplete: "off", placeholder: search, data: {path: appliance_search_path}  %>
-            <%= link_to "", class: "btn search-appliance-btn" do %>
+            <%= link_to "", class: "btn search-btn" do %>
               <i class="fa fa-search"></i>
             <% end %>
           </span>

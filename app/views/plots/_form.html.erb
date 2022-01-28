@@ -35,7 +35,7 @@
       <% if f.object.persisted? %>
         <div class="row-item third">
           <fieldset>
-            <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
+            <%= render "components/admin/plot_date_fields", f: f, plot: plot, phase: plot.phase %>
           </fieldset>
         </div>
       <% end %>

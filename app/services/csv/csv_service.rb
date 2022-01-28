@@ -115,5 +115,9 @@ module Csv
     def self.expiry_date(plot)
       plot.expiry_date&.strftime("%d/%m/%Y")
     end
+
+    def self.empty_line(entries)
+      Array.new(entries) { |_| nil }
+    end
   end
 end
