@@ -702,7 +702,7 @@ en:
 
   destroy:
     cancel: "Cancel"
-    confirm_title: "Confirm delete"
+    confirm_title: "Confirm Delete"
     confirm_text: "Are you sure you wish to delete %{type}?"
     destroy: "Delete"
     confirm_final_resident_admin: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed. <strong>Please check all documents uploaded to this plot and delete any that contain personal data relating to this resident.</strong>"
@@ -1354,11 +1354,12 @@ en:
       spotlight: "Spotlight"
       category: "Category"
       editable: "Editable"
-      cf: "CF Tile"
+      cf: "Visible to Free plots"
       uneditable_title: "%{tile}"
-      uneditable_text: "You do not have permission to edit this shortcut tile. Please contact your Classic Folios Account Manager for more details."
+      uneditable_text: "You do not have permission to edit this Spotlight. If you would like to replace it, please contact The Spaciable Team for more details."
       help_title: "Free Package Restriction"
       help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
+      confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
     new:
       title: "New Spotlight"
     edit:
@@ -1381,9 +1382,9 @@ en:
       current_file: "Current File"
       content_proforma: "Content Proforma"
       full_image: "Display image full width?"
-      render_title: "Render title on tile?"
-      render_description: "Render description on tile?"
-      render_button: "Render button on tile?"
+      render_title: "Render title on Spotlight?"
+      render_description: "Render description on Spotlight?"
+      render_button: "Render button on Spotlight?"
       appears:
         title: "Resident sees Spotlight"
         always: "Always"
@@ -3346,7 +3347,7 @@ under a plot to assign a plot-specific finish."
       delete_info: "<p>This document cannot be replaced, renamed, recategorised or deleted, because it has been tagged as a %{tag} Manual written by Classic Folios.</p><p>
 %{tag} Manuals are protected to ensure they always remain visible to residents.</p>"
       override_title: "Classic Folios Content"
-      override_info: "This is a protected document produced by Classic Folios. Visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280."
+      override_info: "This is a protected document produced by Classic Folios and is visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto: customerexperience@classicfolios.com'> customerexperience@classicfolios.com</a>."
     edit:
       title: "Edit %{name}"
 

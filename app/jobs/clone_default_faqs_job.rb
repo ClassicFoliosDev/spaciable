@@ -11,7 +11,9 @@ class CloneDefaultFaqsJob < ApplicationJob
       default_faq_attributes(country_id).each do |default_faq|
         next if existing_questions.include?(default_faq[:question])
 
-        model.faqs.create(default_faq)
+        faq = model.faqs.create(default_faq)
+        faq.update(faq_package: default_faq[:faq_package])
+        faq.save
       end
     end
   end
