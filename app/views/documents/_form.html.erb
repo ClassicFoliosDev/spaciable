@@ -37,7 +37,7 @@
           <% end %>
           <div class="document-title">
             <%= f.label :title, t(".title") %>
-            <% if !document.persisted? %>
+            <% unless document.persisted? || (parent.is_a?(Phase) && parent.free?) %>
               <p><%= t(".title_explanation") %></p>
             <% end %>
             <%= f.input :title, label: false, disabled: document.read_only? %>
