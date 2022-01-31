@@ -52,6 +52,7 @@ module ResidentChangeNotifyService
   end
 
   # Free plots are only able to receive notifications for Phase Documents
+  # rubocop:disable Metrics/CyclomaticComplexity
   def notifyable_plots_for(parent, resource)
     notifyable_plots = []
 
@@ -59,11 +60,13 @@ module ResidentChangeNotifyService
       next if plot.free? &&
               !((parent.is_a?(Phase) && resource.is_a?(Document)) ||
               (resource.is_a?(Document) && resource.override))
+      next if plot.essentials? && resource.is_a?(Faq) && resource.custom?
       notifyable_plots << plot
     end
 
     notifyable_plots
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def plots_for(parent, resource)
     return [parent] if parent.is_a?(Plot)
