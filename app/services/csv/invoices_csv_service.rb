@@ -36,7 +36,7 @@ module Csv
       ]
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
     def self.append_invoices(report, csv)
       ff_plots = 0
       prev_invoice = nil
@@ -51,7 +51,7 @@ module Csv
            (prev_invoice.created_at != invoice.created_at ||
             prev_invoice.phase.developer.id != invoice.phase.developer.id)
           csv << Csv::CsvService.empty_line(headers.length)
-          if ff_plots.present? && ff_plots.positive?
+          if ff_plots.positive?
             csv << [prev_invoice.created_at,
                     prev_invoice.phase.developer.identity, nil, nil, nil, nil, nil, ff_plots]
             csv << Csv::CsvService.empty_line(headers.length)
@@ -72,7 +72,12 @@ module Csv
         ff_plots += invoice.ff_plots if invoice.ff_plots.present?
         prev_invoice = invoice
       end
+
+      return if prev_invoice.blank? || ff_plots.zero?
+      csv << Csv::CsvService.empty_line(headers.length)
+      csv << [prev_invoice.created_at,
+              prev_invoice.phase.developer.identity, nil, nil, nil, nil, nil, ff_plots]
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
   end
 end
