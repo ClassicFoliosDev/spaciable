@@ -198,7 +198,7 @@ input:checked + .feedback {
 }
 
 .warning-dialog .ui-dialog-titlebar {
-    background-color: #fc2803 !important;
+    background-color: #ED7014 !important;
 }
 
 .popup-resource {
@@ -212,9 +212,12 @@ input:checked + .feedback {
   cursor: pointer;
 
   i {
-    font-size: 20;
-    color: #FFBF00;
+    font-size: xx-large;
   }
+}
+
+i.warning {
+  color: #ED7014;
 }
 
 #trigger {
