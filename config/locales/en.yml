@@ -1362,7 +1362,7 @@ en:
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
       spotlight_help:
         title: "Resident Spotlights"
-        text:  "<div class='dialog-image'><img src='%{image}'><p>Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots.</p>"
+        text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots.</p>"
     new:
       title: "New Spotlight"
     edit:
