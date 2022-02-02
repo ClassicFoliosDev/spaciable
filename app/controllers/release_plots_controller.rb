@@ -89,7 +89,7 @@ class ReleasePlotsController < ApplicationController
   end
 
   def map_validity
-    return if r_params[:validity].empty?
+    return if r_params[:validity].blank? || r_params[:validity].empty?
     @bu_params[:validity] = r_params[:validity]
     @bu_params[:validity_check] = "1"
   end
@@ -105,7 +105,7 @@ class ReleasePlotsController < ApplicationController
   end
 
   def map_extended
-    return if r_params[:extended].empty?
+    return if r_params[:extended].blank? || r_params[:extended].empty?
     @bu_params[:extended_access] = r_params[:extended]
     @bu_params[:extended_access_check] = "1"
   end

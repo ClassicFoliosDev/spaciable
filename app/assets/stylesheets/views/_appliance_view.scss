@@ -171,17 +171,6 @@
       margin: 0;
     }
 
-    i {
-      display: inline-block;
-      float: right;
-      font-size: $title-font-size-4;
-      margin-top: 2px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
     .category-help, .type-help, .manufacturer-help {
       display: none;
       padding-top: $spacing-small;

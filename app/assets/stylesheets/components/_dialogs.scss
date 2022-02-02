@@ -201,6 +201,15 @@ input:checked + .feedback {
     background-color: #ED7014 !important;
 }
 
+.ui-dialog-title i.warning {
+  color: white;
+}
+
+#toolbarbutton {
+  float: right;
+  margin: 12 38;
+}
+
 .popup-resource {
   display: none;
 }

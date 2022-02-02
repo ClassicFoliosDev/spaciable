@@ -36,8 +36,8 @@
             <%= f.association :finish_category, label: t(".category"),
                 collection: FinishCategory.accessible_by(current_ability).order(:name), data: :developer_id %>
             <div class="category-disclaimer">
+               <button id="categoryHelp" class="btn dropdown-help-btn" type="button" title="Help">?</button>
               <p><%= t(".disclaimer", item: "category") %></p>
-              <i class="fa fa-question-circle" id="categoryHelp"></i>
               <div class="category-help">
                 <p class="help-description"><%= unsanitized t(".category_help") %></p>
               </div>
@@ -47,8 +47,8 @@
           <div class="finish_type ui-front select-container">
             <%= f.association :finish_type, label: t(".type"), collection: [finish&.finish_type] %>
             <div class="type-disclaimer">
+              <button id="typeHelp" class="btn dropdown-help-btn" type="button" title="Help">?</button>
               <p><%= t(".disclaimer", item: "type") %></p>
-              <i class="fa fa-question-circle" id="typeHelp"></i>
               <div class="type-help">
                 <p class="help-description"><%= unsanitized t(".type_help") %></p>
               </div>
@@ -57,8 +57,8 @@
           <div class="finish_manufacturer ui-front select-container">
             <%= f.association :finish_manufacturer, label: t(".manufacturer"), collection: [finish&.finish_manufacturer] %>
             <div class="manufacturer-disclaimer">
+              <button id="manufacturerHelp" class="btn dropdown-help-btn" type="button" title="Help">?</button>
               <p><%= t(".disclaimer", item: "manufacturer") %></p>
-              <i class="fa fa-question-circle" id="manufacturerHelp"></i>
               <div class="manufacturer-help">
                 <p class="help-description"><%= unsanitized t(".manufacturer_help", url: finish_manufacturers_path) %></p>
               </div>

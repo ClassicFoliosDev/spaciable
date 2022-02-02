@@ -1360,6 +1360,9 @@ en:
       help_title: "Free Package Restriction"
       help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
+      spotlight_help:
+        title: "Resident Spotlights"
+        text:  "<div class='dialog-image'><img src='%{image}'><p>Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots.</p>"
     new:
       title: "New Spotlight"
     edit:
@@ -2946,6 +2949,9 @@ en:
       plot_template:
         title: "What is a Spec Template?"
         help: "The Spec Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.<br/><br/>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
+      ut_help:
+        title: "What is a Spec Template?"
+        text: "<div><p>The Spec Template feature allows you to create templates for your plots.</p><p>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it. Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.</p><p>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.</p>"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2962,10 +2968,8 @@ en:
      search: "Search"
      info:
        title: "Appliances Catalogue"
-       desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.
-<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click
-Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms
-tab under a plot to assign a plot-specific finish."
+       desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish."
+       recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> in the top left.</p>"
    collection:
      create: "Create Appliance"
      assign: "Assign Appliance"
@@ -3103,10 +3107,8 @@ tab under a plot to assign a plot-specific finish."
       title: "Finishes Catalogue."
       info:
         title: "Finishes Catalogue"
-        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the
-finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot
-Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab
-under a plot to assign a plot-specific finish."
+        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish."
+        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> in the top left.</p>"
     collection:
       finish: "Finish Name"
       finish_category: "Category"

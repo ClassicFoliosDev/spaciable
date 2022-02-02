@@ -18,8 +18,8 @@ var release = {
     json.order_number = $('#phase_release_plots_order_number')[0].value
     json.release_type = $('#release_type')[0].value
     json.release_date = $('#phase_release_plots_release_date')[0].value
-    json.validity = $('#phase_release_plots_validity')[0].value
-    json.extended = $('#phase_release_plots_extended_access')[0].value
+    if ($('#phase_release_plots_validity').length != 0) { json.validity = $('#phase_release_plots_validity')[0].value }
+    if ($('#phase_release_plots_extended_access').length != 0) { json.extended = $('#phase_release_plots_extended_access')[0].value }
     json.send_to_admins = $('#phase_release_plots_send_to_admins').is(":checked");
 
     return json;

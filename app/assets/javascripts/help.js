@@ -15,29 +15,11 @@ $(document).on('click', '#manufacturerHelp', function (event) {
   $('.manufacturer-help').toggle()
 })
 
-// unit type
-$(document).on('click', '#unitTypeHelp', function (event) {
-  unitTypeHelp()
-})
-
-$(document).on('mouseover', '#unitTypeHelp', function (event) {
+$(document).on('mouseover', 'i.popup-help', function (event) {
   questionMouseOver($(this))
 })
 
-$(document).on('mouseout', '#unitTypeHelp', function (event) {
-  questionMouseOut($(this))
-})
-
-// Spotlght
-$(document).on('click', '#spotlightHelp', function (event) {
-  spotlightHelp($(this))
-})
-
-$(document).on('mouseover', '#spotlightHelp', function (event) {
-  questionMouseOver($(this))
-})
-
-$(document).on('mouseout', '#spotlightHelp', function (event) {
+$(document).on('mouseout', 'i.popup-help', function (event) {
   questionMouseOut($(this))
 })
 
@@ -107,26 +89,6 @@ function questionMouseOut(question) {
   question.removeClass('fa-question-circle')
   question.addClass('fa-question-circle-o')
   question.css('font-size', '14px')
-}
-
-function spotlightHelp(container) {
-
-  showHelpDialog(
-    'spotlight-help',
-    'Resident Spotlights',
-    '<div class="dialog-image">' +
-      '<img src="' + container.data('image') + '">' +
-      '<p>' +
-        'Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.' +
-      '</p>' +
-      '<p>' +
-          'The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.' +
-      '</p>' +
-      '<p>' +
-          "Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots." +
-      '</p>' +
-    '</div>'
-  )
 }
 
 function contactTagHelp(container) {

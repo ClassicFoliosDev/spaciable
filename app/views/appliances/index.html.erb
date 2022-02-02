@@ -3,13 +3,13 @@
 <%= render "components/admin/stuck_with_specs", cas: Developer.find_by(id: current_user&.developer)&.cas %>
 
 <% unless current_user.cf_admin? %>
-  <%= render "components/admin/popup", title: t(".info.title"), preference: :show_appliances_info_dialog, help: [t(".info.desc")], all_users: false, popup_on_load: true, width: 500, selector: ".section-title #trigger" %>
+  <%= render "components/admin/popup", title: t(".info.title"), preference: :show_appliances_info_dialog, help: [t(".info.desc")], all_users: false, popup_on_load: true, width: 500, selector: ".section-title #trigger", recall: t(".info.recall") %>
 <% end %>
 
 <div class="section-header">
   <div class="section-title">
     <% unless current_user.cf_admin? %>
-      <i id="trigger" class="fa fa-question-circle"></i>
+      <%= help_btn text: t(".info.desc"), title: t(".info.title"), width: 500 %>
     <% end %>
     <%= t(".title") %>
   </div>

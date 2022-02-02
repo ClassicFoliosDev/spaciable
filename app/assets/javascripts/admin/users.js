@@ -11,9 +11,6 @@ document.addEventListener('turbolinks:load', function () {
   var $developer = "developer"
   var $division = "division"
   var $development = "development"
-  //var $developerSelect = $('.user_developer_id select')
-  //var $divisionSelect = $('.user_division_id select')
-  //var $developmentSelect = $('.user_development_id select')
   var $user_role = $('#cas').attr('data-userrole')
 
   const prefixes = [$primary, $su]
@@ -37,7 +34,6 @@ document.addEventListener('turbolinks:load', function () {
   })
 
   showRoleResourcesOnly ($('#user_role').val(), true)
-  showHideAdditionalEmailPreferences()
 
   function developerSelectmenuCallbacks (primary) {
     return {
@@ -146,12 +142,12 @@ document.addEventListener('turbolinks:load', function () {
       getSelector($developer, primary).selectmenu(developerSelectmenuCallbacks(primary))
     };
 
-    if (role === 'cf_admin') {
+    if (role === 'cf_admin' || role === '') {
       if (primary) {
-        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
+        $('.user_developer_id, .user_division_id, .user_development_id, .form-row-head, .receive_release_emails, .cc-receive_release_emails, \
            .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
            .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, \
-           .cc-receive_faq_emails').hide()
+           .cc-receive_faq_emails, .administer_lettings').hide()
         $("#plot_check").prop("checked", true);
         $("#choice_check").prop("checked", true);
         $("#snag_check").prop("checked", true)
@@ -161,7 +157,7 @@ document.addEventListener('turbolinks:load', function () {
       }
     } else if (role === 'developer_admin') {
       if (primary) {
-        $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
+        $('.user_developer_id, .form-row-head, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
            .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .su-permission-level').show()
         $('.user_division_id, .user_development_id, .administer_lettings').hide()
         showAdditionalRoles()
@@ -171,7 +167,7 @@ document.addEventListener('turbolinks:load', function () {
       }
     } else if (role === 'division_admin') {
       if (primary) {
-        $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+        $('.user_developer_id, .user_division_id, .form-row-head, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
            .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, \
            .cc-receive_invitation_emails, .su-permission-level').show()
         $('.user_development_id, .administer_lettings').hide()
@@ -182,7 +178,7 @@ document.addEventListener('turbolinks:load', function () {
       }
     } else if (role === 'development_admin') {
       if (primary) {
-        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+        $('.user_developer_id, .user_division_id, .user_development_id, .form-row-head, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
            .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, \
            .cc-snag_notifications, .su-permission-level').show()
         showAdditionalRoles()
@@ -191,7 +187,7 @@ document.addEventListener('turbolinks:load', function () {
       }
     } else if (role === 'site_admin') {
       if (primary) {
-        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+        $('.user_developer_id, .user_division_id, .user_development_id, .form-row-head, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
            .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, \
            .cc-receive_invitation_emails, .su-permission-level').show()
         $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
@@ -202,7 +198,7 @@ document.addEventListener('turbolinks:load', function () {
     } else if (role === 'concierge') {
       if (primary) {
         $('.user_developer_id, .user_division_id, .user_development_id').show()
-        $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+        $('.receive_release_emails, .cc-receive_release_emails, .form-row-head, .receive_choice_emails, .cc-choice-emails, \
            .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
            .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
         showAdditionalRoles()
@@ -329,10 +325,6 @@ document.addEventListener('turbolinks:load', function () {
     })
   };
 })
-
-function showHideAdditionalEmailPreferences()  {
-  $(".form-row-head").toggle(($(".additional-role:visible").length != 0))
-}
 
 // send the positive feedback on positive response
 $(document).on('click', '#resendInvitation', function (event) {
@@ -463,8 +455,6 @@ $(document).on('click', '#add_role', function (event) {
     newrole.show()
     $num_additional_roles += 1
   }
-
-  showHideAdditionalEmailPreferences()
 })
 
 function initialiseRole(role){
@@ -499,8 +489,6 @@ $(document).on('click', '.additional-role .delete', function (event) {
 function deleteAdditionalRole(role) {
   role.find("input[deletefield='true']").val(true)
   role.hide()
-
-  showHideAdditionalEmailPreferences()
 }
 
 function duplicateOf(additional_role) {

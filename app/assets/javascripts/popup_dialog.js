@@ -7,8 +7,7 @@ document.addEventListener('turbolinks:load', function () {
     $resources[index] = $(this)
 
     if ($(this).data('selector') == "") {
-      popup.buildToolbarIcon($(this), index)
-      selector = "i." + $(this).data("type")
+      selector = popup.addToolbarLink($(this), index)
       $(selector).show()
     } else {
       selector = $(this).data('selector')
@@ -46,10 +45,12 @@ var popup = {
                                   "<i class='fa " + resource.data("icon") + " " + resource.data("type") + "' aria-hidden='true'></i>" +
                                   " in the top right.</p>" +
                                 "</div>")
+      } else if (resource.data('recall') != "") {
+        $dialogContainer.append("<div>" + resource.data('recall') + "</div>")
       }
 
       $dialogContainer.append("<div class='input'>" +
-                                "<label><input type='checkbox' id='noshow' name='noshow'>I understand. Don't show me this message again.</label>" +
+                                "<label><input type='checkbox' id='noshow' name='noshow'>I understand. Please don't show this again.</label>" +
                               "</div>")
     }
 
@@ -86,7 +87,13 @@ var popup = {
     $('body').append("<div class='ui-widget-overlay ui-front' style='z-index: 100;''></div>")
   },
 
-  buildToolbarIcon: function(resource, index) {
+  addToolbarLink: function(resource, index) {
+    if (resource.data("type") == 'button') {
+      $(".breadcrumb-container").append("<button id='toolbarbutton' type='button' class='btn toolbarbutton' data-resource='" + index +"'>" +
+                                        resource.data('title') +
+                                        "</button>")
+      return "#toolbarbutton"
+    }
     if ($("i." + resource.data("icon")).length > 0) { return }
     var toolbarIcon = $('<div>', { id: resource.data("type") }).html('<i class="fa ' +
                         resource.data("icon") + " " +
@@ -94,5 +101,6 @@ var popup = {
                         ' aria-hidden="true"' +
                         ' data-resource="' + index +'" ></i>')
     $(".breadcrumb-container").append(toolbarIcon)
+    return "i." + resource.data("type")
   }
 }
