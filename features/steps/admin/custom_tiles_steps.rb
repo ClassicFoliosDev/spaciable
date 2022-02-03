@@ -32,7 +32,7 @@ Then(/^I cannot crud the shortcuts$/) do
     expect(page).to have_no_css(".section-actions .fa-plus")
   end
 
-  within ".record-list" do
+  within ".record-list tbody" do
     expect(page).to have_no_css(".btn")
   end
 end

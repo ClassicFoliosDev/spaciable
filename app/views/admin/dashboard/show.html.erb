@@ -1,5 +1,5 @@
-<% unless current_user.cf_admin? %>
-  <%= render "components/admin/popup", title: t("admin_dashboard.title"), preference: :show_dashboad_info_dialog, help: [t("admin_dashboard.desc", guide: @setting.help.url)], all_users: false, popup_on_load: true, width: 700, selector: ".section-title #trigger" %>
+<% unless current_user.cf_admin? || Rails.env.test? %>
+  <%= render "components/admin/popup", title: t("admin_dashboard.title"), preference: :show_dashboad_info_dialog, help: [t("admin_dashboard.desc", guide: @setting&.help&.url)], all_users: false, popup_on_load: true, width: 700, selector: ".section-title #trigger" %>
 <% end %>
 
 <div class="row">

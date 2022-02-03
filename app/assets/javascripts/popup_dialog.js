@@ -39,7 +39,7 @@ var popup = {
     var $dialogContainer = $('<div>', { id: 'dialog' }).html(resource.html())
     if (can_turn_off) {
 
-      if(resource.data('selector') == "") {
+      if(resource.data('selector') == "" && resource.data("icon") != "") {
         $dialogContainer.append("<div>" +
                                   "<p>To recall this message, click the " +
                                   "<i class='fa " + resource.data("icon") + " " + resource.data("type") + "' aria-hidden='true'></i>" +
@@ -94,6 +94,7 @@ var popup = {
                                         "</button>")
       return "#toolbarbutton"
     }
+    if (resource.data("type") == "") { return }
     if ($("i." + resource.data("icon")).length > 0) { return }
     var toolbarIcon = $('<div>', { id: resource.data("type") }).html('<i class="fa ' +
                         resource.data("icon") + " " +

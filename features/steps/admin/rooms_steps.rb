@@ -79,11 +79,12 @@ When(/^I (search for and )*add a finish$/) do |search|
     [CreateFixture.finish_type_name,
      CreateFixture.finish_name].each do |search|
       fill_in 'finish_room_search_finish_text', :with => CreateFixture.finish_type_name
-      find('.search-finish-btn').click
+      find('.search-finish-btn').trigger('click')
 
       within "#finishes-button" do
         find('span', text: "Choose..")
       end
+      byebug
       select_from_selectmenu :finishes, with: full_name
     end
   else
@@ -92,6 +93,7 @@ When(/^I (search for and )*add a finish$/) do |search|
     select_from_selectmenu :finishes, with: "#{CreateFixture.finish_manufacturer_name} #{CreateFixture.finish_name}"
   end
 
+  byebug
   click_on t("rooms.form.submit")
 end
 
@@ -100,6 +102,7 @@ Then(/^I should see the room with a finish$/) do
     "controller.success.update",
     name: CreateFixture.room_name
   )
+  byebug
   expect(page).to have_content(success_flash)
 
   within ".record-list" do

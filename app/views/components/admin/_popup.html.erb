@@ -5,7 +5,7 @@
 %>
 
 <% if !current_user.cf_admin? || all_users %>
-  <div class="popup-resource", data-title="<%= title %>", data-preference="<%= pref %>", data-type="<%= defined?(type) ? Toolbar::ICONS[type][:type] : nil %>", data-icon="<%= defined?(type) ? Toolbar::ICONS[type][:icon] : nil %>", data-width="<%= defined?(width) ? width : 420 %>", data-popup-on-load="<%= defined?(popup_on_load) ? popup_on_load : true %>", data-selector="<%= defined?(selector) ? selector : nil %>", data-recall="<%= defined?(recall) ? recall : nil %>" >
+  <div class="popup-resource", data-title="<%= title %>", data-preference="<%= pref %>", data-type="<%= defined?(type) ? Toolbar::ICONS[type][:type] : nil %>", data-icon="<%= defined?(type) ? Toolbar::ICONS[type][:icon] : nil %>", data-width="<%= defined?(width) ? width : 440 %>", data-popup-on-load="<%= defined?(popup_on_load) ? popup_on_load : true %>", data-selector="<%= defined?(selector) ? selector : nil %>", data-recall="<%= defined?(recall) ? recall : nil %>" >
     <% help.each do |message| %>
       <%= unsanitized message %>
     <% end %>

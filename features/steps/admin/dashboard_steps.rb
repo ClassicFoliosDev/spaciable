@@ -28,7 +28,7 @@ When(/^I navigate to the help page$/) do
 end
 
 Then(/^I see a link to the PDF help file$/) do
-  within ".help-file" do
+  within ".splash.half" do
     help_link = page.find_link(t("admin.help.show.help_file"))
     expect(help_link[:href]).to include FileFixture.help_document_name
   end
