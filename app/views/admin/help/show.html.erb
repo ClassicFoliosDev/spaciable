@@ -6,10 +6,31 @@
   </div>
 </div>
 
-<div class="row help-file">
-  <%= label_tag :open, t(".view_guide") %>
-  <p style="font-style:italic;font-size:12px;"><%= t(".new_tab") %></p>
+<div class='half'>
+<p>We want you to use your Spaciable admin account to its full potential, so you can save time, stay organised and help your customers make the most of their property.</p>
+<p>We recommend you explore Spaciable’s wide variety of admin features, to learn how to efficiently communicate key updates and manage documents, contacts and other content with ease. Crucially, it’s up to admins to invite each occupier to their plot’s personal portal, so they don’t miss out!</p>
+<p>For quick tips, click the help icons placed throughout Spaciable (see the key below).</p>
+<p>For a full understanding, dive into the Spaciable Help Guide PDF at the bottom of this page.</p>
+</div>
+
+<%= label_tag :open, t(".icons") %>
+<br/>
+<div class='half'>
+  <table class='splash'>
+
+    <th class='icons'/><th/>
+      <tr><td><i class='fa fa-exclamation-triangle warning' aria-hidden='true'></i></td><td><p>Found in the top right of a page with restrictions. Click for clarification of restrictions to this feature.</p></td></tr>
+      <tr><td><i class='fa fa-question-circle-o' aria-hidden='true'></i></td><td><p>Found beside text. Click for an explanation of this terminology or function.</p></td></tr>
+      <tr><td><button class='btn' type='button'><i class='fa fa-info' aria-hidden='true'></i></button></td><td><p>Found in place of an edit/delete button. Click to find out why edit/delete is not available.</p></td></tr>
+   </table>
+</div>
+
+<%= label_tag :open, t(".view_guide") %>
+<br/>
+<div class='splash half'>
+  <p>This help guideHelp Guide is kept up to date with all the new features and capabilities of Spaciable.If you get stuck, we hope you’ll find everything you need in here.</p>
+
   <%= link_to @setting.help.url, class: "btn", target: "_blank", title: t(".help_file") do %>
     <%= t(".download") %>
-  <% end %>
+  <% end %><p class='hint'><%= t(".new_tab") %></p>
 </div>

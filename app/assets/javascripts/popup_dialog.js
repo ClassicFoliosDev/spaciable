@@ -50,7 +50,7 @@ var popup = {
       }
 
       $dialogContainer.append("<div class='input'>" +
-                                "<label><input type='checkbox' id='noshow' name='noshow'>I understand. Please don't show this again.</label>" +
+                                "<label><input type='checkbox' id='noshow' name='noshow'>I understand. Please don't show this message again.</label>" +
                               "</div>")
     }
 

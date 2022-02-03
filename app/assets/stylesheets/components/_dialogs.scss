@@ -233,3 +233,31 @@ i.warning {
   cursor: pointer;
   padding-right: 5;
 }
+
+.splash {
+  .icons {
+    width: 10%;
+  }
+
+  .fa-exclamation-triangle, .fa-question-circle-o {
+    font-size: xx-large;
+    margin-top: -15;
+  }
+
+  button {
+    margin-top: -15;
+  }
+
+  a {
+    color: FF293F !important;
+  }
+
+  .hint {
+    font-style:italic;
+    font-size:12px;
+    display: inline;
+    padding-left: 5;
+  }
+}
+
+

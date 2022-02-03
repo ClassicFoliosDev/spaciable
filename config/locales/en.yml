@@ -1155,9 +1155,10 @@ en:
     help:
       show:
         download: "View Guide"
-        view_guide: "Spaciable Guide (PDF)"
+        view_guide: "Spaciable Help Guide (PDF)"
         new_tab: "Guide opens in a new tab"
-        help_file: "Spaciable Guide."
+        help_file: "Spaciable Help."
+        icons: "Key to Help Icons"
     analytics:
       show:
         title: "Analytics"
@@ -4308,7 +4309,7 @@ en:
 
   stuck_with_specs:
     title: "Stuck with specs?"
-    help: "<p class='hangingindent'>Step 1: Create new <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate Catalogue using the left side menu. If entries
+    help: "<p class='hangingindent'>Stsep 1: Create new <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate Catalogue using the left side menu. If entries
 already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then, use Spec Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Spec Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
 
   payments:
@@ -4321,7 +4322,25 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     completed: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
     completed_e: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
 
-
+  admin_dashboard:
+    title: "Thank You for Choosing Spaciable!"
+    desc: "<p>Welcome to your Spaciable admin account: the smart way to manage information about your properties and share it with your customers.</p>
+           <p>Spaciable is pre-loaded with fantastic features for home users, which admins can enhance by adding documents, contacts, videos, FAQs and other custom content, responding to reported issues, messaging important updates and more. Crucially, it’s up to admins to invite each occupier to their plot’s personal portal, so they don’t miss out!</p>
+           <p>Before you get started with managing your plots and inviting your residents, we would like to introduce you to some icons you’ll find to help you along the way:</p>
+           <table class='splash'>
+           <th class='icons'/><th/>
+           <tr><td><i class='fa fa-exclamation-triangle warning' aria-hidden='true'></i></td><td><p>Found in the top right of a page with restrictions. Click for clarification of restrictions to this feature.</p></td></tr>
+           <tr><td><i class='fa fa-question-circle-o' aria-hidden='true'></i></td><td><p>Found beside text. Click for an explanation of this terminology or function.</p></td></tr>
+           <tr><td><button class='btn' type='button'><i class='fa fa-info' aria-hidden='true'></i></button></td><td><p>Found in place of an edit/delete button. Click to find out why edit/delete is not available.</p></td></tr>
+           </table>
+           <div class='splash'>
+             <label for='open'>Spaciable Help Guide (PDF)</label><br/>
+             <p>This help guide is kept up to date with all the new features and capabilities of Spaciable. If you get stuck, we hope you’ll find everything you need in here.</p>
+             <a class='btn' target='_blank' title='Spaciable Guide.' href='%{guide}'>
+             View Guide</a>
+             <p class='hint'>Guide opens in a new tab</p>
+           </div>
+           <br/><p>You can read this information again by selecting Help in the left hand menu.<p>"
 
 
 

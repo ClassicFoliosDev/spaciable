@@ -1,3 +1,7 @@
+<% unless current_user.cf_admin? %>
+  <%= render "components/admin/popup", title: t("admin_dashboard.title"), preference: :show_dashboad_info_dialog, help: [t("admin_dashboard.desc", guide: @setting.help.url)], all_users: false, popup_on_load: true, width: 700, selector: ".section-title #trigger" %>
+<% end %>
+
 <div id="charts">
   <div id="header">
     <div class="section-title">
