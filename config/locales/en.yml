@@ -1155,9 +1155,10 @@ en:
     help:
       show:
         download: "View Guide"
-        view_guide: "Spaciable Guide (PDF)"
+        view_guide: "Spaciable Help Guide (PDF)"
         new_tab: "Guide opens in a new tab"
-        help_file: "Spaciable Guide."
+        help_file: "Spaciable Help."
+        icons: "Key to Help Icons"
     analytics:
       show:
         title: "Analytics"
@@ -1335,7 +1336,7 @@ en:
       other_description: "<ul><li>Click the 'share' option, found within or below the online video player, then find the 'embed video' option</li>
                           <li>There should be a long &#60;iframe&#62; code - delete everything except the embed video URL, which will be in quotation marks (do not paste the quotation marks into the 'Embedded Link' box in Spaciable)</ul>"
       override: "Visible to All Plots"
-      override_description: "Override any Package restrictions and allow all residents of all Plots to view this video."
+      override_description: "Override all Package restrictions and allow residents of all Plots to view this video."
     collection:
       create: "Add Video"
       title: "Video"
@@ -1360,6 +1361,9 @@ en:
       help_title: "Free Package Restriction"
       help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
+      spotlight_help:
+        title: "Resident Spotlights"
+        text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots.</p>"
     new:
       title: "New Spotlight"
     edit:
@@ -2871,7 +2875,7 @@ en:
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
       lau_visible_description: "Allow Limited Access User residents to view this document. Full Access User residents can override this and show/hide documents to/from Limited Access residents. Please see the Residents tab for details of resident permissions."
       override: "Visible to All Plots"
-      override_description: "Override any Package restrictions and allow all residents of all Plots to view this document."
+      override_description: "Override all Package restrictions and allow residents of all Plots to view this document."
     collection:
       plot: "Plot"
       processing: "Processing..."
@@ -2946,6 +2950,9 @@ en:
       plot_template:
         title: "What is a Spec Template?"
         help: "The Spec Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.<br/><br/>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
+      ut_help:
+        title: "What is a Spec Template?"
+        text: "<div><p>The Spec Template feature allows you to create templates for your plots.</p><p>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it. Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.</p><p>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.</p>"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2962,10 +2969,8 @@ en:
      search: "Search"
      info:
        title: "Appliances Catalogue"
-       desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.
-<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click
-Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms
-tab under a plot to assign a plot-specific finish."
+       desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish."
+       recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> in the top left.</p>"
    collection:
      create: "Create Appliance"
      assign: "Assign Appliance"
@@ -3103,10 +3108,8 @@ tab under a plot to assign a plot-specific finish."
       title: "Finishes Catalogue."
       info:
         title: "Finishes Catalogue"
-        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the
-finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot
-Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab
-under a plot to assign a plot-specific finish."
+        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish."
+        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> in the top left.</p>"
     collection:
       finish: "Finish Name"
       finish_category: "Category"
@@ -3335,7 +3338,7 @@ under a plot to assign a plot-specific finish."
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages, ordered by last edited. There is no limit to the number of pinned documents."
       lau_visible_description: "Allow Limited Access User residents to view this document. Full Access User residents can override this and show/hide documents to/from Limited Access residents. Please see the Residents tab for details of resident permissions."
       override: "Visible to All Plots"
-      override_description: "Override any Package restrictions and allow all residents of all Plots to view this document."
+      override_description: "Override all Package restrictions and allow residents of all Plots to view this document"
     collection:
       add: "Add Document(s)"
       processing: "Processing..."
@@ -3347,7 +3350,7 @@ under a plot to assign a plot-specific finish."
       delete_info: "<p>This document cannot be replaced, renamed, recategorised or deleted, because it has been tagged as a %{tag} Manual written by Classic Folios.</p><p>
 %{tag} Manuals are protected to ensure they always remain visible to residents.</p>"
       override_title: "Classic Folios Content"
-      override_info: "This is a protected document produced by Classic Folios and is visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto: customerexperience@classicfolios.com'> customerexperience@classicfolios.com</a>."
+      override_info: "This is a protected document produced by Classic Folios, visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto: customerexperience@classicfolios.com'> customerexperience@classicfolios.com</a>."
     edit:
       title: "Edit %{name}"
 
@@ -4306,7 +4309,7 @@ under a plot to assign a plot-specific finish."
 
   stuck_with_specs:
     title: "Stuck with specs?"
-    help: "<p class='hangingindent'>Step 1: Create new <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate Catalogue using the left side menu. If entries
+    help: "<p class='hangingindent'>Stsep 1: Create new <a href='/finishes' target='_blank'>Finishes</a> and <a href='/appliances' target='_blank'>Appliances</a> in the appropriate Catalogue using the left side menu. If entries
 already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then, use Spec Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Spec Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
 
   payments:
@@ -4319,7 +4322,25 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     completed: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
     completed_e: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
 
-
+  admin_dashboard:
+    title: "Thank You for Choosing Spaciable!"
+    desc: "<p>Welcome to your Spaciable admin account: the smart way to manage information about your properties and share it with your customers.</p>
+           <p>Spaciable is pre-loaded with fantastic features for home users, which admins can enhance by adding documents, contacts, videos, FAQs and other custom content, responding to reported issues, messaging important updates and more. Crucially, it’s up to admins to invite each occupier to their plot’s personal portal, so they don’t miss out!</p>
+           <p>Before you get started with managing your plots and inviting your residents, we would like to introduce you to some icons you’ll find to help you along the way:</p>
+           <table class='splash'>
+           <th class='icons'/><th/>
+           <tr><td><i class='fa fa-exclamation-triangle warning' aria-hidden='true'></i></td><td><p>Found in the top right of a page with restrictions. Click for clarification of restrictions to this feature.</p></td></tr>
+           <tr><td><i class='fa fa-question-circle-o' aria-hidden='true'></i></td><td><p>Found beside text. Click for an explanation of this terminology or function.</p></td></tr>
+           <tr><td><button class='btn' type='button'><i class='fa fa-info' aria-hidden='true'></i></button></td><td><p>Found in place of an edit/delete button. Click to find out why edit/delete is not available.</p></td></tr>
+           </table>
+           <div class='splash'>
+             <label for='open'>Spaciable Help Guide (PDF)</label><br/>
+             <p>This Help Guide is kept up to date with all the new features and capabilities of Spaciable. If you get stuck, we hope you’ll find everything you need in here.</p>
+             <a class='btn' target='_blank' title='Spaciable Guide.' href='%{guide}'>
+             View Guide</a>
+             <p class='hint'>Guide opens in a new tab</p>
+           </div>
+           <br/><p>You can read this information again by selecting Help in the left hand menu.<p>"
 
 
 

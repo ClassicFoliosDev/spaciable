@@ -4,9 +4,10 @@ module Admin
   class DashboardController < ApplicationController
     skip_authorization_check
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def show
       screen = :show
+      @setting = Setting.first
 
       if current_user.charts?
         screen = :charts
@@ -25,7 +26,7 @@ module Admin
 
       render screen
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     private
 

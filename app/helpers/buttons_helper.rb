@@ -56,15 +56,17 @@ module ButtonsHelper
     end
   end
 
-  def help_btn(title: t("buttons.info.title"), text: nil)
+  def help_btn(title: t("buttons.info.title"), text: nil, width: 400, height: nil)
     content_tag(:button,
                 data: data_to_inform(nil, title,
                                      text: text,
+                                     width: width,
+                                     height: height,
                                      cancel: t("buttons.cancel.title")),
                 class: "btn help-btn",
                 type: "button",
                 title: I18n.t("buttons.info.help")) do
-      icon "question", ""
+      "?"
     end
   end
 

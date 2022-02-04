@@ -1,10 +1,11 @@
 <%
   all_users ||= false
   preference ||= nil
+  pref = "#{preference}_#{current_user.id}"
 %>
 
 <% if !current_user.cf_admin? || all_users %>
-  <div class="popup-resource", data-title="<%= title %>", data-preference="<%=preference&.to_s %>", data-type="<%= defined?(type) ? Toolbar::ICONS[type][:type] : nil %>", data-icon="<%= defined?(type) ? Toolbar::ICONS[type][:icon] : nil %>", data-width="<%= defined?(width) ? width : 400 %>", data-popup-on-load="<%= defined?(popup_on_load) ? popup_on_load : true %>", data-selector="<%= defined?(selector) ? selector : nil %>" >
+  <div class="popup-resource", data-title="<%= title %>", data-preference="<%= pref %>", data-type="<%= defined?(type) ? Toolbar::ICONS[type][:type] : nil %>", data-icon="<%= defined?(type) ? Toolbar::ICONS[type][:icon] : nil %>", data-width="<%= defined?(width) ? width : 440 %>", data-popup-on-load="<%= defined?(popup_on_load) ? popup_on_load : true %>", data-selector="<%= defined?(selector) ? selector : nil %>", data-recall="<%= defined?(recall) ? recall : nil %>" >
     <% help.each do |message| %>
       <%= unsanitized message %>
     <% end %>

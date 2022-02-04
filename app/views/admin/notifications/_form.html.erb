@@ -25,7 +25,7 @@
             <%= f.radio_button :send_to_role, 'tenant' %> <span><%= t(".tenant") %></span><br/>
             <%= f.radio_button :send_to_role, 'both' %> <span><%= t(".both") %></span><br/>
           </div>
-          <i class="fa fa-question-circle" id="plotfiltersHelp"></i>
+          <button id="plotfiltersHelp" class="btn dropdown-help-btn" type="button" title="Help">?</button>
           <div class="send-to-plot-filter">
             <%= f.label :plot_filter, label: t(".plot_filter") %>
             <div id="plot_filters">

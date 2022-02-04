@@ -198,7 +198,16 @@ input:checked + .feedback {
 }
 
 .warning-dialog .ui-dialog-titlebar {
-    background-color: #fc2803 !important;
+    background-color: #ED7014 !important;
+}
+
+.ui-dialog-title i.warning {
+  color: white;
+}
+
+#toolbarbutton {
+  float: right;
+  margin: 12 38;
 }
 
 .popup-resource {
@@ -212,12 +221,43 @@ input:checked + .feedback {
   cursor: pointer;
 
   i {
-    font-size: 20;
-    color: #FFBF00;
+    font-size: xx-large;
   }
+}
+
+i.warning {
+  color: #ED7014;
 }
 
 #trigger {
   cursor: pointer;
   padding-right: 5;
 }
+
+.splash {
+  .icons {
+    width: 10%;
+  }
+
+  .fa-exclamation-triangle, .fa-question-circle-o {
+    font-size: xx-large;
+    margin-top: -15;
+  }
+
+  button {
+    margin-top: -15;
+  }
+
+  a {
+    color: FF293F !important;
+  }
+
+  .hint {
+    font-style:italic;
+    font-size:12px;
+    display: inline;
+    padding-left: 5;
+  }
+}
+
+

@@ -19,5 +19,7 @@ class UserPreference < ApplicationRecord
     show_free_plots_rooms_dialog
     show_finishes_info_dialog
     show_appliances_info_dialog
+    show_dashboad_info_dialog
+    show_stuck_with_specs_dialog
   ]
 end

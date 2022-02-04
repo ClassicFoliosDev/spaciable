@@ -25,7 +25,7 @@
     <thead>
     <tr>
       <th>
-        <i class="fa fa-question-circle-o popup-help" id="spotlightHelp" data-image=<%= image_path "resident_spotlights.png"%>></i>
+        <%= help_btn text: t('.spotlight_help.text', image: image_path('resident_spotlights.png')), title: t('.spotlight_help.title'), width: 700, height: 810 %>
         <%= t(".spotlight") %>
       </th>
       <th><%= t(".category") %></th>

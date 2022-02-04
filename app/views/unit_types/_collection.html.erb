@@ -23,7 +23,11 @@
   <table class="record-list unit-types">
     <thead>
       <tr>
-        <th><% if can_create(UnitType, parent) %><i class="fa fa-question-circle-o" id="unitTypeHelp"></i><% end %> <%= sortable(collection, :name, t(".name")) %></th>
+        <th>
+          <% if can_create(UnitType, parent) %>
+            <%= help_btn text: t('.ut_help.text'), title: t('.ut_help.title'), width: 700 %>
+          <% end %>
+          <%= sortable(collection, :name, t(".name")) %></th>
         <th><%= sortable(collection, :updated_at, t(".last_edited")) %></th>
         <th>&nbsp;</th>
       </tr>
