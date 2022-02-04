@@ -90,6 +90,7 @@ When(/^I review the plots unit type rooms$/) do
   end
 
   click_on t("developments.collection.unit_types")
+  find(".btn-cancel").trigger('click') unless $current_user.cf_admin?
   click_on CreateFixture.unit_type_name
 
   click_on t("unit_types.collection.rooms")
@@ -297,6 +298,7 @@ Then(/^I should see the unit type still has appliance and finish$/) do
     click_on t("developments.collection.unit_types")
   end
 
+  find(".btn-cancel").trigger('click') unless $current_user.cf_admin?
   within ".record-list" do
     click_on CreateFixture.unit_type_name
   end
