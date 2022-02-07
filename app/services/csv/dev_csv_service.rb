@@ -92,18 +92,18 @@ module Csv
         maintenance_type(plot),
         yes_or_no(plot.developer, "enable_services"),
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
-        enabled?(plot, plot.development, "enable_snagging"),
+        enabled_free_essentials?(plot, plot.development, "enable_snagging"),
         plot.snag_duration,
         plot.all_snags_count,
         plot.resolved_snags_count,
-        enabled?(plot, plot.developer, "enable_perks"),
+        enabled_free?(plot, plot.developer, "enable_perks"),
         plot.development_premium_licences_bought,
         Vaboo.available_premium_licences(plot.development),
         Vaboo.perk_type_registered(resident, plot),
-        enabled?(plot, plot.developer, "enable_roomsketcher"),
+        enabled_free?(plot, plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
         yes_or_no(plot.developer, "development_faqs"),
-        enabled?(plot, plot, "development_calendar"),
+        enabled_free?(plot, plot, "development_calendar"),
         plot.journey ? plot.journey.title : "No",
         plot.proformas.count.positive?  ? plot.proformas.count : "No",
         plot.build_sequenceable_type,
@@ -112,8 +112,13 @@ module Csv
     end
     # rubocop:enable all
 
-    def self.enabled?(plot, record, field)
+    def self.enabled_free_essentials?(plot, record, field)
       return "No" if plot.free? || plot.essentials?
+      yes_or_no(record, field)
+    end
+
+    def self.enabled_free?(plot, record, field)
+      return "No" if plot.free?
       yes_or_no(record, field)
     end
 

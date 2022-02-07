@@ -3341,6 +3341,7 @@ en:
       override_description: "Override all Package restrictions and allow residents of all Plots to view this document"
     collection:
       add: "Add Document(s)"
+      add_single: "Add Document"
       processing: "Processing..."
       size: "Size"
       uploaded_by: "Uploader"

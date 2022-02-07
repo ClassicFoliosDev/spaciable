@@ -12,7 +12,6 @@ class CloneDefaultFaqsJob < ApplicationJob
         next if existing_questions.include?(default_faq[:question])
 
         faq = model.faqs.create(default_faq)
-        faq.update(faq_package: default_faq[:faq_package])
         faq.save
       end
     end
