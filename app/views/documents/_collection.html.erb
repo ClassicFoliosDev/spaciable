@@ -19,7 +19,7 @@
                  %>
         <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".add") %></span>
+          <span class="btn-label"><%= t( parent.is_a?(Phase) && parent.free? ? ".add_single" : ".add") %></span>
         <% end %>
       <% end %>
     <% end %>

@@ -12,6 +12,8 @@ class Faq < ApplicationRecord
   attr_accessor :notify
   alias parent faqable
 
+  after_update :cus
+
   validates :question, :answer, :faq_type, :faq_category, :faqable, presence: true
 
   delegate :to_s, to: :question
@@ -23,4 +25,11 @@ class Faq < ApplicationRecord
         lambda { |user, type|
           accessible_by(user).where(faq_type: type)
         }
+
+  # rubocop:disable SkipsModelValidations
+  def cus
+    return unless changed?
+    update_column(:faq_package, :custom)
+  end
+  # rubocop:enable SkipsModelValidations
 end
