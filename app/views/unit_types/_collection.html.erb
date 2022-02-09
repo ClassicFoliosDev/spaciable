@@ -1,4 +1,4 @@
-<% if parent.is_a?(Development) && parent.cas?  %>
+<% if parent.is_a?(Development) && parent.cas? && current_user.cas %>
   <%= render "components/admin/popup", title: t(".plot_template.title"), preference: :show_plot_template_dialog, help: [t(".plot_template.help")], width: 700%>
 <% end %>
 
