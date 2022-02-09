@@ -3301,6 +3301,7 @@ en:
       title: "Documents"
     new:
       title: "New Document(s)."
+      title_single: "New Document."
       expired: "Some plots on %{parent} have expired. New documents will not be visible to expired plots."
     show:
       title: "Name"
