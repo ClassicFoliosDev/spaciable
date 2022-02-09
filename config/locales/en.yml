@@ -4337,7 +4337,7 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
            <div class='splash'>
              <label for='open'>Spaciable Help Guide (PDF)</label><br/>
              <p>This Help Guide is kept up to date with all the new features and capabilities of Spaciable. If you get stuck, we hope you’ll find everything you need in here.</p>
-             <a class='btn' target='_blank' title='Spaciable Guide.' href='%{guide}'>
+             <a class='btn view-guide' target='_blank' title='Spaciable Guide.' href='%{guide}'>
              View Guide</a>
              <p class='hint'>Guide opens in a new tab</p>
            </div>

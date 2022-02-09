@@ -246,10 +246,15 @@ i.warning {
 
   button {
     margin-top: -15;
+    pointer-events: none;
   }
 
-  a {
-    color: FF293F !important;
+  a, .view-guide {
+    color: FF293F;
+
+     &:hover {
+       color: white;
+     }
   }
 
   .hint {
