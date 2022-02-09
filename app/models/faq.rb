@@ -8,6 +8,7 @@ class Faq < ApplicationRecord
   belongs_to :faq_category
 
   delegate :country, to: :faqable
+  after_create :init
 
   attr_accessor :notify
   alias parent faqable
@@ -30,6 +31,12 @@ class Faq < ApplicationRecord
   def cus
     return unless changed?
     update_column(:faq_package, :custom)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  # rubocop:disable SkipsModelValidations
+  def init
+    update_column(:faq_package, :custom) if faq_package.blank?
   end
   # rubocop:enable SkipsModelValidations
 end
