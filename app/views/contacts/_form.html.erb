@@ -20,7 +20,10 @@
         </div>
         <%= f.input :organisation %>
         <div class="ui-front select-container">
-          <label><i class="fa fa-question-circle-o popup-help" id="contactTagHelp" data-image=<%= image_path "resident_spotlights.png"%>></i><%= t(".contact_type") %></label>
+          <label>
+            <%= help_btn text: t('.help.desc', image: image_path('interactivecontent.png'), url: ENV["PACKAGE_URL"]), title: t('.help.title'), width: 800, height: 650 %>
+            <%= t(".contact_type") %>
+          </label>
           <%= f.input :contact_type, label: false, as: :select, collection: contact_types_collection, include_blank: true %>
         </div>
         <%= f.input :position %>
