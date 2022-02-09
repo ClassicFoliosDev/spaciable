@@ -1157,7 +1157,7 @@ en:
         download: "View Guide"
         view_guide: "Spaciable Help Guide (PDF)"
         new_tab: "Guide opens in a new tab"
-        help_file: "Spaciable Help."
+        help_file: "Spaciable Help Guide."
         icons: "Key to Help Icons"
     analytics:
       show:
@@ -3301,6 +3301,7 @@ en:
       title: "Documents"
     new:
       title: "New Document(s)."
+      title_single: "New Document."
       expired: "Some plots on %{parent} have expired. New documents will not be visible to expired plots."
     show:
       title: "Name"
@@ -3380,6 +3381,9 @@ en:
       mobile: "Mobile"
       pinned: "Pinned"
       pinned_description: "Pinned contacts will display before unpinned contacts on the resident dashboard, ordered by last edited. There is no limit to the number of pinned contacts."
+      help:
+        title: "Interactive Content"
+        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>The <strong>Interactive Content Tag</strong> is used to display Contacts to your residents on appropriate pages in our Interactive Guides and the My Journey feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
     edit:
       title: "Edit %{name}"
     show:
@@ -4337,7 +4341,7 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
            <div class='splash'>
              <label for='open'>Spaciable Help Guide (PDF)</label><br/>
              <p>This Help Guide is kept up to date with all the new features and capabilities of Spaciable. If you get stuck, we hope you’ll find everything you need in here.</p>
-             <a class='btn' target='_blank' title='Spaciable Guide.' href='%{guide}'>
+             <a class='btn view-guide' target='_blank' title='Spaciable Help Guide.' href='%{guide}'>
              View Guide</a>
              <p class='hint'>Guide opens in a new tab</p>
            </div>

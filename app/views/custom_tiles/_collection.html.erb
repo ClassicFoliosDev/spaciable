@@ -48,7 +48,7 @@
         <td><%= custom_tile.editable? ? "Yes" : "No" %></td>
       <% end %>
       <% if any_phases_free?(parent) %>
-        <td><%= custom_tile.cf? ? "Yes" : "No" %></td>
+        <td><%= custom_tile.cf? && !%w[home_designer perks snagging].include?(custom_tile.feature) ? "Yes" : "No" %></td>
       <% end %>
 
       <td class="actions">

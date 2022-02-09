@@ -5,7 +5,7 @@
     <% if @document&.partially_expired? && !(current_user.cf_admin?) %>
       <div class="expired"><span class="partial-expired-text"><%= t(".expired", parent: @parent) %></span></div>
     <% end %>
-    <%= t(".title") %>
+    <%= t(@parent.is_a?(Phase) && @parent.free? ? ".title_single" : ".title") %>
   </div>
 </div>
 
