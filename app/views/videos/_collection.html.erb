@@ -1,5 +1,5 @@
 <% if any_phases_free?(parent) %>
-  <%= render "components/admin/popup", title: 'Videos Restricted', preference: :show_video_restriction_dialog, help: [t(".help", url: ENV["PACKAGE_URL"])], type: :warn %>
+  <%= render "components/admin/popup", title: t(".help_title"), preference: :show_video_restriction_dialog, help: [t(".help", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% end %>
 
 <% if collection.empty? %>
