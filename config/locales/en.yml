@@ -49,17 +49,17 @@ en:
 
   restricted:
     documents:
-      title: "Document Visibility"
-      free: "Your plots on the Free package only see Phase level documents. To release these documents to those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+      title: "Documents"
+      free: "<p>Plots allocated to the Spaciable Free package can only access Phase level documents. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all documents.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
       phase:
-        title: "Document Restriction"
-        free: "This Phase is on the Free package and is restricted to 3 documents only. To remove this restriction please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        title: "Limited Document Access"
+        free: "<p>Your Spaciable Free package includes access to 3 documents uploaded to this Phase. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all documents.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
     contacts:
-      title: "Contacts Visibility"
-      free: "Your plots on the Free package only see Phase level contacts. To release these contacts to those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+      title: "Contacts"
+      free: "<p>Plots allocated to the Spaciable Free package can only access Phase level contacts. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all contacts.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
       phase:
-        title: "Contacts Restriction"
-        free: "This Phase is on the Free package and is restricted to 3 contacts only. To remove this restriction please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        title: "Limited Contact Access"
+        free: "<p>Your Spaciable Free package includes access to 3 contacts uploaded to this Phase. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all contacts.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
   lists:
     all_value: "*"
@@ -1263,7 +1263,10 @@ en:
 
   faqs:
     collection:
-      restricted_title: "FAQs restricted"
+      free_title: "Upgrade to Improve FAQs"
+      free_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Free Plots will only see Standard FAQs.</li><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul>"
+      essentials_title: "FAQs"
+      essentials_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul>"
       help: "help!"
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
@@ -1279,7 +1282,7 @@ en:
       submit: "Submit"
       back: "Back"
       category: "Category"
-      faq_package: "FAQ Package"
+      faq_package: "FAQ Type"
       notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
@@ -1341,7 +1344,8 @@ en:
       create: "Add Video"
       title: "Video"
       link: "Link"
-      help: "Residents of plots on the Free package cannot view videos. To unlock videos for those residents please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+      help_title: "Upgrade for Access to Videos"
+      help: "<p>Plots allocated to the Spaciable Free package cannot access videos. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to videos.</p><p>Bespoke Video packages and 3D Walkthroughs are available as additional extras.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
       override_title: "Classic Folios Content"
       override_info: "This is a protected video added by Classic Folios and is visible to all plots regardless of package. <br/><br/>If you require revisions, please contact the Customer Experience Team on 023 8062 6280."
     show:
@@ -1358,8 +1362,8 @@ en:
       cf: "Visible to Free plots"
       uneditable_title: "%{tile}"
       uneditable_text: "You do not have permission to edit this Spotlight. If you would like to replace it, please contact The Spaciable Team for more details."
-      help_title: "Free Package Restriction"
-      help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts you add here. To enquire about upgrading, please contact Classic Folios."
+      help_title: "Unlock More Options"
+      help: "<p>Plots allocated to the Spaciable Free package can only access Spotlights added by The Spaciable Team. To make Spaciable your own and promote your brand, upgrade your Spaciable Free plots today to enable access to your own Spotlights and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
       spotlight_help:
         title: "Resident Spotlights"
@@ -1495,10 +1499,10 @@ en:
       upload: "Upload Documents"
     calendar:
       index:
-        help_some_free: "Some plots have the Spaciable Free package, so they do not have calendar access. To unlock the calendar for all plots, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
-        help_some_free_title: "Calendar Inactive for Some Plots"
-        help_all_free: "No plots have calendar access, as all plots have the Spaciable Free package. To unlock the calendar, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        help_some_free_title: "Limited Calendar Access"
+        help_some_free: "<p>Plots allocated to the Spaciable Free package cannot be invited to events. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
         help_all_free_title: "Calendar Inactive for All Plots"
+        help_all_free: "<p>Your Spaciable Free package does not include access to calendar invitations. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
   development_csv:
     index:
@@ -1519,8 +1523,8 @@ en:
       date: "The Legal Completion Date must be in the format DD/MM/YYYY."
       date_details: "Ensure the date field is formatted DD/MM/YYYY. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
       restricted:
-        title: "Cannot Update Some Plots"
-        help: "Some of your plots are on the Spaciable Free package and cannot be updated with a CSV upload. To unlock CSV updates for all plots, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        title: "Unlock More Options"
+        help: "<p>Plots allocated to the Spaciable Free package cannot be updated with a CSV upload. To speed up administration by bulk-updating an array of details, including addresses and Estimated Move In Dates, upgrade your Spaciable Free plots today to enable access to CSV uploading and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
     errors:
       invalid_column_error: "<br/>Invalid column(s): %{errors}"
       free_phase_error: "<br/>Ignored Free Phase(s): %{errors}"
@@ -2620,7 +2624,8 @@ en:
         clear_all_plots: "Clear All Plots"
     calendar:
       index:
-        help: "Plots on the Spaciable Free package do not benefit from the calendar. To unlock the calendar, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        help_title: "Unlock More Options"
+        help: "<p>Your Spaciable Free package does not include access to calendar invitations. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
   choice_configurations:
     create:
@@ -2825,7 +2830,8 @@ en:
       back: "Back"
       completion: "Completion date"
       preview: "Preview"
-      help: "Plots on the Spaciable Free package do not benefit from the calendar. To unlock the calendar, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>."
+      help_title: "Unlock More Options"
+      help: "<p>Your Spaciable Free package does not include access to calendar invitations. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
     plot:
       expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
       letable: "Lettings: "
@@ -3228,8 +3234,8 @@ en:
       last_edited: "Last Edited"
       last_edited_by: "Last Edited By"
       free:
-        title: "Cannot Populate Rooms"
-        help: "Sorry, you cannot assign finishes or appliances to rooms with your current Spaciable Free package. To supply specifications on each plot and fully inform your customers, please ask Classic Folios to upgrade you to one of the packages below:<br/><br/>Essentials package - Give your admins the power to easily enter plot finishes and reduce customer queries.<br/><br>Professional package - Our experts sort through specifications and add finishes to each plot on your behalf, freeing up your aftercare team.<br/><br/>Find out more about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>"
+        title: "Unlock More Options"
+        help: "<p>Your Spaciable Free package does not include access to assigning finishes or appliances to rooms. To supply specifications on each plot and fully inform your customers, upgrade your Spaciable Free plots today to enable access to specifications and more!</a>"
 
     edit:
       title: "Edit %{room_name}"
@@ -4287,8 +4293,8 @@ en:
       help_title: "Build Progress"
       help: "If you navigate to a plot on Spaciable and update the Build Progress status, an email notification is sent to the plot resident(s). You can view the Build Progress stages and email content on this page.<br/><br/>This Build Progress content is the <strong>%{level}</strong> list."
       restricted:
-        title: "Cannot Customise Build Progress "
-        help: "Sorry, you cannot customise Build Progress stages or emails with your current Spaciable Free package.  To create unique Build Progress content for your customers, please ask Classic Folios about a <a href='%{url}' target='_blank'>Spaciable package upgrade.</a>."
+        title: "Unlock More Options"
+        help: "<p>Build Progress stages and emails can be customised with an upgraded package. To tailor Spaciable to your processes, upgrade your Spaciable Free package today and enable access to customised build progress content and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
     form:
       global: "Here, you can edit the Build Progress stages and email content: add stages above and below, delete stages or use the up/down arrows to swap a stage with the one above/below."
@@ -4305,12 +4311,10 @@ en:
         global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
 
   faq_package:
-    title: "FAQ Package"
+    title: "FAQ Type"
     standard: "Standard"
     enhanced: "Enhanced"
     custom: "Custom"
-    free_help: "Your plots on the Free package will only see <strong>standard</strong> FAQs."
-    essentials_help: "Your plots on the Essentials package will only see <strong>standard</strong> and <strong>enhanced</strong> FAQs."
 
   stuck_with_specs:
     title: "Stuck with specs?"
