@@ -3372,7 +3372,7 @@ en:
       submit: "Submit"
       notify: "Notify subscribed residents about this change"
       picture: "Image"
-      contact_type: "Position Tag"
+      contact_type: "Interactive Content Tag"
       category: "Category"
       first_name: "First Name"
       last_name: "Surname"
@@ -3383,7 +3383,7 @@ en:
       pinned_description: "Pinned contacts will display before unpinned contacts on the resident dashboard, ordered by last edited. There is no limit to the number of pinned contacts."
       help:
         title: "Interactive Content"
-        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>The <strong>Interactive Content Tag</strong> is used to display Contacts to your residents on appropriate pages in our Interactive Guides and the My Journey feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
+        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>Apply an <strong>Interactive Content Tag</strong> to display a Contact to your residents on appropriate pages in an Interactive Guide or the My Journey feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
     edit:
       title: "Edit %{name}"
     show:
