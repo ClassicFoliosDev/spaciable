@@ -170,7 +170,7 @@ en:
       selected: "Choices have been selected for the following plot:"
       confirm: "Please log in to confirm or reject the selected choices."
       navigate: "You can find the choice selections by navigating to the above plot and selecting the Choices tab, or by clicking the following link."
-      login: "Login to Spaciable: "
+      login: "Log in to Spaciable: "
       opt_out: "Don't wish to receive notifications regarding choices? You can update your preferences in your Spaciable profile."
     homeowner_choices_rejected:
       new_message: "You have a new message from Spaciable regarding choices"
@@ -181,12 +181,12 @@ en:
       new_message: "You have a new message from Spaciable regarding choices"
       approved: "Your selected choices have been approved for Plot %{plot}, %{development}."
       your_selections: "Your Selections"
-      login: "Login to Spaciable: "
+      login: "Log in to Spaciable: "
     admin_approved_choices:
       new_message: "You have a new message from Spaciable regarding choices"
       approved: "Choices have been submitted and approved for the following plot: "
       choices: "Approved Choices"
-      login: "Login to Spaciable: "
+      login: "Log in to Spaciable: "
       opt_out: "Don't wish to receive notifications regarding choices? You can update your preferences in your Spaciable profile."
 
   release_mailer:
@@ -240,11 +240,11 @@ en:
       spaciable_team: "The Spaciable Team"
 
     reservation_release_email:
-      plots_live: "Your Spaciable Reservation plots are now live."
-      portal_update: "We are delighted to confirm that the Spaciable homeowner's portal has been updated with reservation information on %{date} for the following %{number} plots:"
+      plots_live: "Your Spaciable plots are now 'Ready for Invites'."
+      portal_update: "We are excited to announce that the Spaciable homeowner's portal has been updated with new plots to which you can invite your customers. On %{date} we created the following %{number} plots:"
       invited_purchasers: "Once you have invited your purchasers to the Spaciable portal they will benefit from useful features, such as: "
       benefit_1: "Essential contact information"
-      benefit_2: "Useful documents, such as brochure, consumer code and reservation manual (if applicable)"
+      benefit_2: "Useful documents, such as brochure, consumer code and Reservation Guide (if applicable)"
       benefit_3: "An option to upload their own documents"
       benefit_4: "Helpful \"How To\" articles with advice for their move"
       benefit_5: "The ability to request quotes for various moving services, such as removal firms, storage and mortgages"
@@ -263,12 +263,12 @@ en:
       junk: "* Please note: the resident's Spaciable invite may be in their Junk Mail folder"
       resident_condition: "You can add more than one resident to a single plot, and you can add the same resident's email to multiple plots."
       resident_change: "Navigate back to a plot to delete or edit residents at any time."
-      completion_date: "Completion Date"
-      adding_completion_date: "For each plot, you can assign a completion date, which will trigger a series of helpful emails sent to the resident in your company branding."
-      add_completion_date: "To add a completion date:"
+      completion_date: "Estimated Move In Date"
+      adding_completion_date: "For each plot, you can assign an Estimated Move In date, which will trigger a series of helpful emails sent to the resident in your company branding."
+      add_completion_date: "To add an Estimated Move In date:"
       completion_tab: "Click the Completion tab"
-      add_completion: "Enter or edit the completion date and click Save Changes"
-      completion_change: "Navigate back to a plot to update the completion date at any time."
+      add_completion: "Enter or edit the Estimated Move In date and click Save Changes"
+      completion_change: "Navigate back to a plot to update the Estimated Move In date at any time."
       admin_benefits: "Benefits for Spaciable Admins"
       admins_can: "On the Spaciable admin interface, you and the other admins can: "
       list_dev: "View a list of developments (developer or division admins only)"
@@ -282,7 +282,7 @@ en:
       build_progress: "Update the build progress of individual plots or an entire phase"
       add_other_admins: "Add other admins, so your colleagues can log in and edit Spaciable information"
       help: "For advice on how to use the admin interface, log in to Spaciable and select 'Help' from the navigation pane"
-      cf_account_management: "If you have any questions or issues, please contact the Classic Folios Account Management team:"
+      cf_account_management: "If you have any questions or issues, please contact the Classic Folios Customer Experience team:"
       unsubscribe: "Don't wish to receive notifications regarding new plots added to the Spaciable portal? You can update your preferences in your Spaciable profile."
       spaciable_team: "The Spaciable Team"
 
@@ -342,9 +342,9 @@ en:
         faqs: "FAQs"
         home_designer: "%{construction} Designer"
     admin_login:
-      title: "Admin login to Spaciable"
+      title: "Admin log in to Spaciable"
     login:
-      title: "Login to Spaciable"
+      title: "Log in to Spaciable"
     email:
       copyright: "&reg; Spaciable &copy; %{year} Classic Folios. All rights reserved | <a href=\"https://spaciable.com/data_policy\">Privacy Policy</a> |
                  <a href=\"https://spaciable.com/ts_and_cs_homeowner\">Terms and Conditions</a>"
@@ -659,7 +659,7 @@ en:
     home:
       header:
         nav:
-          login: "Login"
+          login: "Log in"
           home: "Home"
     navigation:
       dashboard: "Dashboard"
@@ -766,7 +766,7 @@ en:
   admin_notification_mailer:
     admin_notification:
       new_message: "You have a new message from the Spaciable team:"
-      login: "Login to Spaciable"
+      login: "Log in to Spaciable"
 
   password_change_mailer:
     content: "We're contacting you to notify you that your %{admin} password for the Spaciable online portal has been changed."
@@ -799,11 +799,11 @@ en:
     view_snag: "You can view the full details of this snag by navigating to the above plot within the Snagging menu, or by clicking the following link."
     general_snag: "You can view any outstanding snags by navigating to the Snagging menu within Spaciable."
     opt_out: "Don't wish to receive notifications regarding snagging? You can update your preferences in your Spaciable profile."
-    login: "Login to Spaciable: "
+    login: "Log in to Spaciable: "
     link_to_snag: "DELETE"
 
   resident_snag_mailer:
-    login: "Login to your Account"
+    login: "Log in to your Account"
     snag_address: "This issue was reported for:"
     footer: "Please note this email address is not monitored. Do not reply directly to this email."
     snag_comment_email:
@@ -813,8 +813,8 @@ en:
     snag_status_email:
       snag_status_subject: "An issue report on your plot has its status updated"
       new_snag_status: "The following issue has been marked as %{status} by %{user}: "
-      confirm_status: "Please login to your account to view the update and confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
-      status_details: "Login to your account to view and comment on this issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
+      confirm_status: "Please log in to your account to view the update and confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
+      status_details: "Log in to your account to view and comment on this issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
     all_snags_resolved_email:
       snags_resolved_subject: "All issues have now been resolved for your home"
       all_snags_resolved: "%{tool_name} submission has now expired and all issues have been resolved for the following address: "
@@ -1199,7 +1199,7 @@ en:
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
         load: "Upload"
-        enable_intro_video_description: "Enable or disable the intro video for new users on first login."
+        enable_intro_video_description: "Enable or disable the intro video for new users on first log in."
         help: "Help Document"
         cookie: "Cookie Policy Document"
         privacy: "Privacy Policy Document"
@@ -1397,7 +1397,7 @@ en:
         title: "Resident sees Spotlight"
         always: "Always"
         moved_in: "After moving in"
-        completed: "After Spaciable Completion"
+        completed: "When ‘Ready for Handover’"
 
   home:
     show:
@@ -1842,7 +1842,7 @@ en:
       perks:
         perks_description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
         perks: "Find Out More"
-        activated_perks: "Login to Buyers' Club"
+        activated_perks: "Log in to Buyers' Club"
         activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
         new_tab: "Opens in a new tab"
         notice: "Thanks for signing up to exclusive online resident rewards! Please check your email inbox for an invitation from Vaboo to activate your Buyers' Club account."
@@ -1878,7 +1878,7 @@ en:
           title: "Buyers' Club"
           description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
           button: "Find Out More"
-          activated_button: "Login to Buyers' Club"
+          activated_button: "Log in to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
           error: "Currently unavailable. Please try again later."
         timeline:
@@ -2337,7 +2337,7 @@ en:
   residents:
     sessions:
       new:
-        login_cta: "Login"
+        login_cta: "Log in"
         welcome_1: "Queries about your home?"
         welcome_2: "Spaciable has the answers."
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
@@ -2347,10 +2347,10 @@ en:
         Log in to discover exciting ideas for getting the most out of your home and hobbies."
         remember_me: "Remember me"
         accept_ts_and_cs: "Accept terms and conditions"
-        policy_instructions_required: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Login'"
+        policy_instructions_required: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Log in'"
         policy_instructions: "%{href1} and %{href2}"
-        homeowner_login: "User Login"
-        admin_login: "Admin Login"
+        homeowner_login: "User Log in"
+        admin_login: "Admin Log in"
         title: "Resident Sign In"
         description: "Sign in to Spaciable to access your home portal"
       create:
@@ -2728,7 +2728,7 @@ en:
       empty_completed:
         desc: "Adding a room that applies to multiple plots?<br/><br/>Use the <a href='%{url}' target='_blank'>Spec Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Spec Template will not update on the plot."
       empty_not_completed:
-        desc: "Sorry, you cannot edit rooms, finishes and appliances on this plot.<br/><br/>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after Classic Folios change the plot’s Status to Completion Information Added.<br/><br/>On the Plots tab at Phase level, a green circle in the Status column signifies Completion Information Added for that plot."
+        desc: "<p><strong>Sorry, you cannot edit rooms, finishes and appliances on this plot.</strong></p><p>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after the Spaciable Team change the plot’s Status to Ready for Handover.</p><p>This is signified by a green circle in the <a href='%{url}' target='_blank'>Status column</a> on the Plots tab at Phase level.</p>"
       index:
         title: "%{parent_name} rooms"
       edit:
@@ -2826,6 +2826,16 @@ en:
       activation: "Activated"
       activated: "%{activated} of %{all}"
       not_released: "Plot %{plot} has not been released"
+      status:
+        title: "Spaciable Status"
+        text: "<p><strong>Plots can have one of three Statuses on Spaciable:</strong></p>
+               <table class='statuses'>
+               <th/>
+               <tr><td><span class='circle white'/></td><td><p><strong>Ready for Invite</strong>* – The Spaciable Team have set up the development and created your plots, adding the initial information you provided. You can now invite each customer to their chosen plot – typically, we’d expect you to do this when a property is reserved.</p><p>When a property is almost ready to be handed over to the resident, please contact the Customer Experience Team to ask us to perform the final uploading and make the plots Ready for Handover on Spaciable.</p></td></tr>
+               <tr><td><span class='circle green'/></td><td><p><strong>Ready for Handover</strong> – The Spaciable Team have finished populating this plot with all the relevant information you’ve provided. Where applicable, this will include specifications and appliances, and the Homeowner Guide. If you’ve not already invited a resident to this plot, now is the time.</p><p>If your Spaciable package allows admins to configure finishes and appliances, Ready for Handover status also signifies that you can now edit specifications on that plot.</p></td></tr>
+               <tr><td><span class='circle red'/></td><td><p><strong>Expired</strong> – This plot is no longer fully active, as the purchased period for this plot has ended. Residents of an expired plot do not lose access to their portal, but they will not see any new documents, notifications or other newly added content. To renew or extend plot(s), please contact the Customer Experience Team.</p></td></tr>
+               </table>
+               <p>*<i>Ready for Invite is only available on our Professional and Legacy packages.</i></p>"
     show:
       back: "Back"
       completion: "Completion date"
@@ -2947,6 +2957,9 @@ en:
     index:
       title: "%{development_name} Spec Templates"
     collection:
+      restricted_template_title: "Restricted Spec Template"
+      restricted_template: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>Plot's ‘Ready for’ Statuses can be seen on the <a href='%{url}' target='_blank'>Phase Plots tab.</a></>"
+      restricted_template_e: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>Plot's ‘Ready for’ Statuses can be seen on the Phase Plots tab</>"
       add: "Add Spec Template"
       rooms: "Rooms"
       documents: "Documents"
@@ -3439,13 +3452,13 @@ en:
                 leaving %{inactive} residents who have not accepted the invitation email."
       inactive: "To ensure you and your customers get the most out of your investment in Spaciable, please see below the customers who need a gentle reminder to accept their invitation."
       inactive_2: "Don't forget: once they have activated, your customers will gain access to valuable, timesaving information, designed to support their journey and help them enjoy their new home. They'll also receive essential communications that you send through the portal."
-      login: "Login to Spaciable: "
+      login: "Log in to Spaciable: "
       unsubscribe: "Don't wish to receive a weekly resident activation report? You can update your preferences in your Spaciable profile."
 
   resident_notification_mailer:
     notify:
       new_notification: "You have a new notification from Spaciable"
-      login: "Login to your portal"
+      login: "Log in to your portal"
       welcome: "Hi %{name}"
       message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property at %{development}"
       update_subject: "You have a new update in Spaciable"
@@ -3469,9 +3482,9 @@ en:
     homeowner_login_content_service:
       defaults:
         title_left: "Spaciable Homeowner"
-        title_right: "Login"
+        title_right: "Log in"
         blurb_para_1: "Welcome back."
-        blurb_para_2: "Login to access your homeowners manual and more."
+        blurb_para_2: "Log in to access your homeowners manual and more."
     new:
       title: "New service"
     form:
@@ -3504,7 +3517,7 @@ en:
     index:
       back: "Back"
       submit: "Submit"
-      send_to_admins: "Send Email to Admins and Account Management"
+      send_to_admins: "Send Email to Admins and Customer Experience"
       email_receivers: "Recipients:"
       actions:
         reservation_release_date: "Reservation"
@@ -3642,8 +3655,8 @@ en:
         number: "Plot Number"
         house_number: "Postal"
         updated_at: "Last Edited"
-        reservation_release_date: "Reservation Release Date"
-        completion_release_date: "Completion Release Date"
+        reservation_release_date: "Ready for Invites Date"
+        completion_release_date: "Ready for Handover Date"
         validity: "Validity (Months)"
         extended_access: "Extended Access (Months)"
         uprn: "UPRN"
@@ -4328,8 +4341,8 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
 
   spotlight:
     moved_in: "Show this Spotlight when a plot's <strong>Estimated Move In Date</strong> has passed. This date can be set in the plot's Completion tab and edit page."
-    completed: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a <a href='%{url}' target='_blank'>Phase of plots</a>, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
-    completed_e: "Show this Spotlight when a plot reaches <strong>Complete</strong> Status.  The Spaciable Team mark a plot as <strong>Complete</strong> when we have added a completion manual and/or specifications.  When viewing a Phase of plots, this is represented by the green circle in the Status column.<br/><br/>  If your package does not include completion manuals and/or specifications then all your plots will have the <strong>Complete</strong> Status from their creation."
+    completed: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a <a href='%{url}' target='_blank'>Phase</a>, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
+    completed_e: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a Phase, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
 
   admin_dashboard:
     title: "Thank You for Choosing Spaciable!"
