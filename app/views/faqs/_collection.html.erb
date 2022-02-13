@@ -1,7 +1,7 @@
 <% if any_phases?(parent, [:free]) %>
-  <%= render "components/admin/popup", title: t(".free_title"), preference: :show_faq_restriction_dialog, help: [t(".free_help")], type: :warn %>
+  <%= render "components/admin/popup", title: t(".free_title"), preference: :show_faq_restriction_dialog, help: [t(".free_help", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% elsif any_phases?(parent, [:essentials]) %>
-  <%= render "components/admin/popup", title: t(".essentials_title"), preference: :show_faq_restriction_dialog, help: [t(".essentials_help")], type: :warn %>
+  <%= render "components/admin/popup", title: t(".essentials_title"), preference: :show_faq_restriction_dialog, help: [t(".essentials_help", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% end %>
 
 <% if collection.empty? %>

@@ -1264,9 +1264,9 @@ en:
   faqs:
     collection:
       free_title: "Upgrade to Improve FAQs"
-      free_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Free Plots will only see Standard FAQs.</li><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul>"
+      free_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Free Plots will only see Standard FAQs.</li><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul><p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a></p>"
       essentials_title: "FAQs"
-      essentials_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul>"
+      essentials_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul><p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a></p>"
       help: "help!"
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
@@ -1501,7 +1501,7 @@ en:
       index:
         help_some_free_title: "Limited Calendar Access"
         help_some_free: "<p>Plots allocated to the Spaciable Free package cannot be invited to events. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
-        help_all_free_title: "Calendar Inactive for All Plots"
+        help_all_free_title: "Unlock More Options"
         help_all_free: "<p>Your Spaciable Free package does not include access to calendar invitations. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
   development_csv:
@@ -3235,7 +3235,7 @@ en:
       last_edited_by: "Last Edited By"
       free:
         title: "Unlock More Options"
-        help: "<p>Your Spaciable Free package does not include access to assigning finishes or appliances to rooms. To supply specifications on each plot and fully inform your customers, upgrade your Spaciable Free plots today to enable access to specifications and more!</a>"
+        help: "<p>Your Spaciable Free package does not include access to assigning finishes or appliances to rooms. To supply specifications on each plot and fully inform your customers, upgrade your Spaciable Free plots today to enable access to specifications and more!</p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
     edit:
       title: "Edit %{room_name}"
