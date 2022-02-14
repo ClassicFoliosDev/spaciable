@@ -58,7 +58,7 @@ class ReleaseMailer < ApplicationMailer
     if @send_to_admins == "true"
       mail(to: @emails,
            subject: subject,
-           cc: ["hello@spaciable.com, accountmanagement@classicfolios.com",
+           cc: ["hello@spaciable.com, customerexperience@classicfolios.com",
                 CcEmail.emails_list(@emails, :receive_release_emails)])
     else
       mail(to: @emails,

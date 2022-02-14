@@ -72,9 +72,9 @@ en:
     incorrect_password: "The password you entered is incorrect. %{record} has not been deleted."
 
   reservation_email:
-    title: "Your Spaciable Reservation Plots are Live"
+    title: "Your Spaciable Plots are Ready for Invites"
   completion_email:
-    title: "Your Spaciable Completion Plots are Live"
+    title: "Your Spaciable Plots are Ready for Handover"
   expiry_email:
     title: "Important Information About Your Spaciable Plot"
     intro: "Hi %{name},"
@@ -191,11 +191,12 @@ en:
 
   release_mailer:
     completion_release_email:
-      plots_live: "Your Spaciable Completion plots are now live."
-      portal_update: "We are delighted to confirm that the Spaciable homeowner's portal has been updated with completion information on %{date} for the following %{number} plots:"
+      plots_live: "Your Spaciable plots are now 'Ready for Handover'."
+      portal_update: "We are delighted to confirm that we finished populating the Spaciable portal with home information (including specifications, appliances and Homeowner Guides, if these are in your package) on %{date} for the following %{number} plots:"
+      handover_status: "Ready for Handover status signifies that you can now configure finishes and appliances on that plot, if your Spaciable package allows."
       resident_activated: "Residents who have activated their Spaciable account will benefit from useful features, such as: "
       benefit_1: "Essential contact information"
-      benefit_2: "Useful documents, such as appliance manuals, warranty policy and homeowner's manual (if applicable)"
+      benefit_2: "Useful documents, such as appliance manuals, warranty policy and their Homeowner Guide (if applicable)"
       benefit_3: "An option to upload their own documents"
       benefit_4: "A list of their home's appliances and finishes (if applicable)"
       benefit_5: "Appliance efficiency ratings and links to register manufacturers' warranties"
@@ -216,12 +217,12 @@ en:
       junk: "* Please note: the resident's Spaciable invite may be in their Junk Mail folder"
       resident_condition: "You can add more than one resident to a single plot, and you can add the same resident's email to multiple plots."
       resident_change: "Navigate back to a plot to delete or edit residents at any time."
-      completion_date: "Completion Date"
-      adding_completion_date: "For each plot, you can assign a completion date, which will trigger a series of helpful emails sent to the resident in your company branding."
-      add_completion_date: "To add a completion date:"
+      completion_date: "Estimated Move In Date"
+      adding_completion_date: "For each plot, you can assign an Estimated Move In date, which will trigger a series of helpful emails sent to the resident in your company branding."
+      add_completion_date: "To add an Estimated Move In date:"
       completion_tab: "Click the Completion tab"
-      add_completion: "Enter or edit the completion date and click Save Changes"
-      completion_change: "Navigate back to a plot to update the completion date at any time."
+      add_completion: "Enter or edit the Estimated Move In date and click Save Changes"
+      completion_change: "Navigate back to a plot to update the Estimated Move In date at any time."
       admin_benefits: "Benefits for Spaciable Admins"
       admins_can: "On the Spaciable admin interface, you and the other admins can: "
       list_dev: "View a list of developments (developer or division admins only)"
@@ -235,7 +236,7 @@ en:
       build_progress: "Update the build progress of individual plots or an entire phase"
       add_other_admins: "Add other admins, so your colleagues can log in and edit Spaciable information"
       help: "For advice on how to use the admin interface, log in to Spaciable and select 'Help' from the navigation pane"
-      cf_account_management: "If you have any questions or issues, please contact the Classic Folios Account Management team:"
+      cf_account_management: "If you have any questions or issues, please contact the Classic Folios Customer Experience team:"
       unsubscribe: "Don't wish to receive notifications regarding new plots added to the Spaciable portal? You can update your preferences in your Spaciable profile."
       spaciable_team: "The Spaciable Team"
 
@@ -992,8 +993,8 @@ en:
         confirm_password: "Confirm New Password"
         current_password: "Current Password"
         update_password: "Change Password"
-        plot_emails: "Plot Release Emails"
-        receive_plot_emails: "Receive emails when plots are released by Classic Folios."
+        plot_emails: "Plots 'Ready For' status emails"
+        receive_plot_emails: "Receive emails when the Spaciable Team confirm plots are ready for invites or handover."
         snag_emails: "Snagging Emails"
         receive_snag_emails: "Receive emails regarding resident snagging issues."
         choice_emails: "Plot Choice Emails"
