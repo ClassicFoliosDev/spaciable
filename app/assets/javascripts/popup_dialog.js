@@ -89,6 +89,7 @@ var popup = {
 
   addToolbarLink: function(resource, index) {
     if (resource.data("type") == 'button') {
+      if ($("#toolbarbutton[data-resource='" + index + "']").length > 0) { return }
       $(".breadcrumb-container").append("<button id='toolbarbutton' type='button' class='btn toolbarbutton' data-resource='" + index +"'>" +
                                         resource.data('title') +
                                         "</button>")
