@@ -40,7 +40,7 @@ module Csv
         "Snagging Enabled", "Snagging duration", "Snags Reported", "Snags Resolved",
         "Buyers Club Enabled", "Licenses Bought", "Licences Remaining", "Perks Requested",
         "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs", "Calendar",
-        "My Journey", "Content Proforma", "Build Progress List", "Spaciable Legal"
+        "My Journey", "Interactive Guide", "Build Progress List", "Spaciable Legal"
       ]
     end
     # rubocop:enable Metrics/MethodLength

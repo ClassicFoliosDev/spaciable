@@ -464,20 +464,20 @@ en:
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
-    phase_timelines: "Timelines"
+    phase_timelines: "Narratives"
     phase_calendar: "Calendar"
-    phase_timelines_add: "New Phase Timeline"
-    phase_timelines_edit: "Edit Phase Timeline"
+    phase_timelines_add: "New Phase Narrative"
+    phase_timelines_edit: "Edit Phase Narrative"
     development_csv: "Upload CSV"
     custom_tiles: "Resident Spotlights"
     custom_tile_add: "New Spotlight"
     custom_tile_edit: "Edit %{tile}"
-    timeline_add: "Add Timeline"
-    timelines: "Timelines"
+    timeline_add: "Add Narrative"
+    timelines: "Narratives"
     timeline_show: "%{timeline}"
     timeline_edit: "Edit %{timeline}"
-    timeline_import: "Import Timeline"
-    tasks: "Timelines"
+    timeline_import: "Import Narrative"
+    tasks: "Naratives"
     task_show: "%{task}"
     task_edit: "Edit %{task}"
     task_add: "Add Task"
@@ -683,7 +683,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       analytics: "Analytics"
-      timeline: "Timelines"
+      narratives: "Narratives"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1389,7 +1389,7 @@ en:
       editable: "Editable"
       editable_description: "Client admins can edit or delete this shortcut"
       current_file: "Current File"
-      content_proforma: "Content Proforma"
+      content_proforma: "Interactive Guide"
       full_image: "Display image full width?"
       render_title: "Render title on Spotlight?"
       render_description: "Render description on Spotlight?"
@@ -1703,7 +1703,7 @@ en:
       splash:
         welcome: "Welcome To"
         your_journey: "My Journey"
-        paragraph_1: "This timeline is designed to help you track your progress and learn more about the process each step of the way."
+        paragraph_1: "This narrative is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
       select_stage:
@@ -2081,7 +2081,7 @@ en:
   developers:
     timelines:
       import:
-        title: "Import Timeline"
+        title: "Import Narrative"
         search: "Search"
         import: "Import"
     destroy:
@@ -2137,8 +2137,8 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey and Content Proformas"
-      timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
+      timeline: "My Journey and Interactive Guides"
+      timeline_description: "Turning this on will allow Narratives to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
       link: "Branded Buyers' Club Link"
@@ -2193,7 +2193,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "My Journey"
+      timelines: "Narratives"
       videos: "Videos"
       content_management: "Content Management"
     developer:
@@ -2520,7 +2520,7 @@ en:
       release_plots: "Release Plots"
       lettings: "Lettings"
       import: "Import CRM"
-      phase_timelines: "Timelines"
+      phase_timelines: "Narratives"
       calendar: "Calendar"
       brands: "Styling"
     new:
@@ -2610,12 +2610,12 @@ en:
     phase_timelines:
       journey:
         title: "My Journey Allocations"
-        label: "My Journey Timeline"
-        description: "Use this page to associate My Journey timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
-        warning: "Any plots removed from My Journey timeline allocations will have their progress destroyed and their My Journey access revoked when this page is saved."
+        label: "My Journey Narrative"
+        description: "Use this page to associate My Journey narratives with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
+        warning: "Any plots removed from My Journey narrative allocations will have their progress destroyed and their My Journey access revoked when this page is saved."
       proforma:
-        title: "Proforma Document Allocations"
-        label: "Proforma Document Timeline"
+        title: "Interactive Guide Allocations"
+        label: "Interactive Guide Narrative"
         description: "Use this page to associate Proforma Document timelines with plots on this phase. The Proforma Document page will only show on plots that are listed in the Associated Plots below."
         warning: "Any plots removed from Proforma timeline allocations will have their progress destroyed and their Proforma Document access revoked when this page is saved."
       form:
@@ -2855,7 +2855,7 @@ en:
       finishes: "Finishes: "
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
-      timeline: "Timeline: "
+      timeline: "Narrative: "
       preview: "Preview"
       uprn: "UPRN: "
       uprn_error: " should be up to 12 digits long and only contain numbers."
@@ -3776,7 +3776,7 @@ en:
           feature: "Feature"
           link: "Link"
           document: "Document"
-          content_proforma: "Content Proforma"
+          content_proforma: "Interactive Guide"
         features:
           area_guide: "Area Guide"
           home_designer: "Home Designer"
@@ -4034,12 +4034,12 @@ en:
 
   timelines:
     turned_off: "Turned Off"
-    import: "Import Timeline"
+    import: "Import Narrative"
     index:
       title: "Timelines"
     collection:
-      create: "Add Timeline"
-      timeline: "Timeline"
+      create: "Add Narrative"
+      narrative: "Narrative"
       type: "Type"
       last_edited: "Last Edited"
       created_at: "Created At"
@@ -4079,8 +4079,8 @@ en:
       delete: "Delete"
       insert_before: "Insert Page Before %{page}"
       insert_after: "Insert Page After %{page}"
-      empty_cf: "You timeline is currently empty. Add a page to start creating your timeline."
-      empty: "You timeline is currently empty"
+      empty_cf: "You narrative is currently empty. Add a page to start creating your narrative."
+      empty: "You narrative is currently empty"
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
@@ -4194,7 +4194,7 @@ en:
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
     view_your_journey: "My Journey"
-    view_your_content_proforma: "Content Proforma"
+    view_your_content_proforma: "Interactive Guide"
     task_viewed: "Viewed"
     view_FAQs: "FAQs"
     view_FAQs_feedback: "FAQs Feedback"
@@ -4252,10 +4252,10 @@ en:
 
   phase_timelines:
     collection:
-      name: "Timeline"
+      name: "Narrative"
       add_journey: "Add Journey Associations"
-      add_proforma: "Add Proforma Associations"
-      empty: "You have no Journey/Proforma Plot Associations"
+      add_proforma: "Add Interactive Guide Associations"
+      empty: "You have no Journey/Interactive Guide Plot Associations"
       plots: "Plots"
       type: "Type"
 
@@ -4278,7 +4278,7 @@ en:
   stage_sets:
     title: "Type"
     journey: "Journey"
-    proforma: "Content Proforma"
+    proforma: "Interactive Guide"
     form:
       submit: "Submit"
       cancel: "Cancel"

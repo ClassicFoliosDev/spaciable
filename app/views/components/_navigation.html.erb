@@ -41,7 +41,7 @@
         <%= navigation_link(admin_settings_path, "wrench", t(".configuration"), "navbar-link") %>
         <%= navigation_link(admin_analytics_path, "bar-chart", t(".analytics"), "navbar-link") %>
         <% if Global.root&.id %>
-          <%= navigation_link(global_timelines_path(Global.root&.id), "clock-o", t(".timeline"), "navbar-link") %>
+          <%= navigation_link(global_timelines_path(Global.root&.id), "book", t(".narratives"), "navbar-link") %>
         <% end %>
       <% end %>
 
