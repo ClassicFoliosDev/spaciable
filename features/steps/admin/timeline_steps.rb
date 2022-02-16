@@ -4,8 +4,9 @@ end
 
 Then(/^I can create a (.*) timeline$/) do |title|
   visit "/"
-  click_on t("components.navigation.timeline")
-  expect(page).to have_content("You have no timelines")
+  click_on t("components.navigation.narratives")
+
+  expect(page).to have_content("You have no Narratives")
 
   click_on t("timelines.collection.create")
   fill_in "timeline[title]", with: eval(title)
@@ -18,7 +19,7 @@ end
 
 Then(/^I can edit the (.*) timeline to (.*)$/) do |title, new_title|
   visit "/"
-  click_on t("components.navigation.timeline")
+  click_on t("components.navigation.narratives")
 
   scope = find(:xpath, "//a[text()='#{eval(title)}']/parent::td/parent::tr")
   within scope do
@@ -31,7 +32,7 @@ end
 
 When(/^I show the (.*) timeline$/) do |title|
   visit "/"
-  click_on t("components.navigation.timeline")
+  click_on t("components.navigation.narratives")
   click_on eval(title)
 end
 
@@ -147,7 +148,7 @@ end
 
 When(/^I clone the (.*) timeline$/) do |timeline|
   visit "/"
-  click_on t("components.navigation.timeline")
+  click_on t("components.navigation.narratives")
 
   scope = find(:xpath, "//td/a[text()='#{eval(timeline)}']/parent::td/parent::tr")
   within scope do
@@ -177,8 +178,8 @@ When(/^I can view developer timelines$/) do
     click_on t("components.navigation.developers")
   end
   click_on CreateFixture.developer_name
-  click_on t("developers.collection.timelines")
-  expect(page).to have_content "You have no timelines."
+  find(".tabs a i.fa-book").trigger('click')
+  expect(page).to have_content "You have no Narratives."
 end
 
 When(/^I can import the global (.*) timeline$/) do |timeline|
@@ -373,7 +374,7 @@ end
 
 Then(/^I see a Timelines tab at phase level$/) do
   visit "/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}"
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
+  find(:xpath,"//div/a/i[contains(@class, 'fa-book')]")
   expect(page).to have_content(t("phases.collection.phase_timelines"))
 end
 
@@ -393,7 +394,7 @@ Then(/^I can allocate plots (.*) to (.*)$/) do |plots, timeline|
   click_on "Submit"
 
   # page loaded
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
+  find(:xpath,"//div/a/i[contains(@class, 'fa-book')]")
 
   expect(page).to have_content(plots)
   expect(page).to have_content(eval(timeline))
@@ -412,7 +413,7 @@ Then(/^I can use Add All Plots to allocate plots (.*) to (.*). (.*) and plots (.
   click_on "Submit"
 
   # page loaded
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
+  find(:xpath,"//div/a/i[contains(@class, 'fa-book')]")
   expect(page).to have_content(add_plots)
   expect(page).to have_content(eval(to_timeline))
 end
@@ -438,7 +439,7 @@ Then(/^I can delete plots ([\d+,?]*) Clear All Plots and allocate plots ([\d+,?]
   click_on "Submit"
 
   # page loaded
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
+  find(:xpath,"//div/a/i[contains(@class, 'fa-book')]")
   expect(page).to have_content(add_plots)
   expect(page).to have_content(eval(timeline))
 end
@@ -475,7 +476,7 @@ end
 
 Then(/^I can create a content proforma$/) do
   visit "/"
-  click_on t("components.navigation.timeline")
+  click_on t("components.navigation.narratives")
   add = t("timelines.collection.create")
   find(:xpath, "//a[text()='#{add}']")
   click_on add

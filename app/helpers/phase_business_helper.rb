@@ -52,4 +52,9 @@ module PhaseBusinessHelper
   def packagess_scope
     "activerecord.attributes.phase.packages"
   end
+
+  def first_phase(parent)
+    return nil unless parent.is_a? Development
+    parent.phases&.first
+  end
 end

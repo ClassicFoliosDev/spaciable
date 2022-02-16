@@ -40,7 +40,7 @@ module DeveloperTabsHelper
         hide: !developer.branded_app?
       },
       timelines: {
-        icon: "clock-o",
+        icon: "book",
         permissions_on: -> { developer },
         hide: !developer.timeline?
       },

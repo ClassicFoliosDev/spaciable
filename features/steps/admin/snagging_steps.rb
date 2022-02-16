@@ -123,7 +123,7 @@ Then(/^any resident of the plot can approve the resolved status$/) do
     fill_in :resident_password, with: @second_resident.password
     check_box = find(".accept-ts-and-cs")
     check_box.trigger(:click)
-    click_on "Login"
+    click_on "Log in"
   end
 
   # check notifications
@@ -250,7 +250,7 @@ Then(/^a resident can dispute the resolved status$/) do
     fill_in :resident_password, with: @second_resident.password
     check_box = find(".accept-ts-and-cs")
     check_box.trigger(:click)
-    click_on "Login"
+    click_on "Log in"
   end
 
   within ".burger-navigation" do

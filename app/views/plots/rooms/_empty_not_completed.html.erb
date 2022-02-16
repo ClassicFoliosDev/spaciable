@@ -1,6 +1,5 @@
 <div>
   <span>
-    <% unit_type_url = "#{plot_development_path(@plot)}?active_tab=unit_types" %>
-    <%= unsanitized t(".desc", url: unit_type_url) %>
+    <%= unsanitized t(".desc", url: development_phase_path(@plot.development, @plot.phase, active_tab: :plots)) %>
   </span>
 </div>

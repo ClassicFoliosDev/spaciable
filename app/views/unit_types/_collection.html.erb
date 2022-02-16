@@ -40,7 +40,14 @@
         <td class="actions">
           <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
           <% if current_user.cas? && !current_user.cf_admin? && unit_type.restricted? %>
-            <div class="btn" id="restrictedHelp"><i class="fa fa-info"></i></div>
+            <% fp = first_phase(parent) %>
+            <%= info_btn unit_type,
+                     text: fp.present? ? t(".restricted_template",
+                                           url: development_phase_path(parent, fp, active_tab: :plots)) :
+                                         t(".restricted_template_e"),
+                     element: nil,
+                     title: t('.restricted_template_title')
+            %>
           <% end %>
           <% if can? :update, unit_type %>
             <%= link_to clone_unit_type_path(id: unit_type.id), class: "btn clone", title: "Clone" do %>

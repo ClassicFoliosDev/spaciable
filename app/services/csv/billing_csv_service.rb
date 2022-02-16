@@ -21,7 +21,7 @@ module Csv
       [
         "Account Manager", "Developer", "Division", "Development", "Phase", "Plot",
         "Business Stream", "Package", "Reservation Order Number", "Completion Order Number",
-        "Reservation Release Date", "Completion Release Date",
+        "Ready for Invites Date", "Ready for Handover Date",
         "Validity", "Extended Access", "Expiry Date", "Expired",
         "Maintenance", "Residents Invited", "Residents Accepted"
 

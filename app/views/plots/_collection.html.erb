@@ -38,7 +38,11 @@
         <% end %>
         <th><%= t(".progress") %></th>
         <th><%= t(".activation") %></th>
-        <th><span class="date"><i class="fa fa-question-circle-o" id="plotStatusHelp"></i> <%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
+        <th>
+          <%= help_btn text: t('.status.text'), title: t('.status.title'), width: 700 %>
+          <%= sortable(Plot, :completion_release_date, t(".date_c")) %>
+          </span>
+        </th>
         <th>&nbsp;</th>
       </tr>
     </thead>

@@ -265,6 +265,17 @@ i.warning {
   }
 }
 
+.statuses {
+  span {
+    height: 20;
+    width: 20;
+  }
+
+  td {
+    vertical-align: top;
+  }
+}
+
 .faq_list {
   margin-left: 18;
   color: $font-copy-color;

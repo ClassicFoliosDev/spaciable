@@ -63,6 +63,7 @@ $button-line-height: 28px;
   padding: 1px 5px;
   background-color: white !important;
   border: 1px solid black  !important;
+  line-height: unset !important;
   text-align: center;
   color: black  !important;
   display: inline-block;
@@ -77,8 +78,8 @@ $button-line-height: 28px;
   }
 }
 
-.dropdown-help-btn {
-  margin-top: 10;
+.plot-field p {
+  line-height: unset !important;
 }
 
 .ui-dialog-buttonset .btn {
