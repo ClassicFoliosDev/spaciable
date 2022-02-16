@@ -25,7 +25,7 @@ When(/^I log in as a homeowner$/) do
     check_box = find(".accept-ts-and-cs")
     check_box.trigger(:click)
 
-    click_on "Login"
+    click_on "Log in"
   end
 end
 
@@ -37,7 +37,7 @@ When(/^I log in as a returning homeowner$/) do
     fill_in :resident_email, with: homeowner.email
     fill_in :resident_password, with: homeowner.password
 
-    click_on "Login"
+    click_on "Log in"
   end
 end
 

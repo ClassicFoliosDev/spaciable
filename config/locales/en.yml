@@ -4036,7 +4036,7 @@ en:
     turned_off: "Turned Off"
     import: "Import Narrative"
     index:
-      title: "Timelines"
+      title: "Narratives"
     collection:
       create: "Add Narrative"
       narrative: "Narrative"

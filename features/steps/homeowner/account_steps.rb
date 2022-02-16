@@ -247,7 +247,7 @@ Given(/^I log in with cookies$/) do
     check_box = find(".accept-ts-and-cs")
     check_box.trigger(:click)
 
-    click_on "Login"
+    click_on "Log in"
   end
 end
 
