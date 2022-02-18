@@ -80,6 +80,10 @@ $button-line-height: 28px;
 
 .plot-field p {
   line-height: unset !important;
+
+  .help-btn {
+    margin-right: 5;
+  }
 }
 
 .ui-dialog-buttonset .btn {
