@@ -66,3 +66,20 @@
     color: $semi-pale-navy;
   }
 }
+
+#why-bulk-edit, #how-bulk-edit {
+  padding-bottom: 10;
+
+  label {
+    display: inline;
+  }
+}
+
+.why-bulk-edit-help, .how-bulk-edit-help {
+  display: none;
+
+  li {
+    margin: 0 0 12 15;
+  }
+}
+

@@ -9,6 +9,10 @@ $data-section-color: $primary-navy;
   & > * {
     @include flex(1);
   }
+
+  &.build_sequence {
+    margin-bottom: unset;
+  }
 }
 
 .section-title {
