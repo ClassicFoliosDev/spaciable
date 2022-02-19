@@ -10,6 +10,14 @@ $(document).on('click', '#typeHelp', function (event) {
   $('.type-help').toggle()
 })
 
+$(document).on('click', '#whyBulkEditHelp', function (event) {
+  $('.why-bulk-edit-help').toggle()
+})
+
+$(document).on('click', '#howBulkEditHelp', function (event) {
+  $('.how-bulk-edit-help').toggle()
+})
+
 // finish manufacturer
 $(document).on('click', '#manufacturerHelp', function (event) {
   $('.manufacturer-help').toggle()
@@ -55,7 +63,7 @@ $(document).on('click', '#plotfiltersHelp', function (event) {
 })
 
 $(document).on('click', '#stepHelp', function (event) {
-  $('.step-help').is(":visible") ? $('.step-help').hide() : $('.step-help').show()
+  $('.step-help').toggle()
 })
 
 // FUNCTIONS

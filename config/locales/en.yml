@@ -993,7 +993,7 @@ en:
         confirm_password: "Confirm New Password"
         current_password: "Current Password"
         update_password: "Change Password"
-        plot_emails: "Plots 'Ready For' status emails"
+        plot_emails: "Plots 'Ready For' Status Emails"
         receive_plot_emails: "Receive emails when the Spaciable Team confirm plots are ready for invites or handover."
         snag_emails: "Snagging Emails"
         receive_snag_emails: "Receive emails regarding resident snagging issues."
@@ -1368,7 +1368,7 @@ en:
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
       spotlight_help:
         title: "Resident Spotlights"
-        text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting particular features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where less than 5 Spotlights are configured, seasonal Spaciable 'How Tos' will fill the remaining spots.</p>"
+        text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting specific features documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where all Spotlights are not configured, seasonal Spaciable ‘How Tos’ will fill the remaining spots.</p>"
     new:
       title: "New Spotlight"
     edit:
@@ -1397,7 +1397,7 @@ en:
       appears:
         title: "Resident sees Spotlight"
         always: "Always"
-        moved_in: "After moving in"
+        moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
 
   home:
@@ -1519,8 +1519,10 @@ en:
       required_details: "See the list of valid Phase values below. The phase name entered into the CSV must exactly match the phase name as it is displayed here."
       format: "Spec Template and Build Progress must be entered in a specific format."
       format_details: "See the list of valid Spec Templates and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
-      file: "Upload a CSV to update multiple plots."
-      file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
+      why: "Why should I use this feature?"
+      why_details: "CSV uploading enables you to bulk-update an array of details, including the address and Estimated Move In Dates for all plots of your development."
+      how: "How do I use this feature?"
+      how_details: <ol class='csv_how'><li><a href='%{url}' target='_blank'>Download the CSV Template</a> and open the file to see all plots on this development with their current addresses and estimated move in dates.</li><li>Simply add or change the addresses and move in dates (DD/MM/YYY) that you want to be updated on Spaciable. There’s no need to delete anything unless you want to make an address or date blank, and don’t worry you can’t delete plots using this feature.</li><li>Save the file and then reupload it to this page using the <strong>Select File</strong> button and click Submit to apply your changes to Spaciable.</li></ol>
       date: "The Legal Completion Date must be in the format DD/MM/YYYY."
       date_details: "Ensure the date field is formatted DD/MM/YYYY. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
       restricted:
@@ -2727,7 +2729,7 @@ en:
   plots:
     rooms:
       empty_completed:
-        desc: "Adding a room that applies to multiple plots?<br/><br/>Use the <a href='%{url}' target='_blank'>Spec Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Spec Template will not update on the plot."
+        desc: "<strong>Adding a room that applies to multiple plots?</strong><br/><br/>Use the <a href='%{url}' target='_blank'>Spec Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Spec Template will not update on the plot."
       empty_not_completed:
         desc: "<p><strong>Sorry, you cannot edit rooms, finishes and appliances on this plot.</strong></p><p>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after the Spaciable Team change the plot’s Status to Ready for Handover.</p><p>This is signified by a green circle in the <a href='%{url}' target='_blank'>Status column</a> on the Plots tab at Phase level.</p>"
       index:
@@ -2959,8 +2961,8 @@ en:
       title: "%{development_name} Spec Templates"
     collection:
       restricted_template_title: "Restricted Spec Template"
-      restricted_template: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>Plot's ‘Ready for’ Statuses can be seen on the <a href='%{url}' target='_blank'>Phase Plots tab.</a></>"
-      restricted_template_e: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>Plot's ‘Ready for’ Statuses can be seen on the Phase Plots tab</>"
+      restricted_template: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>‘Ready for’ Statuses can be seen on the <a href='%{url}' target='_blank'>Plots tab.</a></>"
+      restricted_template_e: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>‘Ready for’ Statuses can be seen on the Plots tab</>"
       add: "Add Spec Template"
       rooms: "Rooms"
       documents: "Documents"
@@ -2969,10 +2971,8 @@ en:
       logs: "Change Logs"
       plot_template:
         title: "What is a Spec Template?"
-        help: "The Spec Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.<br/><br/>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
-      ut_help:
-        title: "What is a Spec Template?"
-        text: "<div><p>The Spec Template feature allows you to create templates for your plots.</p><p>Any room, finish and appliance that you add to a Spec Template will also be shown in each plot assigned to it. Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Spec Template will not be reflected on the plot.</p><p>We recommend that you use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.</p>"
+        help: "<p>Spec Templates allow you to group plots that share similar specifications such as by house type or colour palette to save time when populating finishes and appliances.</p><p>Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it.</p><p>Once a room is edited at plot level it becomes unique to that plot; any new changes made to that same room in the Plot Template will not be reflected on the plot.</p><p><strong>Top Tip: Use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.</strong><p>"
+        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the Spec Template title.</p>"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2989,8 +2989,8 @@ en:
      search: "Search"
      info:
        title: "Appliances Catalogue"
-       desc: "This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).<br/><br/>If an appliance isn’t in the catalogue, you can create it yourself.<br/><br/>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish."
-       recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> in the top left.</p>"
+       desc: "<p>This catalogue contains appliances managed by Spaciable staff (in grey and without delete icon).</p><p>If an appliance isn’t in the catalogue, simply click 'Clone' icon to use an existing entry as a template, populate relevant sections and save as a new appliance. If you edit an appliance, changes appear on plots where the appliance is assigned.</p><p>Appliances in this catalogue can be assigned to Rooms in a Spec Template or an individual plot.</p><p>Click Spec Templates tab under a development to assign appliances shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific appliance.</p>"
+       recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the Appliances Catalogue title.</p>"
    collection:
      create: "Create Appliance"
      assign: "Assign Appliance"
@@ -3128,8 +3128,8 @@ en:
       title: "Finishes Catalogue."
       info:
         title: "Finishes Catalogue"
-        desc: "This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).<br/><br/>If a finish isn’t in the catalogue, you can create it yourself. Click 'Clone' icon to use an existing entry as a template when creating a new finish. If you edit a finish, changes appear on plots where the finish is assigned.<br/><br/>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot. Click Plot Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish."
-        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> in the top left.</p>"
+        desc: "<p>This catalogue contains finishes managed by Spaciable staff (in grey and without delete icon).</p><p>If a finish isn’t in the catalogue, simply click 'Clone' icon to use an existing entry as a template, populate relevant sections and save as a new finish. If you edit a finish, changes appear on plots where the finish is assigned.</p><p>Finishes in this catalogue can be assigned to Rooms in a Spec Template or an individual plot.</p><p>Click Spec Templates tab under a development to assign finishes shared by a group of plots. Click Rooms tab under a plot to assign a plot-specific finish.</p>"
+        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the Finishes Catalogue title.</p>"
     collection:
       finish: "Finish Name"
       finish_category: "Category"
@@ -3162,9 +3162,9 @@ en:
       notes_disclaimer: "This is not visible to residents"
       finish_description: "Use this page to update the catalogue with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
       disclaimer: "Can't find the %{item} you're looking for?"
-      category_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the category you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes."
-      type_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the finish type you would like to add and we will review the request with a view to adding it to the catalogue.<br/><br>A <strong>Finish</strong> Type is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories.</strong>"
-      manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers.</a> to add a new Manufacturer entry to the Finishes Catalogue and associate it with any applicable Types.<br/><br/>If the manufacturer exists, but isn't associated with your required finish type, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of what finish type you would like to associate and we will review your request with a view of updating the Finishes Catalogue."
+      category_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the category you would like to add. Your request for a new category will be reviewed within 2 working days.<br/><br/>A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes."
+      type_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the finish type you would like to add. Your request for a new type will be reviewed within 2 working days.<br/><br>A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more Finish Categories."
+      manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers.</a> to add a new Manufacturer entry to the Finishes Catalogue and associate it with any applicable Types.<br/><br/>If the manufacturer exists, but isn't associated with your required finish type, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of what finish type you would like to associate. Your request for a new association will be reviewed within 2 working days."
       update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and Spec Templates containing this finish."
       clone: "You have chosen to clone an existing finish. Edit the finish details and click Submit to create a new finish in the catalogue."
     edit:
@@ -3501,9 +3501,11 @@ en:
 
   bulk_edit:
     index:
-      description: "<strong>Select the plots you wish to edit below.</strong>"
-      description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
-                        Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
+      why_title: "<strong>Why should I use the Bulk Edit feature?</strong>"
+      why: "Bulk Editing allows you to make updates to multiple plots at once.<br/><br>For example, if you have a block of 100 Apartments, simply apply the same Building Name, Road Name and Postcode, and the Prefix “Apartment” to all of these at once rather than editing each plot individually. If applicable, apply the ‘Use Plot Number for Postal Number’ option to avoid individual editing altogether."
+      how_title: "How do I use the Bulk Edit feature?"
+      how: "<ol><li>Select the plots you wish to edit by adding them to the box below</li><li>Edit the fields you wish to update</li><li>Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated</li><li>Click <strong>Submit</strong></li></ol>"
+      how_title: "How do I use the Bulk Edit feature?"
       unit_type: "Spec Template"
       update_progress: "Update Build Progress"
       comp_date: "Estimated Move In Date"
@@ -4304,16 +4306,20 @@ en:
 
   build_sequences:
     show:
+      title: "Build Progress"
       help_title: "Build Progress"
       help: "If you navigate to a plot on Spaciable and update the Build Progress status, an email notification is sent to the plot resident(s). You can view the Build Progress stages and email content on this page.<br/><br/>This Build Progress content is the <strong>%{level}</strong> list."
+      recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the Edit Build Progress title.</p>"
       restricted:
         title: "Unlock More Options"
         help: "<p>Build Progress stages and emails can be customised with an upgraded package. To tailor Spaciable to your processes, upgrade your Spaciable Free package today and enable access to customised build progress content and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
 
     form:
+      help_title: "Edit Build Progress"
+      recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the Edit Build Progress title.</p>"
       global: "Here, you can edit the Build Progress stages and email content: add stages above and below, delete stages or use the up/down arrows to swap a stage with the one above/below."
-      global_warn: "All live and future plots on all developers without a custom Build Progress list will be updated with these new build progress stages."
-      delete_warn: "No changes are applied until you click Submit at the bottom right of the page."
+      global_warn: "<p>All live and future plots on all developers without a custom Build Progress list will be updated with these new build progress stages.</p>"
+      delete_warn: "<p>No changes are applied until you click Submit at the bottom right of the page.</p>"
       warn: "Submit to create a new Build Progress list specific to <strong>%{name}</strong>"
       current: "Current Stage Titles"
       title: "Progress Stage"
@@ -4323,6 +4329,8 @@ en:
         new: "Please confirm to create a new Build Progress list specific to %{parent} with the following build sequence:"
         update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
         global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
+
+
 
   faq_package:
     title: "FAQ Type"
@@ -4341,7 +4349,7 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     customer_code: "Customer Code"
 
   spotlight:
-    moved_in: "Show this Spotlight when a plot's <strong>Estimated Move In Date</strong> has passed. This date can be set in the plot's Completion tab and edit page."
+    moved_in: "Use for Spotlights relevant after a resident has moved in. You can set each plot's estimated move in date by visiting a plot and using the Completion tab or the plot edit page."
     completed: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a <a href='%{url}' target='_blank'>Phase</a>, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
     completed_e: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a Phase, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
 

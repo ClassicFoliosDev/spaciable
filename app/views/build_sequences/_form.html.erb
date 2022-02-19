@@ -4,11 +4,21 @@
 <% end %>
 <% help << t(".delete_warn") %>
 
-<%= render "components/admin/help", title: 'Build Progress', preference: :show_edit_build_progress_dialog, help: help %>
+<%= render "components/admin/popup", title: t(".help_title"), preference: :show_edit_build_progress_dialog, help: help, recall: t(".recall") , width: 400 %>
+
+<div class="section-header build_sequence">
+  <div class="section-title">
+    <% unless current_user.cf_admin? %>
+       <%= help_btn text: help, title: t(".help_title") %>
+    <% end %>
+    <%= t(".help_title") %>
+  </div>
+</div>
 
 <% unless parent.build_sequence %>
   <p><%= simple_format t(".warn", name: parent.identity) %></p>
 <% end %>
+
 
 <div class="build_sequence">
   <% notice = if parent.is_a? Global

@@ -16,8 +16,18 @@
 
     <div class="row">
       <div class="row-item third">
-        <p><%= t(".description").html_safe %></p>
-        <p><%= t(".description_two").html_safe %></p>
+        <div id="why-bulk-edit">
+          <button id="whyBulkEditHelp" class="btn dropdown-help-btn" type="button" title="Help">?</button>
+          <label> <%= t(".why_title").html_safe %></label>
+        </div>
+        <div class="why-bulk-edit-help"><br><%= simple_format t(".why") %></div>
+
+        <div id="how-bulk-edit">
+          <button id="howBulkEditHelp" class="btn dropdown-help-btn" type="button" title="Help">?</button>
+          <label> <%= t(".how_title").html_safe %></label>
+        </div>
+        <div class="how-bulk-edit-help"><br><%= t(".how").html_safe %></div>
+
         <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
       </div>
 
@@ -29,7 +39,7 @@
               <%= f.input_field :unit_type_id_check, as: :boolean, label: false %>
             </div>
 
-            <% lab = unsanitized("<label>#{help_btn text: t('unit_types.collection.ut_help.text'), title: t('unit_types.collection.ut_help.title'), width: 700}#{t('.unit_type')}</label>") %>
+            <% lab = unsanitized("<label>#{help_btn text: t('unit_types.collection.plot_template.help'), title: t('unit_types.collection.plot_template.title'), width: 700}#{t('.unit_type')}</label>") %>
 
             <%= f.input :unit_type_id, label: lab, as: :select, collection: unit_type_collection(@phase) %>
           </div>

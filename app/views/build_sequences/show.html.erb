@@ -2,11 +2,20 @@
 
 <% unless @back || @parent.is_a?(Global) %>
   <% if current_user.cf_admin? || !all_phases_free?(@parent) %>
-    <%= render "components/admin/help", title: t(".help_title"), preference: :show_build_progress_dialog, help: [t(".help", level: @parent.sequence_in_use.sequence_name)], type: :warn %>
+    <%= render "components/admin/popup", title: t(".help_title"), preference: :show_build_progress_dialog, help: [t(".help", level: @parent.sequence_in_use.sequence_name)], recall: t(".recall") , width: 400 %>
   <% elsif !current_user.cf_admin? && all_phases_free?(@parent) %>
     <%= render "components/admin/popup", title: t(".restricted.title"), preference: :show_build_progress_restriction_dialog, help: [t(".restricted.help.",url: ENV["PACKAGE_URL"])], type: :warn %>
   <% end %>
 <% end %>
+
+<div class="section-header build_sequence">
+  <div class="section-title">
+    <% unless current_user.cf_admin? %>
+       <%= help_btn text: t(".help", level: @parent.sequence_in_use.sequence_name), title: t(".help_title") %>
+    <% end %>
+    <%= t(".title") %>
+  </div>
+</div>
 
 <div class="build_sequence">
   <%= render_collection @build_sequence.build_steps, parent: @parent %>

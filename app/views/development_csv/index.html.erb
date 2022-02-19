@@ -13,18 +13,22 @@
 </div>
 
 <div class="development-csv">
-  <div class="separate row">
+  <div class="separate row">p
     <div class="row-item third hint">
       <p>
-        <span class="bold"><%= t(".file") %></span><br/>
-        <span><%= t(".file_details") %></span>
+        <span class="bold"><%= t(".why") %></span><br/>
+        <span><%= t(".why_details") %></span>
       </p>
+      <p>
+        <span class="bold"><%= t(".how") %></span><br/>
+        <span><%= unsanitized t(".how_details", url: development_download_development_csv_path) %></span>
+      </p>
+    </div>
+    <div class="row-item third hint">
       <p>
         <span class="bold"><%= t(".date") %></span><br/>
         <span><%= t(".date_details") %></span>
       </p>
-    </div>
-    <div class="row-item third hint">
       <p>
         <span class="bold"><%= t(".required") %></span><br/>
         <span><%= t(".required_details") %></span>
