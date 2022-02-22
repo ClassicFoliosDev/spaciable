@@ -17,25 +17,14 @@
     <div class="row-item third hint">
       <p>
         <span class="bold"><%= t(".why") %></span><br/>
-        <span><%= t(".why_details") %></span>
+        <span><%= t(".why_details").html_safe %></span>
       </p>
-      <p>
-        <span class="bold"><%= t(".how") %></span><br/>
-        <span><%= unsanitized t(".how_details", url: development_download_development_csv_path) %></span>
-      </p>
+
     </div>
     <div class="row-item third hint">
       <p>
-        <span class="bold"><%= t(".date") %></span><br/>
-        <span><%= t(".date_details") %></span>
-      </p>
-      <p>
-        <span class="bold"><%= t(".required") %></span><br/>
-        <span><%= t(".required_details") %></span>
-      </p>
-      <p>
-        <span class="bold"><%= t(".format") %></span><br/>
-        <span><%= t(".format_details") %></span>
+        <span class="bold"><%= t(".how") %></span><br/>
+        <span><%= unsanitized t(".how_details", url: development_download_development_csv_path) %></span>
       </p>
     </div>
     <div class="row-item third upload">
