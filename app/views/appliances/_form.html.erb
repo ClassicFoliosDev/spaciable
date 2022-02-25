@@ -33,8 +33,21 @@
         <div class="warranty ui-front">
         <%= f.input :warranty_length, label: t(".warranty_length"), as: :select, collection: warranty_collection, include_blank: true %>
         </div>
-        <div class="e_rating ui-front">
-        <%= f.input :e_rating, label: t(".e_rating"), as: :select, collection: rating_collection, include_blank: true %>
+        <% new_rating = f.object.main_uk_e_rating.present? || current_page?(action: 'new') %>
+
+        <% unless new_rating %>
+          <div class="e_rating ui-front">
+            <%= f.input :e_rating, label: t(".e_rating"), as: :select, collection: rating_collection, include_blank: true, disabled: true %>
+          </div>
+        <% end %>
+        <div class="e_uk_rating ui-front">
+        <label id='main_rating'><%= t(".main_uk_e_rating") %></label>
+        <label id='washerdryer_rating'><%= t(".washerdryer") %></label>
+        <%= f.input :main_uk_e_rating, label: false, as: :select, collection: uk_rating_collection, include_blank: !new_rating  %>
+        </div>
+        <div id='washer_rating' class="e_uk_rating ui-front">
+        <label><%= t(".washer") %></label>
+        <%= f.input :supp_uk_e_rating, label: false, as: :select, collection: uk_rating_collection, include_blank: !new_rating %>
         </div>
       </fieldset>
     </div>

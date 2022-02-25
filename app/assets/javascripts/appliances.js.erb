@@ -48,3 +48,30 @@ function updateDefaultName (manufacturer, model) {
 
   $applianceName.val(manufacturer + ' ' + model)
 }
+
+document.addEventListener('turbolinks:load', function (event) {
+
+  if ($("#appliance_appliance_category_id").length == 0) { return }
+
+  show_ratings()
+
+  $("#appliance_appliance_category_id").selectmenu({
+    select: function (event, ui) {
+      show_ratings()
+    }
+  })
+
+  $("#appliance_main_uk_e_rating").selectmenu({
+    select: function (event, ui) {
+      $(".e_rating").toggle($("#appliance_main_uk_e_rating").val() == 0)
+    }
+  })
+})
+
+function show_ratings() {
+  // Washer Dryer
+  washerDryer = $("#appliance_appliance_category_id").val() == 2
+  $("#main_rating").toggle(!washerDryer)
+  $("#washerdryer_rating").toggle(washerDryer)
+  $("#washer_rating").toggle(washerDryer)
+}

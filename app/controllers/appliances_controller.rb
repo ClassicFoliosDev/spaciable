@@ -89,7 +89,8 @@ class AppliancesController < ApplicationController
       :appliance_manufacturer_id, :appliance_category_id,
       :remove_primary_image, :remove_secondary_image,
       :remove_manual, :guide, :remove_guide,
-      :primary_image_cache, :secondary_image_cache
+      :primary_image_cache, :secondary_image_cache,
+      :main_uk_e_rating, :supp_uk_e_rating
     )
 
     %i[remove_primary_image remove_secondary_image remove_manual remove_guide].each do |i|

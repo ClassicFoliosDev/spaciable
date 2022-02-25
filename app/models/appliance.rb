@@ -59,6 +59,7 @@ class Appliance < ApplicationRecord
   validate :check_dup
 
   delegate :link, :name, to: :appliance_manufacturer, prefix: true
+  delegate :washer_dryer?, to: :appliance_category
 
   enum warranty_length: %i[
     no_warranty
@@ -86,6 +87,28 @@ class Appliance < ApplicationRecord
     f
     g
   ]
+
+  enum main_uk_e_rating: %i[
+    not_known
+    a
+    b
+    c
+    d
+    e
+    f
+    g
+  ], _prefix: :main_e_rating
+
+  enum supp_uk_e_rating: %i[
+    not_known
+    a
+    b
+    c
+    d
+    e
+    f
+    g
+  ], _prefix: :supp_e_rating
 
   def check_dup
     return unless RequestStore.store[:current_user]&.is_a? User
