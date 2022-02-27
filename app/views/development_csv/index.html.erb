@@ -13,13 +13,12 @@
 </div>
 
 <div class="development-csv">
-  <div class="separate row">p
+  <div class="separate row">
     <div class="row-item third hint">
       <p>
         <span class="bold"><%= t(".why") %></span><br/>
-        <span><%= t(".why_details").html_safe %></span>
+        <span><%= unsanitized t(".why_details") %></span>
       </p>
-
     </div>
     <div class="row-item third hint">
       <p>
