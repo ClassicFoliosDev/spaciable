@@ -63,10 +63,20 @@ document.addEventListener('turbolinks:load', function (event) {
 
   $("#appliance_main_uk_e_rating").selectmenu({
     select: function (event, ui) {
-      $(".e_rating").toggle($("#appliance_main_uk_e_rating").val() == 0)
+      check_ratings()
+    }
+  })
+
+  $("#appliance_supp_uk_e_rating").selectmenu({
+    select: function (event, ui) {
+      check_ratings()
     }
   })
 })
+
+function check_ratings(){
+  $(".e_rating").toggle($("#appliance_main_uk_e_rating").val() == 0 && $("#appliance_supp_uk_e_rating").val() == 0)
+}
 
 function show_ratings() {
   // Washer Dryer
@@ -74,4 +84,8 @@ function show_ratings() {
   $("#main_rating").toggle(!washerDryer)
   $("#washerdryer_rating").toggle(washerDryer)
   $("#washer_rating").toggle(washerDryer)
+  if (!washerDryer) {
+    $('#appliance_supp_uk_e_rating').val("")
+    $('#appliance_supp_uk_e_rating').selectmenu('refresh')
+  }
 }

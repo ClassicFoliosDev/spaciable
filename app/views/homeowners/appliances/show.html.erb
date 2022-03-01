@@ -64,6 +64,27 @@
               <span class="branded-text"><%= label_tag :energy, t("appliances.form.e_rating") %></span>
               <%= image_tag "Energy Rating #{appliance.e_rating.upcase}.svg", class: "energy-rating" %>
             <% end %>
+
+            <% if appliance.main_uk_e_rating && !appliance.main_e_rating_not_known? %>
+              <span class="branded-text"><%= label_tag :energy, t("appliances.form.main_uk_e_rating") %></span>
+
+              <% if appliance.washer_dryer? %>
+                <% if appliance.supp_uk_e_rating && !appliance.supp_e_rating_not_known? %>
+                  <div class='e_ratings'>
+                    <div class='ratingimage'>
+                      <%= image_tag "Energy Rating (Washer Dryer) (#{appliance.main_uk_e_rating.upcase}).svg", class: "energy-rating" %>
+                      <label><%= t(".washdry") %> </label>
+                    </div>
+                    <div class='ratingimage'>
+                      <%= image_tag "Energy Rating (Washer Dryer) (#{appliance.supp_uk_e_rating.upcase}).svg", class: "energy-rating" %>
+                      <label><%= t(".wash") %> </label>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= image_tag "Energy Rating (#{appliance.main_uk_e_rating.upcase}).svg", class: "energy-rating" %>
+              <% end %>
+            <% end %>
           </div>
 
           <% if appliance.description? %>

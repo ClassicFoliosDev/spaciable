@@ -96,7 +96,6 @@
   }
 }
 
-
 @include media($mobile-down) {
   .appliances {
     .appliance {
@@ -108,5 +107,22 @@
         @include span-columns(12 of 12);
       }
     }
+  }
+}
+
+.e_ratings {
+
+  div {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .ratingimage {
+    width: 45%;
+  }
+
+  .caption {
+    display: block;
   }
 }

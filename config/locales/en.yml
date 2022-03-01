@@ -1812,6 +1812,8 @@ en:
         guide: "Quick Reference Guide"
         download: "Download"
         disclaimer: "Please note: this page displays standard consumer information from the manufacturer(s). Your appliance warranty lengths may differ to any shown on this page, so please check your cover using the information supplied at your property handover."
+        washdry: "Wash + Dry"
+        wash: "Wash Only"
     how_tos:
       index:
         title: "How To."

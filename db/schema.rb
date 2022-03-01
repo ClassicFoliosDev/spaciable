@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220207160603) do
+ActiveRecord::Schema.define(version: 20220223094546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(version: 20220207160603) do
     t.string   "guide"
     t.integer  "appliance_manufacturer_id"
     t.integer  "developer_id"
+    t.integer  "main_uk_e_rating"
+    t.integer  "supp_uk_e_rating"
     t.index "lower((model_num)::text) varchar_pattern_ops", name: "search_index_on_appliance_model_num", using: :btree
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["appliance_manufacturer_id"], name: "index_appliances_on_appliance_manufacturer_id", using: :btree

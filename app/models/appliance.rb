@@ -14,6 +14,8 @@ class Appliance < ApplicationRecord
   mount_uploader :manual, DocumentUploader
   mount_uploader :guide, DocumentUploader
 
+  after_update :update_rating
+
   attr_accessor :primary_image_cache
   attr_accessor :secondary_image_cache
   attr_accessor :name
@@ -151,5 +153,13 @@ class Appliance < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  # rubocop:disable SkipsModelValidations
+  def update_rating
+    return if e_rating.blank?
+    return unless main_uk_e_rating_changed? || supp_uk_e_rating_changed?
+    update_attribute(:e_rating, nil)
+  end
+  # rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength
