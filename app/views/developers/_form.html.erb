@@ -89,7 +89,7 @@
         <p class="checkbox-description"><%= t(".cas_description") %></p>
         <%= f.label :timeline, t(".timeline") %>
         <%= f.check_box :timeline %>
-        <p class="checkbox-description"><%= t(".timeline_description") %></p>
+        <p class="checkbox-description"><%= t(".timeline_description").html_safe %></p>
         <br/>
         <%= f.label :enable_perks, t(".enable_perks") %>
         <%= f.check_box :enable_perks, id: "enable_perks" %>

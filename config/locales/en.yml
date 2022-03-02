@@ -464,19 +464,19 @@ en:
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
-    phase_timelines: "Narratives"
+    phase_timelines: "Interactive Handovers"
     phase_calendar: "Calendar"
-    phase_timelines_add: "New Phase Narrative"
-    phase_timelines_edit: "Edit Phase Narrative"
+    phase_timelines_add: "New Phase Interactive Handover"
+    phase_timelines_edit: "Edit Phase Interactive Handover"
     development_csv: "Upload CSV"
     custom_tiles: "Resident Spotlights"
     custom_tile_add: "New Spotlight"
     custom_tile_edit: "Edit %{tile}"
-    timeline_add: "Add Narrative"
-    timelines: "Narratives"
+    timeline_add: "Add Interactive Handover"
+    timelines: "Interactive Handovers"
     timeline_show: "%{timeline}"
     timeline_edit: "Edit %{timeline}"
-    timeline_import: "Import Narrative"
+    timeline_import: "Import Interactive Handover"
     tasks: "Naratives"
     task_show: "%{task}"
     task_edit: "Edit %{task}"
@@ -683,7 +683,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       analytics: "Analytics"
-      narratives: "Narratives"
+      narratives: "Interactive Handovers"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1705,7 +1705,7 @@ en:
       splash:
         welcome: "Welcome To"
         your_journey: "My Journey"
-        paragraph_1: "This narrative is designed to help you track your progress and learn more about the process each step of the way."
+        paragraph_1: "This Interactive Handover is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
       select_stage:
@@ -2083,7 +2083,7 @@ en:
   developers:
     timelines:
       import:
-        title: "Import Narrative"
+        title: "Import Interactive Handover"
         search: "Search"
         import: "Import"
     destroy:
@@ -2140,7 +2140,7 @@ en:
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
       timeline: "My Journey and Interactive Guides"
-      timeline_description: "Turning this on will allow Narratives to be imported and edited for this Developer."
+      timeline_description: "Turning this on will allow <strong>Interactive Handovers</strong> to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
       link: "Branded Buyers' Club Link"
@@ -2195,7 +2195,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "Narratives"
+      timelines: "Interactive Handovers"
       videos: "Videos"
       content_management: "Content Management"
     developer:
@@ -2522,7 +2522,7 @@ en:
       release_plots: "Release Plots"
       lettings: "Lettings"
       import: "Import CRM"
-      phase_timelines: "Narratives"
+      phase_timelines: "Interactive Handovers"
       calendar: "Calendar"
       brands: "Styling"
     new:
@@ -2612,14 +2612,14 @@ en:
     phase_timelines:
       journey:
         title: "My Journey Allocations"
-        label: "My Journey Narrative"
-        description: "Use this page to associate My Journey narratives with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
-        warning: "Any plots removed from My Journey narrative allocations will have their progress destroyed and their My Journey access revoked when this page is saved."
+        label: "Journey"
+        description: "Use this page to associate <strong>Journeys</strong> with plots on this phase. The <strong>My Journey</strong> page will only show on plots that are listed in the <strong>Associated Plots</strong> below."
+        warning: "Any plots removed from <strong>Journey</strong> allocations will have their progress destroyed and their <strong>My Journey</strong> access revoked when this page is saved."
       proforma:
         title: "Interactive Guide Allocations"
-        label: "Interactive Guide Narrative"
-        description: "Use this page to associate Proforma Document timelines with plots on this phase. The Proforma Document page will only show on plots that are listed in the Associated Plots below."
-        warning: "Any plots removed from Proforma timeline allocations will have their progress destroyed and their Proforma Document access revoked when this page is saved."
+        label: "Interactive Guide"
+        description: "Use this page to associate <strong>Interactive Guides</strong> with plots on this phase. The <strong>Interactive Guide</strong> will only show on plots that are listed in the <strong>Associated Plots</strong> below."
+        warning: "Any plots removed from <strong>Interactive Guide</strong> allocations will have their progress destroyed and their <strong>Interactive Guide</strong> access revoked when this page is saved."
       form:
         plots: "Associated Plots"
 
@@ -2857,7 +2857,7 @@ en:
       finishes: "Finishes: "
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
-      timeline: "Narrative: "
+      timeline: "Interactive Handover: "
       preview: "Preview"
       uprn: "UPRN: "
       uprn_error: " should be up to 12 digits long and only contain numbers."
@@ -3392,7 +3392,7 @@ en:
       submit: "Submit"
       notify: "Notify subscribed residents about this change"
       picture: "Image"
-      contact_type: "Interactive Content Tag"
+      contact_type: "Interactive Handover Tag"
       category: "Category"
       first_name: "First Name"
       last_name: "Surname"
@@ -3402,8 +3402,8 @@ en:
       pinned: "Pinned"
       pinned_description: "Pinned contacts will display before unpinned contacts on the resident dashboard, ordered by last edited. There is no limit to the number of pinned contacts."
       help:
-        title: "Interactive Content"
-        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>Apply an <strong>Interactive Content Tag</strong> to display a Contact to your residents on appropriate pages in an Interactive Guide or the My Journey feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
+        title: "Interactive Handover"
+        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>Apply an <strong>Interactive Handover Tag</strong> to display a contact to your residents on appropriate pages in an <strong>Interactive Guide</strong> or the <strong>My Journey</strong> feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
     edit:
       title: "Edit %{name}"
     show:
@@ -4036,12 +4036,12 @@ en:
 
   timelines:
     turned_off: "Turned Off"
-    import: "Import Narrative"
+    import: "Import Interactive Handover"
     index:
-      title: "Narratives"
+      title: "Interactive Handovers"
     collection:
-      create: "Add Narrative"
-      narrative: "Narrative"
+      create: "Add Interactive Handover"
+      narrative: "Interactive Handover"
       type: "Type"
       last_edited: "Last Edited"
       created_at: "Created At"
@@ -4081,8 +4081,8 @@ en:
       delete: "Delete"
       insert_before: "Insert Page Before %{page}"
       insert_after: "Insert Page After %{page}"
-      empty_cf: "You narrative is currently empty. Add a page to start creating your narrative."
-      empty: "You narrative is currently empty"
+      empty_cf: "You Interactive Handover is currently empty. Add a page to start creating your Interactive Handover."
+      empty: "You Interactive Handover is currently empty"
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
@@ -4254,7 +4254,7 @@ en:
 
   phase_timelines:
     collection:
-      name: "Narrative"
+      name: "Interactive Handover"
       add_journey: "Add Journey Associations"
       add_proforma: "Add Interactive Guide Associations"
       empty: "You have no Journey/Interactive Guide Plot Associations"
