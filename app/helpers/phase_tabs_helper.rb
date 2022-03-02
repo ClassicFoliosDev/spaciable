@@ -54,7 +54,7 @@ module PhaseTabsHelper
         hide: !(current_user.cf_admin? || current_user.branch?)
       },
       phase_timelines: {
-        icon: "clock-o",
+        icon: "book",
         link: [phase, :phase_timelines],
         permissions_on: -> { phase },
         hide: !phase.timeline

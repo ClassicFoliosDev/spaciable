@@ -15,7 +15,7 @@
         <div class="finish_type_finish_category ui-front select-container">
           <%= f.association :plots, label: t(".plots"), collection: plots, multiple: true, class: "multiple" %>
         </div>
-        <p><%= t("phases.phase_timelines.#{scope}.warning") %></p>
+        <p><%= t("phases.phase_timelines.#{scope}.warning").html_safe %></p>
         <%= button_tag t(".add_all_plots"), :type => 'button', class: "btn", id: 'add_timeline_plots', name: "add_plots_button" %>
         <%= button_tag t(".clear_all_plots"), :type => 'button', class: "btn", id: 'clear_timeline_plots', name: "clear_plots_button" %>
       </fieldset>
