@@ -6,7 +6,7 @@ Then(/^I can create a (.*) timeline$/) do |title|
   visit "/"
   click_on t("components.navigation.narratives")
 
-  expect(page).to have_content("You have no Narratives")
+  expect(page).to have_content("You have no Interactive Handovers")
 
   click_on t("timelines.collection.create")
   fill_in "timeline[title]", with: eval(title)
@@ -179,7 +179,7 @@ When(/^I can view developer timelines$/) do
   end
   click_on CreateFixture.developer_name
   find(".tabs a i.fa-book").trigger('click')
-  expect(page).to have_content "You have no Narratives."
+  expect(page).to have_content "You have no Interactive Handovers."
 end
 
 When(/^I can import the global (.*) timeline$/) do |timeline|
@@ -379,7 +379,7 @@ Then(/^I see a Timelines tab at phase level$/) do
 end
 
 Then(/^I see no allocated timelines for the phase$/) do
-  find("li a i.fa-clock-o").trigger('click')
+  find("li a i.fa-book").trigger('click')
   expect(page).to have_content(t("phase_timelines.collection.empty"))
 end
 
