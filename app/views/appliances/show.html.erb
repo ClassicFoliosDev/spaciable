@@ -46,20 +46,20 @@
     <% end %>
     <% if @appliance.e_rating && @appliance.main_uk_e_rating.nil? %>
       <div class="e_rating">
-        <%= label_tag(t("appliances.form.e_rating")) %>
+        <label><%=t("appliances.form.e_rating")%></label>
         <span><%= t("activerecord.attributes.appliance.e_rating.#{@appliance.e_rating}") %></span>
       </div>
     <% end %>
     <% if @appliance.main_uk_e_rating %>
       <div class="uk_e_rating">
-        <%= label_tag(t("appliances.form.main_uk_e_rating")) unless @appliance.washer_dryer? %>
-        <%= label_tag(t("appliances.form.washerdryer")) if @appliance.washer_dryer? %>
+        <label><%=t("appliances.form.main_uk_e_rating")) unless @appliance.washer_dryer? %></label>
+        <label><%=t("appliances.form.washerdryer")) if @appliance.washer_dryer? %></label>
         <span><%= t("activerecord.attributes.appliance.uk_e_rating.#{@appliance.main_uk_e_rating}") %></span>
       </div>
     <% end %>
     <% if @appliance.supp_uk_e_rating && @appliance.main_uk_e_rating %>
       <div class="uk_e_rating">
-        <%= label_tag(t("appliances.form.washer")) %>
+        <label><%=t("appliances.form.washer")) %></label>
         <span><%= t("activerecord.attributes.appliance.uk_e_rating.#{@appliance.supp_uk_e_rating}") %></span>
       </div>
     <% end %>

@@ -37,7 +37,12 @@
 
         <% unless new_rating %>
           <div class="e_rating ui-front">
-            <%= f.input :e_rating, label: t(".e_rating"), as: :select, collection: rating_collection, include_blank: true, disabled: true %>
+            <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+            <label class='help-label'><%=t(".e_rating")%></label>
+            <div id="dropdown-help" class="hidden padded-help">
+              <%=t(".e_rating_info")%>
+            </div>
+            <%= f.input :e_rating, label: false, as: :select, collection: rating_collection, include_blank: true, disabled: true %>
           </div>
         <% end %>
         <div class="e_uk_rating ui-front">

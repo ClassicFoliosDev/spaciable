@@ -84,8 +84,8 @@ function show_ratings() {
   $("#main_rating").toggle(!washerDryer)
   $("#washerdryer_rating").toggle(washerDryer)
   $("#washer_rating").toggle(washerDryer)
-  if (!washerDryer) {
-    $('#appliance_supp_uk_e_rating').val("")
+  if (!washerDryer &&  $('#appliance_supp_uk_e_rating').val() != "not_known") {
+    $('#appliance_supp_uk_e_rating').val("not_known")
     $('#appliance_supp_uk_e_rating').selectmenu('refresh')
   }
 }

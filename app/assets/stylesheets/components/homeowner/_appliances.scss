@@ -108,6 +108,19 @@
       }
     }
   }
+
+  .appliances-disclaimer {
+    font-size: small;
+    padding: 0 10;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+.appliances-disclaimer a {
+  text-decoration: underline;
 }
 
 .e_ratings {

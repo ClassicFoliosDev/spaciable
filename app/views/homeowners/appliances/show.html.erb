@@ -5,7 +5,7 @@
 <div class="branded-body">
   <div class="appliances">
     <% if @plot.developer.show_warranties? %>
-      <span class="branded-text appliances-disclaimer"><%= t(".disclaimer") %></span>
+      <span class="branded-text appliances-disclaimer"><%= unsanitized t(".disclaimer") %></span>
     <% end %>
     <% @appliances.each do | appliance | %>
       <% next unless appliance %>
@@ -61,27 +61,30 @@
             <% end %>
 
             <% if appliance.e_rating %>
-              <span class="branded-text"><%= label_tag :energy, t("appliances.form.e_rating") %></span>
+              <span class="branded-text"><%= label_tag :energy, t(".e_rating").html_safe %></span>
               <%= image_tag "Energy Rating #{appliance.e_rating.upcase}.svg", class: "energy-rating" %>
             <% end %>
 
-            <% if appliance.main_uk_e_rating && !appliance.main_e_rating_not_known? %>
-              <span class="branded-text"><%= label_tag :energy, t("appliances.form.main_uk_e_rating") %></span>
+            <% if (appliance.main_uk_e_rating && !appliance.main_e_rating_not_known?) ||
+                  (appliance.supp_uk_e_rating && !appliance.supp_e_rating_not_known?) %>
+              <span class="branded-text"><%= label_tag :energy, t(".main_uk_e_rating").html_safe %></span>
 
               <% if appliance.washer_dryer? %>
-                <% if appliance.supp_uk_e_rating && !appliance.supp_e_rating_not_known? %>
-                  <div class='e_ratings'>
+                <div class='e_ratings'>
+                  <% if appliance.main_uk_e_rating && !appliance.main_e_rating_not_known? %>
                     <div class='ratingimage'>
                       <%= image_tag "Energy Rating (Washer Dryer) (#{appliance.main_uk_e_rating.upcase}).svg", class: "energy-rating" %>
                       <label><%= t(".washdry") %> </label>
                     </div>
+                  <% end %>
+                  <% if appliance.supp_uk_e_rating && !appliance.supp_e_rating_not_known? %>
                     <div class='ratingimage'>
                       <%= image_tag "Energy Rating (Washer Dryer) (#{appliance.supp_uk_e_rating.upcase}).svg", class: "energy-rating" %>
                       <label><%= t(".wash") %> </label>
                     </div>
-                  </div>
-                <% end %>
-              <% else %>
+                  <% end %>
+                </div>
+              <% elsif appliance.main_uk_e_rating && !appliance.main_e_rating_not_known?%>
                 <%= image_tag "Energy Rating (#{appliance.main_uk_e_rating.upcase}).svg", class: "energy-rating" %>
               <% end %>
             <% end %>
