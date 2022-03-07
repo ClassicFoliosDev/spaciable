@@ -3408,7 +3408,7 @@ en:
       title: "Edit %{name}"
     show:
       back: "Back"
-      contact_type: "Position Tag"
+      contact_type: "Interactive Handover Tag"
 
   brands:
     index:
