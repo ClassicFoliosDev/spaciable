@@ -9,6 +9,7 @@ class CustomTile < ApplicationRecord
   before_save :set_cf
   belongs_to :development
   belongs_to :tileable, polymorphic: true
+  belongs_to :spotlight
 
   mount_uploader :file, DocumentUploader
   mount_uploader :image, PictureUploader
