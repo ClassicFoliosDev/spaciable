@@ -1,0 +1,76 @@
+<% if any_phases_free?(parent) %>
+  <%= render "components/admin/popup", title: t(".help_title"), preference: :show_spotlight_restriction_dialog, help: [t(".help")], type: :warn %>
+<% end %>
+
+<% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
+  <%= render 'components/empty_list', icon_name: "external-link-square", type: Spotlight, parent: parent %>
+<% else %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(Spotlight, parent) %>
+      <% unless (parent.expired? && !(current_user.cf_admin?)) || (collection.size >= 5) %>
+          <%= link_to [:new, parent, :spotlight], class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t(".create") %></span>
+          <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <table class="record-list">
+    <thead>
+    <tr>
+      <th>
+        <%= help_btn text: t('.spotlight_help.text', image: image_path('resident_spotlights.png')), title: t('.spotlight_help.title'), width: 700, height: 810 %>
+        <%= t(".spotlight") %>
+      </th>
+      <th><%= t(".category") %></th>
+      <% if current_user.cf_admin? %>
+        <th><%= t(".editable") %></th>
+      <% end %>
+      <% if any_phases_free?(parent) %>
+        <th><%= t(".cf") %></th>
+      <% end %>
+
+      <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.each do |spotlight| %>
+    <tr>
+      <td>
+        <% spotlight.custom_tiles.each_with_index do |custom_tile, index| %>
+          <%= link_to (custom_tile.title? ? custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: parent.snag_name)), spotlight_path(spotlight) %></td>
+        <% end %>
+      <td>
+        <% spotlight.custom_tiles.each_with_index do |custom_tile, index| %>
+          <%= custom_tile.category.titleize %></td>
+        <% end %>
+      <% if current_user.cf_admin? %>
+        <td><%= spotlight.editable? ? "Yes" : "No" %></td>
+      <% end %>
+      <% if any_phases_free?(parent) %>
+        <td><%= visible_to_free(spotlight) ? "Yes" : "No" %></td>
+      <% end %>
+
+      <td class="actions">
+        <% if current_user.cf_admin? || spotlight.editable? %>
+          <%= (edit_btn edit_spotlight_path(spotlight), element: spotlight) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn spotlight, path: spotlight_path(spotlight), text: t(".confirm_delete", name: "???"), element: spotlight) unless parent.expired? && !(current_user.cf_admin?) %>
+        <% else %>
+          <%= info_btn spotlight,
+            text: t(".uneditable_text"),
+            element: spotlight,
+            title: t(".uneditable_title",
+                   tile: "fix this") %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -354,7 +354,7 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.boolean "cf",                 default: true
     t.integer "appears",            default: 0
     t.integer "spotlight_id"
-    t.integer "order",              default: 1
+    t.integer "order",              default: 0
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["spotlight_id"], name: "index_custom_tiles_on_spotlight_id", using: :btree
@@ -1172,7 +1172,9 @@ ActiveRecord::Schema.define(version: 20220318114653) do
 
   create_table "spotlights", force: :cascade do |t|
     t.integer "development_id"
+    t.integer "category",       default: 0
     t.boolean "cf",             default: true
+    t.boolean "editable",       default: true
     t.index ["development_id"], name: "index_spotlights_on_development_id", using: :btree
   end
 

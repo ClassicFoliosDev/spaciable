@@ -5,11 +5,13 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
       direction.up {
         create_table :spotlights do |t|
           t.references :development, index: true
+          t.integer :category, default: Spotlight.categories[:static]
           t.boolean :cf, default: true
+          t.boolean :editable, default: true
         end
 
         add_reference :custom_tiles, :spotlight, foreign_key: true
-        add_column :custom_tiles, :order, :integer, default: 1
+        add_column :custom_tiles, :order, :integer, default: 0
 
         Rake::Task['dynamic_spotlights:migrate'].invoke
       }

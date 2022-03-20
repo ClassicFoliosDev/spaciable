@@ -469,9 +469,9 @@ en:
     phase_timelines_add: "New Phase Interactive Handover"
     phase_timelines_edit: "Edit Phase Interactive Handover"
     development_csv: "Upload CSV"
-    custom_tiles: "Resident Spotlights"
-    custom_tile_add: "New Spotlight"
-    custom_tile_edit: "Edit %{tile}"
+    spotlights: "Resident Spotlights"
+    spotlight_add: "New Spotlight"
+    spotlight_edit: "Edit %{tile}"
     timeline_add: "Add Interactive Handover"
     timelines: "Interactive Handovers"
     timeline_show: "%{timeline}"
@@ -1354,6 +1354,50 @@ en:
     edit:
       title: "Edit %{name}"
 
+  spotlights:
+    collection:
+      create: "New Spotlight"
+      spotlight: "Spotlight"
+      category: "Category"
+      editable: "Editable"
+      cf: "Visible to Free plots"
+      uneditable_title: "%{tile}"
+      uneditable_text: "You do not have permission to edit this Spotlight. If you would like to replace it, please contact The Spaciable Team for more details."
+      help_title: "Unlock More Options"
+      help: "<p>Plots allocated to the Spaciable Free package can only access Spotlights added by The Spaciable Team. To make Spaciable your own and promote your brand, upgrade your Spaciable Free plots today to enable access to your own Spotlights and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
+      confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
+      spotlight_help:
+        title: "Resident Spotlights"
+        text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting specific features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where all Spotlights are not configured, seasonal Spaciable ‘How Tos’ will fill the remaining spots.</p>"
+    show:
+      back: "Back"
+    edit:
+      title: "Edit %{tile}"
+    form:
+      link: "Link URL"
+      title: "Title"
+      description: "Description"
+      button: "Button Text"
+      image: "Image"
+      file: "Upload Document"
+      document: "Select Document"
+      guide: "Document Tag"
+      back: "Back"
+      submit: "Submit"
+      editable: "Editable"
+      editable_description: "Client admins can edit or delete this shortcut"
+      current_file: "Current File"
+      content_proforma: "Interactive Guide"
+      full_image: "Display image full width?"
+      render_title: "Render title on Spotlight?"
+      render_description: "Render description on Spotlight?"
+      render_button: "Render button on Spotlight?"
+      appears:
+        title: "Resident sees Spotlight"
+        always: "Always"
+        moved_in: "After Estimated Move-in Date"
+        completed: "When ‘Ready for Handover’"
+
   custom_tiles:
     collection:
       create: "New Spotlight"
@@ -1434,7 +1478,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
-      custom_tiles: "Resident Spotlights"
+      spotlights: "Resident Spotlights"
       calendar: "Calendar"
     edit:
       back: "Back"

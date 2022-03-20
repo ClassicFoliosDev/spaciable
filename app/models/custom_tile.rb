@@ -5,8 +5,6 @@ class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
 
-  before_create :set_cf
-  before_save :set_cf
   belongs_to :development
   belongs_to :tileable, polymorphic: true
   belongs_to :spotlight
@@ -151,20 +149,8 @@ class CustomTile < ApplicationRecord
     false
   end
 
-  def self.delete_disabled(features, developments)
-    tiles = CustomTile.where(development_id: developments, feature: features)
-    tiles.destroy_all
-  end
-
   def formatted_link
     link !~ /\A(http)/ ? "https://#{link}" : link
-  end
-
-  # was this record created/updated by a CF user
-  def set_cf
-    return unless RequestStore.store[:current_user]&.is_a? User
-    return unless changed?
-    self.cf = RequestStore.store[:current_user]&.cf_admin? || false
   end
 end
 #rubocop:enable all

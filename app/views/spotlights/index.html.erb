@@ -1,0 +1,7 @@
+<% breadcrumb :spotlights, @parent %>
+
+<%= render @parent %>
+
+<%= render 'components/tabs', tabs: tabs_for(@parent, "spotlights"), parent: @parent %>
+
+<%= render_collection @spotlights, parent: @parent, new_custom_tile: @custom_tile %>

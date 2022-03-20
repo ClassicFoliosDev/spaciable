@@ -21,5 +21,6 @@ class UserPreference < ApplicationRecord
     show_appliances_info_dialog
     show_dashboad_info_dialog
     show_stuck_with_specs_dialog
+    show_spotlight_restriction_dialog
   ]
 end

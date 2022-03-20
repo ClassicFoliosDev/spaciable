@@ -37,7 +37,7 @@ class Development < ApplicationRecord
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
-  has_many :custom_tiles, dependent: :destroy
+  has_many :spotlights, dependent: :destroy
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
@@ -83,7 +83,7 @@ class Development < ApplicationRecord
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_tiles
-  after_save :update_custom_tiles
+  after_save :update_spotlights
 
   alias_attribute :identity, :name
 
@@ -251,7 +251,7 @@ class Development < ApplicationRecord
   # rubocop:enable LineLength
 
   # check whether any features have been disabled and delete any relevant custom tiles
-  def update_custom_tiles
+  def update_spotlights
     changed = []
 
     { "issues" => !Maintenance.exists?(development_id: id),
@@ -259,7 +259,7 @@ class Development < ApplicationRecord
       changed << name if disabled
     end
 
-    CustomTile.delete_disabled(changed, self) unless changed.empty?
+    Spotlight.delete_disabled(changed, self) unless changed.empty?
   end
 
   def my_construction_name
