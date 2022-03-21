@@ -4,6 +4,7 @@
 class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
+  include AppearsEnum
 
   belongs_to :development
   belongs_to :tileable, polymorphic: true
@@ -23,7 +24,7 @@ class CustomTile < ApplicationRecord
   validates :feature, presence: true, if: :feature?
 
   def parent
-    development
+    spotlight
   end
 
   enum category: %i[
@@ -45,13 +46,7 @@ class CustomTile < ApplicationRecord
     conveyancing: 8
   }
 
-  enum appears: %i[
-    always
-    moved_in
-    completed
-  ]
-
-  delegate :snag_name, to: :development
+  delegate :snag_name, to: :spotlight
 
   def proforma
     return unless content_proforma?
@@ -68,19 +63,6 @@ class CustomTile < ApplicationRecord
   def document_sub_category
     return if guide.present? || file.present? || document_id.present?
     errors.add(:base, :document_sub_category_required)
-  end
-
-  def documents_in_scope
-    documents = []
-    documents << development.documents
-    documents << development.parent.documents
-
-    if development.parent.is_a?(Division)
-      documents << development.parent_developer.documents
-    end
-
-    # return the list of documents in alphabetical order
-    documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
 
   def document_location(documents)

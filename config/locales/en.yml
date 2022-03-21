@@ -1397,6 +1397,8 @@ en:
         always: "Always"
         moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
+        after_emd: "After Estimated Move-In Date"
+        after_emd_date: "Only If Estimated Move-in Date is on/after"
 
   custom_tiles:
     collection:

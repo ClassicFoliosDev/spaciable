@@ -8,6 +8,8 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
           t.integer :category, default: Spotlight.categories[:static]
           t.boolean :cf, default: true
           t.boolean :editable, default: true
+          t.integer :appears, default: Spotlight.appears[:always]
+          t.date    :appears_after
         end
 
         add_reference :custom_tiles, :spotlight, foreign_key: true

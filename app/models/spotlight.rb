@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Spotlight < ApplicationRecord
+  include AppearsEnum
+
   belongs_to :development
   has_many :custom_tiles, -> { order(:order) }, dependent: :destroy
   accepts_nested_attributes_for :custom_tiles, allow_destroy: true
@@ -8,6 +10,8 @@ class Spotlight < ApplicationRecord
 
   before_create :set_cf
   before_save :set_cf
+
+  delegate :snag_name, to: :development
 
   enum category: %i[
     static
@@ -36,6 +40,19 @@ class Spotlight < ApplicationRecord
                           .where(custom_tiles: { feature: features })
 
     spotlights.destroy_all
+  end
+
+  def documents_in_scope
+    documents = []
+    documents << development.documents
+    documents << development.parent.documents
+
+    if development.parent.is_a?(Division)
+      documents << development.parent_developer.documents
+    end
+
+    # return the list of documents in alphabetical order
+    documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
 
   private

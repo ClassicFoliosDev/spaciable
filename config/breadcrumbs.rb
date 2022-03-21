@@ -919,9 +919,8 @@ crumb :spotlight do |spotlight|
 end
 
 crumb :spotlight_edit do |spotlight|
-  link t("breadcrumbs.spotlight_edit",
-         tile: spotlight.feature? ? I18n.t("activerecord.attributes.custom_tiles.features.#{spotlight.feature}") : spotlight.title), [:edit, spotlight]
-  parent :spotlight, spotlight.parent
+  link t("breadcrumbs.spotlight_edit", tile: spotlight.title), [:edit, spotlight]
+  parent :spotlights, spotlight.parent
 end
 
 # SERVICES

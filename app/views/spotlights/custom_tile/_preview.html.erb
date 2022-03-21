@@ -5,13 +5,13 @@
       <%= render 'homeowners/dashboard/tiles/area_guide' %>
     </div>
     <div class="feature" id="home_designer" style="display: none">
-      <%= render 'homeowners/dashboard/tiles/home_designer', plot: spot;light.parent %>
+      <%= render 'homeowners/dashboard/tiles/home_designer', plot: custom_tile.parent %>
     </div>
     <div class="feature" id="issues" style="display: none">
       <%= render 'homeowners/dashboard/tiles/issues' %>
     </div>
     <div class="feature" id="perks" style="display: none">
-      <%= render 'homeowners/dashboard/tiles/perks', plot: spotlight.parent %>
+      <%= render 'homeowners/dashboard/tiles/perks', plot: custom_tile.parent %>
     </div>
     <div class="feature" id="referrals" style="display: none">
       <%= render 'homeowners/dashboard/tiles/referrals' %>
@@ -20,13 +20,13 @@
       <%= render 'homeowners/dashboard/tiles/services' %>
     </div>
     <div class="feature" id="snagging" style="display: none">
-      <%= render 'homeowners/dashboard/tiles/snagging', plot: parent.parent %>
+      <%= render 'homeowners/dashboard/tiles/snagging', plot: custom_tile.parent %>
     </div>
     <div class="feature" id="timeline" style="display: none">
-      <%= render 'homeowners/dashboard/tiles/timeline', plot: parent.parent, preview: true%>
+      <%= render 'homeowners/dashboard/tiles/timeline', plot: custom_tile.parent, preview: true%>
     </div>
     <div class="feature" id="conveyancing" style="display: none">
-      <%= render 'homeowners/dashboard/tiles/conveyancing', plot: parent.parent, preview: true%>
+      <%= render 'homeowners/dashboard/tiles/conveyancing', plot: custom_tile.parent, preview: true%>
     </div>
   </div>
 

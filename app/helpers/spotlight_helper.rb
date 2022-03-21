@@ -8,4 +8,33 @@ module SpotlightHelper
     end
     true
   end
+
+  def feature_disabled(spotlight)
+    disabled = []
+    p = spotlight.parent
+
+    { "area_guide" => p.house_search, "services" => p.enable_services,
+      "home_designer" => p.enable_roomsketcher, "issues" => p.maintenance,
+      "referrals" => p.enable_referrals, "perks" => p.enable_perks,
+      "snagging" => p.enable_snagging, "timeline" => p.timeline,
+      "conveyancing" => p.conveyancing_enabled? }.each do |name, feature|
+      disabled << name unless feature
+    end
+
+    disabled
+  end
+
+  def appears_help(spotlight, appears)
+    case appears.to_sym
+    when :moved_in
+      unsanitized t("spotlight.moved_in")
+    when :completed
+      if spotlight.development.phases.first
+        return unsanitized t("spotlight.completed",
+                             url: development_phase_path(spotlight.development,
+                                                         spotlight.development.phases.first))
+      end
+      unsanitized t("spotlight.completed_e")
+    end
+  end
 end
