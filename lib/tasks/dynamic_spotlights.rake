@@ -9,8 +9,7 @@ namespace :dynamic_spotlights do
     CustomTile.all.each do |tile|
       spotlight = Spotlight.create(development: tile.development,
                                    cf: tile.cf,
-                                   editable: tile.editable,
-                                   appears: tile.appears)
+                                   editable: tile.editable)
       tile.update_attribute(:spotlight, spotlight)
     end
   end

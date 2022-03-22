@@ -4,7 +4,6 @@
 class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
-  include AppearsEnum
 
   belongs_to :development
   belongs_to :tileable, polymorphic: true
@@ -32,6 +31,17 @@ class CustomTile < ApplicationRecord
     document
     link
     content_proforma
+  ]
+
+  enum appears: %i[
+      always
+      moved_in
+      completed
+    ]
+
+  enum appears_after: %i[
+    emd
+    emd_date
   ]
 
   enum feature: {

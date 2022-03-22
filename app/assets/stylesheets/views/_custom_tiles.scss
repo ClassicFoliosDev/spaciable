@@ -274,7 +274,7 @@
   }
 }
 
-#appears div {
+#appears div, #appears_after div {
 
   input {
     margin-bottom: 2;
@@ -288,6 +288,19 @@
   p {
     margin: 10 0 10;
   }
+}
+
+.meta .category.half {
+  margin-bottom: unset;
+}
+
+.no-bottom {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.shallow {
+  margin-bottom: 12;
 }
 
 .dialog-image {

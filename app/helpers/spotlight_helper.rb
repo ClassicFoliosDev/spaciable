@@ -37,4 +37,10 @@ module SpotlightHelper
       unsanitized t("spotlight.completed_e")
     end
   end
+
+  def spotlight_types
+    Spotlight.categories.map do |(key, _)|
+      [t("activerecord.attributes.spotlights.category.#{key}"), key]
+    end
+  end
 end

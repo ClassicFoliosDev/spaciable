@@ -8,12 +8,13 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
           t.integer :category, default: Spotlight.categories[:static]
           t.boolean :cf, default: true
           t.boolean :editable, default: true
-          t.integer :appears, default: Spotlight.appears[:always]
-          t.date    :appears_after
         end
 
         add_reference :custom_tiles, :spotlight, foreign_key: true
         add_column :custom_tiles, :order, :integer, default: 0
+        add_column :custom_tiles, :appears_after, :integer, default: CustomTile.appears_afters[:emd]
+        add_column :custom_tiles, :appears_after_date, :date
+
 
         Rake::Task['dynamic_spotlights:migrate'].invoke
       }
@@ -22,6 +23,8 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
         remove_reference :custom_tiles, :spotlight, index: true
         drop_table :spotlights
         remove_column :custom_tiles, :order
+        remove_column :custom_tiles, :appears_after
+        remove_column :custom_tiles, :appears_after_date
       }
     end
   end

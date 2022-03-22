@@ -12,18 +12,31 @@
     </div>
   <% end %>
 
-  <div class="editable">
-    <% if current_user.cf_admin? %>
-      <%= label_tag :editable, t(".editable"), class: "checkbox-label" %>
-      <%= f.check_box :editable %>
-      <p class="checkbox-description"><%= t(".editable_description") %></p>
-    <% end %>
+  <div class="row-item meta row two-thirds">
+    <div class="editable half">
+      <% if current_user.cf_admin? %>
+        <%= label_tag :editable, t(".editable"), class: "checkbox-label" %>
+        <%= f.check_box :editable %>
+        <p class="checkbox-description"><%= t(".editable_description") %></p>
+      <% end %>
+    </div>
+    <div class="category half">
+      <%= f.input :category, as: :select, collection: spotlight_types, include_blank: false %>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <ul>
+      <% %i[pre post].each_with_index do |tab, index| %>
+        <li class="tab" spotlight=<%= "spotlight#{index}" %>><span><%= t(".tabs.#{tab}") %></span></li>
+      <% end %>
+    </ul>
   </div>
 
   <%= f.fields_for :custom_tiles do |ct| %>
     <% custom_tile = ct.object %>
-    <div class="row custom-tile">
-      <div class="row-item two-thirds">
+    <div class="row custom-tile" id=<%="spotlight#{custom_tile.order}"%>>
+      <div class="row-item two-thirds no-bottom">
         <div class="half">
           <div class="ui-front" id="categorySelector">
             <%= ct.input :category, as: :select, collection: tile_collection(:categories), include_blank: false %>
@@ -76,27 +89,42 @@
           </fieldset>
 
           <fieldset id="customTileAppears">
-            <div id="appears">
-              <%= ct.label :appears, label: t(".appears.title") %>
-              <% CustomTile.appears.each do |k,v| %>
-                <div>
-                  <%= ct.radio_button :appears, k, checked: (custom_tile.appears == k), id: "spotlight_#{k}" %>
-                  <label for=<%="spotlight_#{k}"%>><%=t(".appears.#{k}")%></label>
-                  <% unless k == :always.to_s %>
+            <% if custom_tile.order == 0 %>
+              <div id="appears_until_emd">
+                <%= t("spotlight.appears_until_emd").html_safe %>
+              </div>
+              <div id="appears">
+                <%= ct.label :appears, label: t(".appears.title") %>
+                <% CustomTile.appears.each do |k,v| %>
+                  <div>
+                    <%= ct.radio_button :appears, k, checked: (custom_tile.appears == k), id: "appears_#{k}" %>
+                    <label for=<%="appears_#{k}"%>><%=t(".appears.#{k}")%></label>
+                    <% unless k == :always.to_s %>
 
-                    <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
-                    <div id="dropdown-help" class="hidden">
-                      <%=appears_help(spotlight, k)%>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
+                      <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+                      <div id="dropdown-help" class="hidden">
+                        <%=appears_help(spotlight, k)%>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div id="appears_after">
+                <%= ct.label :appears_after, label: t(".appears_after.title") %>
+                <% CustomTile.appears_afters.each do |k,v| %>
+                  <div>
+                    <%= ct.radio_button :appears_after, k, checked: (custom_tile.appears_after == k), id: "appears_after_#{k}" %>
+                    <label for=<%="appears_after_#{k}"%>><%=t(".appears_after.#{k}")%></label>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
           </fieldset>
 
         </div>
 
-        <div class="half">
+        <div class="half no-bottom">
           <fieldset id="customTileContent">
             <%= ct.input :title, label: t(".title"), placeholder: "Character limit: 30", input_html: { maxlength: 30 } %>
             <%= ct.check_box :render_title %>
@@ -125,6 +153,8 @@
         <%= render 'spotlights/custom_tile/preview', custom_tile: spotlight %>
       </div>
     </div>
+    <%= ct.hidden_field :_destroy, value: false, deletefield: true %>
+    <%= ct.hidden_field :order %>
   <% end %>
 
   <div class="form-actions-footer-container">

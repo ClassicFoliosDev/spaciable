@@ -355,6 +355,8 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.integer "appears",            default: 0
     t.integer "spotlight_id"
     t.integer "order",              default: 0
+    t.integer "appears_after",      default: 0
+    t.date    "appears_after_date"
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["spotlight_id"], name: "index_custom_tiles_on_spotlight_id", using: :btree
@@ -1175,8 +1177,6 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.integer "category",       default: 0
     t.boolean "cf",             default: true
     t.boolean "editable",       default: true
-    t.integer "appears",        default: 0
-    t.date    "appears_after"
     t.index ["development_id"], name: "index_spotlights_on_development_id", using: :btree
   end
 

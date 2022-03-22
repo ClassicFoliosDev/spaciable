@@ -1399,6 +1399,13 @@ en:
         completed: "When ‘Ready for Handover’"
         after_emd: "After Estimated Move-In Date"
         after_emd_date: "Only If Estimated Move-in Date is on/after"
+      appears_after:
+        title: "Resident sees Spotlight"
+        emd: "After Estimated Move-In Date"
+        emd_date: "Only If Estimated Move-in Date is on/after"
+      tabs:
+        pre: "Pre-Move Spotlight"
+        post: "Post-Move Spotlight"
 
   custom_tiles:
     collection:
@@ -3819,6 +3826,10 @@ en:
           completion: "Completion"
           floor_plan: "Floor Plan"
 
+      spotlights:
+        category:
+          static: "Static"
+          dynamic: "Dynamic"
       custom_tiles:
         categories:
           feature: "Feature"
@@ -4376,8 +4387,6 @@ en:
         update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
         global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
 
-
-
   faq_package:
     title: "FAQ Type"
     standard: "Standard"
@@ -4398,6 +4407,7 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     moved_in: "Use for Spotlights relevant after a resident has moved in. You can set each plot's <strong>Estimated Move in Date</strong> by visiting a plot and using the <strong>Completion</strong> tab or the plot edit page."
     completed: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a <a href='%{url}' target='_blank'>Phase</a>, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
     completed_e: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a Phase, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
+    appears_until_emd: "<p>The <strong>Pre-Move Spotlight</strong> appears to Residents until their Estimated Move-In Date, whereupon it switches to the <strong>Post-Move Spotlight</strong>.</p>"
 
   admin_dashboard:
     title: "Thank You for Choosing Spaciable!"

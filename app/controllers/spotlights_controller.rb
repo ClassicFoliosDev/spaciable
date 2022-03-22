@@ -3,7 +3,7 @@
 class SpotlightsController < ApplicationController
   load_and_authorize_resource :development
   load_and_authorize_resource :spotlight, through: :development, only: %i[index]
-  load_and_authorize_resource :spotlight, only: %i[show edit]
+  load_and_authorize_resource :spotlight, only: %i[show edit update]
   before_action :set_parent
 
   def index; end
@@ -29,9 +29,9 @@ class SpotlightsController < ApplicationController
   end
 
   def update
-    if @custom_tile.update(custom_tile_params)
+    if @spotlight.update(spotlight_params)
       notice = t("controller.success.update", name: "Shortcut")
-      redirect_to [@parent, :custom_tiles], notice: notice
+      redirect_to [@parent, :spotlights], notice: notice
     else
       render :edit
     end
@@ -50,12 +50,15 @@ class SpotlightsController < ApplicationController
     @brand = @parent&.branding if @parent.present? && @parent.respond_to?(:branding)
   end
 
-  def custom_tile_params
-    params.require(:custom_tile).permit(:title, :description, :button, :editable,
-                                        :image, :remove_image, :image_cache, :category, :link,
-                                        :feature, :guide, :file, :document_id, :development_id,
-                                        :tileable_id, :tileable_type, :full_image,
-                                        :render_title, :render_description, :render_button,
-                                        :appears)
+  def spotlight_params
+    params.require(:spotlight).permit(
+      :editable, :category,
+      custom_tiles_attributes: %i[category feature document_id guide
+                                  link tileable_type tileable_id
+                                  title render_title description
+                                  render_description button render_button
+                                  image_cache remove_image full_image _destroy
+                                  id order appears appears_after appears_after_date]
+    )
   end
 end

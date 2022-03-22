@@ -44,12 +44,16 @@
     <tr>
       <td>
         <% spotlight.custom_tiles.each_with_index do |custom_tile, index| %>
-          <%= link_to (custom_tile.title? ? custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: parent.snag_name)), spotlight_path(spotlight) %></td>
+          <% if index > 0 %> <br/> <% end %>
+          <%= link_to (custom_tile.title? ? custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: parent.snag_name)), spotlight_path(spotlight) %>
         <% end %>
+      </td>
       <td>
         <% spotlight.custom_tiles.each_with_index do |custom_tile, index| %>
-          <%= custom_tile.category.titleize %></td>
+          <% if index > 0 %> <br/> <% end %>
+          <%= custom_tile.category.titleize %>
         <% end %>
+      </td>
       <% if current_user.cf_admin? %>
         <td><%= spotlight.editable? ? "Yes" : "No" %></td>
       <% end %>

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Spotlight < ApplicationRecord
-  include AppearsEnum
-
   belongs_to :development
   has_many :custom_tiles, -> { order(:order) }, dependent: :destroy
   accepts_nested_attributes_for :custom_tiles, allow_destroy: true
