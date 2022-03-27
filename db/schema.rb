@@ -357,6 +357,7 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.integer "order",              default: 0
     t.integer "appears_after",      default: 0
     t.date    "appears_after_date"
+    t.integer "expiry",             default: 0
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["spotlight_id"], name: "index_custom_tiles_on_spotlight_id", using: :btree

@@ -177,7 +177,7 @@
 
       // change preview when image is added
       $(document).on('change', spotlight_selector(spotlight, '#imageSelector input'), function (event) {
-        if ($(spotlight_selector(spotlight, '#custom_tile_image')).prop("files").length) {
+        if ($('#spotlight_custom_tiles_attributes_'.concat(spotlight.index, '_image')).prop("files").length) {
           imageTilePreview(spotlight)
           $(spotlight_selector(spotlight, imgTile)).find("img").hide()
           $(spotlight_selector(spotlight, imgTile)).find(".image").addClass("placeholder")

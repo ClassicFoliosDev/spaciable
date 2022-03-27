@@ -117,10 +117,13 @@
                     <%= ct.radio_button :appears_after, k, checked: (custom_tile.appears_after == k), id: "appears_after_#{k}" %>
                     <label for=<%="appears_after_#{k}"%>><%=t(".appears_after.#{k}")%></label>
                     <% if k == :emd_date.to_s %>
-                  <%= ct.input :appears_after_date, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: !custom_tile.emd_date?, input_html: { type: :date, :value => custom_tile&.appears_after_date&.html } %>
-                <% end %>
+                      <%= ct.input :appears_after_date, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: !custom_tile.emd_date?, input_html: { type: :date, :value => custom_tile&.appears_after_date&.html } %>
+                    <% end %>
                   </div>
                 <% end %>
+              </div>
+              <div id="expires_after">
+                <%= ct.input :expiry, as: :select, collection: expiries_collection, include_blank: false, label: t(".expires_after") %>
               </div>
             <% end %>
           </fieldset>

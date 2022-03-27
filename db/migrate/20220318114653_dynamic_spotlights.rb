@@ -14,7 +14,7 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
         add_column :custom_tiles, :order, :integer, default: 0
         add_column :custom_tiles, :appears_after, :integer, default: CustomTile.appears_afters[:emd]
         add_column :custom_tiles, :appears_after_date, :date
-
+        add_column :custom_tiles, :expiry, :integer, default: CustomTile.expiries[:never]
 
         Rake::Task['dynamic_spotlights:migrate'].invoke
       }
@@ -25,6 +25,7 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
         remove_column :custom_tiles, :order
         remove_column :custom_tiles, :appears_after
         remove_column :custom_tiles, :appears_after_date
+        remove_column :custom_tiles, :expiry
       }
     end
   end

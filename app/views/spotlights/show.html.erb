@@ -17,7 +17,7 @@
       <div id="tilePreview">
         <% if custom_tile.feature? %>
           <div class="feature">
-            <%= render "homeowners/dashboard/tiles/#{custom_tile.feature}", plot: custom_tile.parent %>
+            <%= render "homeowners/dashboard/tiles/#{custom_tile.feature}", plot: custom_tile.development %>
           </div>
         <% else %>
           <% if custom_tile.image? %>

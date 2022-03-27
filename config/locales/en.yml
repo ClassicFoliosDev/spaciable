@@ -1406,6 +1406,9 @@ en:
       tabs:
         pre: "Pre-Move Spotlight"
         post: "Post-Move Spotlight"
+      expires_after: "Post-Move Spotlight expires "
+    new:
+      title: "New Spotlight"
 
   custom_tiles:
     collection:
@@ -3850,6 +3853,10 @@ en:
           reservation: "Reservation"
           completion: "Completion"
           floor_plan: "Floor Plan"
+        expiries:
+          never: "never"
+          one_year: "after 1 year"
+          two_years: "after 2 years"
 
       user:
         email: "Email address"

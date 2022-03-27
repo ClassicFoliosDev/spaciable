@@ -2,7 +2,7 @@
 
 class SpotlightsController < ApplicationController
   load_and_authorize_resource :development
-  load_and_authorize_resource :spotlight, through: :development, only: %i[index]
+  load_and_authorize_resource :spotlight, through: :development, only: %i[index new create]
   load_and_authorize_resource :spotlight, only: %i[show edit update]
   before_action :set_parent
 
@@ -10,6 +10,7 @@ class SpotlightsController < ApplicationController
 
   def new
     (redirect_to root_url unless current_user.cf_admin?) if @parent.expired?
+    @spotlight.build
   end
 
   def edit
@@ -20,7 +21,7 @@ class SpotlightsController < ApplicationController
   def show; end
 
   def create
-    if @custom_tile.save
+    if @spotlight.save
       notice = t("controller.success.create", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
@@ -60,7 +61,7 @@ class SpotlightsController < ApplicationController
                                   render_description button render_button
                                   image_cache remove_image full_image _destroy
                                   id order appears appears_after appears_after_date
-                                  file]
+                                  file expiry]
     )
     s_params[:custom_tiles_attributes].each { |_, a| a[:remove_image] = "0" if a[:image] }
     s_params

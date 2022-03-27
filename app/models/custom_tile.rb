@@ -4,8 +4,8 @@
 class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
+  include ExpiryEnum
 
-  belongs_to :development
   belongs_to :tileable, polymorphic: true
   belongs_to :spotlight
 
@@ -14,6 +14,7 @@ class CustomTile < ApplicationRecord
   attr_accessor :image_cache
 
   #validate :meta
+  validates :appears_after_date, presence: true, :if => Proc.new { |ct| ct.emd_date? }
   validates :title, presence: true, unless: :feature?
   validates :description, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_description? }
   validates :button, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_button? }
@@ -21,6 +22,7 @@ class CustomTile < ApplicationRecord
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?
   validates :feature, presence: true, if: :feature?
+  delegate :development, to: :spotlight, allow_nil: true
 
   def parent
     spotlight
@@ -56,7 +58,7 @@ class CustomTile < ApplicationRecord
     conveyancing: 8
   }
 
-  delegate :snag_name, to: :spotlight
+  delegate :snag_name, to: :spotlight, allow_nil: true
 
   def proforma
     return unless content_proforma?
