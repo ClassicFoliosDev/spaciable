@@ -68,7 +68,7 @@
               <% else %>
                 <%= ct.file_field :file, class: "file-upload" %>
               <% end %>
-              <%= label_tag('custom_tile_file', t("choose"), class: "choose-file") %>
+              <%= label_tag("spotlight_custom_tiles_attributes_#{custom_tile.order}_file", t("choose"), class: "choose-file") %>
             </div>
           </fieldset>
 
@@ -116,6 +116,9 @@
                   <div>
                     <%= ct.radio_button :appears_after, k, checked: (custom_tile.appears_after == k), id: "appears_after_#{k}" %>
                     <label for=<%="appears_after_#{k}"%>><%=t(".appears_after.#{k}")%></label>
+                    <% if k == :emd_date.to_s %>
+                  <%= ct.input :appears_after_date, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: !custom_tile.emd_date?, input_html: { type: :date, :value => custom_tile&.appears_after_date&.html } %>
+                <% end %>
                   </div>
                 <% end %>
               </div>

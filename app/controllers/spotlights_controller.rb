@@ -30,6 +30,7 @@ class SpotlightsController < ApplicationController
 
   def update
     if @spotlight.update(spotlight_params)
+      delete_images(spotlight_params)
       notice = t("controller.success.update", name: "Shortcut")
       redirect_to [@parent, :spotlights], notice: notice
     else
@@ -51,14 +52,24 @@ class SpotlightsController < ApplicationController
   end
 
   def spotlight_params
-    params.require(:spotlight).permit(
+    s_params = params.require(:spotlight).permit(
       :editable, :category,
       custom_tiles_attributes: %i[category feature document_id guide
                                   link tileable_type tileable_id
-                                  title render_title description
+                                  title render_title description image
                                   render_description button render_button
                                   image_cache remove_image full_image _destroy
-                                  id order appears appears_after appears_after_date]
+                                  id order appears appears_after appears_after_date
+                                  file]
     )
+    s_params[:custom_tiles_attributes].each { |_, a| a[:remove_image] = "0" if a[:image] }
+    s_params
+  end
+
+  def delete_images(s_params)
+    @spotlight.custom_tiles.each_with_index do |t, i|
+      next if s_params[:custom_tiles_attributes][i.to_s][:image]
+      t.remove_image! if s_params[:custom_tiles_attributes][i.to_s][:remove_image] == "1"
+    end
   end
 end

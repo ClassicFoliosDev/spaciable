@@ -58,6 +58,9 @@
       set_selections(spotlight, false)
       check_full_image(spotlight)
 
+      var tab = $(".tab[spotlight='spotlight" + spotlight.index +"'] span")
+      tab.toggleClass('error', $(spotlight.id + ' .error').length != 0)
+
       $("#spotlight_custom_tiles_attributes_".concat(spotlight.index, "_category")).selectmenu({
         select: function (event, ui) {
           set_selections(spotlight, true)
@@ -208,8 +211,13 @@
       $(document).on('click', ".tab[spotlight='spotlight".concat(spotlight.index,"'] span"), function (event) {
         tab_selected(spotlight.id)
       })
+
+      $(spotlight_selector(spotlight, '#customTileAppears input[type=radio]')).change(function(){
+        $("#spotlight_custom_tiles_attributes_".concat(spotlight.index, "_appears_after_date")).prop('disabled', ($(this).val() != "emd_date" ))
+      })
     })
   })
+
 
   // --- FUNCTIONS ---
 

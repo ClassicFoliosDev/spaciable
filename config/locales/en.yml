@@ -4408,6 +4408,7 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     completed: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a <a href='%{url}' target='_blank'>Phase</a>, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
     completed_e: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a Phase, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
     appears_until_emd: "<p>The <strong>Pre-Move Spotlight</strong> appears to Residents until their Estimated Move-In Date, whereupon it switches to the <strong>Post-Move Spotlight</strong>.</p>"
+    dynamic: "Dynamic Spotlight"
 
   admin_dashboard:
     title: "Thank You for Choosing Spaciable!"

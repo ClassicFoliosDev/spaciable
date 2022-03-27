@@ -29,7 +29,7 @@ class Vaboo
   START = "Start Date"
   # spaciable default vaboo link
   SPACIABLE_LOGIN = "https://spaciable.vaboo.co.uk/login"
-  VERIFY = true
+  VERIFY = false
 
   # when a resident submits their details to Vaboo their resident record is created
   # email is unique; creation will fail if there is already a user with the given email address
