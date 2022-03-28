@@ -7,7 +7,7 @@ namespace :dynamic_spotlights do
 
   def migrate
     CustomTile.all.each do |tile|
-      spotlight = Spotlight.create(development: tile.development,
+      spotlight = Spotlight.create(development_id: tile.development_id,
                                    cf: tile.cf,
                                    editable: tile.editable)
       tile.update_attribute(:spotlight, spotlight)
