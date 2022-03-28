@@ -1406,7 +1406,7 @@ en:
       tabs:
         pre: "Pre-Move Spotlight"
         post: "Post-Move Spotlight"
-      expires_after: "Post-Move Spotlight expires "
+      expires_after: "Post-Move Spotlight expires"
     new:
       title: "New Spotlight"
 
