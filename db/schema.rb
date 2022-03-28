@@ -343,22 +343,18 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.integer "guide"
     t.string  "file"
     t.integer "document_id"
-    t.integer "development_id"
-    t.boolean "editable",           default: true
     t.string  "tileable_type"
     t.integer "tileable_id"
     t.boolean "render_title",       default: true
     t.boolean "render_description", default: true
     t.boolean "render_button",      default: true
     t.boolean "full_image",         default: false
-    t.boolean "cf",                 default: true
     t.integer "appears",            default: 0
     t.integer "spotlight_id"
     t.integer "order",              default: 0
     t.integer "appears_after",      default: 0
     t.date    "appears_after_date"
     t.integer "expiry",             default: 0
-    t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["spotlight_id"], name: "index_custom_tiles_on_spotlight_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
@@ -1366,7 +1362,6 @@ ActiveRecord::Schema.define(version: 20220318114653) do
   add_foreign_key "branded_perks", "developers"
   add_foreign_key "cc_emails", "users"
   add_foreign_key "crms", "developers"
-  add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"
   add_foreign_key "custom_tiles", "spotlights"
   add_foreign_key "development_messages", "developments"
@@ -1382,6 +1377,7 @@ ActiveRecord::Schema.define(version: 20220318114653) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
+  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

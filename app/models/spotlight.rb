@@ -54,6 +54,52 @@ class Spotlight < ApplicationRecord
     documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def self.active_tiles(plot, documents)
+    spotlights = Spotlight.where(development_id: plot.development)
+    active_tiles = []
+
+    spotlights.each do |spotlight|
+      tile = spotlight.tile(plot)
+      next if tile.blank?
+      active_tiles << tile if tile.feature? && tile.active_feature(plot)
+      active_tiles << tile if tile.document? && tile.active_document(documents)
+      active_tiles << tile if tile.link?
+      active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
+    end
+
+    visible_tiles(active_tiles, plot)
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
+  # what tiles are visible according to the current rules
+  # rubocop:disable LineLength
+  def self.visible_tiles(active_tiles, plot)
+    active_tiles = plot.visible_tiles(active_tiles)
+    return active_tiles unless plot.free? || plot.essentials?
+    return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
+    active_tiles.reject(&:snagging?)
+  end
+  # rubocop:enable LineLength
+
+  # Spotlights have 2 possible custom tiles, only one of which may
+  # possibly currently be active
+  def tile(plot)
+    custom_tile = custom_tiles.first
+    # static spotlight
+    return custom_tile unless dynamic?
+    # dynamic spotlight
+    return nil if plot.completion_date.blank?
+    # Pre-Move
+    return custom_tile if Time.zone.today < plot.completion_date
+    # Post-Move, post EMD
+    custom_tile = custom_tiles.second
+    return nil if custom_tile.emd_date? && (plot.completion_date < custom_tile.appears_after_date)
+    return nil if custom_tile.expired?(plot)
+    # qualifies
+    custom_tile
+  end
+
   private
 
   # was this spotlight created/updated by a CF user

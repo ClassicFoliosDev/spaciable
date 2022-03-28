@@ -4,7 +4,6 @@
 class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
-  include ExpiryEnum
 
   belongs_to :tileable, polymorphic: true
   belongs_to :spotlight
@@ -44,6 +43,12 @@ class CustomTile < ApplicationRecord
   enum appears_after: %i[
     emd
     emd_date
+  ]
+
+  enum expiry: %i[
+      never
+      one_year
+      two_years
   ]
 
   enum feature: {
@@ -88,30 +93,6 @@ class CustomTile < ApplicationRecord
     end
   end
 
-  ## code revire
-
-  def self.active_tiles(plot, documents)
-    custom_tiles = CustomTile.where(development_id: plot.development)
-    active_tiles = []
-
-    custom_tiles.each do |tile|
-      active_tiles << tile if tile.feature? && tile.active_feature(plot)
-      active_tiles << tile if tile.document? && tile.active_document(documents)
-      active_tiles << tile if tile.link?
-      active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
-    end
-
-    visible_tiles(active_tiles, plot)
-  end
-
-  # what tiles are visible according to the current rules
-  def self.visible_tiles(active_tiles, plot)
-    active_tiles = plot.visible_tiles(active_tiles)
-    return active_tiles unless plot.free? || plot.essentials?
-    return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
-    active_tiles.reject { |ct| ct.snagging? }
-  end
-
   def active_feature(plot)
     return true unless snagging? || issues? || timeline? || conveyancing?
     return true if snagging? && plot.snagging_valid
@@ -145,6 +126,19 @@ class CustomTile < ApplicationRecord
 
   def formatted_link
     link !~ /\A(http)/ ? "https://#{link}" : link
+  end
+
+  def expired?(plot)
+    return true if plot.completion_date.blank?
+
+    case expiry
+    when :one_year.to_s
+      Time.zone.today > (plot.completion_date + 1.year)
+    when :to_year.to_s
+      Time.zone.today > (plot.completion_date + 2.years)
+    else
+      false
+    end
   end
 end
 #rubocop:enable all
