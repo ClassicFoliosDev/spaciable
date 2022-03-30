@@ -84,6 +84,7 @@ class Spotlight < ApplicationRecord
 
   # Spotlights have 2 possible custom tiles, only one of which may
   # possibly currently be active
+  # rubocop:disable Metrics/CyclomaticComplexity
   def tile(plot)
     custom_tile = custom_tiles.first
     # static spotlight
@@ -91,7 +92,9 @@ class Spotlight < ApplicationRecord
     # dynamic spotlight
     return nil unless plot.completion_date?
     # Pre-Move
-    return custom_tile if Time.zone.today < plot.completion_date
+    return custom_tile if (Time.zone.today < plot.completion_date) ||
+                          (custom_tile.emd_date? &&
+                            (plot.completion_date < custom_tile.appears_after_date))
     # Post-Move, post EMD
     custom_tile = custom_tiles.second
     return nil if custom_tile.emd_date? && (plot.completion_date < custom_tile.appears_after_date)
@@ -99,6 +102,7 @@ class Spotlight < ApplicationRecord
     # qualifies
     custom_tile
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
