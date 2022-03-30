@@ -89,7 +89,7 @@ class Spotlight < ApplicationRecord
     # static spotlight
     return custom_tile unless dynamic?
     # dynamic spotlight
-    return nil if plot.completion_date.blank?
+    return nil unless plot.completion_date?
     # Pre-Move
     return custom_tile if Time.zone.today < plot.completion_date
     # Post-Move, post EMD

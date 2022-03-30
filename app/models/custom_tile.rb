@@ -129,7 +129,7 @@ class CustomTile < ApplicationRecord
   end
 
   def expired?(plot)
-    return true if plot.completion_date.blank?
+    return true unless plot.completion_date?
 
     case expiry
     when :one_year.to_s
