@@ -5,7 +5,7 @@
   var spotlight1 = "#spotlight0"
   var spotlight2 = "#spotlight1"
 
-  const spotlights = [{id: spotlight1,
+  var spotlights = [{id: spotlight1,
                        index: 0 },
                       {id: spotlight2,
                        index: 1}]

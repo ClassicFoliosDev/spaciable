@@ -3,7 +3,7 @@
 class SpotlightsController < ApplicationController
   load_and_authorize_resource :development
   load_and_authorize_resource :spotlight, through: :development, only: %i[index new create]
-  load_and_authorize_resource :spotlight, only: %i[show edit update]
+  load_and_authorize_resource :spotlight, only: %i[show edit update destroy]
   before_action :set_parent
 
   def index; end
@@ -32,7 +32,7 @@ class SpotlightsController < ApplicationController
   def update
     if @spotlight.update(spotlight_params)
       delete_images(spotlight_params)
-      notice = t("controller.success.update", name: "Shortcut")
+      notice = t("controller.success.update", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
       render :edit
@@ -40,16 +40,16 @@ class SpotlightsController < ApplicationController
   end
 
   def destroy
-    @custom_tile.destroy
-    notice = t("controller.success.destroy", name: "Shortcut")
-    redirect_to [@parent, :custom_tiles], notice: notice
+    @spotlight.destroy
+    notice = t("controller.success.destroy", name: "Spotlight")
+    redirect_to [@parent, :spotlights], notice: notice
   end
 
   private
 
   def set_parent
     @parent = @development || @spotlight.parent
-    @brand = @parent&.branding if @parent.present? && @parent.respond_to?(:branding)
+    @brand = @parent&.branding if @parent&.present? && @parent.respond_to?(:branding)
   end
 
   def spotlight_params

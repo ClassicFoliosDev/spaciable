@@ -274,20 +274,32 @@
   }
 }
 
-#appears div, #appears_after div {
+#appears, #appears_after {
 
-  input {
-    margin-bottom: 2;
+  .with_help {
+    margin-bottom: 12;
+
+    label {
+      display: inline;
+      padding-left: unset;
+    }
   }
 
-  label {
-    display: inline;
-    padding-left: 10;
+  div {
+    input {
+      margin-bottom: 2;
+    }
+
+    label {
+      display: inline;
+      padding-left: 10;
+    }
+
+    p {
+      margin: 10 0 10;
+    }
   }
 
-  p {
-    margin: 10 0 10;
-  }
 }
 
 .spotlight_custom_tiles_appears_after_date {

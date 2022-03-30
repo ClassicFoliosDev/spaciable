@@ -198,12 +198,12 @@ end
 
 Given(/^the developer has a custom tile for services$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
-  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'services')
+  FactoryGirl.create(:custom_tile, spotlight_id: Spotlight.create(development_id: development.id).id, feature: 'services')
 end
 
 Given(/^the developer has a custom tile for referrals$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
-  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'referrals')
+  FactoryGirl.create(:custom_tile, spotlight_id: Spotlight.create(development_id: development.id).id, feature: 'referrals')
 end
 
 When(/^I refer a friend$/) do
@@ -241,7 +241,7 @@ end
 Given(/^the development has a custom link tile$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
 
-  CustomTile.create(development_id: development.id, category: "link", link: "https://ducks.com",
+  CustomTile.create(spotlight_id: Spotlight.create(development_id: development.id).id, category: "link", link: "https://ducks.com",
                     title: "Title", description: "Description", button: "Button")
 
   stub_request(:get, "https://ducks.com").
@@ -268,7 +268,7 @@ end
 Given(/^the development has set a snagging tile$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
 
-  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'snagging')
+  FactoryGirl.create(:custom_tile, spotlight_id: Spotlight.create(development_id: development.id).id, feature: 'snagging')
 end
 
 Then(/^I should not see the snagging tile$/) do

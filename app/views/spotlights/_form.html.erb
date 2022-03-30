@@ -111,7 +111,13 @@
               </div>
             <% else %>
               <div id="appears_after">
-                <%= ct.label :appears_after, label: t(".appears_after.title") %>
+                <div class="with_help">
+                  <%= ct.label :appears_after, label: t(".appears_after.title") %>
+                  <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+                  <div id="dropdown-help" class="hidden">
+                    <p><%= t("spotlight.post_move").html_safe %></p>
+                  </div>
+                </div>
                 <% CustomTile.appears_afters.each do |k,v| %>
                   <div>
                     <%= ct.radio_button :appears_after, k, checked: (custom_tile.appears_after == k), id: "appears_after_#{k}" %>
