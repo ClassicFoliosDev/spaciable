@@ -1,3 +1,5 @@
+var $processing = false
+
 /* global $, clearFields, setFields */
 $(document).on('click', '.appliance-add .ui-menu-item', function (event) {
   var $selectContainer = $(this).closest('.select-container')
@@ -50,10 +52,11 @@ function updateDefaultName (manufacturer, model) {
 }
 
 document.addEventListener('turbolinks:load', function (event) {
+  $processing = false
 
   if ($("#appliance_appliance_category_id").length == 0) { return }
 
-  show_ratings()
+  show_ratings(true)
 
   $("#appliance_appliance_category_id").selectmenu({
     select: function (event, ui) {
@@ -61,31 +64,48 @@ document.addEventListener('turbolinks:load', function (event) {
     }
   })
 
+  $("#appliance_e_rating").selectmenu({
+    select: function (event, ui) {
+      show_ratings()
+    }
+  })
+
   $("#appliance_main_uk_e_rating").selectmenu({
     select: function (event, ui) {
-      check_ratings()
+      show_ratings()
     }
   })
 
   $("#appliance_supp_uk_e_rating").selectmenu({
     select: function (event, ui) {
-      check_ratings()
+      show_ratings()
     }
   })
 })
 
-function check_ratings(){
-  $(".e_rating").toggle($("#appliance_main_uk_e_rating").val() == 0 && $("#appliance_supp_uk_e_rating").val() == 0)
-}
+function show_ratings(loading) {
+  if ($processing) { return }
+  $processing = true
 
-function show_ratings() {
   // Washer Dryer
   washerDryer = $("#appliance_appliance_category_id").val() == 2
   $("#main_rating").toggle(!washerDryer)
   $("#washerdryer_rating").toggle(washerDryer)
-  $("#washer_rating").toggle(washerDryer)
-  if (!washerDryer &&  $('#appliance_supp_uk_e_rating').val() != "not_known") {
-    $('#appliance_supp_uk_e_rating').val("not_known")
-    $('#appliance_supp_uk_e_rating').selectmenu('refresh')
-  }
+  $(".supp_uk_e_rating").toggle(washerDryer)
+
+  e_rating_empty = ($("#appliance_e_rating").val() == "")
+  uk_rating_empty = ($("#appliance_main_uk_e_rating").val() == "" &&
+                     $("#appliance_supp_uk_e_rating").val() == "")
+
+  hide_show_reset("e_rating", uk_rating_empty, loading)
+  hide_show_reset("main_uk_e_rating", e_rating_empty, loading)
+  hide_show_reset("supp_uk_e_rating", e_rating_empty && washerDryer, loading)
+  $processing = false
 }
+
+function hide_show_reset(selector, show, loading) {
+  if (!show) { $('#appliance_' + selector).val("") }
+  $('.' + selector).toggle(show)
+  if (show && !loading) { $('#appliance_' + selector).selectmenu('refresh') }
+}
+
