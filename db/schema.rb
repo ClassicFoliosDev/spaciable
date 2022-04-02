@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220318114653) do
+ActiveRecord::Schema.define(version: 20220207160603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -349,14 +349,12 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.boolean "render_description", default: true
     t.boolean "render_button",      default: true
     t.boolean "full_image",         default: false
+    t.boolean "cf",                 default: true
+    t.boolean "editable",           default: true
     t.integer "appears",            default: 0
-    t.integer "spotlight_id"
-    t.integer "order",              default: 0
-    t.integer "appears_after",      default: 0
-    t.date    "appears_after_date"
-    t.integer "expiry",             default: 0
+    t.integer "development_id"
+    t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
-    t.index ["spotlight_id"], name: "index_custom_tiles_on_spotlight_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
   end
 
@@ -1169,14 +1167,6 @@ ActiveRecord::Schema.define(version: 20220318114653) do
     t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
-  create_table "spotlights", force: :cascade do |t|
-    t.integer "development_id"
-    t.integer "category",       default: 0
-    t.boolean "cf",             default: true
-    t.boolean "editable",       default: true
-    t.index ["development_id"], name: "index_spotlights_on_development_id", using: :btree
-  end
-
   create_table "stage_sets", force: :cascade do |t|
     t.integer "stage_set_type", default: 0
     t.boolean "clone",          default: false
@@ -1362,8 +1352,8 @@ ActiveRecord::Schema.define(version: 20220318114653) do
   add_foreign_key "branded_perks", "developers"
   add_foreign_key "cc_emails", "users"
   add_foreign_key "crms", "developers"
+  add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"
-  add_foreign_key "custom_tiles", "spotlights"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
@@ -1377,7 +1367,6 @@ ActiveRecord::Schema.define(version: 20220318114653) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

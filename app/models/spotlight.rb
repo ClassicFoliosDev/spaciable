@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Spotlight < ApplicationRecord
+  include AppearsEnum
+
   belongs_to :development
   has_many :custom_tiles, -> { order(:order) }, dependent: :destroy
   accepts_nested_attributes_for :custom_tiles, allow_destroy: true
@@ -15,6 +17,17 @@ class Spotlight < ApplicationRecord
     static
     dynamic
   ]
+
+  enum expiry: %i[
+    never
+    one_year
+    two_years
+  ]
+
+  enum move: {
+    pre: 0,
+    post: 1
+  }
 
   def parent
     development
@@ -103,6 +116,14 @@ class Spotlight < ApplicationRecord
     custom_tile
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def pre_move
+    custom_tiles[0]
+  end
+
+  def post_move
+    custom_tiles[1]
+  end
 
   private
 
