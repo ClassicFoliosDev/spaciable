@@ -43,4 +43,10 @@ module SpotlightHelper
       [t("activerecord.attributes.spotlights.category.#{key}"), key]
     end
   end
+
+  def expiries_collection
+    Spotlight.expiries.map do |(tag_name, _)|
+      [t("activerecord.attributes.custom_tiles.expiries.#{tag_name}"), tag_name]
+    end
+  end
 end
