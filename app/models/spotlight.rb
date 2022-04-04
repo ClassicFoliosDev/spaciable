@@ -10,8 +10,12 @@ class Spotlight < ApplicationRecord
 
   before_create :set_cf
   before_save :set_cf
+  after_save :check_dates
 
   delegate :snag_name, to: :development
+
+  validates :start, presence: true, if: proc { emd_on_after? || emd_on_before? || emd_between? }
+  validates :finish, presence: true, if: proc { emd_between? }
 
   enum category: %i[
     static
@@ -123,6 +127,11 @@ class Spotlight < ApplicationRecord
 
   def post_move
     custom_tiles[1]
+  end
+
+  def check_dates
+    #update_column(:start, nil) unless emd_on_after? || emd_on_before? || emd_between?
+    #update_column(:finish, nil) unless emd_between?
   end
 
   private

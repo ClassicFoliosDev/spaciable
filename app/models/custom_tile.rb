@@ -14,7 +14,6 @@ class CustomTile < ApplicationRecord
   attr_accessor :image_cache
 
   #validate :meta
-  validates :appears_after_date, presence: true, :if => Proc.new { |ct| ct.emd_date? }
   validates :title, presence: true, unless: :feature?
   validates :description, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_description? }
   validates :button, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_button? }

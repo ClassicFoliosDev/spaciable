@@ -54,6 +54,12 @@
       }
     })
 
+    spotlight_filter_dates()
+
+    $('#customTileAppears input[type=radio]').change(function(){
+      spotlight_filter_dates()
+    })
+
     spotlights.forEach(function(spotlight) {
       set_selections(spotlight, false)
       check_full_image(spotlight)
@@ -445,16 +451,49 @@
     }
   }
 
-  // Appears is local to spotlight[0]
   function check_appears() {
-    var spotlight = spotlights[0]
-    if (($("#spotlight_custom_tiles_attributes_".concat(spotlight.index, "_category")).find(":selected").val() != "feature" ||
-        $("#spotlight_custom_tiles_attributes_".concat(spotlight.index, "_feature")).find(":selected").val() == "timeline") && !is_dynamic()) {
-      $(spotlight_selector(spotlight, "#appears")).show()
+    if ($(spotlight2).is(":visible")) { return }
+    if ((is_dynamic() && $(spotlight1).is(":visible")) ||
+        (is_static() && ($("#spotlight_custom_tiles_attributes_0_category").find(":selected").val() != "feature" ||
+                         $("#spotlight_custom_tiles_attributes_0_feature").find(":selected").val() == "timeline"))) {
+      if (is_static() && !$("#appears_always").is(":visible")) { $("#appears_always").prop('checked', true) }
+      if (is_dynamic() && !$("#appears_after_emd").is(":visible")) { $("#appears_after_emd").prop('checked', true) }
+      $("#appears").show()
     } else {
-      $(spotlight_selector(spotlight, "#appears")).hide()
-      $("#appears_always").prop('checked',true)
+      $("#appears").hide()
+      $("#appears_always").prop('checked', true)
     }
+
+    filter_spotlight_options()
+  }
+
+  function filter_spotlight_options() {
+    $("#static_title").toggle(is_static())
+    $("#dynamic_title").toggle(is_dynamic())
+    $("#appears_always,#appears_moved_in,#appears_completed").closest('div').toggle(is_static())
+    $("#appears_after_emd,#appears_emd_on_after,#appears_emd_on_before,#appears_emd_between").closest('div').toggle(is_dynamic())
+  }
+
+  // Work out which dates if any should be enabled in the spotlight options.
+  function spotlight_filter_dates(){
+    // according to the currently selected option
+    var selectedoption = $("input[name='spotlight[appears]']:checked").val()
+
+    var dateoptions = ["emd_on_after", "emd_on_before", "emd_between"]
+    var qualifiers = ["start", "finish"]
+
+    dateoptions.forEach(function(option) {
+      qualifiers.forEach(function(qualifier) {
+        var dateoption = $("input[for='" + option + "_" + qualifier +"']")
+        dateoption.prop('disabled', option != selectedoption)
+        if (option != selectedoption) {
+          dateoption.val(null)
+          var parent = dateoption.closest('div')
+          parent.removeClass('field_with_errors')
+          parent.find('span').remove()
+        }
+      })
+    })
   }
 
   function spotlight_selector(spotlight, selector){
@@ -463,6 +502,10 @@
 
   function is_dynamic() {
     return ($('#spotlight_category').val() == 'dynamic')
+  }
+
+  function is_static() {
+    return !is_dynamic()
   }
 
   function tab_selected(spotlight_id) {

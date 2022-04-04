@@ -91,11 +91,21 @@
           <fieldset id="customTileAppears">
             <% if custom_tile.order == 0 %>
               <div id="appears">
-                <%= f.label :appears, label: t(".appears.title") %>
+                <label id="static_title"><%= t(".appears.title") %></label>
+                <label id="dynamic_title"><%= t(".appears.dynamic_title") %></label>
                 <% Spotlight.appears.each do |k,v| %>
                   <div>
                     <%= f.radio_button :appears, k, checked: (spotlight.appears == k), id: "appears_#{k}" %>
                     <label for=<%="appears_#{k}"%>><%=t(".appears.#{k}")%></label>
+
+                    <% if %w[emd_on_after emd_on_before emd_between].include?(k) %>
+                      <%= f.input :start, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: true, input_html: { type: :date, :value => spotlight&.start&.html, for: "#{k}_start" } %>
+                    <% end %>
+                    <% if %w[emd_between].include?(k) %>
+                      <span> and </span>
+                      <%= f.input :finish, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: true, input_html: { type: :date, :value => spotlight&.finish&.html, for: "#{k}_finish" } %>
+                    <% end %>
+
                     <% unless k == :always.to_s %>
                       <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
                       <div id="dropdown-help" class="hidden">

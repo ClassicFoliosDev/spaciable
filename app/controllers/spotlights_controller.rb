@@ -54,14 +54,13 @@ class SpotlightsController < ApplicationController
 
   def spotlight_params
     s_params = params.require(:spotlight).permit(
-      :editable, :category,
+      :editable, :category, :appears, :start, :finish, :expiry,
       custom_tiles_attributes: %i[category feature document_id guide
                                   link tileable_type tileable_id
                                   title render_title description image
                                   render_description button render_button
                                   image_cache remove_image full_image _destroy
-                                  id order appears appears_after appears_after_date
-                                  file expiry]
+                                  id order file]
     )
     s_params[:custom_tiles_attributes].each { |_, a| a[:remove_image] = "0" if a[:image] }
     s_params

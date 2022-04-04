@@ -8,6 +8,7 @@ class DynamicSpotlights < ActiveRecord::Migration[5.0]
           t.integer :category, default: Spotlight.categories[:static]
           t.boolean :cf, default: true
           t.boolean :editable, default: true
+          t.boolean :all_or_nothing, default: true
           t.integer :appears, default: Spotlight.appears[:always]
           t.integer :expiry, default: Spotlight.expiries[:never]
           t.date :start

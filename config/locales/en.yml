@@ -1394,13 +1394,14 @@ en:
       render_button: "Render button on Spotlight?"
       appears:
         title: "Resident sees Spotlight"
+        dynamic_title: "Resident sees Post-Move spotlight when Estimated Move-In Date"
         always: "Always"
         moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
-        after_emd: "After EMD"
-        emd_on_after: "EMD on/after"
-        emd_on_before: "EMD on/before"
-        emd_between: "EMD between"
+        after_emd: "has passed"
+        emd_on_after: "is on/after"
+        emd_on_before: "is on/before"
+        emd_between: "is between"
       appears_after:
         title: "Resident sees Spotlight"
         emd: "After Estimated Move-In Date"
