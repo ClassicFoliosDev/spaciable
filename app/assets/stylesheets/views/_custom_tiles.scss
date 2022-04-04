@@ -274,7 +274,7 @@
   }
 }
 
-#appears, #appears_after {
+#appears {
 
   .with_help {
     margin-bottom: 12;
@@ -285,7 +285,7 @@
     }
   }
 
-  div {
+  .spotlight-option {
     input {
       margin-bottom: 2;
     }
@@ -331,5 +331,13 @@
     margin-right: auto;
     width: 90%;
   }
+}
+
+.post-move-option {
+  margin-top: 15;
+}
+
+.spotlight_start, .spotlight_finish {
+  display: inline;
 }
 

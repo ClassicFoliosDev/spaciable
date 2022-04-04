@@ -1386,6 +1386,8 @@ en:
       submit: "Submit"
       editable: "Editable"
       editable_description: "Client admins can edit or delete this shortcut"
+      all_or_nothing: "Show both/neither"
+      all_or_nothing_desc: "Only display Pre-Move Spotlight if resident qualifies for Post-Move Spotlight"
       current_file: "Current File"
       content_proforma: "Interactive Guide"
       full_image: "Display image full width?"
@@ -1394,7 +1396,7 @@ en:
       render_button: "Render button on Spotlight?"
       appears:
         title: "Resident sees Spotlight"
-        dynamic_title: "Resident sees Post-Move spotlight when Estimated Move-In Date"
+        dynamic_title: "Resident sees Post-Move spotlight after Estimated Move-In Date (EMD), when EMD"
         always: "Always"
         moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
@@ -3812,8 +3814,8 @@ en:
           floor_plan: "Floor Plan"
         expiries:
           never: "never"
-          one_year: "after 1 year"
-          two_years: "after 2 years"
+          one_year: "1 year after EMD"
+          two_years: "2 years after EMD"
 
       user:
         email: "Email address"

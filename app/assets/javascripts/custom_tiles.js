@@ -465,24 +465,27 @@
     }
 
     filter_spotlight_options()
+    spotlight_filter_dates()
   }
 
   function filter_spotlight_options() {
     $("#static_title").toggle(is_static())
     $("#dynamic_title").toggle(is_dynamic())
     $("#appears_always,#appears_moved_in,#appears_completed").closest('div').toggle(is_static())
-    $("#appears_after_emd,#appears_emd_on_after,#appears_emd_on_before,#appears_emd_between").closest('div').toggle(is_dynamic())
+    $("#appears_after_emd,#appears_emd_on_after,#appears_emd_on_before,#appears_emd_between,.spotlight_expiry").closest('div').toggle(is_dynamic())
   }
 
   // Work out which dates if any should be enabled in the spotlight options.
   function spotlight_filter_dates(){
     // according to the currently selected option
+    var has_date = false
     var selectedoption = $("input[name='spotlight[appears]']:checked").val()
 
     var dateoptions = ["emd_on_after", "emd_on_before", "emd_between"]
     var qualifiers = ["start", "finish"]
 
     dateoptions.forEach(function(option) {
+      has_date = has_date || option == selectedoption
       qualifiers.forEach(function(qualifier) {
         var dateoption = $("input[for='" + option + "_" + qualifier +"']")
         dateoption.prop('disabled', option != selectedoption)
@@ -494,6 +497,8 @@
         }
       })
     })
+
+    $("#all_or_nothing").toggle(has_date)
   }
 
   function spotlight_selector(spotlight, selector){

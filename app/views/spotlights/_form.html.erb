@@ -94,7 +94,11 @@
                 <label id="static_title"><%= t(".appears.title") %></label>
                 <label id="dynamic_title"><%= t(".appears.dynamic_title") %></label>
                 <% Spotlight.appears.each do |k,v| %>
-                  <div>
+                  <% if %w[always moved_in completed].include?(k) %>
+                  <div class="spotlight-option pre-move-option" >
+                  <% else %>
+                  <div class="spotlight-option post-move-option" >
+                  <% end %>
                     <%= f.radio_button :appears, k, checked: (spotlight.appears == k), id: "appears_#{k}" %>
                     <label for=<%="appears_#{k}"%>><%=t(".appears.#{k}")%></label>
 
@@ -114,9 +118,11 @@
                     <% end %>
                   </div>
                 <% end %>
-              </div>
-            <% else %>
-              <div>
+                <div id="all_or_nothing">
+                  <%= label_tag :editable, t(".all_or_nothing"), class: "checkbox-label" %>
+                  <%= f.check_box :all_or_nothing %>
+                  <p class="checkbox-description"><%= t(".all_or_nothing_desc") %></p>
+                </div>
                 <%= f.input :expiry, as: :select, collection: expiries_collection, include_blank: false, label: t(".expires_after") %>
               </div>
             <% end %>

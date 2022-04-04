@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable ClassLength
 class Spotlight < ApplicationRecord
   include AppearsEnum
 
@@ -92,7 +93,6 @@ class Spotlight < ApplicationRecord
   # what tiles are visible according to the current rules
   # rubocop:disable LineLength
   def self.visible_tiles(active_tiles, plot)
-    active_tiles = plot.visible_tiles(active_tiles)
     return active_tiles unless plot.free? || plot.essentials?
     return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
     active_tiles.reject(&:snagging?)
@@ -101,38 +101,73 @@ class Spotlight < ApplicationRecord
 
   # Spotlights have 2 possible custom tiles, only one of which may
   # possibly currently be active
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength
   def tile(plot)
-    custom_tile = custom_tiles.first
-    # static spotlight
-    return custom_tile unless dynamic?
-    # dynamic spotlight
+    custom_tile = pre_move
+    # static spotlight options
+    return custom_tile if always?
+    return custom_tile if moved_in? && plot.completion_date && Time.zone.today >= plot.completion_date
+    return custom_tile if completed? && plot.completion_release_date && Time.zone.today >= plot.completion_release_date
+    return nil if static? # doesn't match the selected static option
+
+    # dynamic spotlights
+
+    # No dynamic spotlight shows unless it has an EMD
     return nil unless plot.completion_date?
-    # Pre-Move
-    return custom_tile if (Time.zone.today < plot.completion_date) ||
-                          (custom_tile.emd_date? &&
-                            (plot.completion_date < custom_tile.appears_after_date))
+
+    # Pre-Move/Static.  Shows if the EMD qualifies for display and the date is pre-EMD, OR the
+    # EMD doesn't qualify but the all_or_nothing switch is false
+    emd_qualifies = qualifies(plot)
+    return custom_tile if ((Time.zone.today < plot.completion_date) && emd_qualifies) ||
+                          !(emd_qualifies || all_or_nothing?)
+
+    # If the EMD doesn't qualify and its all_or_nothing, then show nothing!
+    return nil if !emd_qualifies && all_or_nothing?
+
     # Post-Move, post EMD
-    custom_tile = custom_tiles.second
-    return nil if custom_tile.emd_date? && (plot.completion_date < custom_tile.appears_after_date)
-    return nil if custom_tile.expired?(plot)
+    custom_tile = post_move
+
+    # return nil if the custom tile has expired
+    return nil if expired?(plot)
     # qualifies
     custom_tile
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength
+
+  def qualifies(plot)
+    return true if after_emd?
+    return plot.completion_date >= start if emd_on_after?
+    return plot.completion_date <= start if emd_on_before?
+    plot.completion_date >= start && plot.completion_date <= finish
+  end
 
   def pre_move
-    custom_tiles[0]
+    custom_tiles.first
   end
 
   def post_move
-    custom_tiles[1]
+    custom_tiles.second
   end
 
-  def check_dates
-    #update_column(:start, nil) unless emd_on_after? || emd_on_before? || emd_between?
-    #update_column(:finish, nil) unless emd_between?
+  def expired?(plot)
+    return true unless plot.completion_date?
+
+    case expiry
+    when :one_year.to_s
+      Time.zone.today > (plot.completion_date + 1.year)
+    when :to_year.to_s
+      Time.zone.today > (plot.completion_date + 2.years)
+    else
+      false
+    end
   end
+
+  # rubocop:disable Rails/SkipsModelValidations
+  def check_dates
+    update_column(:start, nil) unless emd_on_after? || emd_on_before? || emd_between?
+    update_column(:finish, nil) unless emd_between?
+  end
+  # rubocop:enable Rails/SkipsModelValidations
 
   private
 
@@ -143,3 +178,4 @@ class Spotlight < ApplicationRecord
     self.cf = RequestStore.store[:current_user]&.cf_admin? || false
   end
 end
+# rubocop:enable ClassLength

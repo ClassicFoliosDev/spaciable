@@ -111,17 +111,5 @@ class CustomTile < ApplicationRecord
     link !~ /\A(http)/ ? "https://#{link}" : link
   end
 
-  def expired?(plot)
-    return true unless plot.completion_date?
-
-    case expiry
-    when :one_year.to_s
-      Time.zone.today > (plot.completion_date + 1.year)
-    when :to_year.to_s
-      Time.zone.today > (plot.completion_date + 2.years)
-    else
-      false
-    end
-  end
 end
 #rubocop:enable all
