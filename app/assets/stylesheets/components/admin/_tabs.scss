@@ -26,10 +26,12 @@
       border-radius: 0 $border-radius 0 0;
     }
 
-    a {
+    a, span {
       text-decoration: none;
       padding: $spacing-small;
     }
+
+    cursor: pointer
   }
 }
 
@@ -37,7 +39,7 @@
   float: left;
   height: 30px;
 
-  a {
+  a, span {
     color: $semi-pale-navy;
     line-height: $button-line-height;
 

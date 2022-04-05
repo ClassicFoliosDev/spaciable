@@ -429,6 +429,10 @@ fieldset {
   }
 }
 
+span.error {
+  color: $input-inline-error-font-color !important;
+}
+
 .readonly {
   color: $primary-navy;
 

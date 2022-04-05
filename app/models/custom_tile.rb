@@ -4,11 +4,10 @@
 class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
+  include AppearsEnum
 
-  before_create :set_cf
-  before_save :set_cf
-  belongs_to :development
   belongs_to :tileable, polymorphic: true
+  belongs_to :spotlight
 
   mount_uploader :file, DocumentUploader
   mount_uploader :image, PictureUploader
@@ -22,9 +21,10 @@ class CustomTile < ApplicationRecord
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?
   validates :feature, presence: true, if: :feature?
+  delegate :development, to: :spotlight, allow_nil: true
 
   def parent
-    development
+    spotlight
   end
 
   enum category: %i[
@@ -46,13 +46,7 @@ class CustomTile < ApplicationRecord
     conveyancing: 8
   }
 
-  enum appears: %i[
-    always
-    moved_in
-    completed
-  ]
-
-  delegate :snag_name, to: :development
+  delegate :snag_name, to: :spotlight, allow_nil: true
 
   def proforma
     return unless content_proforma?
@@ -71,19 +65,6 @@ class CustomTile < ApplicationRecord
     errors.add(:base, :document_sub_category_required)
   end
 
-  def documents_in_scope
-    documents = []
-    documents << development.documents
-    documents << development.parent.documents
-
-    if development.parent.is_a?(Division)
-      documents << development.parent_developer.documents
-    end
-
-    # return the list of documents in alphabetical order
-    documents.flatten!.sort_by { |doc| doc.title.downcase }
-  end
-
   def document_location(documents)
     if document_id
       document.file.url
@@ -93,30 +74,6 @@ class CustomTile < ApplicationRecord
     elsif file
       file.url
     end
-  end
-
-  ## code revire
-
-  def self.active_tiles(plot, documents)
-    custom_tiles = CustomTile.where(development_id: plot.development)
-    active_tiles = []
-
-    custom_tiles.each do |tile|
-      active_tiles << tile if tile.feature? && tile.active_feature(plot)
-      active_tiles << tile if tile.document? && tile.active_document(documents)
-      active_tiles << tile if tile.link?
-      active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
-    end
-
-    visible_tiles(active_tiles, plot)
-  end
-
-  # what tiles are visible according to the current rules
-  def self.visible_tiles(active_tiles, plot)
-    active_tiles = plot.visible_tiles(active_tiles)
-    return active_tiles unless plot.free? || plot.essentials?
-    return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
-    active_tiles.reject { |ct| ct.snagging? }
   end
 
   def active_feature(plot)
@@ -150,20 +107,9 @@ class CustomTile < ApplicationRecord
     false
   end
 
-  def self.delete_disabled(features, developments)
-    tiles = CustomTile.where(development_id: developments, feature: features)
-    tiles.destroy_all
-  end
-
   def formatted_link
     link !~ /\A(http)/ ? "https://#{link}" : link
   end
 
-  # was this record created/updated by a CF user
-  def set_cf
-    return unless RequestStore.store[:current_user]&.is_a? User
-    return unless changed?
-    self.cf = RequestStore.store[:current_user]&.cf_admin? || false
-  end
 end
 #rubocop:enable all

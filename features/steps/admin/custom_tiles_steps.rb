@@ -1,33 +1,34 @@
-When(/^I visit the custom shortcuts tab$/) do
+When(/^I visit the spotlights tab$/) do
   within ".tabs" do
-    click_on I18n.t("developments.collection.custom_tiles")
+    click_on I18n.t("developments.collection.spotlights")
   end
 end
 
-Then(/^I see the referrals shortcut$/) do
+Then(/^I see the referrals spotlight$/) do
   within ".record-list" do
     expect(page).to have_content I18n.t("activerecord.attributes.custom_tiles.features.referrals")
   end
 end
 
-Given(/^there are uneditable shortcuts$/) do
+Given(/^there are uneditable spotlights$/) do
   developer = CreateFixture.developer
   development = CreateFixture.development
 
   developer.update_attribute(:enable_services, true)
-  CustomTile.create(development_id: development.id, category: 'feature', feature: 'services', editable: false)
+  spotlight = Spotlight.create(development_id: development.id, editable: false)
+  CustomTile.create(spotlight_id: spotlight.id, category: 'feature', feature: 'services')
 end
 
-Then(/^the services shortcut is uneditable$/) do
-  tile = CustomTile.last
-  expect(page).not_to have_selector("[data-url='/custom_tiles/#{tile.id}']")
-  find("[data-id='#{tile.id}']").trigger("click")
+Then(/^the services spotlight is uneditable$/) do
+  spotlight = Spotlight.last
+  expect(page).not_to have_selector("[data-url='/spotlights/#{spotlight.id}']")
+  find("[data-id='#{spotlight.id}']").trigger("click")
   within ".ui-dialog-titlebar" do
-    expect(page).to have_content(t("custom_tiles.collection.uneditable_title", tile: "Services"))
+    expect(page).to have_content(t("spotlights.collection.uneditable_title", tile: "Services"))
   end
 end
 
-Then(/^I cannot crud the shortcuts$/) do
+Then(/^I cannot crud the spotlights$/) do
   within ".main-container" do
     expect(page).to have_no_css(".section-actions .fa-plus")
   end
@@ -37,7 +38,7 @@ Then(/^I cannot crud the shortcuts$/) do
   end
 end
 
-Then(/^I can preview the referrals the shortcut$/) do
+Then(/^I can preview the referrals the spotlight$/) do
   within ".record-list" do
     click_on I18n.t("activerecord.attributes.custom_tiles.features.referrals")
   end
@@ -51,9 +52,10 @@ Then(/^I can preview the referrals the shortcut$/) do
   end
 end
 
-Then(/^I can add a new shortcut$/) do
+Then(/^I can add a new spotlight$/) do
   within ".section-actions" do
-    click_on I18n.t("breadcrumbs.custom_tile_add")
+    find("a.btn.btn-primary").trigger('click')
+    sleep 5
   end
 end
 
@@ -68,7 +70,7 @@ When(/^I navigate to a development$/) do
 end
 
 Then(/^I can only select features that are turned on for the development$/) do
-  selector = page.find(".custom_tile_feature")
+  selector = page.find(".spotlight_custom_tiles_feature")
 
   active = ['referrals', 'home_designer', 'snagging', 'area_guide', 'perks', 'services']
   inactive = ['issues']
@@ -83,12 +85,12 @@ Then(/^I can only select features that are turned on for the development$/) do
 end
 
 When(/^I select a feature$/) do
-  select "Home Designer", from: :custom_tile_feature, visible: false
+  select "Home Designer", from: :spotlight_custom_tiles_attributes_0_feature, visible: false
 end
 
 When(/^I save the tile$/) do
   within ".form-actions-footer" do
-    click_on I18n.t("custom_tiles.form.submit")
+    click_on I18n.t("spotlights.form.submit")
   end
 end
 Then(/^I see the feature tile in my custom tiles collection$/) do
@@ -98,30 +100,31 @@ Then(/^I see the feature tile in my custom tiles collection$/) do
 end
 
 When(/^I select the document category$/) do
-  select_from_selectmenu :custom_tile_category, with: "Document"
+  select_from_selectmenu :spotlight_custom_tiles_category, with: "Document"
 end
 
 Then(/^there is a list of documents associated with my development$/) do
-  select "Developer Document", from: :custom_tile_document_id, visible: false
-  select "Development Document", from: :custom_tile_document_id, visible: false
+  select "Developer Document", from: :spotlight_custom_tiles_attributes_0_document_id, visible: false
+  select "Development Document", from: :spotlight_custom_tiles_attributes_0_document_id, visible: false
 end
 
 When(/^I enter a title and description$/) do
-  fill_in "custom_tile[title]", with: "Title"
-  fill_in "custom_tile[description]", with: "Description"
+
+  fill_in "spotlight[custom_tiles_attributes][0][title]", with: "Title"
+  fill_in "spotlight[custom_tiles_attributes][0][description]", with: "Description"
 end
 
 Then(/^I see an error message$/) do
   within find(".submission-errors") do
-    expect(page).to have_content ("Button " + I18n.t("activerecord.errors.messages.blank"))
+    expect(page).to have_content ("Custom tiles button " + I18n.t("activerecord.errors.messages.blank"))
   end
 end
 
 When(/^I enter button text$/) do
-  fill_in "custom_tile[button]", with: "Button"
+  fill_in "spotlight[custom_tiles_attributes][0][button]", with: "Button"
 end
 
-Then(/^I see the document shortcut$/) do
+Then(/^I see the document spotlight$/) do
   within ".record-list" do
     click_on "Title"
   end
@@ -132,25 +135,25 @@ Then(/^I see the document shortcut$/) do
   end
 end
 
-When(/^I edit the existing shortcut$/) do
+When(/^I edit the existing spotlight$/) do
   find(".fa-pencil").click
 end
 
 When(/^I change the category to a link$/) do
-  select_from_selectmenu :custom_tile_category, with: "Link"
+  select_from_selectmenu :spotlight_custom_tiles_category, with: "Link"
 end
 
 When(/^I enter a link$/) do
-  fill_in "custom_tile[link]", with: "www.ducks.com"
+  fill_in "spotlight[custom_tiles_attributes][0][link]", with: "www.ducks.com"
 end
 
 When(/^I enter content$/) do
-  fill_in "custom_tile[title]", with: "Title"
-  fill_in "custom_tile[description]", with: "Description"
-  fill_in "custom_tile[button]", with: "Button"
+  fill_in "spotlight[custom_tiles_attributes][0][title]", with: "Title"
+  fill_in "spotlight[custom_tiles_attributes][0][description]", with: "Description"
+  fill_in "spotlight[custom_tiles_attributes][0][button]", with: "Button"
 end
 
-Then(/^I see the link tile shortcut$/) do
+Then(/^I see the link tile spotlight$/) do
   within ".record-list" do
     click_on "Title"
   end
@@ -162,26 +165,27 @@ Then(/^I see the link tile shortcut$/) do
 end
 
 Then(/^the link tile has been updated$/) do
-  expect(CustomTile.where(development_id: CreateFixture.development.id, feature: "referrals").count).to eq 1
+  expect(Spotlight.joins(:custom_tiles).where(development_id: CreateFixture.development.id, custom_tiles: { feature: "referrals"}).count).to eq 1
   tile = CustomTile.find_by(link: 'www.ducks.com')
   expect(tile.title).to eq "Title"
   expect(tile.category).to eq "link"
   expect(tile.feature).to eq nil
 end
 
-Given(/^there are five custom shortcuts for my development$/) do
+Given(/^there are five spotlights for my development$/) do
   id = CreateFixture.development.id
 
-  (5 - CustomTile.where(development_id: id).count).times do
-    CustomTile.create(development_id: id, category: 'feature', feature: 'referrals')
+  (5 - Spotlight.where(development_id: id).count).times do
+    spotlight = Spotlight.create(development_id: id)
+    CustomTile.create(spotlight_id: spotlight, category: 'feature', feature: 'referrals')
   end
 end
 
-Then(/^I cannot add another shortcut$/) do
+Then(/^I cannot add another spotlight$/) do
   expect(page).to_not have_content ("Button " + I18n.t("activerecord.errors.messages.blank"))
 end
 
-When(/^I delete a shortcut$/) do
+When(/^I delete a spotlight$/) do
   within ".record-list" do
     page.all(".actions").last.find(".fa-trash-o").click
   end
@@ -192,11 +196,11 @@ When(/^I delete a shortcut$/) do
   end
 end
 
-Then(/^I can add another shortcut$/) do
+Then(/^I can add another spotlight$/) do
   within find(".notice") do
-    expect(page).to have_content I18n.t("controller.success.destroy", name: "Shortcut")
+    expect(page).to have_content I18n.t("controller.success.destroy", name: "Spotlight")
   end
 
   find(".section-actions")
-  expect(page).to have_content I18n.t("breadcrumbs.custom_tile_add")
+  expect(page).to have_content I18n.t("breadcrumbs.spotlight_add")
 end

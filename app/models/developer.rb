@@ -359,7 +359,7 @@ class Developer < ApplicationRecord
       changed << name if disabled
     end
 
-    CustomTile.delete_disabled(changed, all_developments) unless changed.empty?
+    Spotlight.delete_disabled(changed, all_developments) unless changed.empty?
   end
 
   # rubocop:disable SkipsModelValidations

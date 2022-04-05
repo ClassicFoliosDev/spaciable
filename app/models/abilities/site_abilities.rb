@@ -11,7 +11,7 @@ module Abilities
       site_contacts(development_id, division_id, developer_id)
       site_documents(development_id, division_id, developer_id)
       site_calendar
-      custom_tiles(development_id)
+      spotlights(development_id)
     end
 
     private
@@ -79,8 +79,8 @@ module Abilities
       end
     end
 
-    def custom_tiles(development)
-      can :read, CustomTile, development_id: development
+    def spotlights(development)
+      can :read, Spotlight, development_id: development
     end
 
     def site_calendar

@@ -11,7 +11,7 @@ module Abilities
       development_contacts(developments, division_id, developer_id)
       development_documents(developments, division_id, developer_id)
       development_videos(developments)
-      development_custom_tiles(developments)
+      development_spotlights(developments)
       development_calendar
       crud_residents(developments)
       developments(developer_id, division_id, developments, user)
@@ -80,8 +80,8 @@ module Abilities
       cannot %i[update destroy], Video, override: true
     end
 
-    def development_custom_tiles(developments)
-      can :manage, CustomTile, development_id: developments
+    def development_spotlights(developments)
+      can :manage, Spotlight, development_id: developments
     end
 
     def development_faqs(developments, division, developer)

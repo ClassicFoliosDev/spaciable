@@ -157,7 +157,7 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
     resources :videos, shallow: true
     resources :development_csv, only: [:index, :create]
-    resources :custom_tiles, shallow: true
+    resources :spotlights, shallow: true
     resources :sync_faqs, shallow: true, only: [:index, :create]
     get :development_csv, to: 'development_csv#index', controller: 'development_csv'
     get :download_development_csv, to: "development_csv#download_template"
