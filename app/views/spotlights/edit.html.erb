@@ -1,0 +1,9 @@
+<% breadcrumb :spotlight_edit, @spotlight %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title", tile: @spotlight.title) %>
+  </div>
+</div>
+
+<%= render 'form', spotlight: @spotlight, parent: nil, spotlight_parent: @parent %>

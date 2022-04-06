@@ -1,7 +1,0 @@
-<% breadcrumb :custom_tiles, @parent %>
-
-<%= render @parent %>
-
-<%= render 'components/tabs', tabs: tabs_for(@parent, "custom_tiles"), parent: @parent %>
-
-<%= render_collection @custom_tiles, parent: @parent, new_custom_tile: @custom_tile %>

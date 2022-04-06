@@ -274,20 +274,54 @@
   }
 }
 
-#appears div {
+#appears {
 
-  input {
-    margin-bottom: 2;
+  .with_help {
+    margin-bottom: 12;
+
+    label {
+      display: inline;
+      padding-left: unset;
+    }
   }
 
-  label {
-    display: inline;
-    padding-left: 10;
+  .spotlight-option {
+    input {
+      margin-bottom: 2;
+    }
+
+    label {
+      display: inline;
+      padding-left: 10;
+    }
+
+    p {
+      margin: 10 0 10;
+    }
   }
 
-  p {
-    margin: 10 0 10;
-  }
+}
+
+.spotlight_custom_tiles_appears_after_date {
+  display: inline-block;
+}
+
+#CustomTileAppears [type='date'] {
+  display: inline-block;
+  width: 165;
+}
+
+.meta .category.half {
+  margin-bottom: unset;
+}
+
+.no-bottom {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.shallow {
+  margin-bottom: 12;
 }
 
 .dialog-image {
@@ -302,8 +336,16 @@
 .help-label {
   display: inline-block;
 }
+.post-move-option {
+  margin-top: 15;
+}
 
 .padded-help {
   padding: 10 0 10;
+}
+
+
+.spotlight_start, .spotlight_finish {
+  display: inline;
 }
 

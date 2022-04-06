@@ -37,7 +37,7 @@ class Development < ApplicationRecord
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
-  has_many :custom_tiles, dependent: :destroy
+  has_many :spotlights, dependent: :destroy
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
@@ -82,8 +82,8 @@ class Development < ApplicationRecord
   delegate :build_steps, to: :parent
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
-  after_create :set_default_tiles
-  after_save :update_custom_tiles
+  after_create :set_default_spotlights
+  after_save :update_spotlights
 
   alias_attribute :identity, :name
 
@@ -237,21 +237,18 @@ class Development < ApplicationRecord
     [phases, plots].flatten!
   end
 
-  # Create up to three default tiles
-  # rubocop:disable LineLength
-  def set_default_tiles
-    %w[services perks].each do |tile|
-      CustomTile.create(development_id: id, feature: tile, editable: false) if parent_developer.send("enable_#{tile}")
-    end
-
-    %w[referrals].each do |tile|
-      CustomTile.create(development_id: id, feature: tile) if parent_developer.send("enable_#{tile}")
+  # Create up to three default spotlights
+  def set_default_spotlights
+    %w[services perks referrals].each do |tile|
+      next unless parent_developer.send("enable_#{tile}")
+      spotlight = Spotlight.create(development_id: id,
+                                   editable: !%w[services perks].include?(tile))
+      CustomTile.create(spotlight: spotlight, feature: tile)
     end
   end
-  # rubocop:enable LineLength
 
   # check whether any features have been disabled and delete any relevant custom tiles
-  def update_custom_tiles
+  def update_spotlights
     changed = []
 
     { "issues" => !Maintenance.exists?(development_id: id),
@@ -259,7 +256,7 @@ class Development < ApplicationRecord
       changed << name if disabled
     end
 
-    CustomTile.delete_disabled(changed, self) unless changed.empty?
+    Spotlight.delete_disabled(changed, self) unless changed.empty?
   end
 
   def my_construction_name

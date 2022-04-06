@@ -1,0 +1,172 @@
+<%= simple_form_for([parent, spotlight]) do |f| %>
+  <% if spotlight.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% spotlight.errors.full_messages.each do |message| %>
+        <li>
+          <%= fa_icon "exclamation-circle" %>
+          <%= message %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row-item meta row two-thirds">
+    <div class="editable half">
+      <% if current_user.cf_admin? %>
+        <%= label_tag :editable, t(".editable"), class: "checkbox-label" %>
+        <%= f.check_box :editable %>
+        <p class="checkbox-description"><%= t(".editable_description") %></p>
+      <% end %>
+    </div>
+    <div class="category half">
+      <%= f.input :category, as: :select, collection: spotlight_types, include_blank: false %>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <ul>
+      <% %i[pre post].each_with_index do |tab, index| %>
+        <li class="tab" spotlight=<%= "spotlight#{index}" %>><span><%= t(".tabs.#{tab}") %></span></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= f.fields_for :custom_tiles do |ct| %>
+    <% custom_tile = ct.object %>
+    <div class="row custom-tile" id=<%="spotlight#{custom_tile.order}"%>>
+      <div class="row-item two-thirds no-bottom">
+        <div class="half">
+          <div class="ui-front" id="categorySelector">
+            <%= ct.input :category, as: :select, collection: tile_collection(:categories), include_blank: false %>
+          </div>
+
+          <fieldset id="customTileFeature">
+            <div class="ui-front" id="featureSelector">
+              <%= ct.input :feature, as: :select, collection: tile_collection(:features, meta: :snag_name, meta_val: custom_tile.snag_name), include_blank: true, disabled: feature_disabled(spotlight) %>
+            </div>
+          </fieldset>
+
+          <fieldset id="customTileDocument">
+            <div class="ui-front" id="documentSelector">
+              <%= ct.input :document_id, label: t(".document"), as: :select, collection: spotlight.documents_in_scope, include_blank: true %>
+            </div>
+            <div class="ui-front" id="guideSelector">
+              <%= ct.input :guide, label: t(".guide"), as: :select, collection: tile_collection(:guides), include_blank: true %>
+            </div>
+            <div class="document-file" id="fileSelector">
+              <% if custom_tile.file? %>
+                <div>
+                  <%= label_tag :file, t(".current_file") %>
+                  <p><%= File.basename(custom_tile.file.to_s) %></p> <!-- SORT OUT NAME -->
+                </div>
+              <% end %>
+              <%= label_tag :file, t(".file") %>
+              <% if custom_tile.persisted? %>
+                <%= ct.file_field :file, label: t(".file"), as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload" %>
+              <% else %>
+                <%= ct.file_field :file, class: "file-upload" %>
+              <% end %>
+              <%= label_tag("spotlight_custom_tiles_attributes_#{custom_tile.order}_file", t("choose"), class: "choose-file") %>
+            </div>
+          </fieldset>
+
+          <fieldset id="customTileLink">
+            <%= ct.input :link, label: t(".link") %>
+          </fieldset>
+
+         <fieldset id="customTileContentProforma">
+            <div class="ui-front" id="proformaSelector">
+              <%= ct.hidden_field :tileable_type, value: Timeline.to_s %>
+              <%= ct.input :tileable_id,
+                as: :select,
+                collection: spotlight_parent.proformas,
+                label_method: ->(proforma) { proforma.title },
+                label: t(".content_proforma"),
+                include_blank: true %>
+            </div>
+          </fieldset>
+
+          <fieldset id="customTileAppears">
+            <% if custom_tile.order == 0 %>
+              <div id="appears">
+                <label id="static_title"><%= t(".appears.title") %></label>
+                <label id="dynamic_title"><%= t(".appears.dynamic_title") %></label>
+                <% Spotlight.appears.each do |k,v| %>
+                  <% if %w[always moved_in completed].include?(k) %>
+                  <div class="spotlight-option pre-move-option" >
+                  <% else %>
+                  <div class="spotlight-option post-move-option" >
+                  <% end %>
+                    <%= f.radio_button :appears, k, checked: (spotlight.appears == k), id: "appears_#{k}" %>
+                    <label for=<%="appears_#{k}"%>><%=t(".appears.#{k}")%></label>
+
+                    <% if %w[emd_on_after emd_on_before emd_between].include?(k) %>
+                      <%= f.input :start, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: true, input_html: { type: :date, :value => spotlight&.start&.html, for: "#{k}_start" } %>
+                    <% end %>
+                    <% if %w[emd_between].include?(k) %>
+                      <span> and </span>
+                      <%= f.input :finish, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: true, input_html: { type: :date, :value => spotlight&.finish&.html, for: "#{k}_finish" } %>
+                    <% end %>
+
+                    <% unless k == :always.to_s %>
+                      <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+                      <div id="dropdown-help" class="hidden">
+                        <%=appears_help(spotlight, k)%>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+                <div id="all_or_nothing">
+                  <%= label_tag :editable, t(".all_or_nothing"), class: "checkbox-label" %>
+                  <%= f.check_box :all_or_nothing %>
+                  <p class="checkbox-description"><%= t(".all_or_nothing_desc") %></p>
+                </div>
+                <%= f.input :expiry, as: :select, collection: expiries_collection, include_blank: false, label: t(".expires_after") %>
+              </div>
+            <% end %>
+          </fieldset>
+        </div>
+
+        <div class="half no-bottom">
+          <fieldset id="customTileContent">
+            <%= ct.input :title, label: t(".title"), placeholder: "Character limit: 30", input_html: { maxlength: 30 } %>
+            <%= ct.check_box :render_title %>
+            <p class="checkbox-description"><%=t(".render_title")%></p>
+            <%= ct.input :description, placeholder: "Character limit: 100", label: t(".description"), input_html: { maxlength: 100 } %>
+            <%= ct.check_box :render_description %>
+            <p class="checkbox-description"><%=t(".render_description")%></p>
+            <%= ct.input :button, label: t(".button"), placeholder: "Character limit: 15", input_html: { maxlength: 15 } %>
+            <%= ct.check_box :render_button %>
+            <p class="checkbox-description"><%=t(".render_button")%></p>
+
+            <div class="image-container" id="imageSelector">
+              <%= ct.input :image, label: t(".image"), as: :image_preview %>
+            </div>
+            <div id='full_image'>
+              <%= ct.check_box :full_image %>
+              <p class="checkbox-description"><%=t(".full_image")%></p>
+            </div>
+            <br/>
+          </fieldset>
+        </div>
+
+      </div>
+
+      <div class="row-item third">
+        <%= render 'spotlights/custom_tile/preview', custom_tile: spotlight %>
+      </div>
+    </div>
+    <%= ct.hidden_field :_destroy, value: false, deletefield: true %>
+    <%= ct.hidden_field :order %>
+  <% end %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% parent ||= spotlight.parent %>
+      <%= link_to t(".back"), [parent, :spotlights], class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

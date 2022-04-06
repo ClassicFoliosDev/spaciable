@@ -22,7 +22,7 @@
     </div>
     <% if @contact.contact_type.present? %>
       <div class="category">
-        <%= label_tag(t(".contact_type")) %>
+        <label><%= t(".contact_type")%></label>
         <span><%= t("activerecord.attributes.contact.contact_types.#{@contact.contact_type}") %></span>
       </div>
     <% end %>

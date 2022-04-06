@@ -45,13 +45,15 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
     url && !url.to_s.starts_with?("/uploads/tmp/")
   end
 
+  # rubocop:disable LineLength
   def build_remove_button(out, _image)
-    out << template.label_tag("#{object.model_name.param_key}_remove_#{attribute_name}",
+    out << template.label_tag("#{@builder.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, '_').sub(/_$/, '')}_remove_#{attribute_name}",
                               "",
                               class: "btn remove-btn fa fa-trash-o")
     out << @builder.check_box("remove_#{attribute_name}",
                               label: false, class: "hidden remove-image")
   end
+  # rubocop:enable LineLength
 
   def image_preview
     version = input_html_options.delete(:preview_version)

@@ -464,19 +464,19 @@ en:
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
-    phase_timelines: "Narratives"
+    phase_timelines: "Interactive Handovers"
     phase_calendar: "Calendar"
-    phase_timelines_add: "New Phase Narrative"
-    phase_timelines_edit: "Edit Phase Narrative"
+    phase_timelines_add: "New Phase Interactive Handover"
+    phase_timelines_edit: "Edit Phase Interactive Handover"
     development_csv: "Upload CSV"
-    custom_tiles: "Resident Spotlights"
-    custom_tile_add: "New Spotlight"
-    custom_tile_edit: "Edit %{tile}"
-    timeline_add: "Add Narrative"
-    timelines: "Narratives"
+    spotlights: "Resident Spotlights"
+    spotlight_add: "New Spotlight"
+    spotlight_edit: "Edit %{tile}"
+    timeline_add: "Add Interactive Handover"
+    timelines: "Interactive Handovers"
     timeline_show: "%{timeline}"
     timeline_edit: "Edit %{timeline}"
-    timeline_import: "Import Narrative"
+    timeline_import: "Import Interactive Handover"
     tasks: "Naratives"
     task_show: "%{task}"
     task_edit: "Edit %{task}"
@@ -683,7 +683,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       analytics: "Analytics"
-      narratives: "Narratives"
+      narratives: "Interactive Handovers"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1354,7 +1354,7 @@ en:
     edit:
       title: "Edit %{name}"
 
-  custom_tiles:
+  spotlights:
     collection:
       create: "New Spotlight"
       spotlight: "Spotlight"
@@ -1369,12 +1369,10 @@ en:
       spotlight_help:
         title: "Resident Spotlights"
         text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting specific features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where all Spotlights are not configured, seasonal Spaciable ‘How Tos’ will fill the remaining spots.</p>"
-    new:
-      title: "New Spotlight"
-    edit:
-      title: "Edit %{tile}"
     show:
       back: "Back"
+    edit:
+      title: "Edit %{tile}"
     form:
       link: "Link URL"
       title: "Title"
@@ -1388,6 +1386,8 @@ en:
       submit: "Submit"
       editable: "Editable"
       editable_description: "Client admins can edit or delete this shortcut"
+      all_or_nothing: "Show both/neither"
+      all_or_nothing_desc: "Only display Pre-Move Spotlight if resident qualifies for Post-Move Spotlight"
       current_file: "Current File"
       content_proforma: "Interactive Guide"
       full_image: "Display image full width?"
@@ -1396,9 +1396,24 @@ en:
       render_button: "Render button on Spotlight?"
       appears:
         title: "Resident sees Spotlight"
+        dynamic_title: "Resident sees Post-Move spotlight after Estimated Move-In Date (EMD), when EMD"
         always: "Always"
         moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
+        after_emd: "has passed"
+        emd_on_after: "is on/after"
+        emd_on_before: "is on/before"
+        emd_between: "is between"
+      appears_after:
+        title: "Resident sees Spotlight"
+        emd: "After Estimated Move-In Date"
+        emd_date: "Only If Estimated Move-in Date is on/after"
+      tabs:
+        pre: "Pre-Move Spotlight"
+        post: "Post-Move Spotlight"
+      expires_after: "Post-Move Spotlight expires"
+    new:
+      title: "New Spotlight"
 
   home:
     show:
@@ -1434,7 +1449,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
-      custom_tiles: "Resident Spotlights"
+      spotlights: "Resident Spotlights"
       calendar: "Calendar"
     edit:
       back: "Back"
@@ -1705,7 +1720,7 @@ en:
       splash:
         welcome: "Welcome To"
         your_journey: "My Journey"
-        paragraph_1: "This narrative is designed to help you track your progress and learn more about the process each step of the way."
+        paragraph_1: "This Interactive Handover is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
       select_stage:
@@ -2087,7 +2102,7 @@ en:
   developers:
     timelines:
       import:
-        title: "Import Narrative"
+        title: "Import Interactive Handover"
         search: "Search"
         import: "Import"
     destroy:
@@ -2144,7 +2159,7 @@ en:
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
       timeline: "My Journey and Interactive Guides"
-      timeline_description: "Turning this on will allow Narratives to be imported and edited for this Developer."
+      timeline_description: "Turning this on will allow <strong>Interactive Handovers</strong> to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
       link: "Branded Buyers' Club Link"
@@ -2199,7 +2214,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "Narratives"
+      timelines: "Interactive Handovers"
       videos: "Videos"
       content_management: "Content Management"
     developer:
@@ -2526,7 +2541,7 @@ en:
       release_plots: "Release Plots"
       lettings: "Lettings"
       import: "Import CRM"
-      phase_timelines: "Narratives"
+      phase_timelines: "Interactive Handovers"
       calendar: "Calendar"
       brands: "Styling"
     new:
@@ -2616,14 +2631,14 @@ en:
     phase_timelines:
       journey:
         title: "My Journey Allocations"
-        label: "My Journey Narrative"
-        description: "Use this page to associate My Journey narratives with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
-        warning: "Any plots removed from My Journey narrative allocations will have their progress destroyed and their My Journey access revoked when this page is saved."
+        label: "Journey"
+        description: "Use this page to associate <strong>Journeys</strong> with plots on this phase. The <strong>My Journey</strong> page will only show on plots that are listed in the <strong>Associated Plots</strong> below."
+        warning: "Any plots removed from <strong>Journey</strong> allocations will have their progress destroyed and their <strong>My Journey</strong> access revoked when this page is saved."
       proforma:
         title: "Interactive Guide Allocations"
-        label: "Interactive Guide Narrative"
-        description: "Use this page to associate Proforma Document timelines with plots on this phase. The Proforma Document page will only show on plots that are listed in the Associated Plots below."
-        warning: "Any plots removed from Proforma timeline allocations will have their progress destroyed and their Proforma Document access revoked when this page is saved."
+        label: "Interactive Guide"
+        description: "Use this page to associate <strong>Interactive Guides</strong> with plots on this phase. The <strong>Interactive Guide</strong> will only show on plots that are listed in the <strong>Associated Plots</strong> below."
+        warning: "Any plots removed from <strong>Interactive Guide</strong> allocations will have their progress destroyed and their <strong>Interactive Guide</strong> access revoked when this page is saved."
       form:
         plots: "Associated Plots"
 
@@ -2861,7 +2876,7 @@ en:
       finishes: "Finishes: "
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
-      timeline: "Narrative: "
+      timeline: "Interactive Handover: "
       preview: "Preview"
       uprn: "UPRN: "
       uprn_error: " should be up to 12 digits long and only contain numbers."
@@ -2975,8 +2990,8 @@ en:
       logs: "Change Logs"
       plot_template:
         title: "What is a Spec Template?"
-        help: "<p><strong>Spec Templates</strong> allow you to group plots that share similar specifications, such as by house type or colour palette, to save time when populating finishes and appliances.</p><p>Any room, finish and appliance that you add to a <strong>Spec Template</strong> will also be shown in each plot assigned to it.</p><p>Once a room is edited at plot level it becomes unique to that plot; any new changes made to that same room in the <strong>Spec Template</ will not be reflected on the plot.</p><p><strong>Top Tip: Use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.</strong><p>"
-        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the Spec Template title.</p>"
+        help: "<p><strong>Spec Templates</strong> allow you to group plots that share similar specifications, such as by house type or colour palette, to save time when populating finishes and appliances.</p><p>Any room, finish and appliance that you add to a <strong>Spec Template</strong> will also be shown in each plot assigned to it.</p><p>Once a room is edited at plot level it becomes unique to that plot; any new changes made to that same room in the <strong>Spec Template</strong> will not be reflected on the plot.</p><p><strong>Top Tip: Use Spec Templates to populate any shared specifications, then add the remaining choices and changes at plot level.</strong><p>"
+        recall: "<p>To recall this message, click the <i class='fa fa-question-circle-o' aria-hidden='true'></i> next to the <strong>Spec Template</strong> title.</p>"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -3172,7 +3187,7 @@ en:
       disclaimer: "Can't find the %{item} you're looking for?"
       category_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the category you would like to add. Your request for a new category will be reviewed within 2 working days.<br/><br/>A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group <strong>Finish Types</strong>."
       type_help: "Contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the finish type you would like to add. Your request for a new type will be reviewed within 2 working days.<br/><br>A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more Finish Categories."
-      manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers.</a> to add a new manufacturer entry to the <strong>Finishes Catalogue</strong> and associate it with any applicable <strong>Finish Types</strong>.<br/><br/>If the manufacturer exists, but isn't associated with your required <strong>Finish Type</strong>, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the type you would like to associate. Your request for a new association will be reviewed within 2 working days."
+      manufacturer_help: "Visit <a href='%{url}' target='_blank'>Finish Manufacturers</a> to add a new manufacturer entry to the <strong>Finishes Catalogue</strong> and associate it with any applicable <strong>Finish Types</strong>.<br/><br/>If the manufacturer exists, but isn't associated with your required <strong>Finish Type</strong>, contact the <a href='mailto:hello@spaciable.com'>Spaciable Team</a> with details of the type you would like to associate. Your request for a new association will be reviewed within 2 working days."
       update: "Are you sure you want to update the catalogue entry for %{finish}? Any changes will be reflected on all plots and Spec Templates containing this finish."
       clone: "You have chosen to clone an existing finish. Edit the finish details and click Submit to create a new finish in the catalogue."
     edit:
@@ -3400,7 +3415,7 @@ en:
       submit: "Submit"
       notify: "Notify subscribed residents about this change"
       picture: "Image"
-      contact_type: "Interactive Content Tag"
+      contact_type: "Interactive Handover Tag"
       category: "Category"
       first_name: "First Name"
       last_name: "Surname"
@@ -3410,13 +3425,13 @@ en:
       pinned: "Pinned"
       pinned_description: "Pinned contacts will display before unpinned contacts on the resident dashboard, ordered by last edited. There is no limit to the number of pinned contacts."
       help:
-        title: "Interactive Content"
-        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>Apply an <strong>Interactive Content Tag</strong> to display a Contact to your residents on appropriate pages in an Interactive Guide or the My Journey feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
+        title: "Interactive Handover"
+        desc: "<div class='dialog-image'><a href='%{image}' target='_blank' title='Open in another tab.'><img src='%{image}'></a><br/><p>Apply an <strong>Interactive Handover Tag</strong> to display a contact to your residents on appropriate pages in an <strong>Interactive Guide</strong> or the <strong>My Journey</strong> feature. To inform your customers of the timeline of events to expect during their journey with you, enable either of these additional extras to your developments today!</p><p><a href='%{url}' target='_blank'>Click here to explore Spaciable additional extras.</a></p></div>"
     edit:
       title: "Edit %{name}"
     show:
       back: "Back"
-      contact_type: "Position Tag"
+      contact_type: "Interactive Handover Tag"
 
   brands:
     index:
@@ -3790,6 +3805,10 @@ en:
           completion: "Completion"
           floor_plan: "Floor Plan"
 
+      spotlights:
+        category:
+          static: "Static"
+          dynamic: "Dynamic"
       custom_tiles:
         categories:
           feature: "Feature"
@@ -3810,6 +3829,10 @@ en:
           reservation: "Reservation"
           completion: "Completion"
           floor_plan: "Floor Plan"
+        expiries:
+          never: "never"
+          one_year: "1 year after EMD"
+          two_years: "2 years after EMD"
 
       user:
         email: "Email address"
@@ -4053,12 +4076,12 @@ en:
 
   timelines:
     turned_off: "Turned Off"
-    import: "Import Narrative"
+    import: "Import Interactive Handover"
     index:
-      title: "Narratives"
+      title: "Interactive Handovers"
     collection:
-      create: "Add Narrative"
-      narrative: "Narrative"
+      create: "Add Interactive Handover"
+      narrative: "Interactive Handover"
       type: "Type"
       last_edited: "Last Edited"
       created_at: "Created At"
@@ -4098,8 +4121,8 @@ en:
       delete: "Delete"
       insert_before: "Insert Page Before %{page}"
       insert_after: "Insert Page After %{page}"
-      empty_cf: "You narrative is currently empty. Add a page to start creating your narrative."
-      empty: "You narrative is currently empty"
+      empty_cf: "You Interactive Handover is currently empty. Add a page to start creating your Interactive Handover."
+      empty: "You Interactive Handover is currently empty"
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
@@ -4271,7 +4294,7 @@ en:
 
   phase_timelines:
     collection:
-      name: "Narrative"
+      name: "Interactive Handover"
       add_journey: "Add Journey Associations"
       add_proforma: "Add Interactive Guide Associations"
       empty: "You have no Journey/Interactive Guide Plot Associations"
@@ -4347,8 +4370,6 @@ en:
         update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
         global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
 
-
-
   faq_package:
     title: "FAQ Type"
     standard: "Standard"
@@ -4369,6 +4390,8 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
     moved_in: "Use for Spotlights relevant after a resident has moved in. You can set each plot's <strong>Estimated Move in Date</strong> by visiting a plot and using the <strong>Completion</strong> tab or the plot edit page."
     completed: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a <a href='%{url}' target='_blank'>Phase</a>, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
     completed_e: "<p>When the Spaciable Team populate a plot with a Homeowner Guide and/or specifications, the plot Status is updated to <strong>‘Ready for Handover’</strong>. When viewing a Phase, this is represented by the green circle in a plot's Status column.</p><p>If plots are on the Free or Essentials package, or if your package does not include Homeowner Guides and/or specifications from the Spaciable Team, all plots are considered Ready for Handover from their creation date.</p>"
+    post_move: "This Spotlight will replace the Pre-Move Spotlight on the plot’s <strong>Estimated Move-in Date</strong>, and will remain visible to residents for the duration set below. If the Post-Move Spotlight contains a promotion or content that only applies to recent occupiers, restrict it to plots that reach their <strong>Estimated Move-in Date</strong> on/after a certain date"
+    dynamic: "Dynamic Spotlight"
 
   admin_dashboard:
     title: "Thank You for Choosing Spaciable!"

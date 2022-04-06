@@ -837,17 +837,5 @@ class Plot < ApplicationRecord
     ActiveRecord::Base.connection.exec_query(sql)
   end
   # rubocop:enable Metrics/MethodLength
-
-  # filter tiles according to the plot status
-  def visible_tiles(active_tiles)
-    [%i[moved_in completion_date],
-     %i[completed completion_release_date]].each do |appear, date|
-      if send(date).blank? || (send(date).present? && send(date) > Time.zone.today)
-        active_tiles.reject! { |t| t.send("#{appear}?") }
-      end
-    end
-
-    active_tiles
-  end
 end
 # rubocop:enable Metrics/ClassLength
