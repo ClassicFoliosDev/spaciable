@@ -85,13 +85,9 @@ class Appliance < ApplicationRecord
     b
     c
     d
-    e
-    f
-    g
   ]
 
   enum main_uk_e_rating: %i[
-    not_known
     a
     b
     c
@@ -102,7 +98,6 @@ class Appliance < ApplicationRecord
   ], _prefix: :main_e_rating
 
   enum supp_uk_e_rating: %i[
-    not_known
     a
     b
     c
