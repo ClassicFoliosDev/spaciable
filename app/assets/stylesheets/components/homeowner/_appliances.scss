@@ -96,6 +96,10 @@
   }
 }
 
+.appliances-disclaimer {
+  padding: 0 10;
+}
+
 @include media($mobile-down) {
   .appliances {
     .appliance {
@@ -111,7 +115,6 @@
 
   .appliances-disclaimer {
     font-size: small;
-    padding: 0 10;
 
     a {
       text-decoration: underline;
