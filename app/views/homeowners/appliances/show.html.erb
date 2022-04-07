@@ -65,26 +65,25 @@
               <%= image_tag "Energy Rating #{appliance.e_rating.upcase}.svg", class: "energy-rating" %>
             <% end %>
 
-            <% if (appliance.main_uk_e_rating && !appliance.main_e_rating_not_known?) ||
-                  (appliance.supp_uk_e_rating && !appliance.supp_e_rating_not_known?) %>
+            <% if (appliance.main_uk_e_rating || appliance.supp_uk_e_rating ) %>
               <span class="branded-text"><%= label_tag :energy, t(".main_uk_e_rating").html_safe %></span>
 
               <% if appliance.washer_dryer? %>
                 <div class='e_ratings'>
-                  <% if appliance.main_uk_e_rating && !appliance.main_e_rating_not_known? %>
+                  <% if appliance.main_uk_e_rating %>
                     <div class='ratingimage'>
                       <%= image_tag "Energy Rating (Washer Dryer) (#{appliance.main_uk_e_rating.upcase}).svg", class: "energy-rating" %>
                       <label><%= t(".washdry") %> </label>
                     </div>
                   <% end %>
-                  <% if appliance.supp_uk_e_rating && !appliance.supp_e_rating_not_known? %>
+                  <% if appliance.supp_uk_e_rating %>
                     <div class='ratingimage'>
                       <%= image_tag "Energy Rating (Washer Dryer) (#{appliance.supp_uk_e_rating.upcase}).svg", class: "energy-rating" %>
                       <label><%= t(".wash") %> </label>
                     </div>
                   <% end %>
                 </div>
-              <% elsif appliance.main_uk_e_rating && !appliance.main_e_rating_not_known?%>
+              <% elsif appliance.main_uk_e_rating %>
                 <%= image_tag "Energy Rating (#{appliance.main_uk_e_rating.upcase}).svg", class: "energy-rating" %>
               <% end %>
             <% end %>
