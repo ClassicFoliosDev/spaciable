@@ -1385,25 +1385,27 @@ en:
       back: "Back"
       submit: "Submit"
       editable: "Editable"
+      category: "Spotlight Type"
+      spotlight_help: "<p><strong>Static Spotlight</strong> - A Static Spotlight highlights a single feature, document or link to residents. While not available, a How To will be shown.<br/><br/><strong>Dynamic Spotlight</strong> - A Dynamic Spotlight switches from Pre-Move to Post-Move, which allows you to highlight a feature, document or link that is replaced when a plot reaches its Estimated Move-in Date (EMD).</p><p>You can also configure:</p><ul><li>The Post-Move Spotlight to only be seen by residents that move in after, before or between certain dates</li><li>How long the Post-Move Spotlight should be seen for</li><li>The Pre-Move Spotlight to only be seen if the resident has an EMD that qualifies for the Post-Move Spotlight</li><ul>"
       editable_description: "Client admins can edit or delete this shortcut"
-      all_or_nothing: "Show both/neither"
-      all_or_nothing_desc: "Only display Pre-Move Spotlight if resident qualifies for Post-Move Spotlight"
+      all_or_nothing_desc: "<strong>Hide Pre-Move Spotlight if Post-Move options will not be met<strong>"
       current_file: "Current File"
       content_proforma: "Interactive Guide"
       full_image: "Display image full width?"
       render_title: "Render title on Spotlight?"
       render_description: "Render description on Spotlight?"
       render_button: "Render button on Spotlight?"
+      all_or_nothing_help: "If ticked, Pre-Move Spotlight is only seen by residents before EMD, if their EMD qualifies for the Post-Move Spotlight. If a plot's EMD is blank, neither Spotlight will be seen."
       appears:
         title: "Resident sees Spotlight"
-        dynamic_title: "Resident sees Post-Move spotlight after Estimated Move-In Date (EMD), when EMD"
+        dynamic_title: "Switch to Post-Move Spotlight after Estimated Move-in Date (EMD), when EMD is"
         always: "Always"
         moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
-        after_emd: "has passed"
-        emd_on_after: "is on/after"
-        emd_on_before: "is on/before"
-        emd_between: "is between"
+        after_emd: "Any date in the past"
+        emd_on_after: "On/after"
+        emd_on_before: "On/before"
+        emd_between: "Between"
       appears_after:
         title: "Resident sees Spotlight"
         emd: "After Estimated Move-In Date"
@@ -1411,7 +1413,7 @@ en:
       tabs:
         pre: "Pre-Move Spotlight"
         post: "Post-Move Spotlight"
-      expires_after: "Post-Move Spotlight expires"
+      expires_after: "Resident stops seeing Post-Move Spotlight"
     new:
       title: "New Spotlight"
 
@@ -3809,8 +3811,8 @@ en:
 
       spotlights:
         category:
-          static: "Static"
-          dynamic: "Dynamic"
+          static: "Static Spotlight"
+          dynamic: "Dynamic Spotlight"
       custom_tiles:
         categories:
           feature: "Feature"
@@ -3832,9 +3834,9 @@ en:
           completion: "Completion"
           floor_plan: "Floor Plan"
         expiries:
-          never: "never"
-          one_year: "1 year after EMD"
-          two_years: "2 years after EMD"
+          never: "Never"
+          one_year: "1 Year after EMD"
+          two_years: "2 Years after EMD"
 
       user:
         email: "Email address"

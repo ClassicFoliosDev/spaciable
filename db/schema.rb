@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220406094546) do
+ActiveRecord::Schema.define(version: 20220409145156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1172,7 +1172,7 @@ ActiveRecord::Schema.define(version: 20220406094546) do
     t.integer "category",       default: 0
     t.boolean "cf",             default: true
     t.boolean "editable",       default: true
-    t.boolean "all_or_nothing", default: true
+    t.boolean "all_or_nothing", default: false
     t.integer "appears",        default: 0
     t.integer "expiry",         default: 0
     t.date    "start"
@@ -1380,6 +1380,7 @@ ActiveRecord::Schema.define(version: 20220406094546) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
+  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"
