@@ -46,7 +46,9 @@ class CustomTile < ApplicationRecord
     conveyancing: 8
   }
 
-  delegate :snag_name, to: :spotlight, allow_nil: true
+  def snag_name
+    spotlight&.snag_name || "Snagging"
+  end
 
   def proforma
     return unless content_proforma?
