@@ -158,7 +158,7 @@ class Spotlight < ApplicationRecord
     case expiry
     when :one_year.to_s
       Time.zone.today > (plot.completion_date + 1.year)
-    when :to_year.to_s
+    when :two_years.to_s
       Time.zone.today > (plot.completion_date + 2.years)
     else
       false
