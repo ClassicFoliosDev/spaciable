@@ -137,7 +137,7 @@ class Spotlight < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength, NegatedIf
 
   def qualifies(plot)
-    return false if plot.completion_date?
+    return false unless plot.completion_date?
     return true if after_emd?
     return plot.completion_date >= start if emd_on_after?
     return plot.completion_date <= start if emd_on_before?
