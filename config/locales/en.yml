@@ -1366,6 +1366,7 @@ en:
       help_title: "Unlock More Options"
       help: "<p>Plots allocated to the Spaciable Free package can only access Spotlights added by The Spaciable Team. To make Spaciable your own and promote your brand, upgrade your Spaciable Free plots today to enable access to your own Spotlights and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
+      confirm_delete_dynamic: "Are you sure you want to delete the Dynamic Spotlight?"
       spotlight_help:
         title: "Resident Spotlights"
         text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting specific features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where all Spotlights are not configured, seasonal Spaciable ‘How Tos’ will fill the remaining spots.</p>"
