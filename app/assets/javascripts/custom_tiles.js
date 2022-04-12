@@ -446,7 +446,8 @@
 
   function check_full_image(spotlight) {
     if ($(spotlight_selector(spotlight, ".image-preview")).is(":visible") ||
-      $('#spotlight_custom_tiles_attributes_'.concat(spotlight.index, '_image')).prop("files").length) {
+        ($('#spotlight_custom_tiles_attributes_'.concat(spotlight.index, '_image')).prop("files") != undefined &&
+         $('#spotlight_custom_tiles_attributes_'.concat(spotlight.index, '_image')).prop("files").length)) {
       $(spotlight_selector(spotlight, "#full_image")).show()
     } else {
       $(spotlight_selector(spotlight, "#full_image")).hide()

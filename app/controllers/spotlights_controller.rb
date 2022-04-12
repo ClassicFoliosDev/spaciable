@@ -25,6 +25,7 @@ class SpotlightsController < ApplicationController
       notice = t("controller.success.create", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
+      @spotlight.build
       render :new
     end
   end
@@ -35,6 +36,7 @@ class SpotlightsController < ApplicationController
       notice = t("controller.success.update", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
+      @spotlight.build
       render :edit
     end
   end
