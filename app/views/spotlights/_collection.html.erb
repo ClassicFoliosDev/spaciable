@@ -51,7 +51,7 @@
       <td>
         <% spotlight.custom_tiles.each_with_index do |custom_tile, index| %>
           <% if index > 0 %> <br/> <% end %>
-          <%= custom_tile.category.titleize %>
+          <%= t(".categories.#{custom_tile.category}") %>
         <% end %>
       </td>
       <% if current_user.cf_admin? %>

@@ -1370,6 +1370,11 @@ en:
       spotlight_help:
         title: "Resident Spotlights"
         text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting specific features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where all Spotlights are not configured, seasonal Spaciable ‘How Tos’ will fill the remaining spots.</p>"
+      categories:
+        feature: "Feature"
+        document: "Document"
+        link: "Link"
+        content_proforma: "Interactive Guide"
     show:
       back: "Back"
     edit:
