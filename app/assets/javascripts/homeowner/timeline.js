@@ -60,6 +60,14 @@
     $('#iconMobileLiving').addClass("fas fa-male")
   })
 
+  $( window ).resize(function() {
+    if ($(".timeline-container").length < 1) { return }
+
+    if (!$('#timelineContentMobile').children().length) {
+      $('.timeline-container').css('height', $('.homeowner-view').height() - $('.branded-hero').height() - 150)
+    }
+  })
+
   // display timeline in mobile view
   document.addEventListener('turbolinks:load', function () {
     if ($(window).innerWidth() < 760) {
@@ -79,6 +87,11 @@
   })
 
   document.addEventListener('turbolinks:load', function () {
+
+    if ($(".timeline-container").length < 1) { return }
+
+    $('body.homeowner-view').attr('id', 'timeline-body');
+
     if ($('#activeTaskScroll').length) {
       if ($(window).innerWidth() < 760) {
         $('#timelineSidebar').animate({
@@ -95,6 +108,8 @@
     if ($('#timelineContentMobile').children().length) {
       $('.branded-hero').hide()
       $('.branded-body').css('min-height', $(document).height() - $('.brande-nav-background').height())
+    } else {
+      $('.timeline-container').css('height', $('.homeowner-view').height() - $('.branded-hero').height() - 150)
     }
 
     // change the styling on the completed page
