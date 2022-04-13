@@ -46,6 +46,9 @@
 
     if ($("#categorySelector").length == 0) { return }
     if ($('#spotlight_category').length == 0) { return }
+
+    $(".section-header").addClass("spotlight-section-header")
+
     check_spotlights()
 
     $("#spotlight_category").selectmenu({
