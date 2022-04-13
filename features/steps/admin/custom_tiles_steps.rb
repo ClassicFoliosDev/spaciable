@@ -175,9 +175,10 @@ end
 Given(/^there are five spotlights for my development$/) do
   id = CreateFixture.development.id
 
+
   (5 - Spotlight.where(development_id: id).count).times do
     spotlight = Spotlight.create(development_id: id)
-    CustomTile.create(spotlight_id: spotlight, category: 'feature', feature: 'referrals')
+    CustomTile.create(spotlight: spotlight, category: 'feature', feature: 'referrals')
   end
 end
 
