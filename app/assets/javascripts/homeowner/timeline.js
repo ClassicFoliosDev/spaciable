@@ -7,6 +7,11 @@
     borderSelected()
   })
 
+  $(document).on('click', '#collapse, #expand', function (event) {
+    $(this).closest('li').find('button').toggle()
+    $(this).closest('li').next('ul').toggle()
+  })
+
   // add or remove the 'selected' class from a timeline stage option
   function borderSelected() {
     var allStages = $(".timeline-stage-option")

@@ -217,7 +217,6 @@
         font-size: $base-small-font-size;
         padding: 10px;
         line-height: 0.5;
-        text-align: center;
         list-style: none;
         margin-left: -$spacing-small;
 
@@ -240,10 +239,12 @@
         }
 
         span:before {
+          top: 4;
           right: 100%;
         }
 
         span:after {
+          top: 4;
           left: 100%;
         }
       }
@@ -965,7 +966,7 @@
       }
 
       .list-stages {
-        padding-top: 260px;
+        padding-top: 170px;
 
         .sub-stage {
           .sub-stage-container {
