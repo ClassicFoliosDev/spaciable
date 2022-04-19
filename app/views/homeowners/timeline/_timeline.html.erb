@@ -1,8 +1,9 @@
-      <div class="list-stages" id="timelineSidebar" data-no-turbolink  data-tt=<%=timeline.stage_set_type%> >
+      <div class="list-stages" id="timelineSidebar" data-no-turbolink  data-tt=<%=timeline.stage_set_type%> data-timeline=<%= timeline.id %>>
         <ul class="vertical">
           <% timeline.stages.each do |stage| %>
-          <li class="stage-title"><span><button id="collapse" class="btn collapse-expand-btn" type="button" title="Collapse">-</button><button id="expand" class="btn collapse-expand-btn hidden" type="button" title="Expand">+</button><%= stage.title %></span></li>
-           <ul class="sub-stage">
+          <% collapsed = collapsed(plot_timeline,stage) %>
+          <li class="stage-title" data-stage=<%= stage.id %>><span><button id="collapse" class="btn collapse-expand-btn <%= 'hidden' if collapsed %>" type="button" title="Collapse">-</button><button id="expand" class="btn collapse-expand-btn <%= 'hidden' if !collapsed %>" type="button" title="Expand">+</button><%= stage.title %></span></li>
+           <ul class="sub-stage <%= 'hidden' if collapsed %>">
            <% timeline.stage_tasks(stage)&.each do |t| %>
               <li id = "<%= 'activeTaskScroll' if t == task %>"
                   class="sub-stage-container branded-text

@@ -8,8 +8,16 @@
   })
 
   $(document).on('click', '#collapse, #expand', function (event) {
-    $(this).closest('li').find('button').toggle()
-    $(this).closest('li').next('ul').toggle()
+    var li = $(this).closest('li')
+    li.find('button').toggle()
+    li.next('ul').toggle()
+
+    $.post({
+      url: "/homeowners/timelines/" + $('#timelineSidebar').data('timeline') + '/collapsed',
+      data: {stage: li.data('stage'),
+      collapsed: $(this).prop('id') == 'collapse' },
+      dataType: 'json'
+    })
   })
 
   // add or remove the 'selected' class from a timeline stage option
