@@ -1,6 +1,67 @@
 <style data-test="brand-style-overrides" data-turbolinks-track="reload">
 
-<%-# ------------------------------------------ -%>
+<%-# -----------------Font --------------- -%>
+
+   <% base_font_family = "'TProxima Nova' ,sans-serif !important;".html_safe %>
+
+  <% medium_font_family = "'TProxima Nova' ,sans-serif !important;".html_safe %>
+
+  <% header_font_family = "'TProxima Nova' ,sans-serif !important;".html_safe %>
+
+  .branded-body {
+     font-family: <%= base_font_family %>
+  }
+
+  <% %w[h1 h2 h3 .btn .branded-btn .branded-btn-inverted].each do |selector| %>
+    <%= selector %> {
+      font-family:  <%= header_font_family %>
+    }
+  <% end %>
+
+  <% %w[h4 h5].each do |selector| %>
+    <%= selector %> {
+      font-family:  <%= medium_font_family %>
+    }
+  <% end %>
+
+  <% %w[p a ul ol dl].each do |selector| %>
+    <%= selector %> {
+      font-family:  <%= base_font_family %>
+    }
+  <% end %>
+
+  <% %w[button .fc-day-header .fc-more].each do |selector| %>
+    #homeowner_calendar <%= selector %> {
+      font-family:  <%= base_font_family %>
+    }
+  <% end %>
+
+  .branded-border {
+      border-style: none !important;
+      border-top-style: none !important;
+  }
+
+  .event_details_form .event-status .btn {
+    font-family:  <%= base_font_family %>
+  }
+
+  .faq-feedback .faq-button {
+    font-family:  <%= base_font_family %>
+  }
+
+  .account-navigation .dropdown .unread {
+    font-family:  <%= base_font_family %>
+  }
+
+  .account-navigation .dropdown-content .dropdown-link .navigation-btn {
+    font-family:  <%= base_font_family %>
+  }
+
+  .account-navigation .dropdown-content button {
+    font-family:  <%= base_font_family %>
+  }
+
+
 <%-# ------------- BODY BACKGROUND ------------ -%>
 
   <% if brand.branded_bg_color %>
