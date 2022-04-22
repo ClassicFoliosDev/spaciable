@@ -13,28 +13,43 @@
   <% end %>
 
   <div class="row brands">
-    <div class="row-item third brand">
-      <fieldset>
-        <span><%= t(".image_constraints") %></span><br/><br/>
-        <div class="logo-image">
-          <%= f.input :logo, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+    <div class="third">
+      <div class="row-item brand">
+        <fieldset>
+          <span><%= t(".image_constraints") %></span><br/><br/>
+          <div class="logo-image">
+            <%= f.input :logo, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+          <div class="banner-image">
+            <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+            <span><%= t(".banner_size") %></span>
+            <span><%= t(".svg_information").html_safe %></span>
+          </div>
+          <div class="login-image">
+            <%= f.input :login_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+          <div class="login-logo-image">
+            <%= f.input :login_logo, as: :image_preview, input_html: {preview_version: :thumbnail } %>
+          </div>
+          <div class="email-logo-image">
+            <%= f.input :email_logo, label: t(".email_logo"), as: :image_preview, input_html: {preview_version: :thumbnail } %>
+          </div>
+        </fieldset>
+      </div>
+      <div class="row-item following">
+        <div class=" ui-front select-container">
+          <%= f.input :font, as: :select, collection: fonts_collection, label:  t(".font"), include_blank: false  %>
         </div>
-        <div class="banner-image">
-          <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-          <span><%= t(".banner_size") %></span>
-          <span><%= t(".svg_information").html_safe %></span>
+        <div class=" ui-front select-container">
+          <%= f.input :border_style, as: :select, collection: border_styles_collection, label: t(".border_style"), include_blank: false  %>
         </div>
-        <div class="login-image">
-          <%= f.input :login_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        <div class=" ui-front select-container">
+          <%= f.input :button_style, as: :select, collection: button_styles_collection, label: t(".button_style"), include_blank: false  %>
         </div>
-        <div class="login-logo-image">
-          <%= f.input :login_logo, as: :image_preview, input_html: {preview_version: :thumbnail } %>
-        </div>
-        <div class="email-logo-image">
-          <%= f.input :email_logo, label: t(".email_logo"), as: :image_preview, input_html: {preview_version: :thumbnail } %>
-        </div>
-      </fieldset>
+        <%= f.input :hero_height, label: t("activerecord.attributes.brand.hero_height") %>
+      </div>
     </div>
+
     <div class="row-item third">
       <fieldset class="form-colors">
         <div class="bg_color">

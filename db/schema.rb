@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220409145156) do
+ActiveRecord::Schema.define(version: 20220422091706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,8 +178,8 @@ ActiveRecord::Schema.define(version: 20220409145156) do
     t.string   "button_color"
     t.string   "button_text_color"
     t.datetime "deleted_at"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "brandable_type"
     t.integer  "brandable_id"
     t.string   "header_color"
@@ -200,6 +200,10 @@ ActiveRecord::Schema.define(version: 20220409145156) do
     t.string   "heading_two"
     t.string   "info_text"
     t.string   "email_logo"
+    t.string   "font"
+    t.integer  "border_style",              default: 0
+    t.integer  "button_style",              default: 0
+    t.integer  "hero_height",               default: 195
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 
@@ -1380,7 +1384,6 @@ ActiveRecord::Schema.define(version: 20220409145156) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

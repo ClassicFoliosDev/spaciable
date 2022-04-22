@@ -3,6 +3,8 @@
 # rubocop:disable Metrics/ClassLength
 class Brand < ApplicationRecord
   include ActiveModel::Validations
+  MIN_HEIGHT = 100
+  MAX_HEIGHT = 500
 
   mount_uploader :logo, PictureUploader
   mount_uploader :banner, PictureUploader
@@ -17,6 +19,8 @@ class Brand < ApplicationRecord
   delegate :url, to: :login_image, prefix: true
   delegate :url, to: :login_logo, prefix: true
   delegate :url, to: :email_logo, prefix: true
+
+  validate :check_hero_height
 
   belongs_to :brandable, polymorphic: true
 
@@ -35,6 +39,23 @@ class Brand < ApplicationRecord
                                               content_box_outline_color
                                               text_left_color
                                               text_right_color]
+
+  enum border_style: %i[
+    line
+    no_border
+  ]
+
+  enum button_style: %i[
+    round
+    square
+  ]
+
+  def check_hero_height
+    return if hero_height.between?(MIN_HEIGHT, MAX_HEIGHT)
+    errors.add(:hero_height, I18n.t("brands.hero_height.message",
+                                    min: MIN_HEIGHT,
+                                    max: MAX_HEIGHT))
+  end
 
   def branded_text_color
     branded_param(:text_color)

@@ -11,25 +11,37 @@
 
 <div class="row brand">
   <div class="row-item third">
-    <%= label_tag :dashboard_logo, t("brands.collection.logo") %>
-    <div class="brand_logo">
-      <%= image_tag(@brand.logo.url) if @brand.logo? %>
+    <div>
+      <%= label_tag :dashboard_logo, t("brands.collection.logo") %>
+      <div class="brand_logo">
+        <%= image_tag(@brand.logo.url) if @brand.logo? %>
+      </div>
+      <%= label_tag :banner, t("activerecord.attributes.brand.banner") %>
+      <div class="brand_banner">
+        <%= image_tag(@brand.banner.url) if @brand.banner? %>
+      </div>
+      <%= label_tag :login_image, t("activerecord.attributes.brand.login_image") %>
+      <div class="brand_login_image">
+        <%= image_tag(@brand.login_image.url) if @brand.login_image? %>
+      </div>
+      <%= label_tag :login_logo, t("activerecord.attributes.brand.login_logo") %>
+      <div class="brand_login_logo">
+        <%= image_tag(@brand.login_logo.url) if @brand.login_logo? %>
+      </div>
+      <%= label_tag :email_logo, t("brands.form.email_logo") %>
+      <div class="brand_email_logo>">
+        <%= image_tag(@brand.email_logo.url) if @brand.email_logo? %>
+      </div>
     </div>
-    <%= label_tag :banner, t("activerecord.attributes.brand.banner") %>
-    <div class="brand_banner">
-      <%= image_tag(@brand.banner.url) if @brand.banner? %>
-    </div>
-    <%= label_tag :login_image, t("activerecord.attributes.brand.login_image") %>
-    <div class="brand_login_image">
-      <%= image_tag(@brand.login_image.url) if @brand.login_image? %>
-    </div>
-    <%= label_tag :login_logo, t("activerecord.attributes.brand.login_logo") %>
-    <div class="brand_login_logo">
-      <%= image_tag(@brand.login_logo.url) if @brand.login_logo? %>
-    </div>
-    <%= label_tag :email_logo, t("brands.form.email_logo") %>
-    <div class="brand_email_logo>">
-      <%= image_tag(@brand.email_logo.url) if @brand.email_logo? %>
+    <div class="follows">
+      <label><%= t("brands.form.font") %></label>
+      <%= fonts_collection.select{ |f| f[1] == @brand.font}[0][0] %>
+      <label><%= t("brands.form.border_style") %></label>
+      <%= t("activerecord.attributes.brand.border_styles.#{@brand.border_style}") %>
+      <label><%= t("brands.form.button_style") %></label>
+      <%= t("activerecord.attributes.brand.button_styles.#{@brand.button_style}") %>
+      <label><%= t("activerecord.attributes.brand.hero_height") %></label>
+      <%= @brand.hero_height %>
     </div>
   </div>
   <div class="row-item third">
