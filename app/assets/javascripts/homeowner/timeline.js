@@ -33,6 +33,14 @@
     }
   }
 
+  function recalc_view() {
+    if ($(".timeline-container").length < 1) { return }
+
+    var height = $('.homeowner-view').height() - $('.timeline-container').position().top
+    if ($('.quick-links').is(":visible")) { height = height - $('.quick-links').height()}
+    $('.timeline-container').css('height', height)
+  }
+
   // show the shortcut links
   $(document).on('click', '#timelineShortcuts', function (event) {
     // style the open/close button
@@ -74,11 +82,7 @@
   })
 
   $( window ).resize(function() {
-    if ($(".timeline-container").length < 1) { return }
-
-    if (!$('#timelineContentMobile').children().length) {
-      $('.timeline-container').css('height', $('.homeowner-view').height() - $('.branded-hero').height() - 150)
-    }
+    recalc_view()
   })
 
   // display timeline in mobile view
@@ -121,8 +125,6 @@
     if ($('#timelineContentMobile').children().length) {
       $('.branded-hero').hide()
       $('.branded-body').css('min-height', $(document).height() - $('.brande-nav-background').height())
-    } else {
-      $('.timeline-container').css('height', $('.homeowner-view').height() - $('.branded-hero').height() - 150)
     }
 
     // change the styling on the completed page
@@ -140,6 +142,8 @@
         scrollTop: $('li').last().offset().top - 1
       }, 1000)
     }
+
+     recalc_view()
   })
 
 })(document, window.jQuery)
