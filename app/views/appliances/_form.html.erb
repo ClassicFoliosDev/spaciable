@@ -33,8 +33,28 @@
         <div class="warranty ui-front">
         <%= f.input :warranty_length, label: t(".warranty_length"), as: :select, collection: warranty_collection, include_blank: true %>
         </div>
+
+        <div class="energy-help">
+          <button id="energyHelp" class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+          <label class='inline'><%= t(".energy_rating") %></label>
+          <div id="dropdown-help" class="dropdown-help-text">
+            <p class="help-description"><%= unsanitized t(".energy_help") %></p>
+          </div>
+        </div>
+
         <div class="e_rating ui-front">
-        <%= f.input :e_rating, label: t(".e_rating"), as: :select, collection: rating_collection, include_blank: true %>
+          <label class='help-label'><%=t(".e_rating")%></label>
+          <%= f.input :e_rating, label: false, as: :select, collection: rating_collection, include_blank: true %>
+        </div>
+
+        <div class="main_uk_e_rating ui-front">
+          <label id='main_rating'><%= t(".main_uk_e_rating") %></label>
+          <label id='washerdryer_rating'><%= t(".washerdryer") %></label>
+          <%= f.input :main_uk_e_rating, label: false, as: :select, collection: uk_rating_collection, include_blank: true  %>
+          </div>
+          <div class="supp_uk_e_rating ui-front">
+          <label><%= t(".washer") %></label>
+          <%= f.input :supp_uk_e_rating, label: false, as: :select, collection: uk_rating_collection, include_blank: true %>
         </div>
       </fieldset>
     </div>

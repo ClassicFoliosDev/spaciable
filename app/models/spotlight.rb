@@ -17,6 +17,7 @@ class Spotlight < ApplicationRecord
 
   validates :start, presence: true, if: proc { emd_on_after? || emd_on_before? || emd_between? }
   validates :finish, presence: true, if: proc { emd_between? }
+  validate :start_before_finish
 
   enum category: %i[
     static
@@ -33,6 +34,11 @@ class Spotlight < ApplicationRecord
     pre: 0,
     post: 1
   }
+
+  def start_before_finish
+    return unless start && finish && start > finish
+    errors.add(:start, "must be before Finish")
+  end
 
   def parent
     development
@@ -101,7 +107,7 @@ class Spotlight < ApplicationRecord
 
   # Spotlights have 2 possible custom tiles, only one of which may
   # possibly currently be active
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength, NegatedIf
   def tile(plot)
     custom_tile = pre_move
     # static spotlight options
@@ -110,19 +116,15 @@ class Spotlight < ApplicationRecord
     return custom_tile if completed? && plot.completion_release_date && Time.zone.today >= plot.completion_release_date
     return nil if static? # doesn't match the selected static option
 
-    # dynamic spotlights
-
-    # No dynamic spotlight shows unless it has an EMD
-    return nil unless plot.completion_date?
-
-    # Pre-Move/Static.  Shows if the EMD qualifies for display and the date is pre-EMD, OR the
-    # EMD doesn't qualify but the all_or_nothing switch is false
+    # dynamic spotlights - does EMD qualify?
     emd_qualifies = qualifies(plot)
-    return custom_tile if ((Time.zone.today < plot.completion_date) && emd_qualifies) ||
-                          !(emd_qualifies || all_or_nothing?)
 
-    # If the EMD doesn't qualify and its all_or_nothing, then show nothing!
-    return nil if !emd_qualifies && all_or_nothing?
+    # return Pre-Move if EMD doesn't qualify but its not 'all_or_nothing'
+    return custom_tile if !(emd_qualifies || all_or_nothing)
+    # return nil unless the EMD qualifies
+    return nil unless emd_qualifies
+    # So emd qualifies, is it before EMD?
+    return custom_tile if Time.zone.today < plot.completion_date
 
     # Post-Move, post EMD
     custom_tile = post_move
@@ -132,9 +134,10 @@ class Spotlight < ApplicationRecord
     # qualifies
     custom_tile
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, AbcSize, LineLength, NegatedIf
 
   def qualifies(plot)
+    return false unless plot.completion_date?
     return true if after_emd?
     return plot.completion_date >= start if emd_on_after?
     return plot.completion_date <= start if emd_on_before?
@@ -155,7 +158,7 @@ class Spotlight < ApplicationRecord
     case expiry
     when :one_year.to_s
       Time.zone.today > (plot.completion_date + 1.year)
-    when :to_year.to_s
+    when :two_years.to_s
       Time.zone.today > (plot.completion_date + 2.years)
     else
       false

@@ -1,0 +1,17 @@
+#spotlight0, #spotlight1 {
+  margin-bottom: 30;
+
+  div.image-container {
+    margin-top: 10;
+
+    label.image_preview.optional {
+      margin-top: unset;
+      margin-bottom: unset;
+    }
+  }
+}
+
+.spotlight-section-header {
+    margin-top : 0 !important;
+    margin-bottom: 10 !important;
+}

@@ -32,7 +32,7 @@ module Csv
     def self.find_each_perk_account(account_ids, csv)
       account_ids.each do |id|
         full_url = "#{URL}#{API}users/#{id}/#{ACCESS_KEY}"
-        response = HTTParty.get(full_url)
+        response = HTTParty.get(full_url, verify: false)
         next unless response.code == 200
 
         add_residents(response.parsed_response, csv)

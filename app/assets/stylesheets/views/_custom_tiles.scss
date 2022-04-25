@@ -308,7 +308,8 @@
 
 #CustomTileAppears [type='date'] {
   display: inline-block;
-  width: 165;
+  width: 150;
+  padding: 4;
 }
 
 .meta .category.half {
@@ -333,9 +334,17 @@
   }
 }
 
-.post-move-option {
-  margin-top: 15;
+.help-label {
+  display: inline-block;
 }
+.post-move-option, #all_or_nothing {
+  margin-top: 10;
+}
+
+.padded-help {
+  padding: 10 0 10;
+}
+
 
 .spotlight_start, .spotlight_finish {
   display: inline;

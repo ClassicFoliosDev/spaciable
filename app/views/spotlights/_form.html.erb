@@ -13,15 +13,23 @@
   <% end %>
 
   <div class="row-item meta row two-thirds">
+    <div class="category half">
+      <div class="spotlight-type-help">
+        <button id="SpotlightHelp" class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+        <label class='inline'><%= t(".category") %></label>
+        <div id="dropdown-help" class="dropdown-help-text">
+          <p class="help-description"><%= unsanitized t(".spotlight_help") %></p>
+        </div>
+      </div>
+
+      <%= f.input :category, label: false, as: :select, collection: spotlight_types, include_blank: false %>
+    </div>
     <div class="editable half">
       <% if current_user.cf_admin? %>
         <%= label_tag :editable, t(".editable"), class: "checkbox-label" %>
         <%= f.check_box :editable %>
         <p class="checkbox-description"><%= t(".editable_description") %></p>
       <% end %>
-    </div>
-    <div class="category half">
-      <%= f.input :category, as: :select, collection: spotlight_types, include_blank: false %>
     </div>
   </div>
 
@@ -110,7 +118,7 @@
                       <%= f.input :finish, label: false, as: :string, placeholder: "DD/MM/YYYY", disabled: true, input_html: { type: :date, :value => spotlight&.finish&.html, for: "#{k}_finish" } %>
                     <% end %>
 
-                    <% unless k == :always.to_s %>
+                    <% unless %w[always after_emd emd_on_after emd_on_before emd_between].include?(k) %>
                       <button class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
                       <div id="dropdown-help" class="hidden">
                         <%=appears_help(spotlight, k)%>
@@ -118,11 +126,16 @@
                     <% end %>
                   </div>
                 <% end %>
-                <div id="all_or_nothing">
-                  <%= label_tag :editable, t(".all_or_nothing"), class: "checkbox-label" %>
+
+                <div id="all_or_nothing" class="spotlight-type-help">
                   <%= f.check_box :all_or_nothing %>
-                  <p class="checkbox-description"><%= t(".all_or_nothing_desc") %></p>
+                  <p class="checkbox-description"><%= t(".all_or_nothing_desc").html_safe %></p>
+                  <button id="AllOrNothingHelp" class="btn dropdown-help-btn dropdown-help" type="button" title="Help">?</button>
+                  <div id="dropdown-help" class="dropdown-help-text">
+                    <p class="help-description"><%= unsanitized t(".all_or_nothing_help") %></p>
+                  </div>
                 </div>
+
                 <%= f.input :expiry, as: :select, collection: expiries_collection, include_blank: false, label: t(".expires_after") %>
               </div>
             <% end %>
