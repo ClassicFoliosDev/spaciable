@@ -14,6 +14,8 @@ class Appliance < ApplicationRecord
   mount_uploader :manual, DocumentUploader
   mount_uploader :guide, DocumentUploader
 
+  after_update :update_rating
+
   attr_accessor :primary_image_cache
   attr_accessor :secondary_image_cache
   attr_accessor :name
@@ -59,6 +61,7 @@ class Appliance < ApplicationRecord
   validate :check_dup
 
   delegate :link, :name, to: :appliance_manufacturer, prefix: true
+  delegate :washer_dryer?, to: :appliance_category
 
   enum warranty_length: %i[
     no_warranty
@@ -82,10 +85,27 @@ class Appliance < ApplicationRecord
     b
     c
     d
+  ]
+
+  enum main_uk_e_rating: %i[
+    a
+    b
+    c
+    d
     e
     f
     g
-  ]
+  ], _prefix: :main_e_rating
+
+  enum supp_uk_e_rating: %i[
+    a
+    b
+    c
+    d
+    e
+    f
+    g
+  ], _prefix: :supp_e_rating
 
   def check_dup
     return unless RequestStore.store[:current_user]&.is_a? User
@@ -128,5 +148,13 @@ class Appliance < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  # rubocop:disable SkipsModelValidations
+  def update_rating
+    return if e_rating.blank?
+    return unless main_uk_e_rating_changed? || supp_uk_e_rating_changed?
+    update_attribute(:e_rating, nil)
+  end
+  # rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength

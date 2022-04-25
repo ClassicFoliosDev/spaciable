@@ -1366,9 +1366,15 @@ en:
       help_title: "Unlock More Options"
       help: "<p>Plots allocated to the Spaciable Free package can only access Spotlights added by The Spaciable Team. To make Spaciable your own and promote your brand, upgrade your Spaciable Free plots today to enable access to your own Spotlights and more!<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
       confirm_delete: "Are you sure you want to delete the %{name} Spotlight?"
+      confirm_delete_dynamic: "Are you sure you want to delete the Dynamic Spotlight?"
       spotlight_help:
         title: "Resident Spotlights"
         text:  "<div class='dialog-image'><img src='%{image}'><br/><p>Spotlights appear on the resident dashboard, highlighting specific features, documents or links to your home buyers.</p><p>The Spaciable Team may have configured some Spotlights on your behalf, but we encourage you to make Spaciable your own by creating custom Spotlights that put important information or resources in front of your customers.</p><p>Up to five custom Spotlights can be created for each development; where all Spotlights are not configured, seasonal Spaciable ‘How Tos’ will fill the remaining spots.</p>"
+      categories:
+        feature: "Feature"
+        document: "Document"
+        link: "Link"
+        content_proforma: "Interactive Guide"
     show:
       back: "Back"
     edit:
@@ -1385,25 +1391,27 @@ en:
       back: "Back"
       submit: "Submit"
       editable: "Editable"
+      category: "Spotlight Type"
+      spotlight_help: "<p><strong>Static Spotlight</strong> - A Static Spotlight highlights a single feature, document or link to residents. While not available, a How To will be shown.<br/><br/><strong>Dynamic Spotlight</strong> - A Dynamic Spotlight switches from Pre-Move to Post-Move, which allows you to highlight a feature, document or link that is replaced when a plot reaches its Estimated Move-in Date (EMD).</p><p>You can also configure:</p><ul><li>The Post-Move Spotlight to only be seen by residents that move in after, before or between certain dates</li><li>How long the Post-Move Spotlight should be seen for</li><li>The Pre-Move Spotlight to only be seen if the resident has an EMD that qualifies for the Post-Move Spotlight</li><ul>"
       editable_description: "Client admins can edit or delete this shortcut"
-      all_or_nothing: "Show both/neither"
-      all_or_nothing_desc: "Only display Pre-Move Spotlight if resident qualifies for Post-Move Spotlight"
+      all_or_nothing_desc: "<strong>Hide Pre-Move Spotlight if Post-Move options will not be met<strong>"
       current_file: "Current File"
       content_proforma: "Interactive Guide"
       full_image: "Display image full width?"
       render_title: "Render title on Spotlight?"
       render_description: "Render description on Spotlight?"
       render_button: "Render button on Spotlight?"
+      all_or_nothing_help: "If ticked, Pre-Move Spotlight is only seen by residents before EMD, if their EMD qualifies for the Post-Move Spotlight. If a plot's EMD is blank, neither Spotlight will be seen."
       appears:
         title: "Resident sees Spotlight"
-        dynamic_title: "Resident sees Post-Move spotlight after Estimated Move-In Date (EMD), when EMD"
+        dynamic_title: "Switch to Post-Move Spotlight after Estimated Move-in Date (EMD), when EMD is"
         always: "Always"
         moved_in: "After Estimated Move-in Date"
         completed: "When ‘Ready for Handover’"
-        after_emd: "has passed"
-        emd_on_after: "is on/after"
-        emd_on_before: "is on/before"
-        emd_between: "is between"
+        after_emd: "Any date in the past"
+        emd_on_after: "On/after"
+        emd_on_before: "On/before"
+        emd_between: "Between"
       appears_after:
         title: "Resident sees Spotlight"
         emd: "After Estimated Move-In Date"
@@ -1411,7 +1419,7 @@ en:
       tabs:
         pre: "Pre-Move Spotlight"
         post: "Post-Move Spotlight"
-      expires_after: "Post-Move Spotlight expires"
+      expires_after: "Resident stops seeing Post-Move Spotlight"
     new:
       title: "New Spotlight"
 
@@ -1826,7 +1834,11 @@ en:
         manual: "Manual"
         guide: "Quick Reference Guide"
         download: "Download"
-        disclaimer: "Please note: this page displays standard consumer information from the manufacturer(s). Your appliance warranty lengths may differ to any shown on this page, so please check your cover using the information supplied at your property handover."
+        disclaimer: "Please note: this page displays standard consumer information from the manufacturer(s). Your appliance warranty lengths may differ to any shown here - check your cover using the information supplied at your property handover.<br/><br/>In March 2021, new appliance energy labels were introduced, replacing A+++ to D ratings with A to G. Washer dryers may have two ratings. For more information, read our <a href='https://spaciable.com/homeowners/how_tos/262' target='_blank'>Understanding Energy Labels</a> How To article."
+        washdry: "Wash + Dry"
+        wash: "Wash Only"
+        e_rating: "A+++ to D Energy Rating<br/>"
+        main_uk_e_rating: "A to G Energy Rating<br/>(introduced March 2021)"
     how_tos:
       index:
         title: "How To."
@@ -3048,7 +3060,11 @@ en:
      manufacturer: "Manufacturer"
      model_num: "Model"
      warranty_length: "Warranty Length"
-     e_rating: "Energy Rating"
+     e_rating: "A+++ to D Energy Rating"
+     e_rating_info: "You cannot submit a new appliance with an A+++ to D energy rating. If you clone an appliance, any A+++ to D energy rating will be deleted. From March 2021, appliances were given A to G energy ratings."
+     main_uk_e_rating: "A to G Energy Rating (introduced March 2021)"
+     washerdryer: "A to G Energy Rating (introduced March 2021) - Wash+Dry"
+     washer: "A to G Energy Rating (introduced March 2021) - Wash Only"
      manual: "Appliance Manual"
      remove_manual: "Remove Appliance Manual"
      guide: "Quick Reference Guide"
@@ -3058,6 +3074,8 @@ en:
      update: "Are you sure you want to update the catalogue entry for %{appliance}? Any changes will be reflected on all plots and Spec Templates containing this appliance."
      appliance_description: "Use this page to update the catalogue with appliances used across your developments. If you can, upload suitable images that will illustrate the appliance."
      clone: "You have chosen to clone an existing appliance. Edit the appliance details and click Submit to create a new appliance in the catalogue."
+     energy_rating: "Energy Rating"
+     energy_help: "From March 2021, the energy rating scale changed for some appliances: A to G replaced A+++ to D.  Submit using one energy rating scale option or neither.  Energy rating dropdowns must be blank to see both options.  Newer Washer Dryers may have two A to G ratings."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -3765,6 +3783,15 @@ en:
           e: "E"
           f: "F"
           g: "G"
+        uk_e_rating:
+          not_known: "Not Known"
+          a: "A"
+          b: "B"
+          c: "C"
+          d: "D"
+          e: "E"
+          f: "F"
+          g: "G"
       document:
         title: "Name"
         file: "File"
@@ -3785,8 +3812,8 @@ en:
 
       spotlights:
         category:
-          static: "Static"
-          dynamic: "Dynamic"
+          static: "Static Spotlight"
+          dynamic: "Dynamic Spotlight"
       custom_tiles:
         categories:
           feature: "Feature"
@@ -3808,9 +3835,9 @@ en:
           completion: "Completion"
           floor_plan: "Floor Plan"
         expiries:
-          never: "never"
-          one_year: "1 year after EMD"
-          two_years: "2 years after EMD"
+          never: "Never"
+          one_year: "1 Year after EMD"
+          two_years: "2 Years after EMD"
 
       user:
         email: "Email address"

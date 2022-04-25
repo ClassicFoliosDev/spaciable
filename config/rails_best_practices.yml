@@ -11,7 +11,7 @@ LawOfDemeterCheck: { }
 #LongLineCheck: { max_line_length: 80 }
 MoveCodeIntoControllerCheck: { }
 MoveCodeIntoHelperCheck: { array_count: 3 }
-MoveCodeIntoModelCheck: { use_count: 3, ignored_files: [app/views/kaminari] }
+MoveCodeIntoModelCheck: { use_count: 3, ignored_files: [app/views/kaminari, app/views/homeowners/appliances/show.html.erb] }
 MoveFinderToNamedScopeCheck: { }
 # +2 over default to account for using ivars for translating flash messages
 MoveModelLogicIntoModelCheck: { use_count: 10 }

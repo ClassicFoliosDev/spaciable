@@ -13,6 +13,12 @@ module AppliancesHelper
     end
   end
 
+  def uk_rating_collection
+    Appliance.main_uk_e_ratings.map do |(rating_name, _rating_int)|
+      [t(rating_name, scope: uk_rating_scope), rating_name]
+    end
+  end
+
   private
 
   def warranty_scope
@@ -21,5 +27,9 @@ module AppliancesHelper
 
   def rating_scope
     "activerecord.attributes.appliance.e_rating"
+  end
+
+  def uk_rating_scope
+    "activerecord.attributes.appliance.uk_e_rating"
   end
 end

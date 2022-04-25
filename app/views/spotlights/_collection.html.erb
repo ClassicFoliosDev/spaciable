@@ -51,7 +51,7 @@
       <td>
         <% spotlight.custom_tiles.each_with_index do |custom_tile, index| %>
           <% if index > 0 %> <br/> <% end %>
-          <%= custom_tile.category.titleize %>
+          <%= t(".categories.#{custom_tile.category}") %>
         <% end %>
       </td>
       <% if current_user.cf_admin? %>
@@ -64,7 +64,7 @@
       <td class="actions">
         <% if current_user.cf_admin? || spotlight.editable? %>
           <%= (edit_btn edit_spotlight_path(spotlight), element: spotlight) unless parent.expired? && !(current_user.cf_admin?) %>
-          <%= (delete_btn spotlight, path: spotlight_path(spotlight), text: t(".confirm_delete", name: "???"), element: spotlight) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn spotlight, path: spotlight_path(spotlight), text: spotlight.dynamic? ? t(".confirm_delete_dynamic") : t(".confirm_delete", name: spotlight.title), element: spotlight) unless parent.expired? && !(current_user.cf_admin?) %>
         <% else %>
           <%= info_btn spotlight,
             text: t(".uneditable_text"),

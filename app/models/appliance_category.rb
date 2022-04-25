@@ -9,4 +9,8 @@ class ApplianceCategory < ApplicationRecord
   def to_s
     name
   end
+
+  def washer_dryer?
+    name == "Washer Dryer"
+  end
 end

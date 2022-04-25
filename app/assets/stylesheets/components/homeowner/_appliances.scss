@@ -96,6 +96,9 @@
   }
 }
 
+.appliances-disclaimer {
+  padding: 0 10;
+}
 
 @include media($mobile-down) {
   .appliances {
@@ -108,5 +111,34 @@
         @include span-columns(12 of 12);
       }
     }
+  }
+
+  .appliances-disclaimer {
+    font-size: small;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+.appliances-disclaimer a {
+  text-decoration: underline;
+}
+
+.e_ratings {
+
+  div {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .ratingimage {
+    width: 45%;
+  }
+
+  .caption {
+    display: block;
   }
 }
