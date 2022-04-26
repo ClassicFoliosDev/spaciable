@@ -18,24 +18,28 @@
 
   <div class="details branded-text">
     <% if contact.phone? %>
-      <div class="contact-detail">
-        <label><%= fa_icon "phone" %> <%= t(".phone")%></label>
-        <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
-      </div>
-    <% end %>
+        <span class="contact-detail">
+          <%= link_to t(".tel", number: contact.phone), class: "branded-text", title: contact.phone do %>
+            <%= fa_icon "phone" %> <%= contact.phone %>
+          <% end %>
+        </span>
+      <% end %>
 
-    <% if contact.mobile? %>
-      <div class="contact-detail">
-        <label><%= fa_icon "mobile" %> <%= t(".mobile")%></label>
-        <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
-      </div>
-    <% end %>
+      <% if contact.mobile? %>
+        <span class="contact-detail">
+          <%= link_to t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile do %>
+            <%= fa_icon "mobile" %> <%= contact.mobile %>
+          <% end %>
+        </span>
+      <% end %>
 
-    <% if contact.email? %>
-      <div class="contact-detail">
-        <label><%= fa_icon "envelope" %> <%= t(".email")%></label>
-        <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
-      </div>
-    <% end %>
+      <% if contact.email? %>
+        <span class="contact-detail">
+          <%= mail_to contact.email, class: 'branded-text' do %>
+            <%= fa_icon "envelope" %>
+            <%= contact.email %>
+          <% end %>
+        </span>
+      <% end %>
   </div>
 </div>
