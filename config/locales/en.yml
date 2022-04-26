@@ -4422,6 +4422,7 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
              <p class='hint'>Guide opens in a new tab</p>
            </div>
            <br/><p>You can read this information again by selecting Help in the left hand menu.<p>"
-
+  cala:
+    not_res: "Sorry, you do not quaify for this offer."
 
 
