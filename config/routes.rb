@@ -313,6 +313,7 @@ Rails.application.routes.draw do
         get :viewed, controller: 'timeline'
         post :viewed , controller: 'timeline', format: :json
       end
+      post :collapsed, controller: 'timeline', format: :json
     end
 
 

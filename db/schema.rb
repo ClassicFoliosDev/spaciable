@@ -918,6 +918,14 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.index ["task_id"], name: "index_plot_residencies_on_task_id", using: :btree
   end
 
+  create_table "plot_timeline_stages", force: :cascade do |t|
+    t.integer "plot_timeline_id"
+    t.integer "timeline_stage_id"
+    t.boolean "collapsed",         default: false
+    t.index ["plot_timeline_id"], name: "index_plot_timeline_stages_on_plot_timeline_id", using: :btree
+    t.index ["timeline_stage_id"], name: "index_plot_timeline_stages_on_timeline_stage_id", using: :btree
+  end
+
   create_table "plot_timelines", force: :cascade do |t|
     t.integer "phase_timeline_id"
     t.integer "plot_id"
@@ -1381,7 +1389,6 @@ ActiveRecord::Schema.define(version: 20220426105356) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"

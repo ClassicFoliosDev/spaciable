@@ -8,6 +8,7 @@ class PlotTimeline < ApplicationRecord
   belongs_to :plot, required: true
   belongs_to :task
   has_many :task_logs, dependent: :destroy
+  has_many :plot_timeline_stages, dependent: :destroy
 
   delegate :live?, :timeline, :timeline_title, :stage_set, to: :phase_timeline
 
