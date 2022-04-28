@@ -419,7 +419,7 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
-    t.integer  "verified_association"
+    t.integer  "verified_association",        default: 0
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -1381,7 +1381,6 @@ ActiveRecord::Schema.define(version: 20220426105356) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"
