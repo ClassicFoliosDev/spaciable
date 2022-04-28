@@ -1,5 +1,6 @@
 var category = '#documentCategorySelector'
 var guide = '#documentGuideSelector'
+var doc_title = '#document_title'
 
 // show or hide the guide selector on category change
 $(document).on('click', '#document_category-menu', function (event) {
@@ -40,6 +41,9 @@ function multipleFilesCategorySelection () {
       resetGuide()
     }
   }
+
+  $(doc_title).prop('disabled', ($('#document_files.file-upload')[0].files.length > 1))
+  if ($('#document_files.file-upload')[0].files.length > 1) { $(doc_title).val("") }
 }
 
 // reset the guide and dropdown value
