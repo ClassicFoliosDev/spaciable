@@ -278,7 +278,7 @@ Then(/^I should see the plot progress has been updated$/) do
 end
 
 Then(/^both residents have been notified$/) do
-  message = t("notify.updated_progress", stage: "Ready for exchange")
+  message = "Ready for exchange"
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 2

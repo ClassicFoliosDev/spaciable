@@ -104,7 +104,7 @@ class PlotsController < ApplicationController
 
   def update_verb
     if plot_params[:build_step_id].present?
-      t("notify.updated_progress", stage: BuildStep.find(plot_params[:build_step_id]).title)
+      BuildStep.find(plot_params[:build_step_id]).description
     else
       t("notify.generic_updated")
     end

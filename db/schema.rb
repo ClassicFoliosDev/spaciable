@@ -419,7 +419,6 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
-    t.integer  "verified_association",        default: 0
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -916,6 +915,14 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.index ["plot_id"], name: "index_plot_residencies_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_plot_residencies_on_resident_id", using: :btree
     t.index ["task_id"], name: "index_plot_residencies_on_task_id", using: :btree
+  end
+
+  create_table "plot_timeline_stages", force: :cascade do |t|
+    t.integer "plot_timeline_id"
+    t.integer "timeline_stage_id"
+    t.boolean "collapsed",         default: false
+    t.index ["plot_timeline_id"], name: "index_plot_timeline_stages_on_plot_timeline_id", using: :btree
+    t.index ["timeline_stage_id"], name: "index_plot_timeline_stages_on_timeline_stage_id", using: :btree
   end
 
   create_table "plot_timelines", force: :cascade do |t|

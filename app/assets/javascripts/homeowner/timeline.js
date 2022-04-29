@@ -7,6 +7,19 @@
     borderSelected()
   })
 
+  $(document).on('click', '#collapse, #expand', function (event) {
+    var li = $(this).closest('li')
+    li.find('button').toggle()
+    li.next('ul').toggle()
+
+    $.post({
+      url: "/homeowners/timelines/" + $('#timelineSidebar').data('timeline') + '/collapsed',
+      data: {stage: li.data('stage'),
+      collapsed: $(this).prop('id') == 'collapse' },
+      dataType: 'json'
+    })
+  })
+
   // add or remove the 'selected' class from a timeline stage option
   function borderSelected() {
     var allStages = $(".timeline-stage-option")
@@ -18,6 +31,14 @@
         allStages[i].classList.remove("selected")
       }
     }
+  }
+
+  function recalc_view() {
+    if ($(".timeline-container").length < 1) { return }
+
+    var height = $('.homeowner-view').height() - $('.timeline-container').position().top
+    if ($('.quick-links').is(":visible")) { height = height - $('.quick-links').height()}
+    $('.timeline-container').css('height', height)
   }
 
   // show the shortcut links
@@ -60,6 +81,10 @@
     $('#iconMobileLiving').addClass("fas fa-male")
   })
 
+  $( window ).resize(function() {
+    recalc_view()
+  })
+
   // display timeline in mobile view
   document.addEventListener('turbolinks:load', function () {
     if ($(window).innerWidth() < 760) {
@@ -79,6 +104,11 @@
   })
 
   document.addEventListener('turbolinks:load', function () {
+
+    if ($(".timeline-container").length < 1) { return }
+
+    $('body.homeowner-view').attr('id', 'timeline-body');
+
     if ($('#activeTaskScroll').length) {
       if ($(window).innerWidth() < 760) {
         $('#timelineSidebar').animate({
@@ -112,6 +142,8 @@
         scrollTop: $('li').last().offset().top - 1
       }, 1000)
     }
+
+     recalc_view()
   })
 
 })(document, window.jQuery)
