@@ -4418,6 +4418,6 @@ already exist, you can skip this step!.</p><p class='hangingindent'>Step 2: Then
            </div>
            <br/><p>You can read this information again by selecting Help in the left hand menu.<p>"
   cala:
-    not_res: "Sorry, you do not quaify for this offer."
+    not_res: "Sorry, you do not quaify for this offer.<br/><br/>To redeem this offer, you must be logged in to the Spaciable portal account for your Cala Homes property.<br/><br/>Please contact <a href='mailto:hello@spaciable.com'>hello@spaciable.com</a> if you believe this is an error."
 
 
