@@ -78,6 +78,24 @@ $button-line-height: 28px;
   }
 }
 
+.collapse-expand-btn {
+  margin: 0 4;
+  width: 16px;
+  padding: 3px 3px;
+  background-color: $primary-button-color;
+  line-height: unset !important;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: unset;
+  color: white;
+
+  &:hover {
+    color: $primary-button-color;
+    background-color: white;
+  }
+}
+
 .plot-field p {
   line-height: unset !important;
 

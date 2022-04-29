@@ -83,6 +83,14 @@ module Homeowners
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+    def collapsed
+      pts = PlotTimelineStage.find_or_create_by(plot_timeline_id: @plot_timeline.id,
+                                                timeline_stage_id: params[:stage])
+      pts.collapsed = params[:collapsed]
+      pts.save
+      format.json { render json: { status: 200 } }
+    end
+
     private
 
     # PlotTimeline is the homeowner reference into a timeline

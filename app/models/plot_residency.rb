@@ -34,6 +34,14 @@ class PlotResidency < ApplicationRecord
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 
+  scope :resident_on,
+        lambda { |resident, developer|
+          joins(plot: :developer)
+            .where(resident: resident)
+            .where(developers: { verified_association:
+                                 Developer.verified_associations[developer] })
+        }
+
   # CRM SYNC CODE
   # create residents and plots - this code smells bad and would need to
   # be done properly on a proper implementation

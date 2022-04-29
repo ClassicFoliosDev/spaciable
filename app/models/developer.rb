@@ -87,6 +87,11 @@ class Developer < ApplicationRecord
 
   validate :check_conveyancing
 
+  enum verified_association: %i[
+    unverified
+    cala
+  ]
+
   def check_conveyancing
     return unless conveyancing?
 

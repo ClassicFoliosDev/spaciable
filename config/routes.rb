@@ -279,6 +279,9 @@ Rails.application.routes.draw do
       post 'viewed'
     end
     resource :analytics_event, only: %i[create], format: :json
+    namespace :cala do
+      get 'bt_shop'
+    end
   end
 
 
@@ -310,6 +313,7 @@ Rails.application.routes.draw do
         get :viewed, controller: 'timeline'
         post :viewed , controller: 'timeline', format: :json
       end
+      post :collapsed, controller: 'timeline', format: :json
     end
 
 

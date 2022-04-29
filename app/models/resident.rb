@@ -168,5 +168,14 @@ class Resident < ApplicationRecord
   def emails
     [email]
   end
+
+  # rubocop:disable LineLength
+  def cala?(post_emd)
+    residencies = PlotResidency.resident_on(self, :cala)
+    return residencies.count.positive? unless post_emd
+    residencies.select { |pr| pr.plot.completion_date? && Time.zone.today >= pr.plot.completion_date }
+               .count.positive?
+  end
+  # rubocop:enable LineLength
 end
 # rubocop:enable Metrics/ClassLength
