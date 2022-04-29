@@ -966,7 +966,7 @@
       }
 
       .list-stages {
-        padding-top: 260px;
+        padding-top: 170px;
 
         .sub-stage {
           .sub-stage-container {
@@ -1237,6 +1237,33 @@
   overflow: hidden;
 
   .branded-body, timeline-content {
+    height: 100%;
+  }
+
+  .timeline-content {
+    overflow-y: auto;
+  }
+
+
+  .branded-body {
+    min-height: unset !important;
+    height: 100%
+  }
+
+  .timeline-container {
+  }
+
+  .timeline-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+#timeline-body {
+  height: 100vh;
+  overflow: hidden;
+
+  .homeowner-main, .content-container, .branded-body, timeline-content {
     height: 100%;
   }
 

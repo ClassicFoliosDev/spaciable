@@ -126,7 +126,8 @@ class User < ApplicationRecord
     emails = []
     assoiciations.each do |association|
       next if association.nil?
-      details = User.where(receive_release_emails: true)
+      details = User.where.not(invitation_accepted_at: nil)
+                    .where(receive_release_emails: true)
                     .where(permission_level_type: association.class.to_s)
                     .where(permission_level_id: association.id).pluck(:email, :first_name)
 
@@ -142,7 +143,8 @@ class User < ApplicationRecord
     emails = []
     associations.each do |association|
       next if association.nil?
-      details = User.where(snag_notifications: true)
+      details = User.where.not(invitation_accepted_at: nil)
+                    .where(snag_notifications: true)
                     .where(permission_level_type: association.class.to_s)
                     .where(permission_level_id: association.id)
                     .where.not(role: "site_admin").pluck(:email)
@@ -399,7 +401,8 @@ class User < ApplicationRecord
 
   scope :receives_faqs,
     lambda { |p|
-      users = User.where(receive_faq_emails: true)
+      users = User.where.not(invitation_accepted_at: nil)
+                  .where(receive_faq_emails: true)
       users.where(role: :development_admin,
                          permission_level_id: p.development_id)
          .or(users.where(role: :developer_admin,
