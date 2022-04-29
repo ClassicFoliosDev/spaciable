@@ -3379,6 +3379,7 @@ en:
       title: "Document Name"
       guide: "Document Tag"
       choose_multiple_explanation_html: "<p><strong>Accepted formats: PDF, JPG, JPEG, GIF or PNG</p><p>To upload multiple files at once, use SHIFT key to select a range, or hold CTRL or CMD key to select multiple individual files.</p><p>Files uploaded without a Document Name keep their original file names.</strong><br/>Special characters such as . , ( ) _ ' & \" will be removed.</p>"
+      rename_multiples: "<strong>When uploading multiple files, you can only edit the Document Name of each file after upload.</strong>"
       choose_single_explanation_html: "<p><strong>Accepted formats: PDF, JPG, JPEG, GIF or PNG</strong><br/><br/><strong>Files uploaded without a Document Name keep their original file names.</strong>
       <br/>Special characters such as . , ( ) _ ' & \" will be removed.</p>"
       title_explanation: "Only use when uploading a single file, as name will apply to all files."

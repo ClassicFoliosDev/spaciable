@@ -1,6 +1,7 @@
 var category = '#documentCategorySelector'
 var guide = '#documentGuideSelector'
 var doc_title = '#document_title'
+var multi_docs = '#multifiles_rename'
 
 // show or hide the guide selector on category change
 $(document).on('click', '#document_category-menu', function (event) {
@@ -42,8 +43,10 @@ function multipleFilesCategorySelection () {
     }
   }
 
-  $(doc_title).prop('disabled', ($('#document_files.file-upload')[0].files.length > 1))
-  if ($('#document_files.file-upload')[0].files.length > 1) { $(doc_title).val("") }
+  var multiple_docs = ($('#document_files.file-upload')[0].files.length > 1)
+  $(doc_title).prop('disabled', multiple_docs)
+  $(multi_docs).toggle(multiple_docs)
+  if (multiple_docs) { $(doc_title).val("") }
 }
 
 // reset the guide and dropdown value
