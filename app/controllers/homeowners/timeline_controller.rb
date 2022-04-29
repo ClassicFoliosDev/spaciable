@@ -88,7 +88,7 @@ module Homeowners
                                                 timeline_stage_id: params[:stage])
       pts.collapsed = params[:collapsed]
       pts.save
-      format.json { render json: { status: 200 } }
+      render json: { status: 200 }
     end
 
     private
