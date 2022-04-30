@@ -1213,6 +1213,50 @@
       }
     }
   }
+
+  /* splash page */
+  .timeline-splash {
+    .timeline-header {
+      .timeline-title {
+        padding: $spacing-small;
+
+        .timeline-graphic {
+          padding-bottom: $spacing-small;
+        }
+      }
+    }
+
+    .timeline-actions {
+      padding: $spacing-small;
+    }
+  }
+}
+
+#timeline-body {
+  height: 100vh;
+  overflow: hidden;
+
+  .branded-body, timeline-content {
+    height: 100%;
+  }
+
+  .timeline-content {
+    overflow-y: auto;
+  }
+
+
+  .branded-body {
+    min-height: unset !important;
+    height: 100%
+  }
+
+  .timeline-container {
+  }
+
+  .timeline-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 #timeline-body {
