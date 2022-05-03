@@ -2,7 +2,7 @@
 
 <%-# -----------------Font --------------- -%>
 
-<% if brand.font.present? && brand.font != :default %>
+<% if brand.font? && brand.font != :default %>
 
   <% %w[h1 h2 h3 h4h5
         p a ul ol dl
