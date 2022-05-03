@@ -38,8 +38,8 @@
 
     // mobile
     if ($('#timelineContentMobile').children().length){ 
-      $(".list-stages").css('padding-bottom',$('.quick-links').height())
-      $(".list-stages").css('padding-bottom',150)
+      $(".list-stages").css('height',$('.quick-links').position().top - $('.list-stages').position().top)
+      $(".list-stages").css('padding-top',$('.timeline-header-mobile').position().top + $('.timeline-header-mobile').height())
     } else {
       var height = $('.homeowner-view').height() - $('.timeline-container').position().top
       if ($('.quick-links').is(":visible")) { height = height - $('.quick-links').height()}
@@ -132,6 +132,7 @@
     if ($('#timelineContentMobile').children().length) {
       $('.branded-hero').hide()
       $('.branded-body').css('min-height', $(document).height() - $('.brande-nav-background').height())
+      $('.cookies-eu').hide()
     }
 
     // change the styling on the completed page
