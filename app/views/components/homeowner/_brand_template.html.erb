@@ -1,6 +1,55 @@
 <style data-test="brand-style-overrides" data-turbolinks-track="reload">
 
-<%-# ------------------------------------------ -%>
+<%-# -----------------Font --------------- -%>
+
+<% if brand.font? && brand.font != :default %>
+
+  <% %w[h1 h2 h3 h4h5
+        p a ul ol dl
+        .btn
+        .branded-btn
+        .branded-btn-inverted
+        .branded-body
+        ].each do |selector| %>
+    <%= selector %> {
+      font-family:  <%= "#{brand.font} !important" %>
+    }
+  <% end %>
+
+  <% ['.event_details_form .event-status .btn',
+      '.faq-feedback .faq-button',
+      '.account-navigation .dropdown .unread',
+      '.account-navigation .dropdown-content .dropdown-link .navigation-btn',
+      '.account-navigation .dropdown-content button'].each do |selector| %>
+    <%= selector %> {
+      font-family:  <%= "#{brand.font} !important" %>
+    }
+  <% end %>
+
+  <% %w[button .fc-day-header .fc-more].each do |selector| %>
+    #homeowner_calendar <%= selector %> {
+      font-family:  <%= "#{brand.font} !important" %>
+    }
+  <% end %>
+<% end %>
+
+<% if brand.border_style == :no_border.to_s %>
+  .branded-border {
+      border-style: none !important;
+      border-top-style: none !important;
+  }
+<% end %>
+
+<% if brand.button_style == :square.to_s %>
+  .branded-btn {
+      border-radius: unset !important;
+  }
+<% end %>
+
+.branded-hero {
+  height: <%= brand.hero_height %>
+}
+
 <%-# ------------- BODY BACKGROUND ------------ -%>
 
   <% if brand.branded_bg_color %>

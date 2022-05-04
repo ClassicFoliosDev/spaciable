@@ -3440,6 +3440,8 @@ en:
       contact_type: "Interactive Handover Tag"
 
   brands:
+    hero_height:
+      message : "must be between %{min} and %{max}."
     index:
       title: "Styling for %{name}"
     new:
@@ -3459,6 +3461,17 @@ en:
       desktop view, the recommended image size is above 200 x 1200px"
       svg_information: "There have been some issues with SVG images. Recommended approach: make sure you export the
       svg as <em>embed</em>, not <em><del>link</del></em>, and test thoroughly in Google Chrome"
+      font: "Font"
+      fonts:
+        - font: "default"
+          title: "Default"
+        - font: "'Times New Roman', sans-serif"
+          title: "Times New Roman"
+        - font: "'TProxima Nova',sans-serif"
+          title: "Proxima Nova"
+      border_style: "Border Style"
+      button_style: "Button Style"
+
     show:
       back: "Back"
       internal_styling: "Internal Styling"
@@ -3954,6 +3967,14 @@ en:
         heading_two_show: "External Heading Two"
         custom_text: "External Information [Text]"
         custom_text_show: "External Information"
+        border_styles:
+          line: "Line"
+          no_border: "No Border"
+        button_styles:
+          round: "Rounded"
+          square: "Square"
+        hero_height: "Banner Height"
+
       letting:
         confirm:
 
