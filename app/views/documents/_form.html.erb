@@ -32,6 +32,7 @@
                 <%= f.file_field :files, multiple: true, class: "file-upload" %>
                 <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
                 <div class="left"><p><%= t(".choose_multiple_explanation_html").html_safe %></p></div>
+                <div class="left hidden" id="multifiles_rename"><p><%= t(".rename_multiples").html_safe %></p></div>
               <% end %>
             </div>
           <% end %>

@@ -34,11 +34,17 @@
   }
 
   function recalc_view() {
-    if ($(".timeline-container").length < 1) { return }
+    if ($(".timeline-sidebar").length < 1) { return }
 
-    var height = $('.homeowner-view').height() - $('.timeline-container').position().top
-    if ($('.quick-links').is(":visible")) { height = height - $('.quick-links').height()}
-    $('.timeline-container').css('height', height)
+    // mobile
+    if ($('#timelineContentMobile').children().length){ 
+      $(".list-stages").css('height',$('.quick-links').position().top - $('.list-stages').position().top)
+      $(".list-stages").css('padding-top',$('.timeline-header-mobile').position().top + $('.timeline-header-mobile').height())
+    } else {
+      var height = $('.homeowner-view').height() - $('.timeline-container').position().top
+      if ($('.quick-links').is(":visible")) { height = height - $('.quick-links').height()}
+      $('.timeline-container').css('height', height)      
+    }
   }
 
   // show the shortcut links
@@ -82,6 +88,7 @@
   })
 
   $( window ).resize(function() {
+    if ($(".timeline-sidebar").length < 1) { return }
     recalc_view()
   })
 
@@ -105,7 +112,7 @@
 
   document.addEventListener('turbolinks:load', function () {
 
-    if ($(".timeline-container").length < 1) { return }
+    if ($(".timeline-sidebar").length < 1) { return }
 
     $('body.homeowner-view').attr('id', 'timeline-body');
 
@@ -125,6 +132,7 @@
     if ($('#timelineContentMobile').children().length) {
       $('.branded-hero').hide()
       $('.branded-body').css('min-height', $(document).height() - $('.brande-nav-background').height())
+      $('.cookies-eu').hide()
     }
 
     // change the styling on the completed page
