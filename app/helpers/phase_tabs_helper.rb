@@ -57,7 +57,7 @@ module PhaseTabsHelper
         icon: "book",
         link: [phase, :phase_timelines],
         permissions_on: -> { phase },
-        hide: !phase.timeline
+        hide: !phase.timeline || !RequestStore.store[:current_user].cf_admin?
       },
       calendar: {
         icon: "calendar", link: [phase, :calendars],

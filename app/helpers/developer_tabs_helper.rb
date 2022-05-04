@@ -42,7 +42,7 @@ module DeveloperTabsHelper
       timelines: {
         icon: "book",
         permissions_on: -> { developer },
-        hide: !developer.timeline?
+        hide: !developer.timeline? || !RequestStore.store[:current_user].cf_admin?
       },
       videos: {
         icon: "file-video-o",

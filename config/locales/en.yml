@@ -1728,7 +1728,7 @@ en:
       splash:
         welcome: "Welcome To"
         your_journey: "My Journey"
-        paragraph_1: "This Interactive Handover is designed to help you track your progress and learn more about the process each step of the way."
+        paragraph_1: "This Journey is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
       select_stage:
@@ -2549,7 +2549,7 @@ en:
       release_plots: "Release Plots"
       lettings: "Lettings"
       import: "Import CRM"
-      phase_timelines: "Interactive Handovers"
+      phase_timelines: "Interactive Associations"
       calendar: "Calendar"
       brands: "Styling"
     new:
