@@ -37,13 +37,13 @@
     if ($(".timeline-sidebar").length < 1) { return }
 
     // mobile
-    if ($('#timelineContentMobile').children().length){ 
+    if ($('#timelineContentMobile').children().length){
       $(".list-stages").css('height',$('.quick-links').position().top - $('.list-stages').position().top)
       $(".list-stages").css('padding-top',$('.timeline-header-mobile').position().top + $('.timeline-header-mobile').height())
     } else {
       var height = $('.homeowner-view').height() - $('.timeline-container').position().top
       if ($('.quick-links').is(":visible")) { height = height - $('.quick-links').height()}
-      $('.timeline-container').css('height', height)      
+      $('.timeline-container').css('height', height)
     }
   }
 
