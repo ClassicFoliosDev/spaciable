@@ -1,11 +1,5 @@
 <% breadcrumb :timelines, @parent %>
 
-<div class="section-header">
-  <div class="section-title">
-    <%= t(".title") %>
-  </div>
-</div>
-
 <% if !@parent.is_a? Global %>
   <%= render @parent, active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
       expired_plots_count: @expired_plots_count, resident_count: @resident_count,
