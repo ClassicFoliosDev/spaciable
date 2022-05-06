@@ -282,6 +282,7 @@ Rails.application.routes.draw do
     namespace :cala do
       get 'bt_shop'
     end
+    get "cala/offers/:offer_code", to: "cala#offers"
   end
 
 
@@ -315,8 +316,6 @@ Rails.application.routes.draw do
       end
       post :collapsed, controller: 'timeline', format: :json
     end
-
-
 
     get "contacts/:category",
         to: 'contacts#index',
