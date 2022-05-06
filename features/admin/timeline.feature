@@ -53,19 +53,13 @@ Feature: Timeline
 
   @javascript
   Scenario: CF Admin Clone Timeline for Developer
-    Given I am logged in as an admin
+    Given I am logged in as a CF Admin
     And I have seeded the timeline
     And I have a TimelineFixture.england timeline
     And there is a developer
     And I enable My Journey for a developer
     Then I can view developer timelines
     And I can import the global TimelineFixture.england timeline
-    When I log out as an admin
-    And I am logged in as a Developer Admin
-    Then I can see the developers timelines
-    And I should see a TimelineFixture.england_copy timeline
-    When I select the TimelineFixture.england_copy timeline
-    Then tasks First to Tenth should appear in order for TimelineFixture.england_copy
 
 @javascript
 Scenario: Allocate Timelines

@@ -2925,7 +2925,7 @@ en:
     collection:
       plot: "Plot"
       processing: "Processing..."
-      document: "Document"
+      document: "Document Name"
     bulk_upload:
       files_required: "You must select files to upload."
       success: "Uploaded %{matched} plot documents successfully"
