@@ -19,6 +19,7 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
     // reveal the answer
     $('#question').hide()
     $('#answer').show()
+    $(".timeline-content").scrollTop(0)
 
     // change the answer element to correct display type if on mobile
     if ($(window).innerWidth() < 1025) {
