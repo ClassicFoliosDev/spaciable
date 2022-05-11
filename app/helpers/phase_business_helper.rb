@@ -14,7 +14,7 @@ module PhaseBusinessHelper
   end
 
   def disabled_phase_packages(phase)
-    return %i[professional legacy] if phase.res_comp? && phase.free?
+    return %i[elite legacy] if phase.res_comp? && phase.free?
     []
   end
 

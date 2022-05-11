@@ -18,7 +18,7 @@ class Invoice < ApplicationRecord
                             .joins(phase: :development)
                             .where(phases: { package: [Phase.packages[:free],
                                                        Phase.packages[:essentials],
-                                                       Phase.packages[:professional]] })
+                                                       Phase.packages[:elite]] })
                             .where("invoices.created_at >= ?", start)
                             .where("invoices.created_at <= ?", finish)
 
