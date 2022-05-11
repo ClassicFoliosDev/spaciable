@@ -7,7 +7,7 @@ module PackageEnum
     enum package: %i[
       free
       essentials
-      professional
+      elite
       legacy
     ]
   end

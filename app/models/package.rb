@@ -19,7 +19,7 @@ class Package
       developer.all_developments.each do |development|
         [Phase.packages[:free],
          Phase.packages[:essentials],
-         Phase.packages[:professional]].each do |p|
+         Phase.packages[:elite]].each do |p|
           development.phases.where(package: p).find_each do |phase|
             package_plots = Plot.billable(phase)
             ff_plots = if %w[standard full_works].include?(phase.maintenance_account_type)

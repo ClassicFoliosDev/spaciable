@@ -1265,9 +1265,9 @@ en:
   faqs:
     collection:
       free_title: "Upgrade to Improve FAQs"
-      free_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Free Plots will only see Standard FAQs.</li><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul><p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a></p>"
+      free_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Free Plots will only see Standard FAQs.</li><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Elite Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul><p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a></p>"
       essentials_title: "FAQs"
-      essentials_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Professional Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul><p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a></p>"
+      essentials_help: "<p>Your Spaciable plots have access to different FAQs depending on their package. To help your residents make the most out of their homes, upgrade your Spaciable package to grant access to all FAQs, including your own custom ones.</p><ul class='faq_list'><li>Residents of Essentials Plots will see Standard and Enhanced FAQs.</li><li>Residents of Elite Plots will see all FAQs including any Custom ones created by you or your colleagues.</li></ul><p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a></p>"
       help: "help!"
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
@@ -2758,7 +2758,7 @@ en:
       empty_completed:
         desc: "<strong>Adding a room that applies to multiple plots?</strong><br/><br/>Use the <a href='%{url}' target='_blank'>Spec Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the <strong>Spec Template</strong> will not update on the plot."
       empty_not_completed:
-        desc: "<p><strong>Sorry, you cannot edit rooms, finishes and appliances on this plot.</strong></p><p>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after the Spaciable Team change the plot’s Status to Ready for Handover.</p><p>This is signified by a green circle in the <a href='%{url}' target='_blank'>Status column</a> on the Plots tab at Phase level.</p>"
+        desc: "<p><strong>Sorry, you cannot edit rooms, finishes and appliances on this plot.</strong></p><p>With the Essentials and Elite Spaciable packages, admins can configure rooms, finishes and appliances after the Spaciable Team change the plot’s Status to Ready for Handover.</p><p>This is signified by a green circle in the <a href='%{url}' target='_blank'>Status column</a> on the Plots tab at Phase level.</p>"
       index:
         title: "%{parent_name} rooms"
       edit:
@@ -2865,7 +2865,7 @@ en:
                <tr><td><span class='circle green'/></td><td><p><strong>Ready for Handover</strong> – The Spaciable Team have finished populating this plot with all the relevant information you’ve provided. Where applicable, this will include specifications and appliances, and the Homeowner Guide. If you’ve not already invited a resident to this plot, now is the time.</p><p>If your Spaciable package allows admins to configure finishes and appliances, Ready for Handover status also signifies that you can now edit specifications on that plot.</p></td></tr>
                <tr><td><span class='circle red'/></td><td><p><strong>Expired</strong> – This plot is no longer fully active, as the purchased period for this plot has ended. Residents of an expired plot do not lose access to their portal, but they will not see any new documents, notifications or other newly added content. To renew or extend plot(s), please contact the Customer Experience Team.</p></td></tr>
                </table>
-               <p>*<i>Ready for Invite is only available on our Professional and Legacy packages.</i></p>"
+               <p>*<i>Ready for Invite is only available on our Elite and Legacy packages.</i></p>"
     show:
       back: "Back"
       completion: "Completion date"
@@ -2988,8 +2988,8 @@ en:
       title: "%{development_name} Spec Templates"
     collection:
       restricted_template_title: "Restricted Spec Template"
-      restricted_template: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>‘Ready for’ Statuses can be seen on the <a href='%{url}' target='_blank'>Plots tab.</a></>"
-      restricted_template_e: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Professional Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>‘Ready for’ Statuses can be seen on the Plots tab</>"
+      restricted_template: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Elite Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>‘Ready for’ Statuses can be seen on the <a href='%{url}' target='_blank'>Plots tab.</a></>"
+      restricted_template_e: "<p><strong>This Spec Template can only be edited by the Spaciable Team.</strong></p><p>Plots on the Essentials or Elite Spaciable packages will be assigned to a new editable Spec Template when they reach Ready for Handover status, which will allow you to configure shared finishes and appliances.</p><p>‘Ready for’ Statuses can be seen on the Plots tab</>"
       add: "Add Spec Template"
       rooms: "Rooms"
       documents: "Documents"
@@ -3675,7 +3675,7 @@ en:
         packages:
           free: "Free"
           essentials: "Essentials"
-          professional: "Professional"
+          elite: "Elite"
           legacy: "Legacy"
       unit_type:
         name: "Spec Template name"

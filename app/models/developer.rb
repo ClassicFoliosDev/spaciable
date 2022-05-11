@@ -36,7 +36,7 @@ class Developer < ApplicationRecord
         lambda {
           joins(:phases)
             .where(phases: { package: [Phase.packages[:essentials],
-                                       Phase.packages[:professional]] })
+                                       Phase.packages[:elite]] })
             .uniq
         }
 
