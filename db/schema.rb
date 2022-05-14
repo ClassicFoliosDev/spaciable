@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220426105356) do
+ActiveRecord::Schema.define(version: 20220513125443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,8 +178,8 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.string   "button_color"
     t.string   "button_text_color"
     t.datetime "deleted_at"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "brandable_type"
     t.integer  "brandable_id"
     t.string   "header_color"
@@ -201,9 +201,9 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.string   "info_text"
     t.string   "email_logo"
     t.string   "font"
-    t.integer  "border_style",              default: 0
-    t.integer  "button_style",              default: 0
-    t.integer  "hero_height",               default: 195
+    t.integer  "border_style"
+    t.integer  "button_style"
+    t.integer  "hero_height"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 
@@ -423,6 +423,7 @@ ActiveRecord::Schema.define(version: 20220426105356) do
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
+    t.integer  "verified_association",        default: 0
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
