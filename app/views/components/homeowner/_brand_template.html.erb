@@ -2,7 +2,7 @@
 
 <%-# -----------------Font --------------- -%>
 
-<% if brand.font? && brand.font != :default %>
+<% if brand.branded_font && brand.branded_font != :default %>
 
   <% %w[h1 h2 h3 h4h5
         p a ul ol dl
@@ -12,7 +12,7 @@
         .branded-body
         ].each do |selector| %>
     <%= selector %> {
-      font-family:  <%= "#{brand.font} !important" %>
+      font-family:  <%= "#{brand.branded_font} !important".html_safe %>
     }
   <% end %>
 
@@ -22,33 +22,35 @@
       '.account-navigation .dropdown-content .dropdown-link .navigation-btn',
       '.account-navigation .dropdown-content button'].each do |selector| %>
     <%= selector %> {
-      font-family:  <%= "#{brand.font} !important" %>
+      font-family:  <%= "#{brand.branded_font} !important".html_safe %>
     }
   <% end %>
 
   <% %w[button .fc-day-header .fc-more].each do |selector| %>
     #homeowner_calendar <%= selector %> {
-      font-family:  <%= "#{brand.font} !important" %>
+      font-family:  <%= "#{brand.branded_font} !important".html_safe %>
     }
   <% end %>
 <% end %>
 
-<% if brand.border_style == :no_border.to_s %>
+<% if brand.branded_border_style == :no_border.to_s %>
   .branded-border {
       border-style: none !important;
       border-top-style: none !important;
   }
 <% end %>
 
-<% if brand.button_style == :square.to_s %>
-  .branded-btn {
+<% if brand.branded_button_style == :square.to_s %>
+  .branded-btn, .cookies-eu-ok, .js-cookies-eu-ok, .cookies-eu-link, .switch-plot-btn, .branded-btn-inverted {
       border-radius: unset !important;
   }
 <% end %>
 
-.branded-hero {
-  height: <%= brand.hero_height %>
-}
+<% if brand.branded_hero_height %>
+  .branded-hero {
+    height: <%= brand.hero_height %>
+  }
+<% end %>
 
 <%-# ------------- BODY BACKGROUND ------------ -%>
 

@@ -51,7 +51,7 @@ class Brand < ApplicationRecord
   ]
 
   def check_hero_height
-    return if hero_height.between?(MIN_HEIGHT, MAX_HEIGHT)
+    return if hero_height.blank? || hero_height.between?(MIN_HEIGHT, MAX_HEIGHT)
     errors.add(:hero_height, I18n.t("brands.hero_height.message",
                                     min: MIN_HEIGHT,
                                     max: MAX_HEIGHT))
@@ -159,6 +159,22 @@ class Brand < ApplicationRecord
 
   def branded_email_logo
     branded_image(:email_logo_url)
+  end
+
+  def branded_font
+    branded_param(:font)
+  end
+
+  def branded_border_style
+    branded_param(:border_style)
+  end
+
+  def branded_button_style
+    branded_param(:button_style)
+  end
+
+  def branded_hero_height
+    branded_param(:hero_height)
   end
 
   def logo_thumb_url

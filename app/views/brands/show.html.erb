@@ -34,14 +34,22 @@
       </div>
     </div>
     <div class="follows">
-      <label><%= t("brands.form.font") %></label>
-      <%= fonts_collection.select{ |f| f[1] == @brand.font}[0][0] %>
-      <label><%= t("brands.form.border_style") %></label>
-      <%= t("activerecord.attributes.brand.border_styles.#{@brand.border_style}") %>
-      <label><%= t("brands.form.button_style") %></label>
-      <%= t("activerecord.attributes.brand.button_styles.#{@brand.button_style}") %>
-      <label><%= t("activerecord.attributes.brand.hero_height") %></label>
-      <%= @brand.hero_height %>
+      <% if @brand.font? %>
+        <label><%= t("brands.form.font") %></label>
+        <%= fonts_collection.select{ |f| f[1] == @brand.font}[0][0] %>
+      <% end %>
+      <% if @brand.border_style? %>
+        <label><%= t("brands.form.border_style") %></label>
+        <%= t("activerecord.attributes.brand.border_styles.#{@brand.border_style}") %>
+      <% end %>
+      <% if @brand.button_style? %>
+        <label><%= t("brands.form.button_style") %></label>
+        <%= t("activerecord.attributes.brand.button_styles.#{@brand.button_style}") %>
+      <% end %>
+      <% if @brand.hero_height? %>
+        <label><%= t("activerecord.attributes.brand.hero_height") %></label>
+        <%= @brand.hero_height %>
+      <% end %>
     </div>
   </div>
   <div class="row-item third">
