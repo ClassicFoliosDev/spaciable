@@ -33,7 +33,7 @@ function ConfirmUnitType () {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Change Plot Template",
+    title: "Change Spec Template",
     buttons: [
       {
         text: "Cancel",
