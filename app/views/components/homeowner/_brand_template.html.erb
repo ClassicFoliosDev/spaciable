@@ -4,12 +4,14 @@
 
 <% if brand.branded_font && brand.branded_font != :default %>
 
-  <% %w[h1 h2 h3 h4h5
+  <% %w[h1 h2 h3 h4 h5
         p a ul ol dl
         .btn
         .branded-btn
         .branded-btn-inverted
         .branded-body
+        .branded-nav-text
+        .branded-text
         ].each do |selector| %>
     <%= selector %> {
       font-family:  <%= "#{brand.branded_font} !important".html_safe %>
@@ -41,14 +43,14 @@
 <% end %>
 
 <% if brand.branded_button_style == :square.to_s %>
-  .branded-btn, .cookies-eu-ok, .js-cookies-eu-ok, .cookies-eu-link, .switch-plot-btn, .branded-btn-inverted {
+  .branded-btn, .cookies-eu-ok, .js-cookies-eu-ok, .cookies-eu-link, .switch-plot-btn, .branded-btn-inverted, .article-container, .article, .article-meta, .tags-container, .tag {
       border-radius: unset !important;
   }
 <% end %>
 
 <% if brand.branded_hero_height %>
   .branded-hero {
-    height: <%= brand.hero_height %>
+    height: <%= brand.branded_hero_height %>
   }
 <% end %>
 
