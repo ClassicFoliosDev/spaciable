@@ -33,7 +33,7 @@ function ConfirmUnitType () {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Change Unit Type",
+    title: "Change Spec Template",
     buttons: [
       {
         text: "Cancel",
