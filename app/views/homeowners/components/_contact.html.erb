@@ -17,29 +17,30 @@
   </div>
 
   <div class="details branded-text">
+    <br/>
     <% if contact.phone? %>
-        <span class="contact-detail">
+        <p class="contact-detail">
           <%= link_to t(".tel", number: contact.phone), class: "branded-text", title: contact.phone do %>
             <%= fa_icon "phone" %> <%= contact.phone %>
           <% end %>
-        </span>
+        </p>
       <% end %>
 
       <% if contact.mobile? %>
-        <span class="contact-detail">
+        <p class="contact-detail">
           <%= link_to t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile do %>
             <%= fa_icon "mobile" %> <%= contact.mobile %>
           <% end %>
-        </span>
+        </p>
       <% end %>
 
       <% if contact.email? %>
-        <span class="contact-detail">
+        <p class="contact-detail">
           <%= mail_to contact.email, class: 'branded-text' do %>
             <%= fa_icon "envelope" %>
             <%= contact.email %>
           <% end %>
-        </span>
+        </p>
       <% end %>
   </div>
 </div>
