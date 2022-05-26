@@ -10,12 +10,12 @@ class SpotlightsController < ApplicationController
 
   def new
     (redirect_to root_url unless current_user.cf_admin?) if @parent.expired?
-    @spotlight.build
+    @spotlight.build(@development)
   end
 
   def edit
     (redirect_to spotlight_path unless current_user.cf_admin?) if @parent.expired?
-    @spotlight.build
+    @spotlight.build(@development)
   end
 
   def show; end
@@ -25,7 +25,7 @@ class SpotlightsController < ApplicationController
       notice = t("controller.success.create", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
-      @spotlight.build
+      @spotlight.build(@development)
       render :new
     end
   end
@@ -36,7 +36,7 @@ class SpotlightsController < ApplicationController
       notice = t("controller.success.update", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
-      @spotlight.build
+      @spotlight.build(@development)
       render :edit
     end
   end

@@ -12,6 +12,7 @@ class CustomTile < ApplicationRecord
   mount_uploader :file, DocumentUploader
   mount_uploader :image, PictureUploader
   attr_accessor :image_cache
+  attr_accessor :custom_snagging_name
 
   #validate :meta
   validates :title, presence: true, unless: :feature?
@@ -47,7 +48,7 @@ class CustomTile < ApplicationRecord
   }
 
   def snag_name
-    spotlight&.snag_name || "Snagging"
+    custom_snagging_name || spotlight&.snag_name || "Snagging"
   end
 
   def proforma

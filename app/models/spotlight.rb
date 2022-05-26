@@ -49,13 +49,15 @@ class Spotlight < ApplicationRecord
     return I18n.t("spotlight.dynamic") if dynamic?
     custom_tile = custom_tiles.first
     custom_tile.title? ? custom_tile.title :
-                         I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}")
+                         I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: "Snagging")
   end
   # rubocop:enable LineLength, MultilineTernaryOperator
 
-  def build
-    (0..1).each { |i| custom_tiles.build(order: i) unless custom_tiles[i] }
+  # rubocop:disable LineLength
+  def build(development)
+    (0..1).each { |i| custom_tiles.build(custom_snagging_name: development&.snag_name, order: i) unless custom_tiles[i] }
   end
+  # rubocop:enable LineLength
 
   def self.delete_disabled(features, developments)
     spotlights = Spotlight.joins(:custom_tiles)
