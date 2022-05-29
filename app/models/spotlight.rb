@@ -49,7 +49,7 @@ class Spotlight < ApplicationRecord
     return I18n.t("spotlight.dynamic") if dynamic?
     custom_tile = custom_tiles.first
     custom_tile.title? ? custom_tile.title :
-                         I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: "Snagging")
+                         I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: snag_name)
   end
   # rubocop:enable LineLength, MultilineTernaryOperator
 
