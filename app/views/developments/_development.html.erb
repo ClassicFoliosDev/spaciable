@@ -27,14 +27,7 @@
           <span class="inactive"><%= " (not activated)" unless a.invitation_accepted_at %></span><br/>
         <% end %>
       </span>
-      <% developer = development.parent_developer %>
-      <% if developer.account_manager_name? %>
-        <span class="account-manager">
-          <strong><%= t("developers.developer.account_manager_name") %></strong><%= developer.account_manager_name %><br/>
-          <strong><%= t("developers.developer.account_manager_contact") %></strong><%= developer.account_manager_contact %><br/>
-          <strong><%= t("developers.developer.account_manager_email") %></strong><%= developer.account_manager_email %><br/>
-        </span>
-      <% end %>
+      <%= render 'components/admin/customer_experience_contact', developer: development.parent_developer %><br/>
     </span>
   </div>
 

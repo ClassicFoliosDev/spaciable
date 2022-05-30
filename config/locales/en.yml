@@ -523,6 +523,8 @@ en:
         town: "Town"
         postcode: "Postcode"
     admin:
+      customer_experience_contact:
+        title: "Customer Experience Contact"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
@@ -1025,7 +1027,7 @@ en:
         duplicate_role: "This is a Duplicate Role"
         higher_precidence: "Additional Roles must not have greater access than the Primary Role.<br/><br/> Either change the Primary Role or amend the access of the following Additional Roles."
         higher_precidence_title: "Cannot add Additional Role"
-        additional_roles_info: "Additional Roles grant this user access to other divisions and developments. To request Additional Roles, please contact your Classic Folios Account Manager."
+        additional_roles_info: "Additional Roles grant this user access to other divisions and developments. To request Additional Roles, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
         email_pref_info: "Update the Primary Role's email preferences. Emails will not be received for any Additional Roles."
         email_pref_title: "Primary Role Email Preferences"
       index:
@@ -2191,12 +2193,10 @@ en:
       package_description: "Enable Spaciable Phase Packages"
       customer_code: "Customer code"
       account_manager:
-        title: "Account manager"
+        title: "Customer Experience Contact"
         name: "Name"
         email: "Email"
         contact: "Contact"
-
-
 
     index:
       add: "Add Developer"
