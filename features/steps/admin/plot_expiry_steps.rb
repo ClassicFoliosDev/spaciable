@@ -349,7 +349,7 @@ end
 
 Then(/^I see a message telling me some plots have expired on the development$/) do
   within ".section-title" do
-    expect(page).to have_content(t("developments.development.partial_expiry_text"))
+    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("developments.development.partial_expiry_text"))
   end
 end
 
@@ -418,7 +418,7 @@ end
 
 Then(/^I see a message telling me the development has expired$/) do
   within ".section-title" do
-    expect(page).to have_content(t("developments.development.expiry_text"))
+    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize  t("developments.development.expiry_text"))
   end
 end
 
