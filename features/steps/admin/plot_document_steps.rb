@@ -18,8 +18,7 @@ When(/^I upload a document using (\w+) plot$/) do |plot_name|
   end
 
   find("#document_notify").trigger('click')
-
-  click_on(t("plot_documents.form.upload_all"))
+  find("input[value='Upload files']").trigger('click')
 end
 
 Then(/^I should see the created (\w+) plot document$/) do |plot_name|
@@ -54,7 +53,7 @@ When(/^I upload a document (\w+) that does not match a plot$/) do |plot_name|
                 File.absolute_path(plot_document_path),
                 visible: false)
   end
-  click_on(t("plot_documents.form.upload_all"))
+  find("input[value='Upload files']").trigger('click')
 end
 
 Then(/^I should see a (\w+) plot document error$/) do |plot_name|
