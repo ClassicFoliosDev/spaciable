@@ -252,7 +252,7 @@ end
 
 Then(/^I see a message telling me some plots have expired on the phase$/) do
   within ".section-title" do
-    expect(page).to have_content(t("phases.phase.partial_expiry_text"))
+    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("phases.phase.partial_expiry_text"))
   end
 end
 
@@ -297,7 +297,7 @@ end
 
 Then(/^I see a message telling me the phase has expired$/) do
   within ".section-title" do
-    expect(page).to have_content(t("phases.phase.expiry_text"))
+    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("phases.phase.expiry_text"))
   end
 end
 
@@ -539,7 +539,7 @@ end
 
 Then(/^I see a message telling me the developer has expired$/) do
   within ".section-title" do
-    expect(page).to have_content(t("developers.developer.expiry_text"))
+    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("developers.developer.expiry_text"))
   end
 end
 
