@@ -524,7 +524,7 @@ en:
         postcode: "Postcode"
     admin:
       customer_experience_contact:
-        title: "Customer Experience Contact"
+        title: "Customer Experience Contact:"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
@@ -2245,8 +2245,8 @@ en:
       activated_residents: "Activated Residents: "
       developments: "Developments: "
       phases: "Phases: "
-      expiry: "All plots have expired. <br/>To extend the access, please contact your Classic Folios account manager."
-      expiry_text: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry_text: "All plots have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       account_manager_name: "Account Manager: "
       account_manager_email: "Email Address: "
       account_manager_contact: "Direct Dial: "
@@ -2323,8 +2323,8 @@ en:
       developments: "Developments: "
       phases: "Phases: "
       none: "not configured"
-      expiry: "All plots on this division have expired. <br/>To extend the access, please contact your Classic Folios account manager."
-      expiry_text: "All plots on this division have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots on this division have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry_text: "All plots on this division have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
 
   addresses:
     destroy:
@@ -2524,10 +2524,10 @@ en:
     show:
       back: "Back"
     phase:
-      expiry: "All plots on this phase have expired. <br/>To extend the access, please contact your Classic Folios account manager."
-      partial_expiry: "Some plots on this phase have expired. <br/>To extend the access, please contact your Classic Folios account manager."
-      expiry_text: "All plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
-      partial_expiry_text: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots on this phase have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      partial_expiry: "Some plots on this phase have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry_text: "All plots on this phase have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      partial_expiry_text: "Some plots on this phase have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       name: "Phase %{number}"
       active_plots: "Active Plots: "
       completed_plots: "Called Off Plots: "
@@ -2873,7 +2873,7 @@ en:
       help_title: "Unlock More Options"
       help: "<p>Your Spaciable Free package does not include access to calendar invitations. To help your residents make the most out of their homes, upgrade your Spaciable Free plots to enable calendar invitations.<p><a href='%{url}' target='_blank'>Click here to explore Spaciable upgrade options.</a>"
     plot:
-      expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "This plot's access has expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       letable: "Lettings: "
       private_documents: "Resident Documents: "
       progress: "Build Progress: "
