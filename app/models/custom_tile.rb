@@ -23,6 +23,7 @@ class CustomTile < ApplicationRecord
   validate :document_sub_category, if: :document?
   validates :feature, presence: true, if: :feature?
   delegate :development, to: :spotlight, allow_nil: true
+  delegate :cf, to: :spotlight
 
   def parent
     spotlight
