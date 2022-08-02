@@ -160,7 +160,7 @@
         <% end %>
 
         <% if current_resident&.plot_residency_homeowner?(plot) %>
-          <% unless plot.free? || plot.essentials? %>
+          <% unless plot.free? %>
             <% if plot.snagging_valid %>
               <%= link_to snags_path, active_tab: "snagging", class: "navbar-link" do %>
               <li class="navbar-item"><%= plot.snag_name %></li>
