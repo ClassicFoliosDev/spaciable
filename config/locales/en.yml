@@ -1560,7 +1560,7 @@ en:
       plot_error: "<br/>Invalid Plot(s): %{errors}"
       unit_error: "<br/>Invalid Spec Template(s): %{errors}"
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
-      completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
+      completion_error: "<br/>Invalid Estimated Move In Date: must be in dd/mm/yyyy format, and between 01/01/2017 and %{last_completion_date}: %{errors}"
       duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
       uprn_error: "<br/>Invalid UPRN(s): %{errors}"
       overview: "Please check the CSV for invalid input and then re-upload once the following issues have been resolved: %{errors}"
