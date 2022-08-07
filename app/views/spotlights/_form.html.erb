@@ -63,11 +63,11 @@
             <div class="ui-front" id="guideSelector">
               <%= ct.input :guide, label: t(".guide"), as: :select, collection: tile_collection(:guides), include_blank: true %>
             </div>
-            <div class="document-file" id="fileSelector">
+            <div id="fileSelector">
               <% if custom_tile.file? %>
                 <div>
                   <%= label_tag :file, t(".current_file") %>
-                  <p><%= File.basename(custom_tile.file.to_s) %></p> <!-- SORT OUT NAME -->
+                  <p class='wrap'><%= custom_tile.original_filename %></p>
                 </div>
               <% end %>
               <%= label_tag :file, t(".file") %>
@@ -76,7 +76,14 @@
               <% else %>
                 <%= ct.file_field :file, class: "file-upload" %>
               <% end %>
-              <%= label_tag("spotlight_custom_tiles_attributes_#{custom_tile.order}_file", t("choose"), class: "choose-file") %>
+              <% if ct.object.errors[:document].present? %>
+                <div class='file_selector_warning'>
+                  <%= label_tag("spotlight_custom_tiles_attributes_#{custom_tile.order}_file", t("choose"), class: "choose-file") %>
+                </div>
+                <span class='file_selector_error'><br><%= ct.object.errors[:document][0] %></span>
+              <% else %>
+                <%= label_tag("spotlight_custom_tiles_attributes_#{custom_tile.order}_file", t("choose"), class: "choose-file") %>
+              <% end %>
             </div>
           </fieldset>
 

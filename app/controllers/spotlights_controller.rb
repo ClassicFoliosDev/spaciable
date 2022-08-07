@@ -21,6 +21,7 @@ class SpotlightsController < ApplicationController
   def show; end
 
   def create
+    @spotlight.process(spotlight_params, false)
     if @spotlight.save
       notice = t("controller.success.create", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
@@ -31,6 +32,7 @@ class SpotlightsController < ApplicationController
   end
 
   def update
+    @spotlight.process(spotlight_params)
     if @spotlight.update(spotlight_params)
       delete_images(spotlight_params)
       notice = t("controller.success.update", name: "Spotlight")
