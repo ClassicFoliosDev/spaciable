@@ -101,9 +101,8 @@ class Spotlight < ApplicationRecord
   # what tiles are visible according to the current rules
   # rubocop:disable LineLength
   def self.visible_tiles(active_tiles, plot)
-    return active_tiles unless plot.free? || plot.essentials?
     return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
-    active_tiles.reject(&:snagging?)
+    active_tiles
   end
   # rubocop:enable LineLength
 
