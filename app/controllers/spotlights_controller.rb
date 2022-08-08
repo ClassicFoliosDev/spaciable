@@ -26,6 +26,7 @@ class SpotlightsController < ApplicationController
       notice = t("controller.success.create", name: "Spotlight")
       redirect_to [@parent, :spotlights], notice: notice
     else
+      @spotlight.custom_tiles.first.image = nil
       @spotlight.build(@development)
       render :new
     end

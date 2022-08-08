@@ -479,25 +479,6 @@ i.popup-help {
   float: left;
 }
 
-.file_selector_warning {
-  height: 41px;
-  border: 2px solid $field-invalid-border-color;
-  color: $field-invalid-font-color;
-  border-radius: 5px;
-
-  label {
-    margin-top: -23;
-    margin-left: 5;
-  }
-}
-
-.file_selector_error {
-  font-size: $input-small-font-size !important;
-  color: $input-inline-error-font-color;
-  display: block;
-}
-
-
 @include media($tablet-landscape-up) {
   .choose-file {
     margin-top: -25px;

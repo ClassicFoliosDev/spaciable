@@ -1381,6 +1381,7 @@ en:
       back: "Back"
       document_tag: "Document Tag"
       content_proforma: "Interactive Guide"
+      file: "File"
     edit:
       title: "Edit %{tile}"
     form:
