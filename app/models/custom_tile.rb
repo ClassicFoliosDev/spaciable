@@ -21,6 +21,8 @@ class CustomTile < ApplicationRecord
 
   delegate :development, to: :spotlight, allow_nil: true
 
+  after_save :check_file
+
   #validate :meta
   validates :title, presence: true, unless: :feature?
   validates :description, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_description? }
@@ -171,6 +173,17 @@ class CustomTile < ApplicationRecord
     error = String.new("Please reattach #{self.added_image_name}")
     error.concat(" to #{tab_title}") if tab_title
     errors.add(:image, error)
+  end
+
+  # Remove any associated file unless the conditions for its
+  # attachment are met
+  def check_file
+    return unless self.file.present?
+    if !self.document? ||
+       self.document_id.present? ||
+       self.guide.present?
+      self.remove_file!
+    end
   end
 
 end
