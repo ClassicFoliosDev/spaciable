@@ -6,6 +6,7 @@ class Package
     def invoice_developers
       Lock.run :package_invoice do
         Developer.on_package.each do |developer|
+          next if developer.is_demo
           invoice(developer.id)
         end
       end
@@ -35,6 +36,8 @@ class Package
           end
         end
       end
+
+      sleep(2.minutes)
     rescue => e
       Rails.logger.debug("Failed creating #{developer.company_name} invoice - #{e.message}")
     end
