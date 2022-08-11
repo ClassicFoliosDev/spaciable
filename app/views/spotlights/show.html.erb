@@ -73,12 +73,21 @@
             <p><%= custom_tile.document.to_s %></p>
           <% end %>
           <% if custom_tile.file? %>
-            <%= label_tag(:file) %>
-            <p><%= File.basename(custom_tile.file.to_s) %></p>
+            <label class='display-inline'><%= t(".file")%></label>
+            <div class='section-data display-inline'>
+              <%= link_to custom_tile.file&.url, class: "btn right no-margin",  target: "_blank" do %>
+                <%= icon "floppy-o" %>
+              <% end %>
+            </div>
+            <p class='wrap'><%= custom_tile.original_filename %></p>
           <% end %>
           <% if custom_tile.guide? %>
-            <%= label_tag(:guide) %>
+            <label><%= t(".document_tag")%></label>
             <p><%= custom_tile.guide.titleize %></p>
+          <% end %>
+          <% if custom_tile.content_proforma? %>
+            <label><%= t(".content_proforma")%></label>
+            <p><%= custom_tile&.title.titleize %></p>
           <% end %>
         <% end %>
       </div>

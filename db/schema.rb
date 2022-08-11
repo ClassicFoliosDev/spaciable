@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220513125443) do
+ActiveRecord::Schema.define(version: 20220803133907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -357,6 +357,7 @@ ActiveRecord::Schema.define(version: 20220513125443) do
     t.boolean "full_image",         default: false
     t.integer "spotlight_id"
     t.integer "order",              default: 0
+    t.string  "original_filename"
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["spotlight_id"], name: "index_custom_tiles_on_spotlight_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
@@ -1393,7 +1394,6 @@ ActiveRecord::Schema.define(version: 20220513125443) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
-  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"
