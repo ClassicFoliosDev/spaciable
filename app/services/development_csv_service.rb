@@ -132,6 +132,7 @@ module DevelopmentCsvService
 
   # check the legal completion date is in date format and within the specified range
   # and store an error if it is not
+  # rubocop:disable Rails/Date,  Style/CaseEquality
   def completion_check?(phase_name, _, row, plot, _)
     @parsed[phase_name][:completion] ||= []
     passed = datum(row, :completion_date).blank?
@@ -141,7 +142,8 @@ module DevelopmentCsvService
     unless passed
       begin
         date = Date.parse(datum(row, :completion_date))
-        passed = date.between?((Time.zone.today - 6.months), (Time.zone.today + 1.year))
+        passed = (Date.new(2017, 1, 1)..Date.today.next_year(2)) === date
+
         plot.completion_date = date if passed && plot.present?
       rescue
         passed = false
@@ -151,6 +153,7 @@ module DevelopmentCsvService
     @parsed[phase_name][:completion] << datum(row, :completion_date) unless passed
     passed
   end
+  # rubocop:enable Rails/Date,  Style/CaseEquality
 
   # check the build progress is valid and store an error if it is not
   def progress_check?(phase_name, phase, row, plot, _)
@@ -246,9 +249,13 @@ module DevelopmentCsvService
   end
 
   # get the individual error messages
+  # rubocop:disable Rails/Date
   def get_errors(key, errors)
-    I18n.t("development_csv.errors.#{key}_error", errors: errors.join(" "))
+    I18n.t("development_csv.errors.#{key}_error",
+           last_completion_date: Date.today.next_year(2),
+           errors: errors.join(" "))
   end
+  # rubocop:enable Rails/Date
 
   # get the successes
   def get_successes(successes)

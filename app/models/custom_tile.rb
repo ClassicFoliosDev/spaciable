@@ -29,10 +29,13 @@ class CustomTile < ApplicationRecord
   validates :button, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_button? }
   validates :link, presence: true, if: :link?
   validates :feature, presence: true, if: :feature?
+  
   validate :proforma, if: :content_proforma?
   validate :document_sub_category, if: :document?
   validate :warn_reattach_file, if: :document?
   validate :warn_reattach_image
+  delegate :development, to: :spotlight, allow_nil: true
+  delegate :cf, to: :spotlight
 
   def parent
     spotlight

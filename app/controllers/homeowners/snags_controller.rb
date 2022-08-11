@@ -24,7 +24,7 @@ module Homeowners
 
     def index
       @snags = Snag.where(plot_id: @plot.id).order(updated_at: :desc)
-      redirect_to dashboard_path if @plot.free? || @plot.essentials?
+      redirect_to dashboard_path if @plot.free?
     end
 
     def show
