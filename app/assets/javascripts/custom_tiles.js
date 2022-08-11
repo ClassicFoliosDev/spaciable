@@ -64,7 +64,6 @@
     })
 
     clear_spotlight_errors()
-    clear_error_previews(spotlights)
 
     spotlights.forEach(function(spotlight) {
       set_selections(spotlight, false)
@@ -540,20 +539,9 @@
     check_appears()
   }
 
-  function clear_error_previews(){
-    spotlights.forEach(function(spotlight) {
-    if ($(spotlight_selector(spotlight, ".image_preview.spotlight_custom_tiles_image.field_with_errors")).length > 0) {
-      $(spotlight_selector(spotlight, "img")).hide()
-      $(spotlight_selector(spotlight, "img.image-preview")).hide()
-    }
-  })
-}
-
 })(document, window.jQuery)
 
 function clear_spotlight_errors(){
   $(".spotlight_start span.error").remove()
   $(".spotlight_finish span.error").remove()
 }
-
-

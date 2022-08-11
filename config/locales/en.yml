@@ -1379,9 +1379,6 @@ en:
         content_proforma: "Interactive Guide"
     show:
       back: "Back"
-      document_tag: "Document Tag"
-      content_proforma: "Interactive Guide"
-      file: "File"
     edit:
       title: "Edit %{tile}"
     form:
@@ -4077,9 +4074,6 @@ en:
           attributes:
             base:
               document_sub_category_required: "You must upload a document, or select an existing document or manual."
-            attached_document:
-              please_reattach_document: "Please reattatch document"
-
         plot:
           attributes:
             base:

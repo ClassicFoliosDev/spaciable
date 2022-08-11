@@ -35,17 +35,6 @@ class Spotlight < ApplicationRecord
     post: 1
   }
 
-  # override nested custom tiles population/update
-  # rubocop:disable LineLength
-  def custom_tiles_attributes=(attrs)
-    # add am 'original filename' parameter equal to the 'original_filename'
-    # value of any 'file' attribute.  This populates the 'original_filename'
-    # column of the custom_tile record
-    (0..1).each { |v| attrs[v.to_s]["original_filename"] = attrs[v.to_s]["file"].original_filename if attrs[v.to_s]["file"] }
-    super(attrs)
-  end
-  # rubocop:enable LineLength
-
   def start_before_finish
     return unless start && finish && start > finish
     errors.add(:start, "must be before Finish")
@@ -69,15 +58,6 @@ class Spotlight < ApplicationRecord
     (0..1).each { |i| custom_tiles.build(custom_snagging_name: development&.snag_name, order: i) unless custom_tiles[i] }
   end
   # rubocop:enable LineLength
-
-  # pass the params to the custom tile to process
-  def process(params, update = true)
-    custom_tiles.each do |ct|
-      ct.process(params&.dig("custom_tiles_attributes", ct.order.to_s),
-                 params&.dig("custom_tiles_attributes", "1", "_destroy") == "false",
-                 update)
-    end
-  end
 
   def self.delete_disabled(features, developments)
     spotlights = Spotlight.joins(:custom_tiles)
