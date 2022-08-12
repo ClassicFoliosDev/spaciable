@@ -12,6 +12,7 @@ class Resident < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable,
          :database_authenticatable,
+         :omniauthable,
          :recoverable,
          :rememberable,
          :trackable,

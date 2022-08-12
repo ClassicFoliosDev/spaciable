@@ -33,7 +33,7 @@
               <p><%= t('.policy_instructions_required', :href1 => link_to(t("residents.invitations.edit.terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t("residents.invitations.edit.policy"), data_policy_path, target: "_blank")).html_safe %></p>
             </div>
           <% end %>
-
+          <%= link_to "Sign-in with Twitter", resident_hill_omniauth_authorize_path %>
         </div>
 
         <%= f.submit t(".login_cta"), class: "continue btn branded-submit", disabled: cookies[:ts_and_cs_accepted].nil? %>

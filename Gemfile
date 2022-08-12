@@ -147,6 +147,8 @@ gem "stripe"
 # gem "doorkeeper", "<= 5.0.3"
 gem "doorkeeper", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", tag: "v6.0"
 
+gem 'omniauth-oauth2'
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"
