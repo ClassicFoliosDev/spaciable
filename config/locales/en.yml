@@ -1379,6 +1379,9 @@ en:
         content_proforma: "Interactive Guide"
     show:
       back: "Back"
+      document_tag: "Document Tag"
+      content_proforma: "Interactive Guide"
+      file: "File"
     edit:
       title: "Edit %{tile}"
     form:
@@ -4074,6 +4077,9 @@ en:
           attributes:
             base:
               document_sub_category_required: "You must upload a document, or select an existing document or manual."
+            attached_document:
+              please_reattach_document: "Please reattatch document"
+
         plot:
           attributes:
             base:
@@ -4441,5 +4447,3 @@ already exist, you can skip this step!</p><p class='hangingindent'>Step 2: Then,
            <br/><p>You can read this information again by selecting Help in the left hand menu.<p>"
   cala:
     not_res: "Sorry, you do not qualify for this offer. To redeem this offer, you must be logged in to the Spaciable portal account for your Cala Homes property. Please contact <a href='mailto:hello@spaciable.com'>hello@spaciable.com</a> if you believe this is an error."
-
-
