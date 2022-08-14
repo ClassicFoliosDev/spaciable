@@ -8,8 +8,14 @@ module Residents
     # devise :omniauthable, omniauth_providers: [:twitter]
 
     # You should also create an action method in this controller like this:
-    # def twitter
-    # end
+    def all
+      resident = Resident.from_omniauth(request.env["omniauth.auth"])
+      if resident.present?
+        sign_in_and_redirect resident, notice: "Signed in via Twitter"
+      else
+        redirect_to new_resident_registration_url
+      end
+    end
 
     # More info at:
     # https://github.com/plataformatec/devise#omniauth
@@ -20,9 +26,11 @@ module Residents
     # end
 
     # GET|POST /users/auth/twitter/callback
-    # def failure
-    #   super
-    # end
+    def failure
+      super
+    end
+
+    alias_method :twitter, :all
 
     # protected
 

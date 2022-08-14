@@ -29,6 +29,7 @@ Rails.application.routes.draw do
                registrations: 'residents/registrations',
                unlocks: 'residents/unlocks',
                omniauth: 'residents/omniauth',
+               omniauth_callbacks: "residents/omniauth_callbacks",
                invitations: 'residents/invitations'
              }
 

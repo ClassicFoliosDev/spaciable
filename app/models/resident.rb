@@ -12,7 +12,7 @@ class Resident < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable,
          :database_authenticatable,
-         :omniauthable,
+         :omniauthable, 
          :recoverable,
          :rememberable,
          :trackable,
@@ -178,5 +178,11 @@ class Resident < ApplicationRecord
                .count.positive?
   end
   # rubocop:enable LineLength
+
+  def self.from_omniauth(auth)
+    find(212)
+  end
+
+
 end
 # rubocop:enable Metrics/ClassLength
