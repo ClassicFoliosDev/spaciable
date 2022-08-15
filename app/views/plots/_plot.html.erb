@@ -1,5 +1,5 @@
 
-<% if @plot.expired? && !(current_user.cf_admin?) %>
+<% if plot.expired? && !(current_user.cf_admin?) %>
   <div class="expired">
     <span class="expired-text"><%= t("plots.plot.expiry").html_safe %></span>
   </div>
