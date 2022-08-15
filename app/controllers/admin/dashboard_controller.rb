@@ -77,7 +77,7 @@ module Admin
       @divisions = Developer.find_by(id: @selections.developer)
                             &.divisions&.order(:division_name) || []
       @developments = Division.find_by(id: @selections.division)&.developments&.order(:name) ||
-                      (@selections.developer != 0 ? Developer.find_by(id: @selections.developer).all_developments : [])
+                      (@selections.developer != 0 ? Developer.find_by(id: @selections.developer)&.all_developments : [])
       @phases = Development.find_by(id: @selections.development)&.phases&.order(:name) || []
     end
     # rubocop:enable Metrics/LineLength
