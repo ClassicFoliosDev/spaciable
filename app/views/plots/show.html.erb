@@ -1,8 +1,7 @@
 <% breadcrumb :plot, @plot %>
 <div class="plot">
-  <div class="section-header">
-    <%= render @plot %>
-  </div>
+
+  <%= render @plot %>
 
   <%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab, current_user), parent: @plot.unit_type %>
   <% if @active_tab == "progress" %>
