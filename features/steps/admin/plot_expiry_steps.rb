@@ -120,9 +120,7 @@ Given(/^I am on the plot page$/) do
 end
 
 Then(/^I see a message telling me the plot is expired$/) do
-  within ".section-title" do
-    expect(page).to have_content I18n.t("plots.plot.expiry")
-  end
+  expect(page).to have_content (ActionView::Base.full_sanitizer.sanitize t("plots.plot.expiry"))
 end
 
 Then(/^I can no longer CRUD documents$/) do
@@ -251,9 +249,7 @@ Given(/^I am on the phase page$/) do
 end
 
 Then(/^I see a message telling me some plots have expired on the phase$/) do
-  within ".section-title" do
-    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("phases.phase.partial_expiry_text"))
-  end
+  expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("phases.phase.partial_expiry_text"))
 end
 
 Then(/^I can CRUD contacts$/) do
@@ -296,9 +292,7 @@ Then(/^I do not see a message telling me the phase is expired$/) do
 end
 
 Then(/^I see a message telling me the phase has expired$/) do
-  within ".section-title" do
-    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("phases.phase.expiry_text"))
-  end
+  expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("phases.phase.expiry_text"))
 end
 
 Then(/^I can no longer CRUD contacts$/) do
@@ -348,9 +342,7 @@ Given(/^I am on the development page$/) do
 end
 
 Then(/^I see a message telling me some plots have expired on the development$/) do
-  within ".section-title" do
-    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("developments.development.partial_expiry_text"))
-  end
+  expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("developments.development.partial_expiry_text"))
 end
 
 Then(/^I can CRUD faqs$/) do
@@ -417,9 +409,7 @@ Then(/^I do not see a message telling me the development is expired$/) do
 end
 
 Then(/^I see a message telling me the development has expired$/) do
-  within ".section-title" do
-    expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize  t("developments.development.expiry_text"))
-  end
+  expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize  t("developments.development.expiry_text"))
 end
 
 When(/^I can no longer CRUD faqs$/) do
