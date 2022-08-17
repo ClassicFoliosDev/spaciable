@@ -49,11 +49,12 @@ class ResidentsController < ApplicationController
   end
 
   def destroy
+    resident_homeowner = @resident.plot_residency_homeowner?(@plot)
     @resident.plots.delete(@plot)
 
     @notice = t(".success", email: @resident.email, plot: @plot)
 
-    remove_tenants if all_homeowners.empty?
+    remove_tenants if resident_homeowner && all_homeowners.empty?
 
     if @resident.plots.count.zero?
       remove_resident
