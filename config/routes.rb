@@ -422,6 +422,7 @@ Rails.application.routes.draw do
     namespace :admin do
       scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
         resources :pre_sales, only: [:create]
+        post "/single_page_app_pre_sales", to: "pre_sales#single_page_app_create"
       end
     end
 
