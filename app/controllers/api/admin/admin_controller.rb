@@ -3,11 +3,11 @@
 module Api
   module Admin
     class AdminController < ActionController::Base
-      before_action -> { doorkeeper_authorize! :admin } if :create
-      before_action :sign_user_in if :create
+      before_action -> { doorkeeper_authorize! :admin }, only: %i[create]
+      before_action :sign_user_in, only: %i[create]
 
-      before_action -> { doorkeeper_authorize! } if :single_page_app_create
-      before_action :sign_app_in if :single_page_app_create
+      before_action -> { doorkeeper_authorize! }, only: %i[single_page_app_create]
+      before_action :sign_app_in, only: %i[single_page_app_create]
 
       respond_to :json
 
@@ -19,10 +19,13 @@ module Api
       end
 
       def sign_app_in
-        sign_in(User.find(146))
+        # Yes this looks wrong!  doorkeeper_token.app_user DOES
+        # return a User but it fails to satisfy 'is_a? User' for
+        # some reason.  It looks like a bug cleared in later
+        # versions of Ruby
+        sign_in(User.find(doorkeeper_token.app_user.id))
         RequestStore.store[:current_user] = current_user
       end
-
     end
   end
 end

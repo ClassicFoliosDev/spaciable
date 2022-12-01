@@ -30,6 +30,8 @@ class User < ApplicationRecord
   has_many :cc_emails, dependent: :destroy
   accepts_nested_attributes_for :cc_emails, reject_if: :cc_emails_blank, allow_destroy: true
 
+  belongs_to :app, class_name: "Doorkeeper::Application", foreign_key: "oauth_applications_id"
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable,
