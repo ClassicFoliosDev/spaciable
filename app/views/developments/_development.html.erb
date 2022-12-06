@@ -1,10 +1,11 @@
+<% if development.expired? && !(current_user.cf_admin?) %>
+  <div class="expired"><span class="expired-text"><%= t(".expiry").html_safe %></span></div>
+<% elsif development.partially_expired? && !(current_user.cf_admin?) %>
+  <div class="expired"><span class="partial-expired-text"><%= t(".partial_expiry").html_safe %></span></div>
+<% end %>
+
 <div class="section-header">
   <div class="section-title">
-    <% if development.expired? && !(current_user.cf_admin?) %>
-      <div class="expired"><span class="expired-text"><%= t(".expiry").html_safe %></span></div>
-    <% elsif development.partially_expired? && !(current_user.cf_admin?) %>
-      <div class="expired"><span class="partial-expired-text"><%= t(".partial_expiry").html_safe %></span></div>
-    <% end %>
     <div><%= development.name %></div>
     <span class="about">
       <br/>

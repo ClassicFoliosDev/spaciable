@@ -1379,6 +1379,9 @@ en:
         content_proforma: "Interactive Guide"
     show:
       back: "Back"
+      document_tag: "Document Tag"
+      content_proforma: "Interactive Guide"
+      file: "File"
     edit:
       title: "Edit %{tile}"
     form:
@@ -1499,8 +1502,8 @@ en:
       development: "Development"
       phases: "Phases"
     development:
-      expiry: "All plots on this development have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
-      partial_expiry: "Some plots on this development have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry: "All plots on this development have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      partial_expiry: "Some plots on this development have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       expiry_text: "All plots on this development have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       partial_expiry_text: "Some plots on this development have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       segment_id: "Segment ID: "
@@ -2245,7 +2248,7 @@ en:
       activated_residents: "Activated Residents: "
       developments: "Developments: "
       phases: "Phases: "
-      expiry: "All plots have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry: "All plots have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       expiry_text: "All plots have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       account_manager_name: "Account Manager: "
       account_manager_email: "Email Address: "
@@ -2323,7 +2326,7 @@ en:
       developments: "Developments: "
       phases: "Phases: "
       none: "not configured"
-      expiry: "All plots on this division have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry: "All plots on this division have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       expiry_text: "All plots on this division have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
 
   addresses:
@@ -2524,8 +2527,8 @@ en:
     show:
       back: "Back"
     phase:
-      expiry: "All plots on this phase have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
-      partial_expiry: "Some plots on this phase have expired. <br/>To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      expiry: "All plots on this phase have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
+      partial_expiry: "Some plots on this phase have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       expiry_text: "All plots on this phase have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       partial_expiry_text: "Some plots on this phase have expired. To extend the access, please contact the Customer Experience Team on 023 8062 6280 or by email at <a href='mailto:customerexperience@classicfolios.com'>customerexperience@classicfolios.com</a>"
       name: "Phase %{number}"
@@ -4074,6 +4077,9 @@ en:
           attributes:
             base:
               document_sub_category_required: "You must upload a document, or select an existing document or manual."
+            attached_document:
+              please_reattach_document: "Please reattatch document"
+
         plot:
           attributes:
             base:
@@ -4441,5 +4447,3 @@ already exist, you can skip this step!</p><p class='hangingindent'>Step 2: Then,
            <br/><p>You can read this information again by selecting Help in the left hand menu.<p>"
   cala:
     not_res: "Sorry, you do not qualify for this offer. To redeem this offer, you must be logged in to the Spaciable portal account for your Cala Homes property. Please contact <a href='mailto:hello@spaciable.com'>hello@spaciable.com</a> if you believe this is an error."
-
-
