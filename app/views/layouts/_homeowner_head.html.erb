@@ -6,7 +6,7 @@
   <%-# --- If there is a plot (if the homeowner is logged in), check whether the plot is expired --- -%>
   <%-# --- If expired load expired branding, otherwise load branded branding --- -%>
   <% if plot %>
-    <% if plot.expired? %>
+    <% if plot.expired_for_resident? %>
       <%= render "components/homeowner/expired_template" %>
     <% else %>
       <%= render "components/homeowner/brand_template", brand: brand if brand %>

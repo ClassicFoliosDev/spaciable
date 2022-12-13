@@ -20,7 +20,7 @@ module NavigationHelper
   # external links
 
   def area_guide_url(plot)
-    return ENV.fetch("BA4M_EXPIRED_URL") if plot.expired?
+    return ENV.fetch("BA4M_EXPIRED_URL") if plot.expired_for_resident?
     return ENV.fetch("BA4M_URL") if plot.postcode.blank?
     "#{ENV.fetch('BA4M_URL')}/area_guide/details/#{URI.encode(plot.postcode)}/wxwxwwx"
   end

@@ -28,7 +28,8 @@ class PlotResidency < ApplicationRecord
     errors.add(:email, :change_email)
   end
 
-  delegate :to_s, :title, :first_name, :last_name, :email, :phone_number, to: :resident
+  delegate :to_s, :title, :first_name, :last_name, :email, :phone_number, :extended?, to: :resident
+  delegate :create_extension_payment_link, to: :resident
   delegate :invitation_accepted_at, to: :resident
   delegate :number, to: :plot, prefix: true
 

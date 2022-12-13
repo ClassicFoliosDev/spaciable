@@ -84,6 +84,13 @@ en:
                           for how to upgrade and purchase a Premium account."
         goodbye: "Many thanks,"
         team: "The Spaciable Team"
+      access_extended:
+        title: "Your account access has been extended"
+        hello: "Hi %{name},"
+        paragraph_one: "We're writing to let you know that full access has been extended until %{until}." 
+        goodbye: "Many thanks,"
+        team: "The Spaciable Team"
+
   time:
     formats:
       devise:

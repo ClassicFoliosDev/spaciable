@@ -528,7 +528,7 @@ Then(/^I do not see a message telling me the developer is expired$/) do
 end
 
 Then(/^I see a message telling me the developer has expired$/) do
-  within ".section-title" do
+  within ".expired" do
     expect(page).to have_content(ActionView::Base.full_sanitizer.sanitize t("developers.developer.expiry_text"))
   end
 end

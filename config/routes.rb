@@ -437,6 +437,12 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :stripe do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true), controller: 'event' do
+        post '/charge', action: :charge
+      end
+    end
+
   end
 
   devise_scope :resident do

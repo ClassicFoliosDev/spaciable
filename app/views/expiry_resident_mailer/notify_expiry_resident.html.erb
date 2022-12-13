@@ -1,0 +1,12 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto; padding-bottom: 20px;") %>
+
+<p><%= t("resident_expiry_email.intro", name: @name) %></p>
+
+<p><%= t("resident_expiry_email.new_message") %></p>
+
+<a href="<%= @payment_link %>"> Payment Link </a>
+
+<p><%= t("resident_expiry_email.regards") %></p>
+
+<p><%= t("resident_expiry_email.sign_off") %></p>
+

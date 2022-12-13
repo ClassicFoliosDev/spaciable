@@ -177,5 +177,39 @@ class Resident < ApplicationRecord
                .count.positive?
   end
   # rubocop:enable LineLength
+
+  def payment_received(payment_link, payment_for)
+    case payment_for
+    when Payment::EXTEND_ACCESS
+      self.extended_until = Time.zone.today + 1.year
+      save
+      StripeAction.deactivate_payment_link(payment_link)
+      ExtendResidentJob.perform_later(self)
+    end
+  end
+
+  def create_extension_payment_link
+    StripeAction.create_payment_link(self, Payment::EXTEND_ACCESS)
+  end
+
+  # resident is marked as extended when they have an
+  # extended_until date in the future
+  def extended?
+    return false unless extended_until
+    extended_until > Time.zone.today
+  end
+
+  # Scheduled expiry emails.  Run inside an exclusive Lock to ensure
+  # this runs on only one web server
+  def self.notify_expiry
+    Lock.run :notify_expiry_residents do
+      expiry_residents = []
+      Resident.find_each do |resident|
+        expiry_residents << resident.id if resident.extended_until == Time.zone.today - 1.day
+      end
+
+      ExpiryResidentsJob.perform_later(expiry_residents)
+    end
+  end
 end
 # rubocop:enable Metrics/ClassLength
