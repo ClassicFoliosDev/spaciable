@@ -6,6 +6,8 @@ class ExpiryPlotsMailer < ApplicationMailer
   def notify_expiry_residents(residency)
     residency_information(residency)
     @payment_link = residency.create_extension_payment_link
+    @payment_logo=Payment::CHECKOUT_LOGO
+    @payment_charge=Payment::EXTENTION_CHARGE
     mail to: @email, subject: I18n.t("expiry_email.title")
   rescue => e
     Rails.logger.debug(e.message)
@@ -24,6 +26,6 @@ class ExpiryPlotsMailer < ApplicationMailer
     @developer = @plot.developer
     @address = [@plot.prefix, @plot.postal_number,
                 @plot.building_name, @plot.road_name].compact.join(" ")
-    @logo = "Spaciable_full.svg"
+    @logo = "Spaciable_full.svg"    
   end
 end

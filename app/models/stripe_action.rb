@@ -3,6 +3,7 @@
 class StripeAction
   ::Stripe.api_key = ENV["STRIPE_API_KEY"]
   ENDPOINT_SECRET = ENV["STRIPE_ENDPOINT_SECRET"]
+  PRICE = ENV["STRIPE_PRODUCT_PRICE"]
 
   class << self
     # Get and authenticate a stripe event
@@ -23,7 +24,7 @@ class StripeAction
     def create_payment_link(resident, payment_for)
       return Stripe::PaymentLink.create(
         line_items: [
-          { price: "price_1MC4nFEWF1UWJpF5QxFlqoYF",
+          { price: PRICE,
             quantity: 1 }
         ],
         metadata: { resident_id: resident.id,

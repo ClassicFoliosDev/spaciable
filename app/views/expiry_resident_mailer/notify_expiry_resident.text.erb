@@ -1,12 +1,15 @@
-<%= t("resident_expiry_email.intro", name: @name) %>
+<p><%= t("resident_expiry_email.intro", name: @name) %></p>
 
-<%= t("resident_expiry_email.new_message") %>
+<p><%= t("resident_expiry_email.para_one") %>
 
-To extend your access please follow the link below:
+<p><%= t("resident_expiry_email.para_two") %>
 
-@payment_link
+<p><%= t("resident_expiry_email.para_three", cost: @payment_charge) %>
 
-<%= t("resident_expiry_email.regards") %>
+<%=@payment_link%>
 
-<%= t("resident_expiry_email.sign_off") %>
+<p><%= t("resident_expiry_email.questions") %>
+
+<p><%= t("resident_expiry_email.regards") %></p>
+<p><%= t("resident_expiry_email.sign_off") %></p>
 

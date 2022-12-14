@@ -76,12 +76,8 @@ en:
   completion_email:
     title: "Your Spaciable Plots are Ready for Handover"
   expiry_email:
-    title: "Important Information About Your Spaciable Plot"
+    title: "Your Spaciable Access has Expired but That Doesn’t Mean Goodbye"
     intro: "Hi %{name},"
-    plot_details: "We have a message regarding your %{developer} property at %{development} (%{address})"
-    new_message: "You have a new message regarding your %{developer} property, Plot %{plot_number} at %{development}:"
-    regards: "Kind regards,"
-    sign_off: "The Spaciable Team"
   reduced_expiry_email:
     title: "Change to Your Spaciable Defect Reporting"
     expiry: "Please note that your access to the Issues feature has now expired."
@@ -90,12 +86,15 @@ en:
                   If you are unsure of the DLP's expiration date, please contact your aftercare provider for clarification."
     warranty: "If you are outside the DLP, any structural defects should be referred to your warranty provider."
   resident_expiry_email:
-    title: "Important Information About Your Spaciable Account"
+    title: "Sign Up for Another Year of Spaciable’s Benefits"
     intro: "Hi %{name},"
-    new_message: "To extend again please click the link below:"
+    para_one: "We hope you found your extended Spaciable access useful."
+    para_two: "Spaciable is designed to be your first port of call whenever questions about your home arise – and you
+never know when those questions will come up."
+    para_three: "As such, for just £%{cost}, you can renew your access annually, using the following link."
+    questions: "If you have any questions, please contact <a href='mailto:hello@spaciable.com'>hello@spaciable.com</a>"
     regards: "Kind regards,"
     sign_off: "The Spaciable Team"
-
   date:
     formats:
       digits: "%d.%m.%Y"
