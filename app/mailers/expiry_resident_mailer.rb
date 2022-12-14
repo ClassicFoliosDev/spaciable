@@ -5,8 +5,8 @@ class ExpiryResidentMailer < ApplicationMailer
 
   def notify_expiry_resident(residency)
     @payment_link = residency.create_extension_payment_link
-    @payment_logo=Payment::CHECKOUT_LOGO
-    @payment_charge=Payment::EXTENTION_CHARGE
+    @payment_logo = Payment::CHECKOUT_LOGO
+    @payment_charge = Payment::EXTENTION_CHARGE
     @email = residency.email
     @name = residency.first_name
     @logo = "Spaciable_full.svg"
