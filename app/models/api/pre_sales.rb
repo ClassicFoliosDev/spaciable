@@ -20,7 +20,8 @@ module Api
       @tenant = existing = Tenant.find_by(email: @params[:email])
 
       if @tenant.nil?
-        @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number, :role))
+        @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number,
+                                                 :role))
         @tenant.developer_email_updates = true
         @tenant.create_without_password
       end
