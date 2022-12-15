@@ -146,6 +146,8 @@ gem "stripe", ">= 8.0"
 # gem "doorkeeper", "<= 5.0.3"
 gem "doorkeeper", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", tag: "v6.0"
 
+gem "rack-cors"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"

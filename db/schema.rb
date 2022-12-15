@@ -1351,11 +1351,13 @@ ActiveRecord::Schema.define(version: 20221209112126) do
     t.boolean  "receive_invitation_emails", default: true
     t.boolean  "receive_faq_emails",        default: false
     t.string   "selections"
+    t.integer  "oauth_applications_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
     t.index ["invited_by_type"], name: "index_users_on_invited_by_type", using: :btree
+    t.index ["oauth_applications_id"], name: "index_users_on_oauth_applications_id", using: :btree
     t.index ["permission_level_type", "permission_level_id"], name: "index_users_on_permission_level_type_and_permission_level_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -1446,4 +1448,5 @@ ActiveRecord::Schema.define(version: 20221209112126) do
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"
+  add_foreign_key "users", "oauth_applications", column: "oauth_applications_id"
 end
