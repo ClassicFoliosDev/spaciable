@@ -1,22 +1,20 @@
-<% collection&.each do |how_to| %>
-  <div class="card article dash-tile how-to-dash branded-border">
-    <div class="tile-content">
-      <div class="tile-image">
-        <% if how_to.picture? %>
-          <%= image_tag(image_path(how_to.picture.url)) %>
-        <% else %>
-          <%= image_tag "dummy_jpg_03.jpg" %>
-        <% end %>
+<div class="card article dash-tile how-to-dash branded-border">
+  <div class="tile-content">
+    <div class="tile-image">
+      <% if how_to.picture? %>
+        <%= image_tag(image_path(how_to.picture.url)) %>
+      <% else %>
+        <%= image_tag "dummy_jpg_03.jpg" %>
+      <% end %>
+    </div>
+    <div class="img-tile-details">
+      <div class="tile-text">
+        <h2 class="tile-title branded-text"><%= truncate(how_to.title, length: 30, separator: ' ') %></h2>
+        <p class="tile-description branded-text"><%= truncate(how_to.summary, length: 100, separator: ' ') %></p>
       </div>
-      <div class="img-tile-details">
-        <div class="tile-text">
-          <h2 class="tile-title branded-text"><%= truncate(how_to.title, length: 30, separator: ' ') %></h2>
-          <p class="tile-description branded-text"><%= truncate(how_to.summary, length: 100, separator: ' ') %></p>
-        </div>
-        <div class="tile-button">
-          <%= link_to t(".article"), how_to_path(how_to), class: "branded-btn" %>
-        </div>
+      <div class="tile-button">
+        <%= link_to t(".article"), how_to_path(how_to), class: "branded-btn" %>
       </div>
     </div>
   </div>
-<% end %>
+</div>

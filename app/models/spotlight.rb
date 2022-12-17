@@ -103,6 +103,7 @@ class Spotlight < ApplicationRecord
   # rubocop:disable Metrics/CyclomaticComplexity
   def self.active_tiles(plot, documents)
     spotlights = Spotlight.where(development_id: plot.development)
+                          .order(:sequence_no)
     active_tiles = []
 
     spotlights.each do |spotlight|

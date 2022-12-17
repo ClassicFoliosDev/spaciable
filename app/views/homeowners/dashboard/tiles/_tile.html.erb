@@ -1,0 +1,11 @@
+<div class="card article dash-tile branded-border <%= "#{tile&.feature}-component" if tile.feature %> <%= 'reservation-component' if tile.reservation? %> <%= 'completion-component' if tile.completion? %> " id=<%="dashtile#{index}"%>>
+  <div class="tile-content">
+    <% if tile.feature? %>
+      <%= render "homeowners/dashboard/tiles/#{tile.feature}", plot: plot %>
+    <% elsif tile.image? %>
+      <%= render "homeowners/dashboard/tiles/image_tile", tile: tile, documents: documents %>
+    <% else %>
+      <%= render "homeowners/dashboard/tiles/icon_tile", tile: tile, documents: documents %>
+    <% end %>
+  </div>
+</div>

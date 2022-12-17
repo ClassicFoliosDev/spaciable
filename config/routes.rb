@@ -164,6 +164,8 @@ Rails.application.routes.draw do
     resources :calendars, only: [:index], controller: 'developments/calendar'
   end
 
+  post 'swap', format: :json, to: "spotlights#swap"
+
   resources :choice_configurations do
     resources :room_configurations
   end
