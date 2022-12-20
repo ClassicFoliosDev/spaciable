@@ -6,8 +6,7 @@ class SpotlightSequences < ActiveRecord::Migration[5.0]
 
 	  	index = 0
 	  	Spotlight.all.each {|s| s.update_column(:sequence_no, index += 1) }
-
-        execute "CREATE SEQUENCE spotlight_seq START #{index+1};"
+	  	Rake::Task["spotlight_seq:initialise"].invoke(" #{index+1}")
         execute "ALTER TABLE spotlights ALTER COLUMN sequence_no SET DEFAULT NEXTVAL('spotlight_seq');"
 	  }
 
