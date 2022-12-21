@@ -37,7 +37,7 @@ class Development < ApplicationRecord
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
-  has_many :spotlights, dependent: :destroy
+  has_many :spotlights, -> { order(:sequence_no) }, dependent: :destroy
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy

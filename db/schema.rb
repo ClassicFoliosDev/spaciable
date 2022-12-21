@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221129101513) do
+ActiveRecord::Schema.define(version: 20221215152027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1190,6 +1190,7 @@ ActiveRecord::Schema.define(version: 20221129101513) do
     t.integer "expiry",         default: 0
     t.date    "start"
     t.date    "finish"
+    t.integer "sequence_no",    default: -> { "nextval('spotlight_seq'::regclass)" }
     t.index ["development_id"], name: "index_spotlights_on_development_id", using: :btree
   end
 
@@ -1395,6 +1396,7 @@ ActiveRecord::Schema.define(version: 20221129101513) do
   add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
+  add_foreign_key "finish_manufacturers", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"
