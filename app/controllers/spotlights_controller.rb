@@ -4,7 +4,7 @@ class SpotlightsController < ApplicationController
   load_and_authorize_resource :development
   load_and_authorize_resource :spotlight, through: :development, only: %i[index new create]
   load_and_authorize_resource :spotlight, only: %i[show edit update destroy]
-  before_action :set_parent
+  before_action :set_parent, except: [:swap]
 
   def index; end
 
@@ -49,6 +49,15 @@ class SpotlightsController < ApplicationController
     notice = t("controller.success.destroy", name: "Spotlight")
     redirect_to [@parent, :spotlights], notice: notice
   end
+
+  # rubocop:disable Metrics/LineLength, SkipsModelValidations
+  def swap
+    seq1 = Spotlight.find(params[:row1]).sequence_no
+    Spotlight.find(params[:row1]).update_column(:sequence_no, Spotlight.find(params[:row2]).sequence_no)
+    Spotlight.find(params[:row2]).update_column(:sequence_no, seq1)
+    render json: {}, status: 200
+  end
+  # rubocop:enable Metrics/LineLength, SkipsModelValidations
 
   private
 

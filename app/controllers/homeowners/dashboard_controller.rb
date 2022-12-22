@@ -23,6 +23,8 @@ module Homeowners
 
       build_documents
       build_articles
+
+      @spotlights = @custom_tiles.to_a + @how_tos.to_a
     end
 
     private
