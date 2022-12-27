@@ -44,7 +44,7 @@
           </li>
         <% end %>
 
-        <% unless current_resident.plot_residency_role?(plot, %i[tenant]) %>
+        <% unless current_resident&.plot_residency_role?(plot, %i[tenant]) %>
           <% plot_journey = plot&.journey %>
           <% if plot_journey&.live? %>
             <%= link_to homeowner_timeline_path plot_journey, class: "navbar-link" do %>

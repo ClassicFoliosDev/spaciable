@@ -109,7 +109,7 @@ class Spotlight < ApplicationRecord
     spotlights.each do |spotlight|
       tile = spotlight.tile(plot)
       next if tile.blank?
-      next if resident.plot_residency_role?(plot, %i[tenant]) &&
+      next if resident&.plot_residency_role?(plot, %i[tenant]) &&
               (tile.content_proforma? || tile.timeline?)
 
       active_tiles << tile if tile.feature? && tile.active_feature(plot)

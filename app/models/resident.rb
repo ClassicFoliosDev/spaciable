@@ -79,7 +79,7 @@ class Resident < ApplicationRecord
 
   def plot_residency_role?(plot, roles)
     residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
-    roles.include?(residency.role.to_sym)
+    roles.include?(residency&.role&.to_sym)
   end
 
   def plot_residency_role_name(plot)

@@ -23,6 +23,7 @@ Given(/^there is a second appliance$/) do
 end
 
 Then(/^I should see the appliances for my plot$/) do
+  find(".appliances")
   within ".appliances" do
     expect(page).to have_content %r{#{CreateFixture.appliance_category_name}}i
     expect(page).to have_content CreateFixture.appliance_manufacturer_name
