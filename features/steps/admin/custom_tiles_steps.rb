@@ -188,7 +188,7 @@ end
 
 When(/^I delete a spotlight$/) do
   within ".record-list" do
-    page.all(".actions").last.find(".fa-trash-o").click
+    page.all(".two-actions").last.find(".fa-trash-o").click
   end
 
   find(".ui-dialog-buttonpane")

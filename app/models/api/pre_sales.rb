@@ -10,6 +10,7 @@ module Api
     def initialize(params)
       @params = params
       @params[:title] = @params[:title].downcase
+      @role = params[:role] || :tenant
       find_plot
     end
 
@@ -19,7 +20,8 @@ module Api
       @tenant = existing = Tenant.find_by(email: @params[:email])
 
       if @tenant.nil?
-        @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number))
+        @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number,
+                                                 :role))
         @tenant.developer_email_updates = true
         @tenant.create_without_password
       end
@@ -90,11 +92,11 @@ module Api
       # Plot residency created by admin is always a homeowner
       if plot_residency.nil?
         plot_residency = PlotResidency.create!(resident_id: @tenant.id, plot_id: @plot.id,
-                                               role: :tenant,
+                                               role: @role,
                                                invited_by: RequestStore.store[:current_user])
       else
         plot_residency.update_attributes!(deleted_at: nil,
-                                          role: :tenant,
+                                          role: @role,
                                           invited_by: RequestStore.store[:current_user])
       end
 
