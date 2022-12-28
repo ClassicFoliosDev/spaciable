@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :plot_residency do
     resident
     plot
+    role { 'homeowner' }
   end
 end

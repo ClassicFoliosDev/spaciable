@@ -3737,6 +3737,7 @@ en:
           # Homeowner enum roles
           homeowner: "Full Access User"
           tenant: "Limited Access User"
+          prospect: "Prospective User"
       room:
         name: "Room name"
         updated_at: "Last edited"
