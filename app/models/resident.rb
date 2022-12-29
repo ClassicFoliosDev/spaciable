@@ -77,6 +77,11 @@ class Resident < ApplicationRecord
     end
   end
 
+  def plot_residency_role?(plot, roles)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+    roles.include?(residency&.role&.to_sym)
+  end
+
   def plot_residency_role_name(plot)
     residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
     I18n.t("activerecord.attributes.plot_residency.roles.#{residency.role}")

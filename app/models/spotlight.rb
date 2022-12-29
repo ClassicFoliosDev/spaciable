@@ -100,8 +100,8 @@ class Spotlight < ApplicationRecord
     documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def self.active_tiles(plot, documents)
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
+  def self.active_tiles(plot, documents, resident)
     spotlights = Spotlight.where(development_id: plot.development)
                           .order(:sequence_no)
     active_tiles = []
@@ -109,6 +109,9 @@ class Spotlight < ApplicationRecord
     spotlights.each do |spotlight|
       tile = spotlight.tile(plot)
       next if tile.blank?
+      next if resident&.plot_residency_role?(plot, %i[tenant]) &&
+              (tile.content_proforma? || tile.timeline?)
+
       active_tiles << tile if tile.feature? && tile.active_feature(plot)
       active_tiles << tile if tile.document? && tile.active_document(documents)
       active_tiles << tile if tile.link?
@@ -117,7 +120,7 @@ class Spotlight < ApplicationRecord
 
     visible_tiles(active_tiles, plot)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
 
   # what tiles are visible according to the current rules
   # rubocop:disable LineLength

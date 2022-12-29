@@ -19,7 +19,7 @@ module Homeowners
       session[:onboarding] = nil
 
       @all_docs = Document.accessible_by(current_ability)
-      @custom_tiles = Spotlight.active_tiles(@plot, @all_docs)
+      @custom_tiles = Spotlight.active_tiles(@plot, @all_docs, current_resident)
 
       build_documents
       build_articles
