@@ -1062,6 +1062,7 @@ ActiveRecord::Schema.define(version: 20221215152027) do
     t.integer  "telephone_updates"
     t.string   "phone_number"
     t.datetime "ts_and_cs_accepted_at"
+    t.datetime "extended_until"
     t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_residents_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_residents_on_invitations_count", using: :btree

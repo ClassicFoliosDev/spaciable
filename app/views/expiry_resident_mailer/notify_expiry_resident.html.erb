@@ -1,0 +1,17 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto; padding-bottom: 20px;") %>
+
+<p><%= t("resident_expiry_email.intro", name: @name) %></p>
+
+<p><%= t("resident_expiry_email.para_one") %>
+
+<p><%= t("resident_expiry_email.para_two") %>
+
+<p><%= t("resident_expiry_email.para_three", cost: @payment_charge) %></p>
+
+<a href="<%= @payment_link %>"><%= image_tag(@payment_logo, style: "display: block;width:200px;margin: 20px auto;") %></a>
+
+<p><%= t("resident_expiry_email.questions").html_safe  %>
+
+<p><%= t("resident_expiry_email.regards") %></p>
+<p><%= t("resident_expiry_email.sign_off") %></p>
+

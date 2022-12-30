@@ -25,6 +25,11 @@ every 1.day, at: '12:10 am' do
   runner "Plot.notify_expiry_plots"
 end
 
+# resident expiry mailers
+every 1.day, at: '12:15 am' do
+  runner "Resident.notify_expiry"
+end
+
 # destroy unconfirmed referrals after 28 days
 every 1.day, at: '3:00 am' do
   runner "Referral.delete_28_days_old"

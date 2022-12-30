@@ -2,39 +2,27 @@
 
 <p><%= t("expiry_email.intro", name: @name) %></p>
 
-<p><%= t("expiry_email.new_message", developer: @developer,
-                                     development: @development,
-                                     plot_number: @plot.number) %></p>
+<P>Your full Spaciable access has now expired but that doesn’t mean you can’t still enjoy its benefits!<P>
 
+<P>You will still be able to use your login details to access the portal and download documents, but you will notice many of the features you have used up to this point will no longer be available.</P>
 
-<p>We’ve got good news and bad news.</p>
-
-<p>The bad news first – your access to the full Spaciable portal has now expired.</p>
-<p>The good news, though – you can still access all of the information that was populated or uploaded before the point of expiry, as well as the many great features*, including:</p>
+<p>Thankfully, you can renew your access on an annual basis for just £<%=@payment_charge%>, which will provide you with continued access to:</p>
 <ul>
-  <li>Digital versions of your home’s documents</li>
-  <li>Bespoke information about your home</li>
-  <li>Essential contacts</li>
-  <li>Helpful home advice and answers to FAQs</li>
-  <li>Our useful monthly newsletter, sharing great money-saving tips, articles and ways to relax</li>
-  <li>Access to great deals and offers through Services</li>
+  <li>Library</li>
+  <li>Contacts</li>
+  <li>Rooms</li>
+  <li>How To articles</li>
+  <li>Home Designer</li>
+  <li>FAQs</li>
+  <li>Buyers' Club</li>
 </ul>
 
-<p>So, stick around and reap the benefits:</p>
-<ul>
-  <li>Make the most of your home by being able to troubleshoot issues and take inspiration from articles and newsletters</li>
-  <li>Save time when searching for important documents, such as your warranty certificate – everything will still be easy to find in one digital library</li>
-  <li>Maximise the value of your home, should you choose to sell, by having a repository in which you can provide future buyers with all of the details about the property</li>
-  <li>Continue to save money with Services</li>
-  <li>New features are constantly being worked on and developed, providing ongoing benefits</li>
-</ul>
+<p>If you want to use Spaciable to continue to make the most of your home and retain key information for a future home sale, you can renew your access using this secure link below: </p>
 
-<p>We hope you’ve found your Spaciable portal to be highly useful and will continue to use it as a source of information, inspiration and documentation!</p>
+<a href="<%= @payment_link %>"><%= image_tag(@payment_logo, style: "display: block;width:200px;margin: 20px auto;") %></a>
 
+<p>We hope you’ve enjoyed using Spaciable and continue to do so.</p>
 
-<p><%= t("expiry_email.regards") %></p>
+<p>Kind regards,</p>
 
-<p><%= t("expiry_email.sign_off") %></p>
-
-<p>*Availability of features may vary.</p>
-
+<p>The Spaciable Team</p>

@@ -20,7 +20,7 @@
     </div>
   <% end %>
 
-  <% if @plot.expired? %>
+  <% if @plot.expired_for_resident? %>
     <div class="new-document">
       <p>
         <span><%= t(".expired") %></span>

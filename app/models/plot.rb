@@ -428,17 +428,20 @@ class Plot < ApplicationRecord
 
   def partially_expired?; end
 
-  # Scheduled expiry emails
+  # Scheduled expiry emails.  Run inside an exclusive Lock to ensure
+  # this runs on only one web server
   def self.notify_expiry_plots
-    expiry_plots = []
-    reduced_expiry_plots = []
-    Plot.find_each do |plot|
-      expiry_plots << plot.id if plot.expiry_date == Time.zone.today - 1.day
-      reduced_expiry_plots << plot.id if plot.reduced_expiry_date == Time.zone.today - 1.day &&
-                                         plot.maintenance&.path
-    end
+    Lock.run :notify_expiry_plots do
+      expiry_plots = []
+      reduced_expiry_plots = []
+      Plot.find_each do |plot|
+        expiry_plots << plot.id if plot.expiry_date == Time.zone.today - 1.day
+        reduced_expiry_plots << plot.id if plot.reduced_expiry_date == Time.zone.today - 1.day &&
+                                           plot.maintenance&.path
+      end
 
-    ExpiryPlotsJob.perform_later(expiry_plots, reduced_expiry_plots)
+      ExpiryPlotsJob.perform_later(expiry_plots, reduced_expiry_plots)
+    end
   end
 
   # SNAGS
@@ -837,5 +840,12 @@ class Plot < ApplicationRecord
     ActiveRecord::Base.connection.exec_query(sql)
   end
   # rubocop:enable Metrics/MethodLength
+
+  # True if the plot has expired and the current resident hasn't extended
+  def expired_for_resident?
+    expired? &&
+      (RequestStore.store[:current_resident].nil? ||
+       !RequestStore.store[:current_resident]&.extended?)
+  end
 end
 # rubocop:enable Metrics/ClassLength

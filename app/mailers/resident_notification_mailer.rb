@@ -88,6 +88,13 @@ class ResidentNotificationMailer < ApplicationMailer
     mail to: email, subject: I18n.t("devise.mailer.downgrade_perks.title")
   end
 
+  def access_extended(resident)
+    @name = resident.first_name
+    @until = resident.extended_until
+
+    mail to: resident.email, subject: I18n.t("devise.mailer.access_extended.title")
+  end
+
   private
 
   def email_logo_or_brand_logo

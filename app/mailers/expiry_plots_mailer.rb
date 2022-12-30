@@ -5,7 +5,12 @@ class ExpiryPlotsMailer < ApplicationMailer
 
   def notify_expiry_residents(residency)
     residency_information(residency)
+    @payment_link = residency.create_extension_payment_link
+    @payment_logo = Payment::CHECKOUT_LOGO
+    @payment_charge = Payment::EXTENTION_CHARGE
     mail to: @email, subject: I18n.t("expiry_email.title")
+  rescue => e
+    Rails.logger.debug(e.message)
   end
 
   def notify_reduced_expiry_residents(residency)

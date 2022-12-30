@@ -138,8 +138,7 @@ gem "restforce", "<= 3.2.0"
 # Natural sort
 gem "naturalsort"
 
-# Stripe
-gem "stripe"
+gem "stripe", ">= 8.0"
 
 # OAuth2
 # git "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", branch: "master" do
