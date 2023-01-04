@@ -1,0 +1,41 @@
+<% plot = @resource.invitation_plot %>
+<% if plot.branded_email_logo %>
+  <%= image_tag(plot.branded_email_logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
+<% elsif plot.branded_logo %>
+  <%= image_tag(plot.branded_logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
+<% else %>
+  <%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
+<% end %>
+
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.first_name) %>,</p>
+
+<p><%= t("devise.mailer.prospect_invitation.message1", address: plot.house_number, development_name: plot.development) %></p>
+
+<p><%= t("devise.mailer.prospect_invitation.benefits") %></p>
+<ul>
+  <li><%=t("devise.mailer.prospect_invitation.benefit1")%></li>
+  <li><%=t("devise.mailer.prospect_invitation.benefit2")%></li>
+  <li><%=t("devise.mailer.prospect_invitation.benefit3")%></li>
+  <li><%=t("devise.mailer.prospect_invitation.benefit4")%></li>
+  <li><%=t("devise.mailer.prospect_invitation.benefit5")%></li>
+</ul>
+
+<p><%= t("devise.mailer.prospect_invitation.activate") %></p>
+<p><%= t("devise.mailer.prospect_invitation.confirm") %></p>
+<p style="font-style: italic; font-size:12px;"><%= t("devise.mailer.prospect_invitation.my_account") %></p>
+
+<p style="text-align: center;">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Accept Invitation</button>".html_safe, resident_invitation_route(plot, @token) %>
+</p>
+<br/>
+
+<% if @resource.invitation_due_at %>
+  <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
+<% end %>
+
+<p><%= t("devise.mailer.invitation_instructions.ignore2") %></p>
+
+<p><%= t("devise.mailer.resident_invitation.log_in").html_safe %></p>
+<br/>
+
+<p style="font-style: italic;font-size: 14px;"><%= t("devise.mailer.invitation_instructions.ignore") %></p>

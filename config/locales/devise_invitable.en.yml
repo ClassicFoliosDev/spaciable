@@ -58,6 +58,22 @@ en:
         welcome_back: "We're delighted to see you back!"
         already_activated: "To switch between your plots, please select 'My Plots' in the profile menu after logging in."
         name: "A Spaciable customer"
+      prospect_invitation:
+        message1: "You have been invited to join Spaciable – the personalised portal for %{address} at %{development_name}."
+        benefits: "You can use Spaciable to access a range of important information about this property, including:"
+        benefit1: "Homebuying walkthrough"
+        benefit2: "Library of key documents"
+        benefit3: "Important contacts"
+        benefit4: "FAQs"
+        benefit5: "Local area guide"
+        activate: "To activate your Spaciable account, click the link below and set your password."
+        confirm: "You will then be asked to set your marketing preferences. If you tick to confirm you're happy to receive email updates, you may be sent tips on moving, settling in and more.*"
+        my_account: "* To unsubscribe later, update your preferences in the My Account page on Spaciable."
+        log_in: "To log in to Spaciable next time, visit <a href=\"http://www.spaciable.com/\">www.spaciable.com</a>"
+        log_in_text: "To log in next time, visit http://www.spaciable.com/"
+        welcome_back: "We're delighted to see you back!"
+        already_activated: "To switch between your plots, please select 'My Plots' in the profile menu after logging in."
+        name: "A Spaciable customer"
       close_account:
         title: "Sorry to see you go!"
         deactivated: "We can confirm that your Spaciable account has been deactivated. You will no longer have access to your home's

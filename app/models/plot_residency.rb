@@ -8,6 +8,7 @@ class PlotResidency < ApplicationRecord
   enum role: %i[
     tenant
     homeowner
+    prospect
   ]
 
   validate :email_updated, on: :update

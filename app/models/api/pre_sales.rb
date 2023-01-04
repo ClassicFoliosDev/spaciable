@@ -10,23 +10,24 @@ module Api
     def initialize(params)
       @params = params
       @params[:title] = @params[:title].downcase
-      @role = params[:role] || :tenant
+      @role = params[:role] || "tenant"
       find_plot
+      @resident_type = ("Api::" + @role.capitalize).constantize
     end
 
     def add_limited_access_user
       yield(@message, FAILED_TO_FIND, 501) unless @plot
 
-      @tenant = existing = Tenant.find_by(email: @params[:email])
+      @resident = existing = @resident_type.find_by(email: @params[:email])
 
-      if @tenant.nil?
-        @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number,
-                                                 :role))
-        @tenant.developer_email_updates = true
-        @tenant.create_without_password
+      if @resident.nil?
+        @resident = @resident_type.new(@params.except(:development, :division, :phase,
+                                                      :plot_number, :role))
+        @resident.developer_email_updates = true
+        @resident.create_without_password
       end
 
-      yield(@tenant.errors.messages, 501) unless @tenant&.valid?
+      yield(@resident.errors.messages, 501) unless @resident&.valid?
 
       notify_and_redirect(existing.nil?) do |message, status|
         yield message, status
@@ -64,24 +65,24 @@ module Api
     # rubocop:enable Metrics/MethodLength
 
     # rubocop:disable Metrics/MethodLength
-    def notify_and_redirect(new_tenant)
-      plot_residency = PlotResidency.find_by(resident_id: @tenant.id, plot_id: @plot.id)
+    def notify_and_redirect(new_resident)
+      plot_residency = PlotResidency.find_by(resident_id: @resident.id, plot_id: @plot.id)
 
       if plot_residency && !plot_residency.deleted_at?
         yield I18n.t("residents.create.plot_residency_already_exists",
-                     email: @tenant.email, plot: @plot), ALREADY_ALLOCATED, 501
-      elsif new_tenant
+                     email: @resident.email, plot: @plot), ALREADY_ALLOCATED, 501
+      elsif new_resident
         plot_residency_and_invitation(plot_residency)
-        Mailchimp::MarketingMailService.call(@tenant, @plot, activation_status)
+        Mailchimp::MarketingMailService.call(@resident, @plot, activation_status)
         yield I18n.t("residents.create.resident_added",
-                     name: @tenant.full_name,
+                     name: @resident.full_name,
                      plot_number: @plot.number,
                      development: @params[:development],
                      email: @params[:email]), ADDED_NEW, 201
       else
         plot_residency_and_invitation(plot_residency)
         yield I18n.t("residents.create.existing_resident_added",
-                     name: @tenant.full_name,
+                     name: @resident.full_name,
                      plot_number: @plot.number,
                      development: @params[:development]), ADDED_EXISTING, 201
       end
@@ -91,7 +92,7 @@ module Api
     def plot_residency_and_invitation(plot_residency)
       # Plot residency created by admin is always a homeowner
       if plot_residency.nil?
-        plot_residency = PlotResidency.create!(resident_id: @tenant.id, plot_id: @plot.id,
+        plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id,
                                                role: @role,
                                                invited_by: RequestStore.store[:current_user])
       else
@@ -104,11 +105,11 @@ module Api
       # already accepted a previous invitation
       ResidentInvitationService.call(plot_residency,
                                      RequestStore.store[:current_user], @plot.developer.to_s,
-                                     @tenant)
+                                     @resident)
     end
 
     def activation_status
-      if @tenant.invitation_accepted?
+      if @resident.invitation_accepted?
         Rails.configuration.mailchimp[:activated]
       else
         Rails.configuration.mailchimp[:unactivated]

@@ -24,7 +24,7 @@ module Homeowners
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def show
       return unless current_resident
-      return unless current_resident&.plot_residency_homeowner?(@plot)
+      return unless current_resident&.plot_residency_role?(@plot, %i[homeowner prospect])
 
       # If they have specified a start stage
       @task = @timeline.stage_head(params[:stage]) if params[:stage]

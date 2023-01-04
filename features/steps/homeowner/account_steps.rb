@@ -232,7 +232,7 @@ Given(/^I am a legacy homeowner$/) do
   homeowner.save(validate: false)
 
   plot = CreateFixture.division_plot
-  plot_residency = PlotResidency.create(resident: homeowner, plot: plot)
+  plot_residency = PlotResidency.create(resident: homeowner, plot: plot, role: "homeowner")
   plot_residency.save(validate: false)
 end
 
