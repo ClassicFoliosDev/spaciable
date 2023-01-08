@@ -31,7 +31,7 @@ class StripeAction
                     payment_for: payment_for }
       ).url
     rescue => e
-      raise "Failed to create payment link for user #{user.id}:" + e.message
+      raise "Failed to create payment link for user #{resident.id}:" + e.message
     end
     # rubocop:enable Metrics/MethodLength
 
