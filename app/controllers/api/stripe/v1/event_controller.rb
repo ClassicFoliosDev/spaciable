@@ -10,7 +10,7 @@ module Api
           case event.type
           when "checkout.session.completed"
             payload = event.data.object
-            Resident.find(payload&.metadata&.resident_id)
+            ::Resident.find(payload&.metadata&.resident_id)
               &.payment_received(payload&.payment_link,
                                  payload&.metadata&.payment_for)
           end
