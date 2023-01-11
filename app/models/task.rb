@@ -26,6 +26,8 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :features, reject_if: :unpopulated, allow_destroy: true
 
   validates :title, presence: true
+  validates :video_title, presence: true, if: -> { video? }
+  validates :video_link, presence: true, if: -> { video? }
   validates :question, presence: true, if: -> { timeline.stage_set.journey? }
   validates :answer, presence: true
   validates :positive, presence: true, if: -> { timeline.stage_set.journey? }
@@ -39,6 +41,12 @@ class Task < ApplicationRecord
   enum title_class: %i[
     heading
     subheading
+  ]
+
+  enum media_type: %i[
+    no_media
+    image
+    video
   ]
 
   amoeba do

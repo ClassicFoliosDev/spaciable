@@ -26,6 +26,22 @@ class Document < ApplicationRecord
 
   delegate :construction, :construction_name, to: :parent
 
+  scope :of_cat_visible_on_plot,
+        lambda { |ability, category, plot|
+          documents = Document.accessible_by(ability).where(category: category)
+
+          if plot.free?
+            documents = documents.where(documentable_type: "Phase")
+                                 .or(documents.where(override: true))
+          end
+
+          if plot.expiry_date.present?
+            documents = documents.where("created_at <= ?", plot.expiry_date)
+          end
+
+          documents
+        }
+
   def to_s
     title
   end

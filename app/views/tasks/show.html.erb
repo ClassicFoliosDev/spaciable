@@ -68,7 +68,13 @@
 
                 </div>
               </div>
-              <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
+              <% if @task.image? %>
+                <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
+              <% elsif  @task.video? %>
+                <div class="video branded-text">
+                  <iframe height="245" width="420" src=<%= @task.video_link %> frameborder="0"></iframe>
+                </div>
+              <% end %>
             </div>
           <% end %>
 

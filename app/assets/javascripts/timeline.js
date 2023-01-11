@@ -51,16 +51,25 @@ $(document).on('click', '#viewAnswer', function (event) {
 
 document.addEventListener('turbolinks:load', function () {
   // show page - sidebar auto scroll to active task
-  // if the element does not exist then subsequent code will not run, so check it exists using length property
   if ($('#activeTaskScroll').length) {
     $('#timelineAdminSidebar').animate({
       scrollTop: $('#activeTaskScroll').offset().top - 420
     }, 1000)
-  }
+  } else if ($(".task_media_type").length) {
+    // task form - add disabled class to disabled stage radio buttons
+    var stageRadio = $('#stageRadio').find("input[disabled='disabled']")
+    stageRadio.parents("label").addClass("disabled")
 
-  // task form - add disabled class to disabled stage radio buttons
-  var stageRadio = $('#stageRadio').find("input[disabled='disabled']")
-  stageRadio.parents("label").addClass("disabled")
+    var mediaTypeSelect = $('.task_media_type select')
+
+    mediaTypeSelect.selectmenu({
+      select: function (event, ui) {
+        show_hide_media()
+      }
+    })
+
+    show_hide_media()
+  }
 })
 
 // task form - show the action fields on clicking add action button
@@ -244,5 +253,11 @@ function initialse_feature(feature){
     }
   })
   feature.val("")
+}
+
+function show_hide_media() {
+  media = $("#task_media_type").val()
+  $(".video-container").toggle(media == "video")
+  $(".image-container").toggle(media == "image")
 }
 

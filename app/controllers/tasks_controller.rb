@@ -118,6 +118,7 @@ class TasksController < ApplicationController
       :stage_id, :timeline_id, :picture,
       :title, :title_class, :question, :answer, :response, :positive,
       :negative, :not_applicable, :remove_picture, :picture_cache,
+      :media_type, :video_title, :video_link,
       features_attributes: %i[id title precis description feature_type link _destroy],
       action_attributes: %i[id title feature_type link _destroy],
       task_shortcuts_attributes: %i[id live order shortcut_id],

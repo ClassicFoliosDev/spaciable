@@ -271,6 +271,10 @@ select {
         background-size: cover;
         background-position: center;
       }
+
+      .video {
+        text-align: center;
+      }
     }
 
     #answer, #proforma {
@@ -762,7 +766,7 @@ select {
       }
     }
 
-    .image-content {
+    .image-content, .media-content {
       display: grid;
       grid-template-columns: 50% 50%;
       grid-template-rows: auto auto;
@@ -782,6 +786,15 @@ select {
         margin: 0;
         color: $primary-navy;
       }
+
+      .media-type {
+        padding-right: $spacing-medium;
+      }
+
+      .media-source {
+        padding-left: $spacing-medium;
+      }
+
     }
 
     .incomplete-content {

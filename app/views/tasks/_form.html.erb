@@ -19,9 +19,19 @@
         <%= f.hidden_field :timeline_id, value: timeline&.id %>
       <% end %>
 
-      <div class="image-content">
-        <div class="image-container">
-          <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+      <div class="media-content">
+        <div class="media-type">
+          <%= f.input :media_type, as: :select, collection: task_media_collection, include_blank: false, label: t(".media")  %>
+        </div>
+
+        <div class="media-source">
+          <div class="image-container">
+            <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+          <div class="video-container">
+            <%= f.input :video_title, label: t(".video.title") %>
+            <%= f.input :video_link, label: t(".video.link") %>
+          </div>
         </div>
       </div>
 

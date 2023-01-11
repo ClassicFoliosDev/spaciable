@@ -112,7 +112,8 @@
 
   document.addEventListener('turbolinks:load', function () {
 
-    if ($(".timeline-sidebar").length < 1) { return }
+    if ($(".timeline-sidebar").length < 1 ||
+        $(".homeowner-view").length < 1) { return }
 
     $('body.homeowner-view').attr('id', 'timeline-body');
 
