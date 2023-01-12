@@ -4028,6 +4028,11 @@ never know when those questions will come up."
         conveyancing: "Spaciable Legal"
         conveyancing_quote: "Spaciable Legal Quote"
         conveyancing_signin: "Spaciable Legal Sign-in"
+      task:
+        media_type:
+          no_media: "none"
+          image: "image"
+          video: "video"
 
     errors:
       messages:
@@ -4197,7 +4202,11 @@ never know when those questions will come up."
       edit: "Edit %{task}"
     form:
       new: "New Page"
+      media: "Page Media"
       picture: "Page Image"
+      video:
+        title: "Video Title"
+        link: "Video Link"
       heading: "Page Title"
       question: "Question"
       journey:

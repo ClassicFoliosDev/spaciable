@@ -20,9 +20,8 @@ module TabsConcern
         return private_documents_path
       else
         return homeowner_library_path(tabs[tab]) if
-          Document.accessible_by(current_ability)
-                  .where(category: tabs[tab])
-                  .where("created_at <= ?", @plot.expiry_date).any?
+          Document.of_cat_visible_on_plot(current_ability,
+                                          tabs[tab], @plot).any?
       end
     end
   end

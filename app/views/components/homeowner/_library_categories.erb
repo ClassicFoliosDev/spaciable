@@ -4,9 +4,8 @@
     <!-- document enum categories -->
     <% categories = Document.categories %>
     <% categories.each do |cat, num| %>
-      <% documents = Document.accessible_by(current_ability).where(category: cat) %>
-      <% documents = documents.where(documentable_type: "Phase").or(documents.where(override: true)) if plot.free? %>
-      <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
+      <% documents = Document.of_cat_visible_on_plot(current_ability,
+                                                     cat, plot) %>
       <% if documents.any? %>
         <li>
           <%= link_to (cat == "my_home" ? plot.my_home_name : t_enum(Document, :category, cat)),
