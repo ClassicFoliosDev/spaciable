@@ -2,7 +2,7 @@
 
 <%= t("invitation_summary_mailer.resident_summary.report") %>
 
-<%= t("invitation_summary_mailer.resident_summary.summary", permission: @user.permission_level,
+<%= t("invitation_summary_mailer.resident_summary.summary", permission: @permission_level,
                                                             invitations: @invitations_count,
                                                             active: @invitations_count - @inactive.size,
                                                             inactive: @inactive.size) %>

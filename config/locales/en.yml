@@ -3496,7 +3496,7 @@ never know when those questions will come up."
 
   invitation_summary_mailer:
     resident_summary:
-      subject: "Spaciable Activation Report"
+      subject: "Spaciable Activation Report : %{permission_level}"
       hello: "Hi %{name},"
       report: "This is your weekly Spaciable activation report."
       summary: "In the last week, %{invitations} residents were invited to %{permission}. %{active} have activated,

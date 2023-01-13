@@ -12,18 +12,24 @@ class ResidentInvitationSummaryJob < ApplicationJob
       users = User.where.not(invitation_accepted_at: nil)
                   .where(receive_invitation_emails: true)
                   .where.not(permission_level_id: nil)
-      users.each { |user| build_report(user) }
+      users.each do |user|
+        build_report(user, user.permission_level)
+
+        user.grants.each do |grant|
+          build_report(user, grant.permission_level)
+        end
+      end
     end
   end
 
-  def build_report(user)
-    plots = user.permission_level&.plots
-    return unless plots
+  def build_report(user, permission_level)
+    return unless permission_level
 
-    residencies = PlotResidency.where(plot_id: plots,
+    residencies = PlotResidency.where(plot_id: permission_level.plots,
                                       created_at: ((Time.zone.now - 7.days)..Time.zone.now))
 
     return unless residencies.size.positive?
-    InvitationSummaryMailer.resident_summary(user, residencies.to_a).deliver_later
+    InvitationSummaryMailer.resident_summary(user, permission_level,
+                                             residencies.to_a).deliver_later
   end
 end

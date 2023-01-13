@@ -4,8 +4,9 @@ class InvitationSummaryMailer < ApplicationMailer
   default from: "feedback@spaciable.com"
 
   # rubocop:disable all
-  def resident_summary(user, residencies)
+  def resident_summary(user, permission_level, residencies)
     @user = user
+    @permission_level = permission_level
     @invitations_count = residencies.size
     inactive = []
 
@@ -42,6 +43,7 @@ class InvitationSummaryMailer < ApplicationMailer
     # CcEmail function expects to receive array of emails
     mail to: @user.email,
          cc: CcEmail.emails_list([@user.email], :receive_invitation_emails),
-         subject: I18n.t("invitation_summary_mailer.resident_summary.subject")
+         subject: I18n.t("invitation_summary_mailer.resident_summary.subject",
+                         permission_level: @permission_level)
   end
 end
