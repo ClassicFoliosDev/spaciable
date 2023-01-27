@@ -106,12 +106,18 @@
           </div>
 
           <% contacts = @task.contacts(@plot) %>
-          <% if contacts || @task.picture? %>
+          <% if contacts || @task.image? || @task.video? %>
             <aside class="contact-container">
-              <% if @timeline.stage_set.proforma? && @task.picture? %>
-                <div class="mobile-off">
-                  <img src='<%=image_path(@task.picture)%>'>
-                </div>
+              <% if @timeline.stage_set.proforma? %>
+                <% if @task.image? %>
+                  <div class="mobile-off">
+                    <img src='<%= image_path(@task.picture)%>' >
+                  </div>
+                <% elsif  @task.video? %>
+                  <div class="video branded-text">
+                    <iframe height="245" width="420" src=<%= @task.video_link %> frameborder="0"></iframe>
+                  </div>
+                <% end %>
               <% end %>
               <% if contacts %>
                 <h4 class="branded-text"><%= t("homeowners.timeline.contacts") %></h4>
