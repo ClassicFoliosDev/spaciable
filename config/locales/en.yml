@@ -1141,6 +1141,7 @@ never know when those questions will come up."
         removed: "Removed from all plots"
         invited_by: "Invited By"
         accepted_at: "Activated"
+        extended_until: "Extended"
         phone_number: "Phone"
         search: "Search Residents"
       show:
@@ -1157,6 +1158,7 @@ never know when those questions will come up."
         phone: "Phone: "
         id: "Plot ID"
         activated: "Activated: "
+        extended_until: "Extended: "
       plot_details:
         plot: "Plot"
 
@@ -2404,6 +2406,7 @@ never know when those questions will come up."
       activated: "Activated"
       role: "Role"
       invited_by: "Invited By"
+      extended_until: "Extended"
     create:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
