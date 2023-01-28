@@ -23,6 +23,7 @@
         <th colspan="2"><%= t(".invited_by") %></th>
         <th><%= sortable(Resident, :invitation_sent_at, t(".sent_at")) %></th>
         <th><%= sortable(Resident, :invitation_accepted_at, t(".accepted_at")) %></th>
+        <th><%= sortable(Resident, :extended_until, t(".extended_until")) %></
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -35,6 +36,7 @@
         <td colspan="2"><%= resident.plot_residency_invited_by(plot) %></td>
         <td><%= l resident.invitation_sent_at.to_date, format: :digits if resident.invitation_sent_at? %></td>
         <td><%= l resident.invitation_accepted_at.to_date, format: :digits if resident.invitation_accepted? %></td>
+        <td><%= l resident.extended_until.to_date, format: :digits if resident.extended_until? %></td>
         <td class="actions">
           <% unless resident.invitation_accepted? %>
             <%= (reinvite_btn resident, "#{url_for([plot, resident])}/reinvite") %>

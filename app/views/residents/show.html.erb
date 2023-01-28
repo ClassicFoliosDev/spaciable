@@ -18,6 +18,10 @@
       <span><%= @resident.phone_number %></span>
       <%= label_tag :role %>
       <span><%= @resident.plot_residency_role_name(@plot) %></span>
+      <% if @resident.extended_until? %>
+        <%= label_tag :extended %>
+        <span><%= l @resident.extended_until.to_date, format: :digits %></span>
+      <% end %>
     </div>
   </div>
 
