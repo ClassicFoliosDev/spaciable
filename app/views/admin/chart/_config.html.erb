@@ -1,0 +1,7 @@
+<script>
+  var chart_config = {
+  <% ChartColour.colours.each do | colour | %>
+    <%= colour.key %> : "<%= colour.colour %>",
+  <% end %>
+  }
+</script>

@@ -3,6 +3,8 @@
   <meta name="description" content="<%= yield(:description) %>">
 <% end %>
 
+<%= render "admin/chart/config" %>
+
 <% if Rails.env.test? %>
   <meta name="turbolinks-cache-control" content="no-cache">
 <% end %>
