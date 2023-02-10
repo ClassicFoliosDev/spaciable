@@ -2,6 +2,7 @@
 
 module LoginAs
   def login_as(user, opts = {})
+    CreateFixture.seed_env
     $current_user = user
     RequestStore.store[:current_user] = $current_user
 
