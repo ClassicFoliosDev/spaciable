@@ -197,7 +197,7 @@ var charts = {
         data.addRow([charts.position(index),
                      row.percent,
                      ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + charts.to_one_dp(row.percent) + '%',
-                     (selected == row.id.toString() ? 'opacity:.3' : 'opacity:1') + ';color: #002A3A'])
+                     (selected == row.id.toString() ? 'opacity:.3' : 'opacity:1') + ';color:' + chart_config.placing_row])
       }
     })
 
@@ -229,11 +229,11 @@ var charts = {
     var data = charts.data()
     data.addRow(["Highest", rows[0].percent,
                   charts.row_tag(rows[0]),
-                  'opacity:1;color:#25BC18'])
+                  'opacity:1;color:' + chart_config.highest_activation])
 
     data.addRow(["Lowest", rows[rows.length-1].percent,
                   charts.row_tag(rows[rows.length - 1]),
-                  'opacity:1;color:#E20017'])
+                  'opacity:1;color:' + chart_config.lowest_activation])
 
     charts.render_barchart(data, container, title, desc)
   },
@@ -396,13 +396,13 @@ var charts = {
         },
       pieHole: 0.5,
       slices: {
-        0: { visibleInLegend: true, color: '#25BC18' },
-        1: { visibleInLegend: true, color: '#E20017'},
-        2: { visibleInLegend: false, color: '#f2f2f2'}
+        0: { visibleInLegend: true, color: chart_config.plots_with_invited_residents },
+        1: { visibleInLegend: true, color: chart_config.plots_not_invited},
+        2: { visibleInLegend: false, color: chart_config.empty}
       }
     };
 
-    if ( charts.hundred([primary['invited'], primary['not_invited']])) { options['pieSliceTextStyle'] = { color: '#B1BBB3' } }
+    if ( charts.hundred([primary['invited'], primary['not_invited']])) { options['pieSliceTextStyle'] = { color: chart_config.hundred_percent } }
 
     charts.rationalise(data, options)
 
@@ -431,13 +431,13 @@ var charts = {
         },
       pieHole: 0.5,
       slices: {
-        0: { visibleInLegend: true, color: '#25BC18' },
-        1: { visibleInLegend: true, color: '#FFA700'},
-        2: { visibleInLegend: false, color: '#f2f2f2'}
+        0: { visibleInLegend: true, color: chart_config.plots_with_activated_residents },
+        1: { visibleInLegend: true, color: chart_config.invited_plots_pending_activation},
+        2: { visibleInLegend: false, color: chart_config.empty}
       }
     };
 
-    if ( charts.hundred([primary['activated'], (primary['invited'] - primary['activated'])])) { options['pieSliceTextStyle'] = { color: '#B1BBB3' } }
+    if ( charts.hundred([primary['activated'], (primary['invited'] - primary['activated'])])) { options['pieSliceTextStyle'] = { color: chart_config.hundred_percent } }
 
     charts.rationalise(data, options)
 
@@ -467,14 +467,14 @@ var charts = {
         },
       pieHole: 0.5,
       slices: {
-        0: { visibleInLegend: true, color: '#25BC18' },
-        1: { visibleInLegend: true, color: '#FFA700'},
-        2: { visibleInLegend: true, color: '#E20017'},
-        3: { visibleInLegend: false, color: '#f2f2f2'}
+        0: { visibleInLegend: true, color: chart_config.plots_with_activated_residents },
+        1: { visibleInLegend: true, color: chart_config.invited_plots_pending_activation},
+        2: { visibleInLegend: true, color: chart_config.plots_not_invited},
+        3: { visibleInLegend: false, color: chart_config.empty}
       }
     };
 
-    if ( charts.hundred([primary['activated'], (primary['invited'] - primary['activated']), primary['not_invited']])) { options['pieSliceTextStyle'] = { color: '#B1BBB3' } }
+    if ( charts.hundred([primary['activated'], (primary['invited'] - primary['activated']), primary['not_invited']])) { options['pieSliceTextStyle'] = { color: chart_config.hundred_percent } }
 
 
     charts.rationalise(data, options)

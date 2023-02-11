@@ -231,6 +231,11 @@ ActiveRecord::Schema.define(version: 20230209092257) do
     t.index ["user_id"], name: "index_cc_emails_on_user_id", using: :btree
   end
 
+  create_table "chart_colours", force: :cascade do |t|
+    t.integer "key"
+    t.string  "colour", default: "#ffffff"
+  end
+
   create_table "charts", force: :cascade do |t|
     t.string  "chartable_type"
     t.integer "chartable_id"
