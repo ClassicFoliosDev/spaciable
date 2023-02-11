@@ -104,9 +104,9 @@ en:
         title: "Thank You for Extending Your Spaciable Access"
         hello: "Hi %{name},"
         paragraph_one: "This email is to confirm receipt of payment for your extended access to Spaciable for 12 months."
-        paragraph_two: "You can use your existing login details to access your portal." 
-        paragraph_three: "We hope you continue to find Spaciable a useful resource for your home." 
-        goodbye: "Many thanks,"
+        paragraph_two: "You can use your existing login details to access your portal."
+        paragraph_three: "We hope you continue to find Spaciable a useful resource for your home."
+        goodbye: "Kind Regards,"
         team: "The Spaciable Team"
 
   time:

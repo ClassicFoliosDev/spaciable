@@ -89,8 +89,7 @@ en:
     title: "Sign Up for Another Year of Spaciable’s Benefits"
     intro: "Hi %{name},"
     para_one: "We hope you found your extended Spaciable access useful."
-    para_two: "Spaciable is designed to be your first port of call whenever questions about your home arise – and you
-never know when those questions will come up."
+    para_two: "Spaciable is an important tool in keeping your home’s key documents up-to-date and safe, so they can easily be shared in the case of future sales."
     para_three: "As such, for just £%{cost}, you can renew your access annually, using the following link."
     questions: "If you have any questions, please contact <a href='mailto:hello@spaciable.com'>hello@spaciable.com</a>"
     regards: "Kind regards,"
