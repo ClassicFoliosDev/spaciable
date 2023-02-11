@@ -97,6 +97,7 @@ end
 Given(/^I am logged in as a homeowner on a perks plot$/) do
   call_api_no_user_account
   login_as PerkFixture.create_perk_resident
+  CreateFixture.seed_env
 end
 
 Given(/^my plot does not have a legal completion date$/) do
