@@ -56,6 +56,7 @@ end
 
 Given(/^I have created and logged in as a homeowner user$/) do
   homeowner = HomeownerUserFixture.create
+  CreateFixture.seed_env
   login_as homeowner
 end
 

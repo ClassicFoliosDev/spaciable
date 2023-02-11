@@ -391,12 +391,7 @@ class Plot < ApplicationRecord
 
   def services
     return unless RequestStore.store[:current_resident]
-
-    r = RequestStore.store[:current_resident]
-    "https://home.spaciable.com/service" \
-    "?sf_name=#{[r.first_name, r.last_name].compact.join(' ')}" \
-    "&sf_email=#{r.email}&sf_telephone=#{r&.phone_number}" \
-    "&sf_developer=#{developer}"
+    EnvVar.services
   end
 
   def perk_type

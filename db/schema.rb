@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230207134126) do
+ActiveRecord::Schema.define(version: 20230209092257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -523,6 +523,11 @@ ActiveRecord::Schema.define(version: 20230207134126) do
     t.datetime "updated_at",                         null: false
     t.index ["document_id", "plot_id"], name: "document_plot_index", using: :btree
     t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
+  end
+
+  create_table "env_vars", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
   end
 
   create_table "event_resources", force: :cascade do |t|

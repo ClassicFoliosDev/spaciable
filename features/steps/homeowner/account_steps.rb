@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 When(/^I accept the invitation as a homeowner$/) do
+  CreateFixture.seed_env
+
   within ".edit_resident" do
     fill_in :resident_password, with: HomeownerUserFixture.updated_password
     fill_in :resident_password_confirmation, with: HomeownerUserFixture.updated_password

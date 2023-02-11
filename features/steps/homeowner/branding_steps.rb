@@ -45,6 +45,7 @@ end
 And(/^I have logged in as a resident and associated the division development plot$/) do
   plot = Plot.find_by(number: CreateFixture.phase_plot_name)
   resident = CreateFixture.create_resident_under_a_phase_plot
+  CreateFixture.seed_env
   FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id)
 
   login_as resident
