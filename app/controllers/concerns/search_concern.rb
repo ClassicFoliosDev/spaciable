@@ -15,6 +15,10 @@ module SearchConcern
       appliances << Appliance.includes(:appliance_manufacturer)
                     .where(appliance_manufacturer_id: manufacturers)
                              .accessible_by(current_ability, :read)
+
+      appliances << Appliance.includes(:appliance_category)
+                    .where("LOWER(appliance_categories.name) LIKE LOWER(?)", "%#{token}%")
+                             .accessible_by(current_ability, :read)
     end
 
     appliances.flatten.to_set.flatten
