@@ -3,6 +3,7 @@
 module SearchConcern
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/MethodLength
   def appliance_search(search_term)
     search_tokens = search_term.split(" ")
     appliances = []
@@ -15,10 +16,16 @@ module SearchConcern
       appliances << Appliance.includes(:appliance_manufacturer)
                     .where(appliance_manufacturer_id: manufacturers)
                              .accessible_by(current_ability, :read)
+
+      categories = ApplianceCategory.where("LOWER(name) LIKE LOWER(?)", "%#{token}%")
+      appliances << Appliance.includes(:appliance_category)
+                    .where(appliance_category_id: categories)
+                             .accessible_by(current_ability, :read)
     end
 
     appliances.flatten.to_set.flatten
   end
+  # rubocop:enable Metrics/MethodLength
 
   # Full search of finish name/type/manufacturer
   # rubocop:disable Metrics/MethodLength

@@ -21,7 +21,7 @@ module Homeowners
 
       search_results = {
         Appliance: appliances,
-        Manual: appliances,
+        Manual: appliances.reject { |a| a.manual.blank? && a.guide.blank? },
         Finish: finish_search(search_term),
         Room: room_search(search_term),
         Document: document_search(search_term),
