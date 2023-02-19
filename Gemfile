@@ -2,10 +2,10 @@
 
 source "https://rubygems.org"
 
-ruby "2.3.1"
+ruby "2.7.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 5.0.0", ">= 5.0.0.1"
+gem "rails", "~> 5.2.0", ">= 5.0.0.1"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 0.18"
 # Use Puma as the app server
@@ -43,7 +43,7 @@ gem "bcrypt", "~> 3.1.12", platforms: %i[ruby x64_mingw mingw]
 
 # Forms
 gem "ckeditor"
-gem "simple_form"
+gem "simple_form", "~>4.0"
 # Validation for phone numbers
 gem "phonelib"
 # Date/Time input cross-browser support
@@ -62,7 +62,7 @@ gem "mini_magick", "~> 4.8"
 gem "wetransfer", "~> 0.9.0.beta2"
 
 # Authentication
-gem "devise", "~> 4.2"
+gem "devise", "~> 4.4.2"
 gem "devise_invitable", "~> 1.7.0"
 
 # Rollbar for exception monitoring, see https://rollbar.com/alliants/Hoozzi/#rails
@@ -85,16 +85,17 @@ gem "simple_calendar", "~> 2.0"
 gem "kaminari"
 
 # Soft Delete
-gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"
+# gem "paranoia", "~>2.4.3" ,branch: 'core',  git: "https://github.com/rubysherpas/paranoia.git"
+gem "paranoia", "~> 2.0"
 
 # Background Jobs
 gem "carrierwave_backgrounder"
 gem "daemons", "~> 1.2"
-gem "delayed_job_active_record", "~> 4.1"
+gem "delayed_job_active_record", "~> 4.1.3"
 gem "whenever", "~> 0.10.0"
 
 # Process management
-gem "activerecord-session_store" # Store session data to avoid cookie cache overflow
+gem "activerecord-session_store", "~>1.1.3" # Store session data to avoid cookie cache overflow
 gem "foreman" # configuration in the Procfile
 
 # APIs
@@ -190,7 +191,7 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", "~> 0.6"
-  gem "cucumber-rails", require: false
+  gem "cucumber-rails", "~>1.7.0", require: false
   gem "database_cleaner"
   gem "launchy"
   gem "rspec-rails"
