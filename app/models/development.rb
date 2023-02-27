@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class Development < ApplicationRecord
   include ConstructionEnum
+  include ClientPlatformEnum
   acts_as_paranoid
 
   belongs_to :developer, optional: true

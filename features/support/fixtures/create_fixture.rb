@@ -823,7 +823,6 @@ module CreateFixture
   def seed_env
     return unless EnvVar.all.empty?
     EnvVar.create(name: "services", value: "https://spaciable.io/services")
-    EnvVar.initialise
   end
 
 end

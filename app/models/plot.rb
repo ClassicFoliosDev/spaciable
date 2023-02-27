@@ -53,6 +53,7 @@ class Plot < ApplicationRecord
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
+  delegate :client_platform, :platform_is?, to: :development
   delegate :cas, to: :developer
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
@@ -391,7 +392,7 @@ class Plot < ApplicationRecord
 
   def services
     return unless RequestStore.store[:current_resident]
-    EnvVar.services
+    EnvVar[:services]
   end
 
   def perk_type
