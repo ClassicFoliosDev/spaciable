@@ -7,7 +7,7 @@ class Log < ApplicationRecord
 
   delegate :marker, to: :mark, allow_nil: true
 
-  before_save :make_mark
+  after_save :make_mark
 
   enum action: %i[
     created
@@ -18,8 +18,9 @@ class Log < ApplicationRecord
   ]
 
   def make_mark
-    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
-                              role: RequestStore.store[:current_user]&.role)
+    mark&.destroy!
+    create_mark(username: RequestStore.store[:current_user]&.full_name,
+                role: RequestStore.store[:current_user]&.role)
   end
 
   class << self

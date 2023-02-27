@@ -49,7 +49,7 @@ gem "phonelib"
 # Date/Time input cross-browser support
 gem "flatpickr"
 
-gem "cancancan", "~> 1"
+gem "cancancan", "~> 2"
 gem "gretel" # breadcrumbs
 
 # File Uploads
@@ -192,7 +192,7 @@ end
 group :test do
   gem "codeclimate-test-reporter", "~> 0.6"
   gem "cucumber-rails", "~>1.7.0", require: false
-  gem "database_cleaner"
+  gem "database_cleaner", "~>1.6.0"
   gem "launchy"
   gem "rspec-rails"
   gem "simplecov", "~> 0.12", require: false

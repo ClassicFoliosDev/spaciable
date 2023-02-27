@@ -15,7 +15,6 @@ class RoomsController < ApplicationController
                               only: %i[remove_finish remove_appliance]
 
   before_action :set_parent
-  before_action :stamp, only: %i[create edit update]
 
   def index
     @rooms = paginate(sort(@rooms, default: :name))
@@ -136,8 +135,5 @@ class RoomsController < ApplicationController
     @parent = @unit_type || @room&.parent
   end
 
-  def stamp
-    @room.update_mark
-  end
 end
 # rubocop:enable ClassLength

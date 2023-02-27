@@ -49,7 +49,7 @@ class Room < ApplicationRecord
   delegate :restricted, to: :unit_type, prefix: true
 
   after_destroy -> { finishes.delete_all }
-  before_save :make_mark
+  after_save :update_mark
 
   alias_attribute :identity, :name
 
@@ -140,11 +140,6 @@ class Room < ApplicationRecord
     return nil unless plot
 
     plot ? plot.rooms.to_a : unit_type.rooms.to_a
-  end
-
-  def make_mark
-    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
-                              role: RequestStore.store[:current_user]&.role)
   end
 end
 # rubocop:enable Metrics/ClassLength

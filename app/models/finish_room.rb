@@ -13,7 +13,7 @@ class FinishRoom < ApplicationRecord
     include_association :mark
   end
 
-  before_save :make_mark
+  after_save :make_mark
   after_create -> { log :added }
   after_update -> { log :updated }
   after_destroy -> { log :removed }

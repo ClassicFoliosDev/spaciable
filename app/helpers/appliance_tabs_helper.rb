@@ -12,17 +12,17 @@ module ApplianceTabsHelper
     {
       appliances: {
         icon: :plug,
-        link: ["appliances", active_tab: :appliances],
+        link: [:appliances, active_tab: :appliances],
         permissions_on: -> { Appliance.new(developer_id: developer_id) }
       },
       appliance_categories: {
         icon: "folder-o",
-        link: ["appliance_categories", active_tab: :appliance_categories],
+        link: [:appliance_categories, active_tab: :appliance_categories],
         permissions_on: -> { Appliance.new(developer_id: developer_id) }
       },
       appliance_manufacturers: {
         icon: :industry,
-        link: ["appliance_manufacturers", active_tab: :appliance_manufacturers],
+        link: [:appliance_manufacturers, active_tab: :appliance_manufacturers],
         permissions_on: -> { Appliance.new(developer_id: developer_id) }
       }
     }
