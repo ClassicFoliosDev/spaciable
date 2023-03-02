@@ -1,12 +1,9 @@
-<div class="tile-image">
-  <%= image_tag "services.jpg" %>
-</div>
-<div class="img-tile-details services-summary">
-  <div class="tile-text">
-    <h2 class="tile-title branded-text"><%= t(".title") %></h2>
-    <p class="tile-description branded-text"><%= t(".description") %></p>
-  </div>
-  <div class="tile-button">
-    <%= link_to t(".button"), (defined?(plot) && plot.respond_to?(:services) ? plot&.services : nil), class: "branded-btn" %>
-  </div>
+<div id="customTileImage" class="tile-full-image">
+  <% if defined?(plot) && plot.respond_to?(:services) %>
+    <%= link_to image_tag("savings.png"), plot&.services,target: '_blank' %>
+  <% else %>
+    <div id="image" class="full-image">
+        <%= image_tag "savings.png" %>
+    </div>
+  <% end %>
 </div>

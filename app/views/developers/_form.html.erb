@@ -28,7 +28,7 @@
         <% end %>
         <%= f.input :custom_url, label: t(".custom_url"), input_html: {type: "text"} %>
         <div class="featured ui-front">
-          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
+          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: developer.persisted? %>
         </div>
         <%= f.input :about %>
         <%= f.input :api_key, as: :text, placeholder: t(".api_key_info"), label: t(".api_key") %>
