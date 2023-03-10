@@ -54,6 +54,7 @@ Then(/^I can preview the referrals the spotlight$/) do
 end
 
 Then(/^I can add a new spotlight$/) do
+  CreateFixture.seed_env
   within ".section-actions" do
     find("a.btn.btn-primary").trigger('click')
     sleep 5

@@ -1,9 +1,9 @@
 <div id="customTileImage" class="tile-full-image">
   <% if defined?(plot) && plot.respond_to?(:services) %>
-    <%= link_to image_tag("savings.png"), plot&.services,target: '_blank' %>
+    <%= link_to image_tag(EnvVar[:savings_spotlight]), plot&.services,target: '_blank' %>
   <% else %>
     <div id="image" class="full-image">
-        <%= image_tag "savings.png" %>
+        <%= image_tag EnvVar[:savings_spotlight] %>
     </div>
   <% end %>
 </div>
