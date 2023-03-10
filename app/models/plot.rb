@@ -391,7 +391,7 @@ class Plot < ApplicationRecord
 
   def services
     return unless RequestStore.store[:current_resident]
-    EnvVar.services
+    EnvVar[:services]
   end
 
   def perk_type
