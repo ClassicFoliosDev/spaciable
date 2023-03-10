@@ -27,6 +27,11 @@ module PlotRouteHelper
   def create_living_resident(plot, token)
     path = EnvVar[:create_living_resident].gsub("INVITATION_TOKEN", token)
     path << "&brand_id=#{plot.brand.id}" if plot.brand.id.present?
+
+    Firebase.shorten(path) do |short_url, error|
+      path = short_url if error.blank?
+    end
+
     path
   end
 
@@ -40,7 +45,11 @@ module PlotRouteHelper
     if plots.count == 1 && plots.first.brand.id.present?
       path << "&brand_id=#{plots.first.brand.id}"
     end
-    path
 
+    Firebase.shorten(path) do |short_url, error|
+      path = short_url if error.blank?
+    end
+
+    path
   end
 end

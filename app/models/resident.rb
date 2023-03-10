@@ -216,5 +216,9 @@ class Resident < ApplicationRecord
       ExpiryResidentsJob.perform_later(expiry_residents)
     end
   end
+
+  def reset_token
+    set_reset_password_token
+  end
 end
 # rubocop:enable Metrics/ClassLength

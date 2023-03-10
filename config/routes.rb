@@ -435,6 +435,7 @@ Rails.application.routes.draw do
           put "/invitation/accept", to: "invitation#update"
           post "/password/request_new", to: "password#create"
           put "/password/reset", to: "password#update"
+          put "/password/authenticate", to: "password#authenticate"
         end
       end
     end

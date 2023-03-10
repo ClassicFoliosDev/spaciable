@@ -4,14 +4,14 @@ module ClientPlatformEnum
   extend ActiveSupport::Concern
 
   included do
-    enum client_platform: [
-      :native, 
-      :living,
-      :hybrid
+    enum client_platform: %i[
+      native
+      living
+      hybrid
     ]
   end
 
   def platform_is?(type)
-  	self.client_platform == type.to_s
+    client_platform == type.to_s
   end
 end
