@@ -843,5 +843,9 @@ class Plot < ApplicationRecord
       (RequestStore.store[:current_resident].nil? ||
        !RequestStore.store[:current_resident]&.extended?)
   end
+
+  def platform_logo
+    platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
+  end
 end
 # rubocop:enable Metrics/ClassLength

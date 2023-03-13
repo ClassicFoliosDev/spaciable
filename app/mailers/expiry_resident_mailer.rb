@@ -9,7 +9,7 @@ class ExpiryResidentMailer < ApplicationMailer
     @payment_charge = Payment::EXTENTION_CHARGE
     @email = residency.email
     @name = residency.first_name
-    @logo = "Spaciable_full.svg"
+    @logo = @plot.platform_logo
     mail to: @email, subject: I18n.t("resident_expiry_email.title")
   rescue => e
     Rails.logger.debug(e.message)

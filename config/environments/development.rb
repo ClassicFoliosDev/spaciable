@@ -60,18 +60,12 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: ENV['ASSET_HOST'] }
-  config.action_mailer.smtp_settings = {
-    user_name: "06065b3d1a291b",
-    password: "4364aea499a4f5",
-    address: "smtp.mailtrap.io",
-    domain: "smtp.mailtrap.io",
-    port: "2525",
-    authentication: "cram_md5"
-  }
-  config.action_mailer.asset_host = ENV['ASSET_HOST']
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
+  config.action_mailer.asset_host = 'http://localhost:3000'
 
   config.enable_development_plots = false
   config.enable_thumbnails = true
+
+  config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
 end

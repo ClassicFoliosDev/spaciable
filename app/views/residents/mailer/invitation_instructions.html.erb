@@ -1,10 +1,13 @@
 <% plot = @resource.invitation_plot %>
+
 <% if plot.branded_email_logo %>
   <%= image_tag(plot.branded_email_logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
 <% elsif plot.branded_logo %>
   <%= image_tag(plot.branded_logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
 <% else %>
-  <%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
+  <%= image_tag(plot.platform_logo, 
+                 style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", 
+                 alt: plot.development.to_s) %>
 <% end %>
 
 <p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.first_name) %>,</p>

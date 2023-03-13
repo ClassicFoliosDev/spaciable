@@ -26,6 +26,6 @@ class ExpiryPlotsMailer < ApplicationMailer
     @developer = @plot.developer
     @address = [@plot.prefix, @plot.postal_number,
                 @plot.building_name, @plot.road_name].compact.join(" ")
-    @logo = "Spaciable_full.svg"
+    @logo = @plot.platform_logo
   end
 end
