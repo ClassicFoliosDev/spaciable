@@ -87,6 +87,11 @@ class Resident < ApplicationRecord
     I18n.t("activerecord.attributes.plot_residency.roles.#{residency.role}")
   end
 
+  def plot_residency_role(plot)
+    PlotResidency.find_by(resident_id: id, plot_id: plot.id)&.role
+  end
+
+
   def plot_residency_homeowner?(plot)
     residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
     return false if residency.blank?

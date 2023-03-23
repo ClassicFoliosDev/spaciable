@@ -431,6 +431,9 @@ Rails.application.routes.draw do
     namespace :resident do
       scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
         resources :meta, only: [:index]
+        resources :contact, only: [:index]
+        resources :faq_category, only: [:index]
+        get "/faq/:faq_category",to: "faq#index"
       end
     end
 
