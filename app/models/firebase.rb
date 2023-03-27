@@ -5,7 +5,7 @@ class Firebase
   include HTTParty
 
   TIMEOUT = 10
-  
+
   class << self
 
     def shorten(link)
