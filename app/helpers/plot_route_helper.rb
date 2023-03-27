@@ -14,6 +14,8 @@ module PlotRouteHelper
   end
 
   def resident_sign_in_route(plot)
+    return EnvVar[:living_sign_in] if plot.platform_is?(:living)
+
     path = build_path(plot)
     path << "/sign_in"
 
@@ -51,5 +53,15 @@ module PlotRouteHelper
     end
 
     path
+  end
+
+  def homeowners_notifications_route(plot, note_id)
+    return resident_sign_in_route(plot) if plot.platform_is?(:living)
+    homeowners_notifications_url(note_id: note_id)
+  end
+
+  def login_platform(plot)
+    return "Spaciable Living" if plot.platform_is?(:living)
+    "Spaciable"
   end
 end

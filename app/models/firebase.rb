@@ -4,17 +4,13 @@
 class Firebase
   include HTTParty
 
-  # class constants
-  URL = EnvVar[:firebase_url]
   TIMEOUT = 10
-  TIMEOUT_ERROR = "#{URL} is currently unavaliable. Please try again later"
-  CONNECT_ERROR = "#{URL} cannot be contacted"
-
+  
   class << self
 
     def shorten(link)
 
-      url = "#{URL}#{EnvVar[:firebase_shorten_endpoint]}" +
+      url = "#{EnvVar[:firebase_url]}#{EnvVar[:firebase_shorten_endpoint]}" +
             "?key=#{EnvVar[:firebase_api_key]}"
       begin
         response = HTTParty.post(url,
@@ -39,9 +35,9 @@ class Firebase
           error = "Failed to create shortend url. #{response.parsed_response['errors']}"
         end
       rescue Net::OpenTimeout
-        error = TIMEOUT_ERROR
+        error = "#{EnvVar[:firebase_url]} is currently unavaliable. Please try again later"
       rescue
-        error = CONNECT_ERROR
+        error = "#{EnvVar[:firebase_url]} cannot be contacted"
       end
 
       yield shortlink, error

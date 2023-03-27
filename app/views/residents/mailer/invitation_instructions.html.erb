@@ -13,38 +13,58 @@
 <p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.first_name) %>,</p>
 
 <h4><%= t("devise.mailer.resident_invitation.new_home", development_name: plot.development) %></h4>
-
 <% invited_by_user = @resource.plot_residency_invited_by(plot) %>
 <% invited_by = invited_by_user.class.to_s == "User" ? plot.developer.to_s : invited_by_user %>
 <% invited_by_str = invited_by.nil? ? I18n.t("devise.mailer.resident_invitation.name") : invited_by.to_s %>
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", name: invited_by_str) %></p>
 
-<p><%= t("devise.mailer.resident_invitation.benefits") %></p>
-<ul>
-  <li><%= t("devise.mailer.resident_invitation.benefit1") %></li>
-  <li><%= t("devise.mailer.resident_invitation.benefit2") %></li>
-  <li><%= t("devise.mailer.resident_invitation.benefit3") %></li>
-  <li><%= t("devise.mailer.resident_invitation.benefit4") %></li>
-  <li><%= t("devise.mailer.resident_invitation.benefit5") %></li>
-</ul>
-<br/>
+<% if plot.platform_is?(:native) %>
+  <p><%= t("devise.mailer.invitation_instructions.someone_invited_you", name: invited_by_str) %></p>
 
-<p><%= t("devise.mailer.resident_invitation.activate") %></p>
-<p><%= t("devise.mailer.resident_invitation.confirm") %></p>
-<p style="font-style: italic; font-size:12px;"><%= t("devise.mailer.resident_invitation.my_account") %></p>
+  <p><%= t("devise.mailer.resident_invitation.benefits") %></p>
+  <ul>
+    <li><%= t("devise.mailer.resident_invitation.benefit1") %></li>
+    <li><%= t("devise.mailer.resident_invitation.benefit2") %></li>
+    <li><%= t("devise.mailer.resident_invitation.benefit3") %></li>
+    <li><%= t("devise.mailer.resident_invitation.benefit4") %></li>
+    <li><%= t("devise.mailer.resident_invitation.benefit5") %></li>
+  </ul>
+  <br/>
 
-<p style="text-align: center;">
-  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Accept Invitation</button>".html_safe, resident_invitation_route(plot, @token) %>
-</p>
-<br/>
+  <p><%= t("devise.mailer.resident_invitation.activate") %></p>
+  <p><%= t("devise.mailer.resident_invitation.confirm") %></p>
+  <p style="font-style: italic; font-size:12px;"><%= t("devise.mailer.resident_invitation.my_account") %></p>
 
-<% if @resource.invitation_due_at %>
-  <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
+  <p style="text-align: center;">
+    <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Accept Invitation</button>".html_safe, resident_invitation_route(plot, @token) %>
+  </p>
+  <br/>
+
+  <% if @resource.invitation_due_at %>
+    <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
+  <% end %>
+
+  <p><%= t("devise.mailer.invitation_instructions.ignore2") %></p>
+
+  <p><%= t("devise.mailer.resident_invitation.log_in").html_safe %></p>
+  <br/>
+  <p style="font-style: italic;font-size: 14px;"><%= t("devise.mailer.invitation_instructions.ignore") %></p>
+<% elsif plot.platform_is?(:living) %>
+  <p><%= t("devise.mailer.invitation_instructions.living.someone_invited_you", name: invited_by_str) %></p>
+
+  <p><%= t("devise.mailer.resident_invitation.living.benefits") %></p>
+  <ul>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit1") %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit2") %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit3", developername: plot.developer.company_name) %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit4") %></li>
+  </ul>
+  <p><%= t("devise.mailer.resident_invitation.living.summary") %></p>
+  <p><%= t("devise.mailer.resident_invitation.living.activate") %></p>
+  <p style="text-align: center;">
+    <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Accept Invitation</button>".html_safe, resident_invitation_route(plot, @token) %>
+  </p>
+  <p><%= t("devise.mailer.resident_invitation.living.regards1") %></p>
+  <p><%= t("devise.mailer.resident_invitation.living.regards2") %></p>
 <% end %>
 
-<p><%= t("devise.mailer.invitation_instructions.ignore2") %></p>
 
-<p><%= t("devise.mailer.resident_invitation.log_in").html_safe %></p>
-<br/>
-
-<p style="font-style: italic;font-size: 14px;"><%= t("devise.mailer.invitation_instructions.ignore") %></p>
