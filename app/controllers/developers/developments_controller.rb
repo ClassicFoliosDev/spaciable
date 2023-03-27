@@ -108,7 +108,7 @@ module Developers
         :developer_id, :division_id,
         :email, :contact_number,
         :enable_snagging, :snag_duration, :snag_name, :cas, :calendar, :conveyancing,
-        :construction, :construction_name,
+        :construction, :construction_name, :client_platform,
         maintenance_attributes: %i[id path account_type populate],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],

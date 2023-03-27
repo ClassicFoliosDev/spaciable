@@ -1497,6 +1497,7 @@ en:
       premium_licences_remaining: "Premium Licences Remaining"
       construction: "Construction Type"
       construction_name: "Replace My 'Home':"
+      client_platform: "Client Platform"
       calendar: "Calendar"
       calendar_description: "Enable Plot Calendars for this Development"
       conveyancing: "Spaciable Legal Conveyancing"
@@ -3674,6 +3675,10 @@ en:
         construction_labels:
           residential: "Residential"
           commercial: "Commercial"
+        client_platform_labels:
+          native: "Spaciable"
+          living: "Living"
+          hybrid: "Spaciable/Living"
       phase:
         name: "Name"
         updated_at: "Last Edited"
