@@ -5,8 +5,8 @@
 <% elsif plot.branded_logo %>
   <%= image_tag(plot.branded_logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
 <% else %>
-  <%= image_tag(plot.platform_logo, 
-                 style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", 
+  <%= image_tag(plot.platform_logo,
+                 style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;",
                  alt: plot.development.to_s) %>
 <% end %>
 
@@ -55,7 +55,7 @@
   <ul>
     <li><%= t("devise.mailer.resident_invitation.living.benefit1") %></li>
     <li><%= t("devise.mailer.resident_invitation.living.benefit2") %></li>
-    <li><%= t("devise.mailer.resident_invitation.living.benefit3", developername: plot.developer.company_name) %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit3", developername: plot.company_name) %></li>
     <li><%= t("devise.mailer.resident_invitation.living.benefit4") %></li>
   </ul>
   <p><%= t("devise.mailer.resident_invitation.living.summary") %></p>
