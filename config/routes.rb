@@ -436,6 +436,7 @@ Rails.application.routes.draw do
           post "/password/request_new", to: "password#create"
           put "/password/reset", to: "password#update"
           put "/password/authenticate", to: "password#authenticate"
+          put "/set_preferences", to: "preferences#update"
         end
       end
     end
