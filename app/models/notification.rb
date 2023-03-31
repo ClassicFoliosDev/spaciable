@@ -136,6 +136,17 @@ class Notification < ApplicationRecord
   end
   # rubocop:enable all
 
+  # get the live (not expired) plots associated with the notification
+  def unexpired_plot_ids
+    live_plots = if send_to_type == "Plot"
+                   [Plot.find(send_to_id)]
+                 else
+                   send_to.plots
+                 end
+
+    live_plots.reject(&:expired?).pluck(:id)
+  end
+
   delegate :role, to: :sender, allow_nil: true
   delegate :job_title, to: :sender, allow_nil: true
   delegate :first_name, to: :sender, allow_nil: true

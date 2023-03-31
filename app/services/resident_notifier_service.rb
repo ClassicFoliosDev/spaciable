@@ -27,6 +27,8 @@ class ResidentNotifierService
     SendResidentNotificationsJob.perform_later(residents_in_scope.pluck(:id),
                                                notification, true, sender)
 
+    Living::Notification.notify(notification, residents_in_scope)
+
     residents_in_scope
   end
 

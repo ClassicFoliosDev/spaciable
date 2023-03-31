@@ -148,9 +148,9 @@ Then(/^I see the plot number as postal number$/) do
   end
 end
 
-Then(/^I see the services$/) do
+Then(/^I see the savings$/) do
   within ".articles" do
-    services = page.all(".services-summary")
+    services = page.all(".services-component")
     expect(services.count).to eq 1
   end
 end
@@ -190,14 +190,14 @@ Then(/^I see no referral link$/) do
   end
 end
 
-Then(/^I see no services link$/) do
+Then(/^I see no savings link$/) do
   within ".articles" do
     services = page.all(".services-summary")
     expect(services.count).to eq 0
   end
 end
 
-Given(/^the developer has a custom tile for services$/) do
+Given(/^the developer has a custom tile for savings$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
   FactoryGirl.create(:custom_tile, spotlight_id: Spotlight.create(development_id: development.id).id, feature: 'services')
 end

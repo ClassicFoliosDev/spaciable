@@ -33,7 +33,7 @@ Feature: Dashboard
     When I navigate to the dashboard
     Then I see no referral link
     And I see no savings link
-    Given the developer has a custom tile for services
+    Given the developer has a custom tile for savings
     And the developer has a custom tile for referrals
     When I navigate to the dashboard
     Then I see the savings
