@@ -20,7 +20,7 @@ Then(/^I should be redirected to the homeowner dashboard$/) do
   expect(current_path).to eq '/dashboard'
 end
 
-Given(/^the developer has enabled services$/) do
+Given(/^the developer has enabled savings$/) do
   developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
   developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
 
@@ -401,13 +401,13 @@ Then(/^I should be redirected to the intro video page$/) do
   end
 end
 
-Then(/^I should be redirected to the services page$/) do
+Then(/^I should be redirected to the savings page$/) do
   within ".navbar-item-secondary" do
     expect(page).to have_content(t("homeowners.residents.services.title"))
   end
 end
 
-When(/^I select no services$/) do
+When(/^I select no savings$/) do
   within ".services-actions" do
     page.first(".branded-btn-inverted").click
   end

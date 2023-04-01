@@ -9,7 +9,7 @@ Feature: Homeowner Account
   Scenario: Manage resident account
     Given I am a Development Admin wanting to assign a new resident to a plot
     And FAQ metadata is available
-    And the developer has enabled services
+    And the developer has enabled savings
     And a CF admin has configured a video link
     When I assign a new resident to a plot
     And I log out as a an admin
@@ -21,8 +21,8 @@ Feature: Homeowner Account
     And when I click next
     Then I should be redirected to the intro video page
     And when I click next
-    Then I should be redirected to the services page
-    When I select no services
+    Then I should be redirected to the savings page
+    When I select no savings
     Then I should be redirected to the homeowner dashboard
     And I can see the intro video link in my account
     When I add another resident
@@ -42,10 +42,10 @@ Feature: Homeowner Account
     And I remove the additional resident
     Then I see the resident has been hard removed
 
-  Scenario: Manage resident account - intro video disabled, services enabled
+  Scenario: Manage resident account - intro video disabled, savings enabled
     Given I am a Development Admin wanting to assign a new resident to a plot
     And FAQ metadata is available
-    And the developer has enabled services
+    And the developer has enabled savings
     And a CF admin has disabled the intro video
     When I assign a new resident to a plot
     And I log out as a an admin
@@ -55,11 +55,11 @@ Feature: Homeowner Account
     And when I click next
     Then I am redirected to the welcome home page
     And when I click next
-    Then I should be redirected to the services page
-    When I select no services
+    Then I should be redirected to the savings page
+    When I select no savings
     Then I should be redirected to the homeowner dashboard
 
-  Scenario: Manage resident account - intro video and services disabled
+  Scenario: Manage resident account - intro video and savings disabled
     Given I am a Development Admin wanting to assign a new resident to a plot
     And FAQ metadata is available
     And a CF admin has disabled the intro video
