@@ -14,7 +14,7 @@ module Living
           body:
             {
               notification_id: notification.id,
-              recipient_ids: PlotResidency.where(plot_id: notification.unexpired_plot_ids)
+              recipient_ids: PlotResidency.where(plot_id: notification.plot_ids)
                                           .where(resident_id: residents_in_scope)
                                           .pluck(:id)
            }.to_json,

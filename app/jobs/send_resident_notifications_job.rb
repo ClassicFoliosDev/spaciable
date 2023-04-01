@@ -6,7 +6,7 @@ class SendResidentNotificationsJob < ApplicationJob
   def perform(resident_ids, notification, direct = false, sender = nil)
     return unless notification
 
-    notify(resident_ids, notification, notification.unexpired_plot_ids, direct, sender)
+    notify(resident_ids, notification, notification.plot_ids, direct, sender)
   end
 
   # rubocop:disable Metrics/MethodLength
