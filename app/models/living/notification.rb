@@ -31,8 +31,6 @@ module Living
             },
           timeout: 10)
 
-          byebug
-
           Rails.logger.error("ERROR: Failed to end Notification: #{response.message}") if response.code != 200
       rescue Net::OpenTimeout
         Rails.logger.error("ERROR: Timed out sending Notification: #{notification.id}")
