@@ -13,10 +13,15 @@ module Living
                                   "#{EnvVar[:living_notification_webhook]}",
           body:
             {
+              send_to_all: notification.send_to_all? ? "true" : "false",
               notification_id: notification.id,
-              recipient_ids: PlotResidency.where(plot_id: notification.plot_ids)
-                                          .where(resident_id: residents_in_scope)
-                                          .pluck(:id)
+              residency_ids: if notification.send_to_all?
+                               []
+                             else
+                               PlotResidency.where(plot_id: notification.plot_ids)
+                                            .where(resident_id: residents_in_scope.pluck(:id))
+                                            .pluck(:id)
+                             end
            }.to_json,
           headers:
             {
@@ -25,6 +30,8 @@ module Living
               "Authorization" => "Bearer #{EnvVar[:living_webhook_api_key]}"
             },
           timeout: 10)
+
+          byebug
 
           Rails.logger.error("ERROR: Failed to end Notification: #{response.message}") if response.code != 200
       rescue Net::OpenTimeout
