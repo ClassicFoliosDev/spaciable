@@ -4,7 +4,7 @@
 <div class="admin-login-panel">
   <div class="admin-login-form">
     <div class="admin-login-logo">
-      <%= image_tag "Spaciable_full.svg" %>
+      <%= image_tag "Spaciable_full.svg", alt: image_alt("Spaciable_full.svg") %>
     </div>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -35,7 +35,7 @@
     </div>
     <div class="content">
       <div class="login-icon">
-        <div><%= image_tag "Spaciable_icon_white.svg" %></div>
+        <div><%= image_tag "Spaciable_icon_white.svg", alt: image_alt(aciable_icon_white.svg) %></div>
       </div>
     </div>
   </div>

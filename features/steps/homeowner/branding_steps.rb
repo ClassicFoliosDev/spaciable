@@ -59,28 +59,29 @@ Then(/^I should see the branding for my page$/) do
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
   # header-color set on division only
-  expect(style['outerHTML']).to have_content("branded-nav-background { background-color: #222000")
+  style = style['outerHTML'].gsub(/\n/, '').gsub(/\s+/,' ')
+  expect(style).to have_content("branded-nav-background { background-color: #222000")
   # bg-color set on developer and division: should be the division color
-  expect(style['outerHTML']).to have_content("library-navigation { background-color: #000222")
+  expect(style).to have_content("library-navigation { background-color: #000222")
   # text-color set on developer only
-  expect(style['outerHTML']).to have_content("branded-text { color: #646467")
+  expect(style).to have_content("branded-text { color: #646467")
   # content bg-color set on developer and division: should be the division color
-  expect(style['outerHTML']).to have_content("branded-content { background-color: #32344E")
+  expect(style).to have_content("branded-content { background-color: #32344E")
   # content outline (aka border) color set on development only
-  expect(style['outerHTML']).to have_content("branded-border { border-color: #446677")
+  expect(style).to have_content("branded-border { border-color: #446677")
   # button background color set on development and developer: should be development color
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #776644")
+  expect(style).to have_content("branded-btn { background-color: #776644")
   # button text color set on development, division, and developer: should be development color
-  expect(style['outerHTML']).to have_content("branded-btn { color: #698492")
-  expect(style['outerHTML']).to have_content("branded-nav-text a { color: #48f442")
+  expect(style).to have_content("branded-btn { color: #698492")
+  expect(style).to have_content("branded-nav-text a { color: #48f442")
 
   # banner set on development, division, and developer: should be development image
-  expect(style['outerHTML']).to have_content("cala_banner.jpg")
+  expect(style).to have_content("cala_banner.jpg")
 
   # button text color should NOT be the developer color
-  expect(style['outerHTML']).not_to have_content("branded-btn { color: #A6A7B2")
+  expect(style).not_to have_content("branded-btn { color: #A6A7B2")
   # button text color should NOT be the division color
-  expect(style['outerHTML']).not_to have_content("branded-btn { color: #4C4D64")
+  expect(style).not_to have_content("branded-btn { color: #4C4D64")
 end
 
 Then(/^I should see the developer level configured branding$/) do
@@ -162,15 +163,16 @@ Then(/^I should see the default branding$/) do
   end
 
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
+  style = style['outerHTML'].gsub(/\n/, '').gsub(/\s+/,' ')
 
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-text { color: #002A3A")
-  expect(style['outerHTML']).to have_content("branded-content { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-border { border-color: #c5d1d6")
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-btn { color: #FF293F")
+  expect(style).to have_content("branded-body { background-color: #FFFFFF")
+  expect(style).to have_content("branded-text { color: #002A3A")
+  expect(style).to have_content("branded-content { background-color: #FFFFFF")
+  expect(style).to have_content("branded-border { border-color: #c5d1d6")
+  expect(style).to have_content("branded-btn { background-color: #FFFFFF")
+  expect(style).to have_content("branded-btn { color: #FF293F")
 
-  expect(style['outerHTML']).not_to have_content("cala_banner.jpg")
+  expect(style).not_to have_content("cala_banner.jpg")
 end
 
 When(/^I switch back to the first plot$/) do

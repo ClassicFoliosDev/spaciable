@@ -252,7 +252,7 @@ class Development < ApplicationRecord
     changed = []
 
     { "issues" => !Maintenance.exists?(development_id: id),
-      "snagging" => enable_snagging_changed? && !enable_snagging? }.each do |name, disabled|
+      "snagging" => saved_change_to_enable_snagging? && !enable_snagging? }.each do |name, disabled|
       changed << name if disabled
     end
 

@@ -5,7 +5,7 @@
 <div class="login branded-left-box">
   <div class="sign-in branded-right-box">
     <div class="login-logo">
-      <%= image_tag login_brand_or_white_logo(@brand) %>
+      <%= image_tag login_brand_or_white_logo(@brand), alt: image_alt(login_brand_or_white_logo(@brand)) %>
     </div>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

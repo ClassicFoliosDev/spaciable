@@ -18,7 +18,7 @@ class PhaseTimeline < ApplicationRecord
   # If the timeline has been changed then the all the plots task_logs
   # must be deleted and their plot_timelines reset
   def reset_plots
-    return unless timeline_id_changed?
+    return unless saved_change_to_timeline_id?
 
     plot_timelines&.map(&:reset)
   end

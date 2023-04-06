@@ -7,7 +7,7 @@
 
   <div class="row plot-address">
     <div class="plot-logo">
-      <%= image_tag brand_or_small_logo(plot.development.brand_any, plot) %>
+      <%= image_tag brand_or_small_logo(plot.development.brand_any, plot), alt: image_alt(brand_or_small_logo(plot.development.brand_any, plot)) %>
     </div>
 
     <div class="address branded-text">

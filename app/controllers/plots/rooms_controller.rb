@@ -12,7 +12,7 @@ module Plots
     load_resource :room, only: %i[edit update destroy]
     load_and_authorize_resource :room, except: %i[edit update destroy]
 
-    before_action :set_editor, only: %i[create edit update]
+    after_action :set_editor, only: %i[create edit update]
 
     def index
       @rooms = paginate(sort(@rooms, default: :name))

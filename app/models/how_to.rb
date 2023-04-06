@@ -62,8 +62,9 @@ class HowTo < ApplicationRecord
     return unless tags_params
     return how_to_params unless self
 
-    tags_params.each_pair do |_, tags|
-      tag_names = tags.delete(:name).split(",")
+    tags_params.each_pair do |_, tag|
+      next if tag[:name].blank?
+      tag_names = tag[:name].split(",")
       tag_names.each do |tag_name|
         tag = Tag.find_or_create_by(name: tag_name.strip)
         HowToTag.find_or_create_by(tag: tag, how_to: self)

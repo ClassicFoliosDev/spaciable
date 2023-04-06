@@ -316,14 +316,14 @@ def check_active(task_title, homeowner = false, negative = true)
 
     if task[:action]
       expect(page).to have_content(task[:action][:title])
-      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]", visible: all)
+      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]", visible: true)
     end
 
     if task[:feature]
       expect(page).to have_content(task[:feature][:title])
       expect(page).to have_content(parsed(task[:feature][:precis]))
       expect(page).to have_content(parsed(task[:feature][:description]))
-      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]", visible: all)
+      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]", visible: true)
     end
   end
 
@@ -388,7 +388,7 @@ Then(/^I can allocate plots (.*) to (.*)$/) do |plots, timeline|
   find(".phase_timeline_timeline_id")
   select_from_selectmenu :phase_timeline_timeline_id, with: eval(timeline)
   plots.split(",").each do |plot|
-    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: all
+    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: false
   end
 
   click_on "Submit"
@@ -433,7 +433,7 @@ Then(/^I can delete plots ([\d+,?]*) Clear All Plots and allocate plots ([\d+,?]
   find("#clear_timeline_plots").trigger('click')
 
   add_plots.split(",").each do |plot|
-    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: all
+    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: false
   end
 
   click_on "Submit"

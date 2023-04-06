@@ -116,7 +116,7 @@ end
 
 Then(/^I see an error message$/) do
   within find(".submission-errors") do
-    expect(page).to have_content ("Custom tiles button " + I18n.t("activerecord.errors.messages.blank"))
+    expect(page).to have_content ("Custom tiles button" + I18n.t("activerecord.errors.messages.blank"))
   end
 end
 

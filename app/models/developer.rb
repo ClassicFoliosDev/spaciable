@@ -342,7 +342,7 @@ class Developer < ApplicationRecord
   # proliferate through to all child developments
   # rubocop:disable SkipsModelValidations
   def update_development_cas
-    return unless cas_changed?
+    return unless saved_change_to_cas?
 
     # update all developments to have cas on
     all_developments.each { |d| d.update_attribute(:cas, cas) }
@@ -356,11 +356,11 @@ class Developer < ApplicationRecord
   def update_custom_tiles
     changed = []
 
-    { "area_guide" => house_search_changed? && !house_search?,
-      "services" => enable_services_changed? && !enable_services?,
-      "home_designer" => enable_roomsketcher_changed? && !enable_roomsketcher?,
-      "referrals" => enable_referrals_changed? && !enable_referrals?,
-      "perks" => enable_perks_changed? && !enable_perks? }.each do |name, disabled|
+    { "area_guide" => saved_change_to_house_search? && !house_search?,
+      "services" => saved_change_to_enable_services? && !enable_services?,
+      "home_designer" => saved_change_to_enable_roomsketcher? && !enable_roomsketcher?,
+      "referrals" => saved_change_to_enable_referrals? && !enable_referrals?,
+      "perks" => saved_change_to_enable_perks? && !enable_perks? }.each do |name, disabled|
       changed << name if disabled
     end
 
@@ -369,7 +369,7 @@ class Developer < ApplicationRecord
 
   # rubocop:disable SkipsModelValidations
   def update_convayencing
-    return unless conveyancing_changed?
+    return unless saved_change_to_conveyancing?
 
     divisions.update_all(conveyancing: conveyancing,
                          wecomplete_sign_in: wecomplete_sign_in,

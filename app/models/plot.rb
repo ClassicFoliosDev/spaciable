@@ -629,7 +629,7 @@ class Plot < ApplicationRecord
 
   # perform post update logging
   def post_update
-    return unless unit_type_id_changed?
+    return unless saved_change_to_unit_type_id?
     return unless cas
 
     old_rooms = UnitType.find(unit_type_id_was).rooms.to_a

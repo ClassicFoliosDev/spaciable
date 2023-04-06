@@ -364,7 +364,7 @@ class Event < ApplicationRecord
   # Make the necessary notifications.
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def notify_reminder
-    if id_changed? || start_changed? || reminder_changed?
+    if saved_change_to_id? || saved_change_to_start? || saved_change_to_reminder?
       # new record or start/reminder added.  Calculate/update event reminder
       update_column(:reminder_id, EventNotificationService.remind(self))
     end
@@ -372,7 +372,7 @@ class Event < ApplicationRecord
     # notofications only sent out if the event is a master (ie is a single
     # event or the master for a set of repeating events) or the event has been
     # edited - signified by the id not having changed
-    return unless master? || !id_changed?
+    return unless master? || !saved_change_to_id?
 
     # identify new/removed/remaining resources
     added, deleted, remain = resource_changes
@@ -380,7 +380,7 @@ class Event < ApplicationRecord
     EventNotificationService.invite(self, resources(added))
     EventNotificationService.cancel(@pre_event, pre_resources(deleted))
 
-    return unless start_changed? || end_changed? || location_changed? || repeat_changed?
+    return unless saved_change_to_start? || saved_change_to_end? || saved_change_to_location? || saved_change_to_repeat?
 
     EventNotificationService.update(self, resources(remain))
   end

@@ -56,7 +56,7 @@ class Room < ApplicationRecord
   before_create -> { @previous_rooms = current_rooms }
   after_create -> { log :created }
   before_update -> { @previous_rooms = current_rooms }
-  after_update -> { log :updated if name_changed? }
+  after_update -> { log :updated if saved_change_to_name? }
   before_destroy -> { @previous_rooms = current_rooms }
   after_destroy -> { log :deleted }
 
@@ -122,6 +122,7 @@ class Room < ApplicationRecord
   end
 
   def update_mark(user = RequestStore.store[:current_user])
+    return unless user
     mark&.destroy!
     create_mark(username: user.full_name, role: user.role)
   end

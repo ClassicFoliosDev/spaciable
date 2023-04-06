@@ -56,7 +56,7 @@ gem "gretel" # breadcrumbs
 gem "carrierwave"
 gem "carrierwave-aws", "~> 1.3"
 gem "fog-aws"
-gem "mini_magick", "~> 4.8"
+gem "mini_magick", "~> 4.9"
 
 # File share
 gem "wetransfer", "~> 0.9.0.beta2"
@@ -191,13 +191,14 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", "~> 0.6"
-  gem "cucumber-rails", "~>1.7.0", require: false
+  gem "cucumber-rails", "~>2.0.0", require: false
+  gem "capybara"
   gem "database_cleaner", "~>1.6.0"
   gem "launchy"
   gem "rspec-rails"
   gem "simplecov", "~> 0.12", require: false
   gem "timecop"
-  gem "webmock"
+  gem "webmock", "~> 3.5.0"
   # Headless browser, see https://github.com/teampoltergeist/poltergeist
   gem "poltergeist"
   gem "rails-controller-testing"

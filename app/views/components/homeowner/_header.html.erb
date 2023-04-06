@@ -5,9 +5,9 @@
         <!-- logo -->
         <div class="logo branded-logo">
           <% if session[:onboarding] %>
-            <%= image_tag(brand_or_red_logo(brand, plot)) %>
+            <%= image_tag(brand_or_red_logo(brand, plot), alt: image_alt(brand_or_red_logo(brand, plot))) %>
           <% else %>
-            <%= link_to image_tag(brand_or_red_logo(brand, plot)), dashboard_path %>
+            <%= link_to image_tag(brand_or_red_logo(brand, plot), alt: image_alt(brand_or_red_logo(brand, plot))), dashboard_path %>
           <% end %>
         </div>
 

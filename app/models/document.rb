@@ -83,7 +83,7 @@ class Document < ApplicationRecord
   end
 
   def update_laus
-    return unless lau_visible_changed? || id_changed?
+    return unless saved_change_to_lau_visible? || saved_change_to_id?
 
     documentable&.plots&.each do |plot|
       if lau_visible

@@ -152,7 +152,7 @@ class Appliance < ApplicationRecord
   # rubocop:disable SkipsModelValidations
   def update_rating
     return if e_rating.blank?
-    return unless main_uk_e_rating_changed? || supp_uk_e_rating_changed?
+    return unless saved_change_to_main_uk_e_rating? || saved_change_to_supp_uk_e_rating?
     update_attribute(:e_rating, nil)
   end
   # rubocop:enable SkipsModelValidations

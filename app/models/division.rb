@@ -162,7 +162,7 @@ class Division < ApplicationRecord
 
   # rubocop:disable SkipsModelValidations
   def update_convayencing
-    return unless conveyancing_changed?
+    return unless saved_change_to_conveyancing?
     developments.update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
