@@ -148,6 +148,13 @@ class Notification < ApplicationRecord
     plots.pluck(:id)
   end
 
+  def living_plot_ids
+    plots = Plot.joins(:development)
+                .where(id: plot_ids)
+                .where(developments: { client_platform: Development.client_platforms[:living] })
+    plots.pluck(:id)
+  end
+
   delegate :role, to: :sender, allow_nil: true
   delegate :job_title, to: :sender, allow_nil: true
   delegate :first_name, to: :sender, allow_nil: true
