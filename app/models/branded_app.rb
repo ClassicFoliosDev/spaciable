@@ -54,6 +54,6 @@ class BrandedApp < ApplicationRecord
 
   # show the spaciable logo if the app owner does not have a branded app icon or a branded app
   def self.relevant_icon(app_parent)
-    app_parent&.branded_app&.app_icon? ? app_parent.branded_app_app_icon : "Spaciable_icon.png"
+    app_parent&.branded_app&.app_icon? ? app_parent.branded_app_app_icon.url : "Spaciable_icon.png"
   end
 end

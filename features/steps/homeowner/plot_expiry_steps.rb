@@ -48,15 +48,16 @@ end
 Then(/^I should see the development branding$/) do
   visit "/"
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
+  style = style['outerHTML'].gsub(/\n/, '').gsub(/\s+/,' ')
 
   # bg-color
-  expect(style['outerHTML']).to have_content("library-navigation { background-color: #446677")
+  expect(style).to have_content("library-navigation { background-color: #446677")
   # button-color
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #776644")
+  expect(style).to have_content("branded-btn { background-color: #776644")
   # button-text-color
-  expect(style['outerHTML']).to have_content("branded-btn { color: #698492")
+  expect(style).to have_content("branded-btn { color: #698492")
   #banner
-  expect(style['outerHTML']).to have_content("branded-hero { background-image: url(/uploads/brand/banner/1/cala_banner.jpg)")
+  expect(style).to have_content("branded-hero { background-image: url(/uploads/brand/banner/1/cala_banner.jpg)")
 end
 
 Given(/^the date is after extended access$/) do
@@ -67,13 +68,14 @@ end
 Then(/^I should see the expired branding$/) do
   visit "/"
   style = page.find("head [data-test='expired-style']", visible: false)
+  style = style['outerHTML'].gsub(/\n/, '').gsub(/\s+/,' ')
 
   # bg-color
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #FFFFFF")
+  expect(style).to have_content("branded-body { background-color: #FFFFFF")
   # button-color
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #FFFFFF")
+  expect(style).to have_content("branded-btn { background-color: #FFFFFF")
   #banner
-  expect(style['outerHTML']).to have_content("branded-hero { background-image: url(\"/assets/expiry_banner")
+  expect(style).to have_content("branded-hero { background-image: url(\"/assets/expiry_banner")
 end
 
 Given(/^I have enabled developer emails$/) do
@@ -587,7 +589,7 @@ Then(/^I cannot see the new video$/) do
 
   visit "/homeowners/library/my_home"
 
-  find(".library-categories", visible: all, wait: 5)
+  find(".library-categories", visible: true, wait: 5)
   within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end

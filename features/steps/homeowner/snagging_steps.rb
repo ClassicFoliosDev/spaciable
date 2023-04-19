@@ -19,7 +19,7 @@ Then(/^I should see the Snagging page$/) do
     check_box.trigger(:click)
   end
   click_on HomeownerUserFixture.custom_snag_name
-  within ".main-container" do
+  within find(".main-container", wait: 5) do
     expect(page).to have_content(t"homeowners.snags.index.snag_description", snag_name: HomeownerUserFixture.custom_snag_name)
   end
 end

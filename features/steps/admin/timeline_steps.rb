@@ -227,7 +227,7 @@ Then(/^I can begin My Journey$/) do
   click_on t("layouts.homeowner.nav.timeline")
 
   # splash page
-  find(".timeline-btn").click() # find waits ..
+  find(".timeline-btn", wait: 5).click() # find waits ..
   # select stage
   find(".step-options a", match: :first).click() # find waits ..
 end
@@ -309,8 +309,8 @@ def check_active(task_title, homeowner = false, negative = true)
   expect active.text == task[:title]
 
   if negative
-    homeowner ? click_on(task[:negative]) :
-                find(:xpath, "//div[@id='viewAnswer']").click()
+    homeowner ? find("button[action='viewed_content_negative']").trigger('click') :
+                find(:xpath, "//div[@id='viewAnswer']").trigger('click')
 
     expect(page).to have_content(parsed(task[:response]))
 
@@ -354,10 +354,10 @@ def check_task(task_title, homeowner, answer)
 
   # select task
   click_on task_title
-  find(:xpath, "//li[@id='activeTaskScroll']/a[contains(text(),'#{task_title}')]", visible:all)
+  find(:xpath, "//li[@id='activeTaskScroll']/a[contains(text(),'#{task_title}')]", visible:false)
   check_active(task_title, homeowner, answer.downcase == "no")
   if answer.downcase == "no"
-    find(:xpath, "//button[@action='skipped_on_content']", visible: all).trigger('click')
+    find(:xpath, "//button[@action='skipped_on_content']", visible: true).trigger('click')
   else
     click_on task[:positive]
   end
