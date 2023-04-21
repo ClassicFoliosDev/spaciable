@@ -434,6 +434,7 @@ Rails.application.routes.draw do
         resources :contact, only: [:index]
         resources :faq_category, only: [:index]
         get "/faq/:faq_category",to: "faq#index"
+        resources :notification, only: %i[index update destroy]
       end
     end
 
