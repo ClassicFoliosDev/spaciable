@@ -42,7 +42,7 @@ gem "bcrypt", "~> 3.1.12", platforms: %i[ruby x64_mingw mingw]
 # gem 'capistrano-rails', group: :development
 
 # Forms
-gem "ckeditor"
+gem "ckeditor", "< 5.0"
 gem "simple_form", "~>4.0"
 # Validation for phone numbers
 gem "phonelib"
