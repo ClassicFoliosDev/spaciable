@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_09_092257) do
+ActiveRecord::Schema.define(version: 2023_02_24_143256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -469,6 +469,7 @@ ActiveRecord::Schema.define(version: 2023_02_09_092257) do
     t.boolean "calendar", default: true
     t.boolean "conveyancing", default: false
     t.boolean "analytics_dashboard", default: true
+    t.integer "client_platform", default: 0
     t.index ["deleted_at"], name: "index_developments_on_deleted_at"
     t.index ["developer_id"], name: "index_developments_on_developer_id"
     t.index ["division_id"], name: "index_developments_on_division_id"

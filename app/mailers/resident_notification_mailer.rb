@@ -102,7 +102,9 @@ class ResidentNotificationMailer < ApplicationMailer
   end
 
   def brand_logo_or_default_logo
-    @plot&.branded_logo ? @plot.branded_logo : "Spaciable_full.svg"
+    return @plot.branded_logo if @plot&.branded_logo
+    return @plot&.platform_logo if @plot&.platform_logo
+    "Spaciable_full.svg"
   end
 
   def template_configuration(plot_residency)

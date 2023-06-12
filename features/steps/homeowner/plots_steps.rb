@@ -43,10 +43,7 @@ Given(/^there is another division phase plot$/) do
 end
 
 When(/^I show the plots$/) do
-  page.find("#dropdownMenu").click
-  within ".links-list" do
-    click_on t("components.homeowner.header.plots")
-  end
+  visit "/plots"
 end
 
 When(/^I switch to the second plot$/) do

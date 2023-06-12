@@ -24,7 +24,8 @@ Then(/^the services spotlight is uneditable$/) do
   expect(page).not_to have_selector("[data-url='/spotlights/#{spotlight.id}']")
   find("[data-id='#{spotlight.id}']").trigger("click")
   within ".ui-dialog-titlebar" do
-    expect(page).to have_content(t("spotlights.collection.uneditable_title", tile: "Services"))
+    expect(page).to have_content(t("spotlights.collection.uneditable_title",
+                                 tile: t("activerecord.attributes.custom_tiles.features.services")))
   end
 end
 
@@ -53,6 +54,7 @@ Then(/^I can preview the referrals the spotlight$/) do
 end
 
 Then(/^I can add a new spotlight$/) do
+  CreateFixture.seed_env
   within ".section-actions" do
     find("a.btn.btn-primary").trigger('click')
     sleep 5

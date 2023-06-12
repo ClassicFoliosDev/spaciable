@@ -18,14 +18,15 @@
       <fieldset>
         <%= f.input :name %>
       </fieldset>
-      <br/>
       <fieldset>
         <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
         <div id="construction_name">
           <%= f.input :construction_name, label: t(".construction_name") %>
         </div>
       </fieldset>
-      <br/>
+      <fieldset>
+        <%= f.input :client_platform, label: t(".client_platform"), as: :select, collection: client_platform_collection, include_blank: false %>
+      </fieldset>
       <fieldset>
         <div id="maintenance_url">
           <%= f.simple_fields_for :maintenance do |m| %>

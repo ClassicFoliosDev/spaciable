@@ -6,31 +6,50 @@
 <% invited_by_user = @resource.plot_residency_invited_by(plot) %>
 <% invited_by = invited_by_user.class.to_s == "User" ? plot.developer.to_s : invited_by_user %>
 <% invited_by_str = invited_by.nil? ? I18n.t("devise.mailer.resident_invitation.name") : invited_by.to_s %>
-<%= t("devise.mailer.invitation_instructions.someone_invited_you", name: invited_by_str) %>
 
-<%= t("devise.mailer.resident_invitation.benefits") %>
+<% if plot.platform_is?(:native) %>
+	<%= t("devise.mailer.invitation_instructions.someone_invited_you", name: invited_by_str) %>
 
-<%= t("devise.mailer.resident_invitation.benefit1") %>
-<%= t("devise.mailer.resident_invitation.benefit2") %>
-<%= t("devise.mailer.resident_invitation.benefit3") %>
-<%= t("devise.mailer.resident_invitation.benefit4") %>
-<%= t("devise.mailer.resident_invitation.benefit5") %>
+	<%= t("devise.mailer.resident_invitation.benefits") %>
 
-<%= t("devise.mailer.resident_invitation.activate") %>
+	<%= t("devise.mailer.resident_invitation.benefit1") %>
+	<%= t("devise.mailer.resident_invitation.benefit2") %>
+	<%= t("devise.mailer.resident_invitation.benefit3") %>
+	<%= t("devise.mailer.resident_invitation.benefit4") %>
+	<%= t("devise.mailer.resident_invitation.benefit5") %>
 
-<%= t("devise.mailer.resident_invitation.confirm") %>
+	<%= t("devise.mailer.resident_invitation.activate") %>
 
-<%= t("devise.mailer.resident_invitation.my_account") %>
+	<%= t("devise.mailer.resident_invitation.confirm") %>
 
-<%= resident_invitation_route(plot, @token) %>
+	<%= t("devise.mailer.resident_invitation.my_account") %>
 
-<% if @resource.invitation_due_at %>
-  <%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>
+	<%= resident_invitation_route(plot, @token) %>
+
+	<% if @resource.invitation_due_at %>
+	  <%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>
+	<% end %>
+
+	<%= t("devise.mailer.invitation_instructions.ignore2") %>
+
+	<%= t("devise.mailer.resident_invitation.log_in_text") %>
+
+	<%= t("devise.mailer.invitation_instructions.ignore") %>
+<% elsif plot.platform_is?(:living) %>
+ <p><%= t("devise.mailer.invitation_instructions.living.someone_invited_you", name: invited_by_str) %></p>
+
+  <p><%= t("devise.mailer.resident_invitation.living.benefits") %></p>
+  <ul>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit1") %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit2") %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit3", developername: plot.company_name) %></li>
+    <li><%= t("devise.mailer.resident_invitation.living.benefit4") %></li>
+  </ul>
+  <p><%= t("devise.mailer.resident_invitation.living.summary") %></p>
+  <p><%= t("devise.mailer.resident_invitation.living.activate") %></p>
+  <%= resident_invitation_route(plot, @token) %>
+  </p>
+  <p><%= t("devise.mailer.resident_invitation.living.regards1") %></p>
+  <p><%= t("devise.mailer.resident_invitation.living.regards2") %></p>
 <% end %>
-
-<%= t("devise.mailer.invitation_instructions.ignore2") %>
-
-<%= t("devise.mailer.resident_invitation.log_in_text") %>
-
-<%= t("devise.mailer.invitation_instructions.ignore") %>
 

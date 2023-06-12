@@ -227,6 +227,7 @@ Then(/^I can begin My Journey$/) do
   click_on t("layouts.homeowner.nav.timeline")
 
   # splash page
+  byebug
   find(".timeline-btn", wait: 5).click() # find waits ..
   # select stage
   find(".step-options a", match: :first).click() # find waits ..
