@@ -2867,6 +2867,7 @@ en:
       activation: "Activated"
       activated: "%{activated} of %{all}"
       not_released: "Plot %{plot} has not been released"
+      occupied: "Occupied"
       status:
         title: "Spaciable Status"
         text: "<p><strong>Plots can have one of three Statuses on Spaciable:</strong></p>

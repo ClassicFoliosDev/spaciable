@@ -184,6 +184,10 @@ class Plot < ApplicationRecord
     choices_rejected
   ]
 
+  OCCUPATION_STATUS = { "unoccupied" => 0,
+                        "invited" => 1,
+                        "accepted" => 2 }.freeze
+
   # to satisfy 'plots' interface for all documentable_types
   def plots
     [self]
@@ -497,6 +501,12 @@ class Plot < ApplicationRecord
 
   def activated_resident_count
     residents.where.not(invitation_accepted_at: nil).size
+  end
+
+  def occupancy?
+    return OCCUPATION_STATUS["unoccupied"] if residents.count.zero?
+    return OCCUPATION_STATUS["invited"] if activated_resident_count.zero?
+    OCCUPATION_STATUS["accepted"]
   end
 
   def to_homeowner_s
