@@ -813,6 +813,7 @@ edit_choice_configuration_room_configuration GET    /choice_configurations/:choi
            api_resident_password_request_new POST   /api/resident/password/request_new(.:format)                                           api/resident/v1/password#create {:format=>"json"}
                  api_resident_password_reset PUT    /api/resident/password/reset(.:format)                                                 api/resident/v1/password#update {:format=>"json"}
           api_resident_password_authenticate PUT    /api/resident/password/authenticate(.:format)                                          api/resident/v1/password#authenticate {:format=>"json"}
+                api_resident_set_preferences PUT    /api/resident/set_preferences(.:format)                                                api/resident/v1/preferences#update {:format=>"json"}
                  api_concierge_find_resident GET    /api/concierge/find_resident(.:format)                                                 api/concierge/v1/find#find_resident {:format=>"json"}
                            api_stripe_charge POST   /api/stripe/charge(.:format)                                                           api/stripe/v1/event#charge {:format=>"json"}
                                              GET    /homeowners(.:format)                                                                  residents/sessions#new

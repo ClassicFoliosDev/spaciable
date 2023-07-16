@@ -2202,6 +2202,7 @@ en:
       package: "Packages"
       package_description: "Enable Spaciable Phase Packages"
       customer_code: "Customer code"
+      unlatch_developer: "Associated Unlatch Developer"
       account_manager:
         title: "Customer Experience Contact"
         name: "Name"
@@ -2530,6 +2531,7 @@ en:
       back: "Back"
       conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete"
+      unlatch_program: "Associated Unlatch Phase"
     index:
       title: "Phases."
     show:

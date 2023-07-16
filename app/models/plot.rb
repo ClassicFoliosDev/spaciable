@@ -34,7 +34,7 @@ class Plot < ApplicationRecord
   has_many :plot_residencies, dependent: :destroy
   has_many :plot_private_documents, dependent: :destroy
   has_many :private_documents, through: :plot_private_documents
-  has_many :plot_documents, dependent: :destroy
+  has_one :unlatch_lot, class_name: "Unlatch::Lot", dependent: :destroy
   has_many :documents, through: :plot_documents
   has_many :residents, through: :plot_residencies
 
@@ -47,9 +47,12 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
   belongs_to :build_step
   delegate :build_sequenceable_type, to: :build_step
+  delegate :unlatch_program_id, to: :phase
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
+
+  has_many :plot_documents, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
@@ -846,6 +849,12 @@ class Plot < ApplicationRecord
 
   def platform_logo
     platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
+  end
+
+  def lot
+    return nil unless unlatch_program_id.present?
+    return unlatch_lot if unlatch_lot.present? # return the Lot if is has been found before
+    Unlatch::Lot.sync(self) # go and try to find the matching Lot
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -57,6 +57,15 @@
         </fieldset>
       </div>
     <% end %>
+    <% if current_user.cf_admin? && phase.developer.unlatch_developer_id.present? %>
+       <div class="row-item third">
+        <fieldset>
+          <%= f.label :unlatch_program_id, t(".unlatch_program") %>
+          <% programs = uplatch_programs(phase.developer) %>
+          <%= f.input :unlatch_program_id, as: :select, collection: programs, disabled: programs.blank?, label: false %>
+        </fieldset>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-actions-footer-container">

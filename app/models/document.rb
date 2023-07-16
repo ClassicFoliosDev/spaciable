@@ -10,12 +10,15 @@ class Document < ApplicationRecord
 
   after_create :update_laus
   after_update :update_laus
+  after_create :synch_with_unlatch
+  after_update :resynch_with_unlatch
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
   belongs_to :custom_tile, optional: true
 
   has_many :plot_documents, dependent: :destroy
+  has_many :unlatch_documents, class_name: "Unlatch::Document", dependent: :destroy
   alias parent documentable
 
   validates :file, presence: true
@@ -100,11 +103,37 @@ class Document < ApplicationRecord
     end
   end
 
+  # Sync Plot Reservation and Completion documents with Unlatch
+  def synch_with_unlatch
+    return unless documentable&.is_a?(Plot) && (reservation? || completion?)
+    return if documentable.unlatch_program_id.blank?
+    documentable.lot&.add_document(self)
+  end
+
+  # reSync Plot Reservation and Completion documents with Unlatch
+  def resynch_with_unlatch
+    return unless documentable&.is_a?(Plot) &&
+                  documentable&.unlatch_program_id.present? &&
+                  guide_changed?
+
+    unlatch_doc = Unlatch::Document.find_by(document_id: id)
+    if reservation? || completion?
+      documentable.lot&.add_document(self) if unlatch_doc.blank?
+    elsif unlatch_doc.present?
+      unlatch_doc.destroy
+    end
+  end
+
   def res_comp?
     reservation? || completion?
   end
 
   def read_only?
     res_comp? && !RequestStore.store[:current_user].cf_admin?
+  end
+
+  def source
+    return File.open(file.file.file) if Rails.env.development?
+    URI.open(file.url)
   end
 end

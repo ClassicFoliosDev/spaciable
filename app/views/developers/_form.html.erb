@@ -102,7 +102,9 @@
             <%= p.input :tile_image, label: t(".tile_image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
           </div>
         <% end %>
-
+        <%= f.label :unlatch_developer_id, t(".unlatch_developer") %>
+        <% developers = uplatch_developers %>
+        <%= f.input :unlatch_developer_id, as: :select, collection: developers, disabled: developers.blank?, label: false %>
 
       </fieldset>
     </div>

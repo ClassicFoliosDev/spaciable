@@ -430,6 +430,7 @@ ActiveRecord::Schema.define(version: 20230606112843) do
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
     t.integer  "verified_association",        default: 0
+    t.integer  "unlatch_developer_id"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -978,6 +979,8 @@ ActiveRecord::Schema.define(version: 20230606112843) do
     t.string   "reservation_order_number"
     t.string   "uprn"
     t.integer  "build_step_id"
+    t.datetime "unlatch_sych_date"
+    t.integer  "unlatch_lot_id"
     t.index ["build_step_id"], name: "index_plots_on_build_step_id", using: :btree
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
@@ -1320,6 +1323,20 @@ ActiveRecord::Schema.define(version: 20230606112843) do
     t.index ["development_id"], name: "index_unit_types_on_development_id", using: :btree
     t.index ["division_id"], name: "index_unit_types_on_division_id", using: :btree
     t.index ["name", "development_id"], name: "index_unit_types_on_name_and_development_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
+  end
+
+  create_table "unlatch_documents", force: :cascade do |t|
+    t.integer "unlatch_lot_id"
+    t.integer "document_id"
+    t.index ["document_id"], name: "index_unlatch_documents_on_document_id", using: :btree
+    t.index ["unlatch_lot_id"], name: "index_unlatch_documents_on_unlatch_lot_id", using: :btree
+  end
+
+  create_table "unlatch_lots", force: :cascade do |t|
+    t.integer  "plot_id"
+    t.integer  "sync_status", default: 0
+    t.datetime "sync_date"
+    t.index ["plot_id"], name: "index_unlatch_lots_on_plot_id", using: :btree
   end
 
   create_table "user_preferences", force: :cascade do |t|
