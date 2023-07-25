@@ -4,17 +4,13 @@ module Unlatch
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:disable Style/RaiseArgs, Metrics/LineLength
   class Lot < ApplicationRecord
+    include SyncStatus
+
     self.table_name = "unlatch_lots"
 
     belongs_to :plot
     has_many :unlatch_documents, class_name: "Unlatch::Document", dependent: :destroy
     delegate :unlatch_program_id, to: :plot
-
-    enum sync_status: %i[
-      unsynchronised
-      synchronised
-      failed_to_synchronise
-    ]
 
     class << self
       # Look for a Lot matching the supplied Plot
@@ -78,7 +74,8 @@ module Unlatch
         if response.code == 200
           document_id = response.parsed_response["documentId"]
           document = Unlatch::Document.create(id: document_id,
-                                              document: spaciable_doc,
+                                              documentable: spaciable_doc,
+                                              doc_type: :document,
                                               unlatch_lot_id: id)
         elsif response.code == 401 && retries.zero?
           Unlatch::Token.set

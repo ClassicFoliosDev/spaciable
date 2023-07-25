@@ -138,6 +138,7 @@ Rails.application.routes.draw do
     get :progress, on: :member, to: "progresses#show"
     get 'choices', action: :edit , controller: 'choices'
     post 'choices', action: :update , controller: 'choices'
+    post 'sync_with_unlatch', format: :json
   end
 
   post 'plots/:plot_id/residents/:id/reinvite', action: :reinvite, controller: 'residents'

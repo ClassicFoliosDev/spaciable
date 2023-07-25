@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module ButtonsHelper
   def view_btn(view_path, label = "")
     link_to view_path, class: "btn", data: { action: "view" } do
@@ -114,4 +115,17 @@ module ButtonsHelper
       icon "files-o", label
     end
   end
+
+  def unlatch_sync_btn(plot)
+    icon_class = if plot.no_match?
+                   "fad fa-bug"
+                 else
+                   "fas fa-sync"
+                 end
+
+    button_tag "", type: "button", class: "btn", data: { plot: plot.id, type: :sync } do
+      icon icon_class += " " + plot.sync_status
+    end
+  end
 end
+# rubocop:enable Metrics/ModuleLength

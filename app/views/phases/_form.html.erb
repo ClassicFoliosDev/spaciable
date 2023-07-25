@@ -57,7 +57,7 @@
         </fieldset>
       </div>
     <% end %>
-    <% if current_user.cf_admin? && phase.developer.unlatch_developer_id.present? %>
+    <% if current_user.cf_admin? && phase.developer&.unlatch_developer_id&.present? %>
        <div class="row-item third">
         <fieldset>
           <%= f.label :unlatch_program_id, t(".unlatch_program") %>

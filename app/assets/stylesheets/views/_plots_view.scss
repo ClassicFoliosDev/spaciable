@@ -76,3 +76,26 @@
     cursor: pointer;
   }
 }
+
+.fa-sync {
+  &.unsynchronised {
+    color: grey;
+  }
+
+  &.synchronised {
+    color: green;
+  }
+
+  &.failed_to_synchronise {
+    color: red;
+  }
+}
+
+.fa-bug {
+    color: red;
+}
+
+.fa-spinner {
+    color: blue;
+}
+

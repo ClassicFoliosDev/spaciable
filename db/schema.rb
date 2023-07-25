@@ -981,6 +981,7 @@ ActiveRecord::Schema.define(version: 20230606112843) do
     t.integer  "build_step_id"
     t.datetime "unlatch_sych_date"
     t.integer  "unlatch_lot_id"
+    t.integer  "sync_status",              default: 0
     t.index ["build_step_id"], name: "index_plots_on_build_step_id", using: :btree
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
@@ -1327,8 +1328,9 @@ ActiveRecord::Schema.define(version: 20230606112843) do
 
   create_table "unlatch_documents", force: :cascade do |t|
     t.integer "unlatch_lot_id"
-    t.integer "document_id"
-    t.index ["document_id"], name: "index_unlatch_documents_on_document_id", using: :btree
+    t.string  "documentable_type"
+    t.integer "documentable_id"
+    t.integer "doc_type",          default: 0
     t.index ["unlatch_lot_id"], name: "index_unlatch_documents_on_unlatch_lot_id", using: :btree
   end
 

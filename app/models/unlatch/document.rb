@@ -7,11 +7,17 @@ module Unlatch
     self.table_name = "unlatch_documents"
 
     belongs_to :unlatch_lot, class_name: "Unlatch::Lot"
-    belongs_to :document
+    belongs_to :documentable, polymorphic: true
 
     delegate :unlatch_program_id, to: :unlatch_lot
 
     before_destroy :remove
+
+    enum doc_type: %i[
+      document
+      manual
+      guide
+    ]
 
     # remove document from unlatch
     def remove

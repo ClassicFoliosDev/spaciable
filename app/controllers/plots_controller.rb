@@ -81,6 +81,13 @@ class PlotsController < ApplicationController
     redirect_to [@parent.parent, @parent, active_tab: :production], notice: notice
   end
 
+  def sync_with_unlatch
+    appliances = Plot.find(params["plot_id"]).appliances
+
+    render json: { plot: params["plot_id"],
+                   sync_status: :no_match }, status: 200
+  end
+
   private
 
   def notify_and_redirect(updated_plots, errors)

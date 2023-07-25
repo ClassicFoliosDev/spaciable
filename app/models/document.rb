@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Document < ApplicationRecord
   include CategoryEnum
   include GuideEnum
@@ -106,7 +107,7 @@ class Document < ApplicationRecord
   # Sync Plot Reservation and Completion documents with Unlatch
   def synch_with_unlatch
     return unless documentable&.is_a?(Plot) && (reservation? || completion?)
-    return if documentable.unlatch_program_id.blank?
+    return if documentable&.unlatch_program_id.blank?
     documentable.lot&.add_document(self)
   end
 
@@ -137,3 +138,4 @@ class Document < ApplicationRecord
     URI.open(file.url)
   end
 end
+# rubocop:enable Metrics/ClassLength

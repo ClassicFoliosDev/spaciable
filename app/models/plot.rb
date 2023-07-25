@@ -2,6 +2,8 @@
 
 # rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
+  include Unlatch::SyncStatus
+
   acts_as_paranoid
   require "csv"
 
@@ -199,6 +201,10 @@ class Plot < ApplicationRecord
                                .where.not(id: templated_room_ids)
 
     room_scope.where(plot_id: id).or(unit_type_rooms_relation)
+  end
+
+  def appliances(room_scope = Room.all)
+    Appliance.in_rooms(rooms(room_scope))
   end
 
   # ADDRESSES
@@ -852,9 +858,22 @@ class Plot < ApplicationRecord
   end
 
   def lot
-    return nil unless unlatch_program_id.present?
+    return nil unless unlatch?
     return unlatch_lot if unlatch_lot.present? # return the Lot if is has been found before
-    Unlatch::Lot.sync(self) # go and try to find the matching Lot
+    sync_with_unlatch
+  end
+
+  def sync_with_unlatch
+    lot = Unlatch::Lot.sync(self) # go and try to find the matching Lot
+    if lot.nil?
+      self.sync_status = :no_match
+      save(validate: false)
+    end
+    lot
+  end
+
+  def unlatch?
+    unlatch_program_id.present?
   end
 end
 # rubocop:enable Metrics/ClassLength
