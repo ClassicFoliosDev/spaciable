@@ -10,6 +10,8 @@ module SortingConcern
     direction = params[:direction]
     if custom_sort?(resources, params, default, "plots", "number")
       sort_plot_numbers(resources, direction)
+    elsif custom_sort?(resources, params, default, "plots", "occupied")
+      sort_occupied_plots(resources, direction)
     elsif custom_sort?(resources, params, default, "appliances", "id")
       sort_appliances(resources, direction)
     elsif direction.present? && params[:sort].present?
@@ -45,6 +47,31 @@ module SortingConcern
       .merge(association_order)
   end
 
+  # rubocop:disable Metrics/MethodLength
+  def sort_occupied_plots(resources, direction)
+    accepted = PlotResidency.accepted(resources).group_by(&:plot_id).keys
+    invited =  PlotResidency.invited(resources)
+                            .group_by(&:plot_id)
+                            .keys.reject! { |i| accepted.include? i }
+
+    plot_array = resources.sort
+    @numbers = plot_array.map(&:number)
+    @ids = plot_array.map(&:id)
+    @sorted_numbers = NaturalSort.sort @numbers
+
+    # sort the indexes of the numbers for the invited/accepted plots
+    # and move them to the top of the sorted_numbers list
+    [invited, accepted].each do |plots|
+      sort_by_index(plot_array, plots).each_with_index do |old_index, new_index|
+        @sorted_numbers.insert(new_index, @sorted_numbers.delete_at(old_index))
+      end
+    end
+
+    @sorted_numbers.reverse! if direction == "desc"
+    sort_plots
+  end
+  # rubocop:enable Metrics/MethodLength
+
   def sort_plot_numbers(resources, direction)
     plot_array = resources.sort
 
@@ -62,5 +89,13 @@ module SortingConcern
 
   def sort_appliances(resources, direction)
     resources.order("appliance_manufacturers.name #{direction}, model_num #{direction}")
+  end
+
+  def sort_by_index(plots, occupied)
+    indexes = []
+    occupied.each do |plot_id|
+      indexes << @sorted_numbers.index(plots.detect { |p| p.id == plot_id }.number)
+    end
+    indexes.sort
   end
 end

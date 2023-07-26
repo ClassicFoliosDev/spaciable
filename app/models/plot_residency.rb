@@ -44,6 +44,20 @@ class PlotResidency < ApplicationRecord
                                  Developer.verified_associations[developer] })
         }
 
+  scope :accepted,
+        lambda { |plots|
+          joins(:resident)
+            .where(plot_id: plots)
+            .where.not(residents: { invitation_accepted_at: nil })
+        }
+
+  scope :invited,
+        lambda { |plots|
+          joins(:resident)
+            .where(plot_id: plots)
+            .where(residents: { invitation_accepted_at: nil })
+        }
+
   # CRM SYNC CODE
   # create residents and plots - this code smells bad and would need to
   # be done properly on a proper implementation
