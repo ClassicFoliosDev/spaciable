@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module DevelopmentFinderService
+  module_function
+
   def call(params)
     return if params.empty?
 
     development_matching_path(params)
   end
-
-  module_function
 
   def development_matching_path(params)
     return unless params[:developer_name]

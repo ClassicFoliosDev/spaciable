@@ -226,14 +226,14 @@ When(/^I authorise from an incorrect planet rent account$/) do
   stub_request(:post, "#{LettingsFixture::URL}/oauth/token").
   with(:body => LettingsFixture.token_request,
        :headers => LettingsFixture.token_headers).
-  to_return(status: :ok,
+  to_return(status: 200,
             body: LettingsFixture.token_body.to_json,
             headers:LettingsFixture.response_headers)
 
   # The get_user_info request - return a mismatching email
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => :ok,
+  to_return(:status => 200,
             :body => {"email" => "floopy@ploppy.com"}.to_json,
             :headers => LettingsFixture.response_headers)
 
@@ -243,6 +243,7 @@ When(/^I authorise from an incorrect planet rent account$/) do
 end
 
 Then(/^I am informed that the authorisation is incorrect$/) do
+  byebug
   expect(page).to have_content("Incorrect authorisation. The authorising account must have the email #{$current_user.email}")
 end
 

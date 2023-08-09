@@ -350,16 +350,16 @@ Then (/^I can accept the rescheduled date and time$/) do
   event_id = find("#event_id", visible: false).value.to_i
 
   within find(".ui-dialog", visible: true) do
-    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y"))
-    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%l:%M"))
-    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%d-%m-%Y"))
-    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%l:%M"))
+    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y").strip)
+    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%l:%M").strip)
+    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%d-%m-%Y").strip)
+    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%l:%M").strip)
     expect(page).to have_content(t("events.accept_proposal"))
     expect(page).to have_content("Proposed Reschedule")
   end
 
   find("#accept_reschedule").trigger('click')
-  find(".proposed_datetime", visible: all).visible?
+  find(".proposed_datetime", visible: false).visible?
   expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::td//parent::tr")['class']).to eq("invited")
 
   click_on "Update"

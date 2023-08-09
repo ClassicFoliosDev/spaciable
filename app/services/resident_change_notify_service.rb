@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ResidentChangeNotifyService
+  module_function
+
   def call(resource, user, verb, parent, subject = nil)
     notification = build_notification(resource, user, verb, parent, subject)
 
@@ -12,8 +14,6 @@ module ResidentChangeNotifyService
 
     I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
   end
-
-  module_function
 
   # rubocop:disable LineLength
   def subscribed_residents(parent, resource, is_private_document)
