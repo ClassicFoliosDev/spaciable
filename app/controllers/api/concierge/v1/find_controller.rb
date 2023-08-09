@@ -5,7 +5,7 @@ module Api
     module V1
       class FindController < Api::Concierge::ConciergeController
         def find_resident
-          render json: { message: "OK", result: 1 }, status: 200
+          render json: { message: "OK", result: 1 }, status: :ok
         end
 
         private

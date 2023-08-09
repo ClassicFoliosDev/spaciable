@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable ClassLength
 class RoomsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -31,7 +30,6 @@ class RoomsController < ApplicationController
     @room.build_appliances
   end
 
-  # rubocop:disable Metrics/AbcSize
   def show
     @active_tab = params[:active_tab] || "finishes"
     @plot = Plot.find(params[:plot]) if params[:plot]
@@ -48,7 +46,6 @@ class RoomsController < ApplicationController
         "#{item.class}Room".classify.constantize.marker(@room.id, item.id)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def create
     if @room.save
@@ -134,6 +131,4 @@ class RoomsController < ApplicationController
   def set_parent
     @parent = @unit_type || @room&.parent
   end
-
 end
-# rubocop:enable ClassLength

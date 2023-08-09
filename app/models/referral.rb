@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Referral < ApplicationRecord
   has_many :referrals
 
@@ -16,3 +17,4 @@ class Referral < ApplicationRecord
     self.confirm_token = nil
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

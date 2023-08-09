@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class FinishType < ApplicationRecord
   has_many :finish_categories_type
   has_many :finish_categories, through: :finish_categories_type, dependent: :destroy
@@ -20,3 +21,4 @@ class FinishType < ApplicationRecord
 
   delegate :to_s, to: :name
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

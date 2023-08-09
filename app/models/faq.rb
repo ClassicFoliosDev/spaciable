@@ -30,6 +30,7 @@ class Faq < ApplicationRecord
   # rubocop:disable SkipsModelValidations
   def cus
     return unless changed?
+
     update_column(:faq_package, :custom)
   end
   # rubocop:enable SkipsModelValidations

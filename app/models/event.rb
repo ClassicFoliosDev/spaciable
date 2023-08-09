@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength, SkipsModelValidations
+# rubocop:disable Metrics/ClassLength, SkipsModelValidations, Rails/HasManyOrHasOneDependent
 class Event < ApplicationRecord
   include RepeatEnum
   include ReminderEnum
@@ -37,7 +37,6 @@ class Event < ApplicationRecord
   # Get events of eventable_type 'e_type' with id 'e_id'
   # and associated resources of type 'r_type' with ids in 'r_ids'
   # and date/times between 'start' and 'end'
-  # rubocop:disable Metrics/ParameterLists
   scope :resources_within_range,
         lambda { |e_type, e_id, r_type, r_ids, start, finish|
           joins(:event_resources)
@@ -48,7 +47,6 @@ class Event < ApplicationRecord
             .where("events.start <= ? AND ? <= events.end",
                    Event.utc(finish), Event.utc(start))
         }
-  # rubocop:enable Metrics/ParameterLists
 
   # Get the events of a specified type with associated resources
   # of a specified type within a range of ids.  This would be used
@@ -79,8 +77,8 @@ class Event < ApplicationRecord
   # a time zone offset (ie BST) then the event UTC date may be in the prev day. i.e. midnight
   # on 25/8 (in BST) will be 24/8 23:00 and so would not be included in the date range.  So
   # we need to convert the supplied date to a UTC date/time
-  def self.utc(dt)
-    Time.strptime(dt, "%Y-%m-%d").in_time_zone("UTC")
+  def self.utc(dtm)
+    Time.strptime(dtm, "%Y-%m-%d").in_time_zone("UTC")
   end
 
   # is this a master
@@ -137,7 +135,7 @@ class Event < ApplicationRecord
   end
 
   # Update an event record, and associated resources
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, TimeZone
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Rails/TimeZone
   def update(params, resources, resource_type, repeat_edit)
     params = params.except(:id, :master_id)
     dt_changed = dt_changed?(params)
@@ -177,7 +175,7 @@ class Event < ApplicationRecord
       event.process_repeats
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Timezone
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Rails/TimeZone
 
   # Remove an event.  Event removal is complicated by the
   # 'repeat' option.  When the event is a repeater the
@@ -380,7 +378,10 @@ class Event < ApplicationRecord
     EventNotificationService.invite(self, resources(added))
     EventNotificationService.cancel(@pre_event, pre_resources(deleted))
 
-    return unless saved_change_to_start? || saved_change_to_end? || saved_change_to_location? || saved_change_to_repeat?
+    return unless saved_change_to_start? ||
+                  saved_change_to_end? ||
+                  saved_change_to_location? ||
+                  saved_change_to_repeat?
 
     EventNotificationService.update(self, resources(remain))
   end
@@ -416,8 +417,10 @@ class Event < ApplicationRecord
   end
 
   # have the date times changed?
+  # rubocop:disable Rails/TimeZone
   def dt_changed?(params)
     start != Time.parse(params[:start]) || self.end != Time.parse(params[:end])
   end
+  # rubocop:enable Rails/TimeZone
 end
-# rubocop:enable Metrics/ClassLength, SkipsModelValidations
+# rubocop:enable Metrics/ClassLength, SkipsModelValidations, Rails/HasManyOrHasOneDependent

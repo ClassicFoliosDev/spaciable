@@ -33,6 +33,7 @@ class Log < ApplicationRecord
     def logs(instance)
       log_records = Log.where(logable_type: instance.class.to_s, logable_id: instance.id)
       return log_records if instance.log_threshold == :none
+
       log_records.where("created_at > ?", instance.log_threshold)
     end
   end

@@ -50,6 +50,7 @@ module Abilities
       devs = developments.is_a?(Integer) ? [developments] : developments
       devs.each do |development|
         next if user.cas && Development.find(development).cas
+
         can :read, Finish, rooms: { plot: { development_id: development } }
         can :read, Appliance, rooms: { plot: { development_id: development } }
       end

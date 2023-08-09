@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Phase < ApplicationRecord
   attribute :number, :integer
   include PackageEnum
@@ -235,6 +235,7 @@ class Phase < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def events(params)
     return if free?
+
     # parent development events
     evts = Event.within_range(Development.to_s, [development.id],
                               params[:start], params[:end]).to_a
@@ -265,4 +266,4 @@ class Phase < ApplicationRecord
     conveyancing && parent.conveyancing_enabled?
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

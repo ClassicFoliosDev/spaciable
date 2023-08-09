@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable ClassLength
+# rubocop:disable ClassLength, Rails/InverseOf
 class Spotlight < ApplicationRecord
   include AppearsEnum
 
@@ -48,16 +48,14 @@ class Spotlight < ApplicationRecord
 
   def start_before_finish
     return unless start && finish && start > finish
-    errors.add(:start, "must be before Finish")
-  end
 
-  def parent
-    development
+    errors.add(:start, "must be before Finish")
   end
 
   # rubocop:disable LineLength, MultilineTernaryOperator
   def title
     return I18n.t("spotlight.dynamic") if dynamic?
+
     custom_tile = custom_tiles.first
     custom_tile.title? ? custom_tile.title :
                          I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: snag_name)
@@ -87,6 +85,7 @@ class Spotlight < ApplicationRecord
     spotlights.destroy_all
   end
 
+  # rubocop:disable Style/IfUnlessModifier
   def documents_in_scope
     documents = []
     documents << development.documents
@@ -99,6 +98,7 @@ class Spotlight < ApplicationRecord
     # return the list of documents in alphabetical order
     documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
+  # rubocop:enable Style/IfUnlessModifier
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
   def self.active_tiles(plot, documents, resident)
@@ -126,6 +126,7 @@ class Spotlight < ApplicationRecord
   # rubocop:disable LineLength
   def self.visible_tiles(active_tiles, plot)
     return active_tiles.reject { |ct| ct.snagging? || ct.perks? || ct.home_designer? || !ct.cf } if plot.free?
+
     active_tiles
   end
   # rubocop:enable LineLength
@@ -156,6 +157,7 @@ class Spotlight < ApplicationRecord
 
     # return nil if the custom tile has expired
     return nil if expired?(plot)
+
     # qualifies
     custom_tile
   end
@@ -166,6 +168,7 @@ class Spotlight < ApplicationRecord
     return true if after_emd?
     return plot.completion_date >= start if emd_on_after?
     return plot.completion_date <= start if emd_on_before?
+
     plot.completion_date >= start && plot.completion_date <= finish
   end
 
@@ -203,7 +206,8 @@ class Spotlight < ApplicationRecord
   def set_cf
     return unless RequestStore.store[:current_user]&.is_a? User
     return unless changed?
+
     self.cf = RequestStore.store[:current_user]&.cf_admin? || false
   end
 end
-# rubocop:enable ClassLength
+# rubocop:enable ClassLength, Rails/InverseOf

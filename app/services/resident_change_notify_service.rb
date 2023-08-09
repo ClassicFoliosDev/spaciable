@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module ResidentChangeNotifyService
-  module_function
-
   def call(resource, user, verb, parent, subject = nil)
     notification = build_notification(resource, user, verb, parent, subject)
 
@@ -14,8 +12,6 @@ module ResidentChangeNotifyService
 
     I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
   end
-
-  private
 
   module_function
 
@@ -61,6 +57,7 @@ module ResidentChangeNotifyService
               !((parent.is_a?(Phase) && resource.is_a?(Document)) ||
               (resource.is_a?(Document) && resource.override))
       next if plot.essentials? && resource.is_a?(Faq) && resource.custom?
+
       notifyable_plots << plot
     end
 
@@ -70,6 +67,7 @@ module ResidentChangeNotifyService
 
   def plots_for(parent, resource)
     return [parent] if parent.is_a?(Plot)
+
     plots = parent.plots
     if resource.is_a?(Document)
       uploader_type = User.find_by(id: resource.user_id)

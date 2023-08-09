@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class HowTo < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -64,6 +65,7 @@ class HowTo < ApplicationRecord
 
     tags_params.each_pair do |_, tag|
       next if tag[:name].blank?
+
       tag_names = tag[:name].split(",")
       tag_names.each do |tag_name|
         tag = Tag.find_or_create_by(name: tag_name.strip)
@@ -99,3 +101,4 @@ class HowTo < ApplicationRecord
     country_categories
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

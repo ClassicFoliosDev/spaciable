@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Resident < ApplicationRecord
   include TitleEnum
 
@@ -178,6 +178,7 @@ class Resident < ApplicationRecord
   def cala?(post_emd)
     residencies = PlotResidency.resident_on(self, :cala)
     return residencies.count.positive? unless post_emd
+
     residencies.select { |pr| pr.plot.completion_date? && Time.zone.today >= pr.plot.completion_date }
                .count.positive?
   end
@@ -201,6 +202,7 @@ class Resident < ApplicationRecord
   # extended_until date in the future
   def extended?
     return false unless extended_until
+
     extended_until > Time.zone.today
   end
 
@@ -221,4 +223,4 @@ class Resident < ApplicationRecord
     set_reset_password_token
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

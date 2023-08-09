@@ -10,7 +10,7 @@ module Api
                          last_name: current_resident.last_name,
                          phone: current_resident.phone_number,
                          email: current_resident.email,
-                         residencies: current_resident.plot_residencies.pluck(:id) }, status: 200
+                         residencies: current_resident.plot_residencies.pluck(:id) }, status: :ok
         end
       end
     end

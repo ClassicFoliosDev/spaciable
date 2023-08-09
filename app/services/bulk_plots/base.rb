@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Lint/DuplicateMethods
 module BulkPlots
   class Base
     def initialize(plot, params:, numbers: nil)
@@ -47,6 +48,7 @@ module BulkPlots
 
     def errors
       return @param_error if @param_error.present?
+
       @errors.group_by { |plot| plot.errors.messages.keys }.map do |_, grouped_plots|
         grouped_error_message(grouped_plots)
       end.join(". ")
@@ -106,3 +108,4 @@ module BulkPlots
     end
   end
 end
+# rubocop:enable Lint/DuplicateMethods

@@ -46,8 +46,8 @@ module Homeowners
       if resource
         # update resource before event - post save
         # events depend on order
-        resource.update_attributes(resource_params)
-        event.update_attributes(reschedule_params)
+        resource.update(resource_params)
+        event.update(reschedule_params)
         EventNotificationService.feedback(resource.reload)
       end
 

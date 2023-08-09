@@ -22,7 +22,7 @@ module Homeowners
     private
 
     def notify_and_redirect(snag_comment)
-      snag_comment.update_attributes(commenter: current_resident)
+      snag_comment.update(commenter: current_resident)
       SnagMailer.snag_comment_to_admins(snag_comment).deliver
       redirect_to snag_path(id: snag_comment.snag_id)
     end

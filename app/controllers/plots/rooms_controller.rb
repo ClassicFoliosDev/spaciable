@@ -167,10 +167,12 @@ module Plots
       @rooms = @plot.rooms
     end
 
+    # rubocop:disable Naming/MemoizedInstanceVariableName
     def find_plot_room
       @room = @plot.plot_rooms.find_by(id: params[:id])
       @room ||= @plot.unit_type.rooms.find_by(id: params[:id])
     end
+    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def set_editor
       @room.update_mark

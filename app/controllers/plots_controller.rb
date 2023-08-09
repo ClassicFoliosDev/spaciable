@@ -136,9 +136,11 @@ class PlotsController < ApplicationController
         letter_type letable_type reservation_order_number completion_order_number ]
   end
 
+  # rubocop:disable Naming/MemoizedInstanceVariableName
   def set_parent
     @parent ||= @phase || @development || @plot&.parent
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def check_access
     return if current_user.cf_admin? || can?(:update, @plot)

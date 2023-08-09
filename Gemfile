@@ -162,7 +162,8 @@ group :development, :test do
   gem "byebug", platform: %i[mri mingw x64_mingw]
   gem "pry-rails"
   gem "rails_best_practices", "~> 1.17", require: false
-  gem "rubocop", "~> 0.49"
+  gem "rubocop", "~> 0.71"
+  gem "rubocop-rails", "~> 2.0.0"
 end
 
 group :development do
@@ -190,9 +191,9 @@ group :development, :qa do
 end
 
 group :test do
+  gem "capybara"
   gem "codeclimate-test-reporter", "~> 0.6"
   gem "cucumber-rails", "~>2.0.0", require: false
-  gem "capybara"
   gem "database_cleaner", "~>1.6.0"
   gem "launchy"
   gem "rspec-rails"

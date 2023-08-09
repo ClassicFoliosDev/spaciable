@@ -62,6 +62,7 @@ class AppliancesController < ApplicationController
     %i[primary_image secondary_image manual guide].each do |f|
       next unless !(params[:appliance][f] || parse_boolean(params[:appliance]["remove_#{f}"])) &&
                   Appliance.find(params[:appliance][:copy_of]).send("#{f}?")
+
       CopyCarrierwaveFile::CopyFileService.new(
         Appliance.find(params[:appliance][:copy_of]), @appliance, f
       ).set_file
@@ -102,12 +103,14 @@ class AppliancesController < ApplicationController
 
   def filter_params
     return unless params.include?("appliance_filter")
+
     params.require("appliance_filter").permit(:appliance_category_id,
                                               :appliance_manufacturer_id)
   end
 
   def filter
     return {} unless params.include?("appliance_filter")
+
     f = params.permit(appliance_filter: %i[appliance_category_id
                                            appliance_manufacturer_id])
     f.to_h

@@ -129,8 +129,8 @@ module Homeowners
       @resident = Resident.new(resident_params)
       @resident.create_without_password
       plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
-      plot_residency.update_attributes(role: resident_params[:role],
-                                       invited_by: current_resident)
+      plot_residency.update(role: resident_params[:role],
+                            invited_by: current_resident)
 
       ResidentInvitationService.call(plot_residency, current_resident, current_resident.to_s)
       @resident.developer_email_updates = true
@@ -152,7 +152,7 @@ module Homeowners
     end
 
     def not_allowed
-      render json: { alert: nil, notice: nil }, status: 401
+      render json: { alert: nil, notice: nil }, status: :unauthorized
       nil
     end
 

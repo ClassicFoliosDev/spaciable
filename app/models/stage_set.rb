@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent, Rails/InverseOf
 class StageSet < ApplicationRecord
   has_many :timelines
   has_many :stages, -> { order(:order) }, dependent: :destroy
@@ -18,3 +19,4 @@ class StageSet < ApplicationRecord
     StageSet.where(clone: false).order(:id)
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent, Rails/InverseOf

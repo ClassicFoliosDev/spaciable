@@ -89,7 +89,7 @@ class Document < ApplicationRecord
       if lau_visible
         pd = PlotDocument.find_by(plot_id: plot.id, document_id: id)
         if pd
-          pd.update_attributes(enable_tenant_read: true)
+          pd.update(enable_tenant_read: true)
         else
           PlotDocument.create(plot_id: plot.id, document_id: id,
                               enable_tenant_read: true)

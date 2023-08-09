@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module DevelopmentFinderService
-  module_function
-
   def call(params)
     return if params.empty?
 
     development_matching_path(params)
   end
-
-  private
 
   module_function
 
@@ -35,6 +31,7 @@ module DevelopmentFinderService
     division = Division.where("lower(division_name) = ?", division_name)
                        .where(developer_id: developer_id).first
     return unless division
+
     Development.where("lower(name) = ?", development_name)
                .where(division_id: division.id).first
   end

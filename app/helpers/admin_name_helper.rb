@@ -18,6 +18,7 @@ module AdminNameHelper
   def development_name(development)
     parent = development.parent
     return "#{parent}, #{development}" if parent.is_a? Developer
+
     "#{parent.developer}, #{parent}, #{development}"
   end
 end

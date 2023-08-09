@@ -26,6 +26,7 @@ class ChoiceConfiguration < ApplicationRecord
   # Add the selected plots, then save.  As plots are 'autosaved' they
   # will be commited to the database at the same time and in the same transaction
   # as the ChoiceConfiguration
+  # rubocop:disable Style/RedundantBegin, Style/RescueStandardError
   def persist(name, plotids, unit_type)
     # wrap in a transaction in case one of the updates fails.  This is only
     # necessary because we have to call save twice in this case
@@ -44,6 +45,7 @@ class ChoiceConfiguration < ApplicationRecord
     end
     success
   end
+  # rubocop:enable Style/RedundantBegin, Style/RescueStandardError
 
   # Update the selected plots, then save.  As plots are 'autosaved' they
   # will be commited to the database at the same time and in the same transaction
@@ -87,6 +89,7 @@ class ChoiceConfiguration < ApplicationRecord
   # Associate the id/nil with the supplied plots
   def associate_plots(plotids, cc_id)
     return true if plotids.blank?
+
     Plot.where(id: plotids).map { |p| p.update(choice_configuration_id: cc_id) }
   end
 end

@@ -34,11 +34,13 @@ class FinishRoom < ApplicationRecord
   validates :finish, presence: true
   validates :room, presence: true
 
+  # rubocop:disable Style/RescueStandardError
   def self.marker(room, finish)
     room_finish(room, finish).marker
   rescue
     nil
   end
+  # rubocop:enable Style/RescueStandardError
 
   private
 

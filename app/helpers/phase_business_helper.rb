@@ -15,12 +15,14 @@ module PhaseBusinessHelper
 
   def disabled_phase_packages(phase)
     return %i[elite legacy] if phase.res_comp? && phase.free?
+
     []
   end
 
   # are all the phases free?
   def all_phases_free?(parent)
     return false unless parent.respond_to?(:phases)
+
     parent.phases.count == parent.phases.where(package: :free).count
   end
 
@@ -55,6 +57,7 @@ module PhaseBusinessHelper
 
   def first_phase(parent)
     return nil unless parent.is_a? Development
+
     parent.phases&.first
   end
 end

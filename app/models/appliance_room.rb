@@ -35,11 +35,13 @@ class ApplianceRoom < ApplicationRecord
   validates :appliance, presence: true
   validates :room, presence: true
 
+  # rubocop:disable Style/RescueStandardError
   def self.marker(room, appliance)
     appliance_room(room, appliance).marker
   rescue
     nil
   end
+  # rubocop:enable Style/RescueStandardError
 
   private
 

@@ -103,12 +103,14 @@ module Csv
 
     def self.build_date(record, column)
       return "" if record.send(column).nil?
+
       record.send(column).strftime("%d/%m/%Y")
     end
 
     # This is being temperamental on Staging, keep an eye on it
     def self.expired_status(plot)
       return "" unless plot.completion_release_date
+
       plot.expired? ? "Expired" : "Active"
     end
 

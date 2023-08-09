@@ -13,11 +13,13 @@ class Report
 
   def report_from_not_in_future
     return if extract_date(report_from) <= Time.zone.now.to_date
+
     errors.add(:report_from, :future)
   end
 
   def report_to_not_before_report_from
     return if extract_date(report_to) >= extract_date(report_from)
+
     errors.add(:report_to, :before_report_from)
   end
 

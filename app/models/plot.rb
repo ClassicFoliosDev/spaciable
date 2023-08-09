@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Rails/HasManyOrHasOneDependent, Metrics/ClassLength
 class Plot < ApplicationRecord
   acts_as_paranoid
   require "csv"
@@ -139,7 +139,7 @@ class Plot < ApplicationRecord
             .order(:id)
         }
 
-  # rubocop:disable LineLength, Metrics/ParameterLists
+  # rubocop:disable LineLength
   scope :filtered_by,
         lambda { |role, plot_type, developer, division, development, phase, plot_numbers|
           plots = Plot.joins(plot_residencies: :resident)
@@ -154,7 +154,7 @@ class Plot < ApplicationRecord
           plots = plots.where("plots.completion_date > ?", Time.zone.today) if plot_type == "reservation_plots"
           plots.uniq
         }
-  # rubocop:enable LineLength, Metrics/ParameterLists
+  # rubocop:enable LineLength
 
   enum progress: %i[
     soon
@@ -334,6 +334,7 @@ class Plot < ApplicationRecord
       development.conveyancing_enabled?
     when :buyers_club
       return false unless developer.supports?(feature_type)
+
       Vaboo.perks_account_activated?(RequestStore.store[:current_resident],
                                      self) do |_, error|
         !error
@@ -368,6 +369,7 @@ class Plot < ApplicationRecord
                                      self) do |response, error|
         return nil if error
         return Vaboo.branded_perks_link(developer) if response
+
         Rails.application.routes.url_helpers.perks_path(type: perk_type)
       end
     when :issues
@@ -392,6 +394,7 @@ class Plot < ApplicationRecord
 
   def services
     return unless RequestStore.store[:current_resident]
+
     EnvVar[:services]
   end
 
@@ -665,7 +668,7 @@ class Plot < ApplicationRecord
       begin
         plots.each do |p|
           Plot.find(p.id.to_i)
-              .update_attributes(completion_date: p.completion_date.to_date)
+              .update(completion_date: p.completion_date.to_date)
         end
         updates = plots.count
       rescue ActiveRecord::RecordInvalid => e
@@ -730,7 +733,7 @@ class Plot < ApplicationRecord
     residents.map { |r| [r.id, r.to_s] }
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Rails/Presence
   def signature(admin = true)
     compnt = ""
 
@@ -746,7 +749,7 @@ class Plot < ApplicationRecord
       (building_name.blank? ? "" : "#{building_name} ") +
       (road_name.blank? ? "" : road_name)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Rails/Presence
 
   def hierarchy
     "#{phase.name}, Plot #{number}: "
@@ -755,6 +758,7 @@ class Plot < ApplicationRecord
   def comp_rel
     return if completion_date.blank?
     return I18n.t("calendar.events.select_all_res") if completion_date > Time.zone.now
+
     I18n.t("calendar.events.select_all_comp")
   end
 
@@ -788,6 +792,7 @@ class Plot < ApplicationRecord
     videos = []
     [developer, division, development].each do |level|
       next unless level.present? && level&.videos
+
       videos += if expiry_date.present?
                   level&.videos&.where("created_at <= ?", expiry_date)
                 else
@@ -799,6 +804,7 @@ class Plot < ApplicationRecord
 
   def package_videos
     return videos unless free?
+
     videos.select(&:override)
   end
 
@@ -809,10 +815,11 @@ class Plot < ApplicationRecord
   # Everything other than Legacy plots has a default validity of 36 months
   def set_validity
     return if legacy?
+
     self.validity = 36
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Style/ConditionalAssignment
   def self.billable(phase, kind: :package)
     return [] if kind == :ff && !%w[standard full_works].include?(phase.maintenance_account_type)
     return [] if kind == :package && phase.free?
@@ -835,7 +842,7 @@ class Plot < ApplicationRecord
 
     ActiveRecord::Base.connection.exec_query(sql)
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Style/ConditionalAssignment
 
   # True if the plot has expired and the current resident hasn't extended
   def expired_for_resident?
@@ -848,4 +855,4 @@ class Plot < ApplicationRecord
     platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength

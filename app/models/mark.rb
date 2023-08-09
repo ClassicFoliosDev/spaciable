@@ -10,6 +10,7 @@ class Mark < ApplicationRecord
   # user that made the mark
   def marker
     return "CF Admin" if cf_admin? && !RequestStore.store[:current_user].cf_admin?
+
     username
   end
 end
