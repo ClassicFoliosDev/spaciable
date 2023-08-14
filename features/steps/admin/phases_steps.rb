@@ -243,7 +243,6 @@ When(/^I authorise from an incorrect planet rent account$/) do
 end
 
 Then(/^I am informed that the authorisation is incorrect$/) do
-  byebug
   expect(page).to have_content("Incorrect authorisation. The authorising account must have the email #{$current_user.email}")
 end
 
