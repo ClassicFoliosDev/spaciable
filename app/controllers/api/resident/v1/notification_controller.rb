@@ -17,9 +17,17 @@ module Api
         end
 
         def destroy
-          ResidentNotification.where(resident_id: current_resident.id)
-                              .where(notification_id: params[:id]).destroy_all
+          ResidentNotification.where(resident_id: current_resident.id, 
+                                     notification_id: params[:id])
+                              .destroy_all
 
+          render json: {}, status: Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
+        end
+
+        def update
+          ResidentNotification.find_by!(resident_id: current_resident.id, 
+                                        notification_id: params[:id])
+                              .update_column(:read_at, Time.zone.now)
           render json: {}, status: Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
         end
       end

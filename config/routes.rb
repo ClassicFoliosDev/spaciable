@@ -435,6 +435,12 @@ Rails.application.routes.draw do
         resources :faq_category, only: [:index]
         get "/faq/:faq_category",to: "faq#index"
         resources :notification, only: %i[index update destroy]
+        resources :library, only: [:index]
+        get "library/appliances", to: "library#appliances"
+        get "library/videos", to: "library#videos"
+        get "library/my_docs", to: "library#my_documents"
+        get "library/category/:name", to: "library#category"
+        resources :rooms, only: %i[index show]
       end
     end
 
