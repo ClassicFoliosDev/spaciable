@@ -10,7 +10,7 @@ module Api
     def initialize(params)
       @params = params
       @params[:title] = @params[:title].downcase
-      @role = params[:role] || "tenant"
+      @role = params[:role] || "homeowner"
       find_plot
       @resident_type = ("Api::" + @role.capitalize).constantize
     end
