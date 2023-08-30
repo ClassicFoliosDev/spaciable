@@ -8,9 +8,6 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore database yaml
-config/database.yml
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -39,7 +36,23 @@ spec/examples.txt
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-# Env settings
+target/
+/vendor/cache/
+/vendor/bundle
+/vendor/xdist-mirror/spec
+
+# Ignore application configuration
+/config/application.yml
+
+# Ignore generated coverage files
+/coverage/*
+
+/.env.development.local
+/.env.test.local
+/.env.local
+/db/postgresql-data/
+
+TODO
 .env
 
 # Upload files for previews
