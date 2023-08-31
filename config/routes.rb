@@ -453,7 +453,11 @@ Rails.application.routes.draw do
         post '/charge', action: :charge
       end
     end
+  end
 
+  namespace :unlatch do
+    get 'rooms/:lot_id', to: 'meta#rooms', controller: 'meta'
+    get 'appliances/:lot_id', to: 'meta#appliances', controller: 'meta'
   end
 
   devise_scope :resident do
