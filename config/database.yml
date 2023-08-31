@@ -11,11 +11,6 @@ default: &default
 development:
   <<: *default
   reaping_frequency: 10
-  database: hoozzi-demo_development
-  host: localhost
-  port: 5432
-  username: postgresql
-  password:
 
 test:
   <<: *default

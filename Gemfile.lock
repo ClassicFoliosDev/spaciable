@@ -191,6 +191,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     email_spec (2.1.1)
       htmlentities (~> 4.3.3)
       launchy (~> 2.1)
@@ -621,6 +625,7 @@ DEPENDENCIES
   devise (~> 4.4.2)
   devise_invitable (~> 1.7.0)
   doorkeeper!
+  dotenv-rails (~> 2.8)
   email_spec
   factory_girl_rails
   faker
