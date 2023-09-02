@@ -8,9 +8,6 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore database yaml
-config/database.yml
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -39,7 +36,23 @@ spec/examples.txt
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-# Env settings
+target/
+/vendor/cache/
+/vendor/bundle
+/vendor/xdist-mirror/spec
+
+# Ignore application configuration
+/config/application.yml
+
+# Ignore generated coverage files
+/coverage/*
+
+/.env.development.local
+/.env.test.local
+/.env.local
+/db/postgresql-data/
+
+TODO
 .env
 
 # Upload files for previews
@@ -52,16 +65,4 @@ package-lock.json
 # Windows-specific files
 .idea/*
 
-# Vendor cache
-vendor/cache/ffi-1.9.14-x86-mingw32.gem
-vendor/cache/nokogiri-1.6.8.1-x86-mingw32.gem
-vendor/cache/pg-0.19.0-x86-mingw32.gem
-vendor/cache/tzinfo-data-1.2018.3.gem
-vendor/cache/bcrypt-3.1.12-x86-mingw32.gem
-vendor/cache/wdm-0.1.1.gem
-vendor/cache/bcrypt-3.1.12-x64-mingw32.gem
-vendor/cache/ffi-1.9.14-x64-mingw32.gem
-vendor/cache/nokogiri-1.6.8.1-x64-mingw32.gem
-vendor/cache/pg-0.19.0-x64-mingw32.gem
-vendor/cache/ks-0.0.1.gem
-vendor/cache/wetransfer-0.4.4.gem
+.env*
