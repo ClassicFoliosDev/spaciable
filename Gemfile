@@ -148,6 +148,7 @@ gem "stripe", ">= 8.0"
 gem "doorkeeper", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", tag: "v6.0"
 
 gem "rack-cors"
+
 gem "dotenv-rails", "~> 2.8"
 
 group :development, :test, :qa, :staging do
