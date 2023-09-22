@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "2.7.8"
+ruby "2.7.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 5.2.0", ">= 5.0.0.1"
@@ -148,6 +148,7 @@ gem "stripe", ">= 8.0"
 gem "doorkeeper", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", tag: "v6.0"
 
 gem "rack-cors"
+gem "dotenv-rails", "~> 2.8"
 
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
@@ -157,7 +158,6 @@ group :development, :test, :qa, :staging do
 end
 
 group :development, :test do
-  gem "dotenv-rails", "~> 2.8"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "brakeman", require: false
   gem "byebug", platform: %i[mri mingw x64_mingw]
