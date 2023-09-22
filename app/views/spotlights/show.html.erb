@@ -23,7 +23,7 @@
           <% if custom_tile.image? %>
             <div id="customTileImage">
               <div class=<%= custom_tile.full_image? ? "full-image" : "image"%> >
-                <%= image_tag(custom_tile.image) %></div>
+                <%= image_tag(custom_tile.image_url) %></div>
               <div class=<%= custom_tile.full_image? ? "full-content" : "content"%>>
                 <div class="text">
                   <% if custom_tile.render_title %>
