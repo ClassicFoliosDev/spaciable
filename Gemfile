@@ -149,8 +149,6 @@ gem "doorkeeper", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper
 
 gem "rack-cors"
 
-gem "dotenv-rails", "~> 2.8"
-
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"
@@ -159,6 +157,7 @@ group :development, :test, :qa, :staging do
 end
 
 group :development, :test do
+  gem "dotenv-rails", "~> 2.8"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "brakeman", require: false
   gem "byebug", platform: %i[mri mingw x64_mingw]
