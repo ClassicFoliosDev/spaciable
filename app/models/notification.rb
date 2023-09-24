@@ -32,7 +32,7 @@ class Notification < ApplicationRecord
   def picture_name
     return "user-circle-o.jpg" if picture.blank?
 
-    picture
+    picture.url
   end
 
   def send_to_conflicts

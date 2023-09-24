@@ -1,6 +1,6 @@
 <div class="tile-image">
   <% if plot&.branded_perk&.tile_image %>
-    <%= image_tag "#{plot&.branded_perk&.tile_image}" %>
+    <%= image_tag "#{plot&.branded_perk&.tile_image_url}" %>
   <% else %>
     <div class="spaciable-buyers">
       <%= image_tag "buyers_logo.png" %>
