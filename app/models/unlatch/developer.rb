@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+module Unlatch
+  class Developer < ApplicationRecord
+
+    self.table_name = "unlatch_developers"
+
+    belongs_to :developer, class_name: "::Developer"
+    has_many :programs, class_name: "Unlatch::Program"
+
+    def refresh_token
+      begin
+        response = HTTParty.post("#{api}key/",
+                                 body:
+                                  {
+                                    email:    email,
+                                    password: password
+                                  }.to_json,
+                                 headers:
+                                  {
+                                    "Content-Type" => "application/json",
+                                    "Accept" => "application/json"
+                                  },
+                                 timeout: 10)
+
+        if response.code == 200
+          self.token = response.parsed_response["token"]
+          self.expires = response.parsed_response["expiration"]
+          save
+        else
+          Rails.logger.error("Failed to obtain Uplatch token - status #{response.code}")
+        end
+      rescue Net::OpenTimeout
+        Rails.logger.error("Failed to obtain Uplatch token - status #{response.code}")
+      rescue => e
+        Rails.logger.error("UNLATCH: Failed to retrieve token - #{e.message}")
+      end
+
+      token
+    end
+
+
+  end
+end

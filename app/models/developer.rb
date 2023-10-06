@@ -31,6 +31,7 @@ class Developer < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
+  has_one :unlatch_developer, class_name: "Unlatch::Developer", dependent: :destroy
 
   scope :on_package,
         lambda {

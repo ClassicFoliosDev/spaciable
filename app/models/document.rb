@@ -17,6 +17,7 @@ class Document < ApplicationRecord
 
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
+  has_one :unlatch_document, class_name: "Unlatch::Document"
 
   validates :file, presence: true
   validates :guide, uniqueness: { scope: :documentable }, if: -> { guide.present? }

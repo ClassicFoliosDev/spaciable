@@ -64,6 +64,10 @@ class Plot < ApplicationRecord
   delegate :title, to: :build_step, prefix: true
   delegate :free?, :essentials?, :elite?, :legacy?, to: :phase, allow_nil: true
 
+  has_one :lot, class_name: "Unlatch::Lot", dependent: :destroy
+  delegate :program, to: :development
+  delegate :unlatch_developer, to: :developer
+
   alias_attribute :identity, :number
 
   attr_accessor :notify
@@ -114,6 +118,7 @@ class Plot < ApplicationRecord
 
   after_create :post_create
   after_update :post_update
+  after_create :unlatch_sync
 
   # Retrieve all plots for the phase that are allocated to a specified
   # timeline
@@ -847,5 +852,12 @@ class Plot < ApplicationRecord
   def platform_logo
     platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
   end
+
+  # Find a matching Unlatch::lot if necessary
+  def unlatch_sync
+    return unless program.present?
+    Unlatch::Lot::sync(self)
+  end
+
 end
 # rubocop:enable Metrics/ClassLength
