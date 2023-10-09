@@ -10,6 +10,7 @@ class Document < ApplicationRecord
 
   after_create :update_laus
   after_update :update_laus
+  after_create :unlatch_sync
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
@@ -107,5 +108,15 @@ class Document < ApplicationRecord
 
   def read_only?
     res_comp? && !RequestStore.store[:current_user].cf_admin?
+  end
+
+  def unlatch_sync
+    return unless documentable.unlatch_developer.present?
+    Unlatch::Document::add(self)
+  end
+
+  def source
+    return File.open(file.file.file) if Rails.env.development?
+    URI.open(file.url)
   end
 end

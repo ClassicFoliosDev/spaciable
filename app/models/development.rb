@@ -98,6 +98,10 @@ class Development < ApplicationRecord
       either_can_choose
     ]
 
+  def programs
+    [program]
+  end
+
   def brand_any
     return brand if brand
     return parent.brand if parent&.brand
