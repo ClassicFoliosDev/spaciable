@@ -15,7 +15,7 @@ class Unlatch < ActiveRecord::Migration[5.0]
   	end
 
   	create_table :unlatch_sections do |t|
-  	  t.references :program
+  	  t.references :developer
   	  t.integer :category
   	end
 

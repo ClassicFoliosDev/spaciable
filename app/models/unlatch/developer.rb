@@ -7,6 +7,7 @@ module Unlatch
 
     belongs_to :developer, class_name: "::Developer"
     has_many :programs, class_name: "Unlatch::Program"
+    has_many :sections, class_name: "Unlatch::Section"
 
     def refresh_token
       begin

@@ -1354,9 +1354,9 @@ ActiveRecord::Schema.define(version: 20231002123924) do
   end
 
   create_table "unlatch_sections", force: :cascade do |t|
-    t.integer "program_id"
+    t.integer "developer_id"
     t.integer "category"
-    t.index ["program_id"], name: "index_unlatch_sections_on_program_id", using: :btree
+    t.index ["developer_id"], name: "index_unlatch_sections_on_developer_id", using: :btree
   end
 
   create_table "user_preferences", force: :cascade do |t|

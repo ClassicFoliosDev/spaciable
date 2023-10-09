@@ -7,7 +7,6 @@ module Unlatch
 
     belongs_to :development, class_name: "::Development"
     belongs_to :developer, class_name: "Unlatch::Developer"
-    has_many :sections, class_name: "Unlatch::Section"
     
     # rubocop:disable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
     # rubocop:disable Style/RaiseArgs, Metrics/LineLength
