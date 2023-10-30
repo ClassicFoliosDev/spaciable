@@ -21,6 +21,15 @@ class Development < ApplicationRecord
     developer || division.developer
   end
 
+  def library
+    lib = parent.library
+    lib << documents
+  end
+
+  def unlatch_developer
+    parent.unlatch_developer
+  end
+
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :faqs, as: :faqable, dependent: :destroy
   has_many :phases, dependent: :destroy
@@ -53,7 +62,6 @@ class Development < ApplicationRecord
   delegate :custom_url, to: :developer
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
-  delegate :unlatch_developer, to: :developer
 
   alias_attribute :development_name, :name
 
@@ -87,7 +95,7 @@ class Development < ApplicationRecord
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_spotlights
   after_save :update_spotlights
-  after_create :unlatch_sync
+  after_create :add_to_unlatch
 
   alias_attribute :identity, :name
 
@@ -268,9 +276,9 @@ class Development < ApplicationRecord
   end
 
   # Find a matching Unlatch::Program if necessary
-  def unlatch_sync
+  def add_to_unlatch
     return unless unlatch_developer.present?
-    Unlatch::Program::sync(unlatch_developer, self)
+    Unlatch::Program::add(unlatch_developer, self)
   end
 
   def my_construction_name

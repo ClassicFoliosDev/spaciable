@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Developer < ApplicationRecord
+  include Unlatch::Interface
   acts_as_paranoid
 
   attr_accessor :personal_app
@@ -16,6 +17,7 @@ class Developer < ApplicationRecord
   has_many :developments, dependent: :destroy
 
   has_many :documents, as: :documentable, dependent: :destroy
+  alias library documents
   has_many :faqs, as: :faqable, dependent: :destroy
   has_many :phases, dependent: :destroy
   has_many :plots, dependent: :destroy

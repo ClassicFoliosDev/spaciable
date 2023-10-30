@@ -9,44 +9,46 @@ module Unlatch
     belongs_to :document, class_name: "::Document"
     belongs_to :program, class_name: "Unlatch::Program"
     belongs_to :section, class_name: "Unlatch::Section"
+    delegate :developer, to: :program
 
-    before_destroy :remove
+    before_destroy :DELETE
 
     class << self
-      # Add the documen
-      def add(spaciable_doc)
+      # Add the document
+      def add(spaciable_doc, programs = nil)
         # docs can be applicable to multiple developments, and therefore 
         # multiple programs
-        spaciable_doc.documentable.programs.each do | program |
-          add_document(spaciable_doc,
-                       program,
-                       [32210687],
-                       Unlatch::Section.find_by(program_id: program.id,
-                                                category: spaciable_doc.category))
+        (programs || spaciable_doc.documentable.programs).each do | program |
+          POST(spaciable_doc,
+                 program,
+                 spaciable_doc.lots,
+                 Unlatch::Section.find_by(developer_id: spaciable_doc.unlatch_developer.id,
+                                          category: spaciable_doc.category))
         end
       end
 
       private
 
-      def add_document(spaciable_doc, program, lots, section)
-        byebug
+      def POST(spaciable_doc, program, lots, section)
         retries = 0
         document = nil
-        developer = spaciable_doc&.documentable&.unlatch_developer;
+        developer = spaciable_doc.unlatch_developer;
 
         return unless developer.present?
 
+        body = {
+                 "file" => spaciable_doc.source,
+                 "caption" => spaciable_doc.title,
+                 "section" => section&.id,
+                 "documentType" => "brochure"
+               }
+
+        # API only accepts lots if populated :(
+        body[:lots] = lots if lots&.any?
+
         begin
           response = HTTParty.post("#{developer.api}programs/#{program.id}/document/",
-                                   body:
-                                     {
-                                       file: spaciable_doc.source,
-                                       caption: spaciable_doc.title,
-                                       lots: lots,
-                                       section: section.id,
-                                       documentType: "brochure",
-                                       showToBuyer: true
-                                     },
+                                   body: body,
                                    headers:
                                      {
                                        "Accept" => "application/json",
@@ -54,7 +56,6 @@ module Unlatch
                                      },
                                    timeout: 10)
           if response.code == 200
-            byebug
             document_id = response.parsed_response["documentId"]
             document = Unlatch::Document.create(id: document_id,
                                                 document_id: spaciable_doc.id,
@@ -75,7 +76,7 @@ module Unlatch
           Rails.logger.error("UNLATCH: Uplatch is currently unavaliable. Please try again later")
         rescue => e
           byebug
-          Rails.logger.error("UNLATCH: Failed to post document - #{e.message}")
+          Rails.logger.error("UNLATCH: Failed to POST document - #{e.message}")
         end
 
         document
@@ -83,24 +84,25 @@ module Unlatch
     end
 
     # remove document from unlatch
-    def remove
+    def DELETE
       retries = 0
 
       begin
-        response = HTTParty.delete("#{EnvVar[:unlatch_url]}lot/#{unlatch_program_id}/#{unlatch_lot.id}/document/#{id}/",
+        response = HTTParty.delete("#{developer.api}programs/#{program.id}/documents/#{id}/",
                                    headers:
                                      {
                                        "Content-Type" => "application/json",
                                        "Accept" => "application/json",
-                                       "Authorization" => "Bearer #{EnvVar[:unlatch_token, true]}"
+                                       "Authorization" => "Bearer #{developer.token}"
                                      },
                                    timeout: 10)
+        return if response.code == 200
         if response.code == 401 && retries.zero?
-          Unlatch::Token.set
+          developer.refresh_token
           retries += 1
           raise Unlatch::Unauthorised.new
-        else
-          Rails.logger.error("UNLATCH: Failed to obtain POST document #{document.id} - " \
+        else 
+          Rails.logger.error("UNLATCH: Failed to obtain DELETE document #{document.id} - " \
                              "status #{response.code}")
         end
       rescue Unlatch::Unauthorised
@@ -108,7 +110,7 @@ module Unlatch
       rescue Net::OpenTimeout
         Rails.logger.error("UNLATCH: Uplatch is currently unavaliable. Please try again later")
       rescue => e
-        Rails.logger.error("UNLATCH: Failed to post document - #{e.message}")
+        Rails.logger.error("UNLATCH: Failed to DELETE Document - #{e.message}")
       end
     end
   end

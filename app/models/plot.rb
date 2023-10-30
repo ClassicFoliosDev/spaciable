@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
+
   acts_as_paranoid
   require "csv"
 
@@ -12,6 +13,7 @@ class Plot < ApplicationRecord
 
   before_save :set_build_status
   before_save :set_validity
+  after_create :add_to_unlatch
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -34,7 +36,7 @@ class Plot < ApplicationRecord
   has_many :plot_residencies, dependent: :destroy
   has_many :plot_private_documents, dependent: :destroy
   has_many :private_documents, through: :plot_private_documents
-  has_many :plot_documents, dependent: :destroy
+  has_one :unlatch_lot, class_name: "Unlatch::Lot", dependent: :destroy
   has_many :documents, through: :plot_documents
   has_many :residents, through: :plot_residencies
 
@@ -47,9 +49,12 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
   belongs_to :build_step
   delegate :build_sequenceable_type, to: :build_step
+  delegate :program, to: :development
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
+
+  has_many :plot_documents, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
@@ -63,10 +68,6 @@ class Plot < ApplicationRecord
   delegate :build_steps, to: :parent
   delegate :title, to: :build_step, prefix: true
   delegate :free?, :essentials?, :elite?, :legacy?, to: :phase, allow_nil: true
-
-  has_one :lot, class_name: "Unlatch::Lot", dependent: :destroy
-  delegate :program, to: :development
-  delegate :unlatch_developer, to: :developer
 
   alias_attribute :identity, :number
 
@@ -118,7 +119,6 @@ class Plot < ApplicationRecord
 
   after_create :post_create
   after_update :post_update
-  after_create :unlatch_sync
 
   # Retrieve all plots for the phase that are allocated to a specified
   # timeline
@@ -201,6 +201,10 @@ class Plot < ApplicationRecord
                                .where.not(id: templated_room_ids)
 
     room_scope.where(plot_id: id).or(unit_type_rooms_relation)
+  end
+
+  def appliances(room_scope = Room.all)
+    Appliance.in_rooms(rooms(room_scope))
   end
 
   # ADDRESSES
@@ -853,11 +857,29 @@ class Plot < ApplicationRecord
     platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
   end
 
-  # Find a matching Unlatch::lot if necessary
-  def unlatch_sync
-    return unless program.present?
-    Unlatch::Lot::sync(self)
+  def add_to_unlatch
+    return unless developer.unlatch_developer.present?
+    Unlatch::Lot::add(self)
   end
+
+#  def lot
+#    return nil unless unlatch?
+#    return unlatch_lot if unlatch_lot.present? # return the Lot if is has been found before
+#    sync_with_unlatch
+#  end
+
+#  def sync_with_unlatch
+#   lot = Unlatch::Lot.sync(self) # go and try to find the matching Lot
+#   if lot.nil?
+#     self.sync_status = :no_match
+#     save(validate: false)
+#   end
+#   lot
+# end
+
+#  def unlatch?
+#    unlatch_program_id.present?
+#  end
 
 end
 # rubocop:enable Metrics/ClassLength

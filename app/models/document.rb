@@ -10,15 +10,18 @@ class Document < ApplicationRecord
 
   after_create :update_laus
   after_update :update_laus
-  after_create :unlatch_sync
+  after_create :add_to_unlatch
 
   belongs_to :documentable, polymorphic: true
+  delegate :lots, to: :documentable
+
+  delegate :unlatch_developer, to: :parent
   belongs_to :user, optional: true
   belongs_to :custom_tile, optional: true
 
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
-  has_one :unlatch_document, class_name: "Unlatch::Document"
+  has_many :unlatch_documents, class_name: "Unlatch::Document", dependent: :destroy
 
   validates :file, presence: true
   validates :guide, uniqueness: { scope: :documentable }, if: -> { guide.present? }
@@ -110,7 +113,7 @@ class Document < ApplicationRecord
     res_comp? && !RequestStore.store[:current_user].cf_admin?
   end
 
-  def unlatch_sync
+  def add_to_unlatch
     return unless documentable.unlatch_developer.present?
     Unlatch::Document::add(self)
   end
