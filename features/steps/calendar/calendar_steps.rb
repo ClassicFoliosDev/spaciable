@@ -99,8 +99,9 @@ Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
   # You have no idea how much of my life I wasted finding out
   # exactly how and why I had to do this!
   drag_from = find(".fc-day[data-date='#{(CalendarFixture.now).strftime('%Y-%m-%d')}']")
-  target = find(".fc-day[data-date='#{(CalendarFixture.now).strftime('%Y-%m-%d')}']")
-  drag_from.drag_to(target)
+  target = find(".fc-day[data-date='#{(CalendarFixture.now + 1.day).strftime('%Y-%m-%d')}']")
+  byebug
+  elem = drag_from.drag_to(target)
 
   expect(page).to have_content("Add #{type.capitalize()} Event")
 
