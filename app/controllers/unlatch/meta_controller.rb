@@ -1,36 +1,38 @@
 # frozen_string_literal: true
-module Unlatch
-  class MetaController < ApplicationController
 
+module Unlatch
+  # rubocop:disable LineLength
+  class MetaController < ApplicationController
     after_action :allow_iframe
 
-  	layout "unlatch"
-  	skip_before_action :authenticate_user!
-  	skip_authorization_check
-    before_action :menus_off
+    layout "unlatch"
+    skip_before_action :authenticate_user!
+    skip_authorization_check
+    before_action :unlatch
 
     def rooms
-    	@plot = Unlatch::Lot.find(params["lot_id"])&.plot
-    	@rooms = @plot&.rooms
-    	render :template => 'homeowners/rooms/show'
+      @plot = Unlatch::Lot.find_by(id: params["lot_id"])&.plot
+      @rooms = @plot&.rooms
+      render template: (@plot.nil? ? "homeowners/rooms/no_match" : "homeowners/rooms/show")
     end
 
     def appliances
-    	@plot = Unlatch::Lot.find(params["lot_id"])&.plot
-    	@appliances = @plot&.appliances
-    	render :template => 'homeowners/appliances/show'
+      @plot = Unlatch::Lot.find_by(id: params["lot_id"])&.plot
+      @appliances = @plot&.appliances
+      render template: (@plot.nil? ? "homeowners/appliances/no_match" : "homeowners/appliances/show")
     end
 
-    def menus_off
+    def unlatch
+      @unlatched = true
       @skip_menus = true
     end
 
     private
 
-  def allow_iframe
-    response.headers.except! 
-    response.set_header('X-Frame-Options', 'ALLOWALL')
+    def allow_iframe
+      response.headers.except!
+      response.set_header("X-Frame-Options", "ALLOWALL")
+    end
   end
-
-  end
+  # rubocop:enable LineLength
 end

@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
+  include Unlatch::Interface
 
   acts_as_paranoid
   require "csv"
@@ -24,6 +25,8 @@ class Plot < ApplicationRecord
 
   belongs_to :unit_type, optional: true
   belongs_to :developer, optional: false
+  delegate :unlatch_developer, to: :developer
+  delegate :programs, to: :development
   has_one :crm, through: :developer
   belongs_to :division, optional: true
   has_many :plot_timelines, dependent: :destroy
@@ -36,7 +39,7 @@ class Plot < ApplicationRecord
   has_many :plot_residencies, dependent: :destroy
   has_many :plot_private_documents, dependent: :destroy
   has_many :private_documents, through: :plot_private_documents
-  has_one :unlatch_lot, class_name: "Unlatch::Lot", dependent: :destroy
+  has_one :lot, class_name: "Unlatch::Lot", dependent: :destroy
   has_many :documents, through: :plot_documents
   has_many :residents, through: :plot_residencies
 
@@ -858,28 +861,21 @@ class Plot < ApplicationRecord
   end
 
   def add_to_unlatch
-    return unless developer.unlatch_developer.present?
-    Unlatch::Lot::add(self)
+    return if developer.unlatch_developer.blank?
+    Unlatch::Lot.add(self)
   end
 
-#  def lot
-#    return nil unless unlatch?
-#    return unlatch_lot if unlatch_lot.present? # return the Lot if is has been found before
-#    sync_with_unlatch
-#  end
+  # Unlatch::Interface implementation
+  def lots
+    [self&.lot&.id]
+  end
 
-#  def sync_with_unlatch
-#   lot = Unlatch::Lot.sync(self) # go and try to find the matching Lot
-#   if lot.nil?
-#     self.sync_status = :no_match
-#     save(validate: false)
-#   end
-#   lot
-# end
-
-#  def unlatch?
-#    unlatch_program_id.present?
-#  end
-
+  # Reservation and Completion documents appear in My Documents,
+  # not in a Unlatch Section (sub folder)
+  def section(document)
+    return nil if document&.reservation? || document&.completion?
+    Unlatch::Section.find_by(developer_id: document.unlatch_developer.id,
+                             category: document.category)
+  end
 end
 # rubocop:enable Metrics/ClassLength

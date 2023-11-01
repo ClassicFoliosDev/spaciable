@@ -6,7 +6,7 @@
 <div class="branded-body">
   <div class="rooms">
     <span class="branded-text rooms-disclaimer"><%= t(".disclaimer") %></span>
-    <% @rooms.each do | room | %>
+    <% @rooms&.each do | room | %>
       <% if @plot.choices_approved? %>
         <% plot_choices = RoomChoice.plot_choices(room, @plot) %>
       <% end %>

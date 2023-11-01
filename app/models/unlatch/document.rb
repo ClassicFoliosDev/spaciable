@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Unlatch
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Style/RaiseArgs, Metrics/LineLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Style/RaiseArgs, Naming/MethodName, Metrics/CyclomaticComplexity
   class Document < ApplicationRecord
     self.table_name = "unlatch_documents"
 
@@ -14,37 +14,38 @@ module Unlatch
     before_destroy :DELETE
 
     class << self
-      # Add the document
-      def add(spaciable_doc, programs = nil)
-        # docs can be applicable to multiple developments, and therefore 
+      # The interface uses POST to both ADD and UPDATE a document.  This
+      # function needs to cover both cases.
+      def sync(spaciable_doc)
+        # docs can be applicable to multiple developments, and therefore
         # multiple programs
-        (programs || spaciable_doc.documentable.programs).each do | program |
-          POST(spaciable_doc,
-                 program,
-                 spaciable_doc.lots,
-                 Unlatch::Section.find_by(developer_id: spaciable_doc.unlatch_developer.id,
-                                          category: spaciable_doc.category))
+        spaciable_doc.documentable.programs.each do |program|
+          POST(spaciable_doc, program)
         end
       end
 
       private
 
-      def POST(spaciable_doc, program, lots, section)
+      def POST(spaciable_doc, program)
         retries = 0
-        document = nil
-        developer = spaciable_doc.unlatch_developer;
+        developer = spaciable_doc.unlatch_developer
+        # Find the id of the existing document if there is one
+        document = Unlatch::Document.find_by(program_id: program.id,
+                                             document_id: spaciable_doc.id)
 
-        return unless developer.present?
+        return if developer.blank?
 
         body = {
-                 "file" => spaciable_doc.source,
-                 "caption" => spaciable_doc.title,
-                 "section" => section&.id,
-                 "documentType" => "brochure"
-               }
+          "file" => spaciable_doc.source,
+          "caption" => spaciable_doc.title,
+          "documentType" => "brochure",
+          "showToBuyers" => true
+        }
 
-        # API only accepts lots if populated :(
-        body[:lots] = lots if lots&.any?
+        # API only accepts lots and section if populated :(
+        body[:lots] = spaciable_doc.lots if spaciable_doc.lots&.any?
+        body[:section] = spaciable_doc.section.id if spaciable_doc.section&.present?
+        body[:documentId] = document.id unless document.nil?
 
         begin
           response = HTTParty.post("#{developer.api}programs/#{program.id}/document/",
@@ -56,11 +57,12 @@ module Unlatch
                                      },
                                    timeout: 10)
           if response.code == 200
+            return document unless document.nil? # updated, not new
             document_id = response.parsed_response["documentId"]
             document = Unlatch::Document.create(id: document_id,
                                                 document_id: spaciable_doc.id,
                                                 program_id: program.id,
-                                                section_id: section&.id)
+                                                section_id: spaciable_doc&.section&.id)
           elsif response.code == 401 && retries.zero?
             developer.refresh_token
             retries += 1
@@ -72,10 +74,8 @@ module Unlatch
         rescue Unlatch::Unauthorised
           retry
         rescue Net::OpenTimeout
-          byebug
           Rails.logger.error("UNLATCH: Uplatch is currently unavaliable. Please try again later")
         rescue => e
-          byebug
           Rails.logger.error("UNLATCH: Failed to POST document - #{e.message}")
         end
 
@@ -101,7 +101,7 @@ module Unlatch
           developer.refresh_token
           retries += 1
           raise Unlatch::Unauthorised.new
-        else 
+        else
           Rails.logger.error("UNLATCH: Failed to obtain DELETE document #{document.id} - " \
                              "status #{response.code}")
         end
@@ -114,6 +114,6 @@ module Unlatch
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:enable Style/RaiseArgs, Metrics/LineLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Style/RaiseArgs, Naming/MethodName, Metrics/PerceivedComplexity
 end

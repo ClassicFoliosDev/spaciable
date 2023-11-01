@@ -2,13 +2,13 @@
 
 module Unlatch
   class Developer < ApplicationRecord
-
     self.table_name = "unlatch_developers"
 
     belongs_to :developer, class_name: "::Developer"
     has_many :programs, class_name: "Unlatch::Program"
     has_many :sections, class_name: "Unlatch::Section"
 
+    # rubocop:disable Metrics/MethodLength
     def refresh_token
       begin
         response = HTTParty.post("#{api}key/",
@@ -39,7 +39,6 @@ module Unlatch
 
       token
     end
-
-
+    # rubocop:enable Metrics/MethodLength
   end
 end

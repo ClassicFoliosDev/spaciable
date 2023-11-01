@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class Division < ApplicationRecord
   include Unlatch::Interface
-  
+
   acts_as_paranoid
   belongs_to :developer
   after_save :update_convayencing
@@ -197,6 +197,5 @@ class Division < ApplicationRecord
     lib = parent.library
     lib << documents
   end
-
 end
 # rubocop:enable Metrics/ClassLength

@@ -2,20 +2,29 @@
 
 module Unlatch
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Style/RaiseArgs, Metrics/LineLength
+  # rubocop:disable Style/RaiseArgs
   class Lot < ApplicationRecord
-
     self.table_name = "unlatch_lots"
 
     belongs_to :plot, class_name: "::Plot"
     belongs_to :program, class_name: "Unlatch::Program"
     delegate :developer, to: :program
+    after_destroy :resync_containers
+
+    scope :in_phase,
+          lambda { |phase|
+            joins(plot: :phase).where(phases: { id: phase.id })
+          }
+
+    scope :with_unit_type,
+          lambda { |unit_type|
+            joins(plot: :unit_type).where(unit_types: { id: unit_type.id })
+          }
 
     class << self
       # Look for a Lot matching the supplied Plot
       def lots(program)
         retries = 0
-        programs = error = nil
 
         begin
           response = HTTParty.get("#{program.developer.api}lots/",
@@ -49,18 +58,20 @@ module Unlatch
 
       # Find the associated Unlatch Program,and if found, create a child Lot
       def add(plot)
-        lot = lots(plot&.program).select { |l| l["lotNumber"] == plot.number }
+        lot = lots(plot&.program).select { |l| l["lotNumber"].casecmp(plot.number).zero? }
         return unless lot&.count == 1
-        lot = Unlatch::Lot.create(id: lot[0]["lotId"], 
+        lot = Unlatch::Lot.create(id: lot[0]["lotId"],
                                   plot_id: plot.id,
                                   program_id: plot.program.id)
-        lot.sync_docs
+        lot.resync_containers
       end
     end
 
-    def sync_docs
+    def resync_containers
+      plot.phase.sync_docs_with_unlatch
+      plot.unit_type.sync_docs_with_unlatch
     end
   end
-  # rubocop:enable Style/RaiseArgs, Metrics/LineLength
+  # rubocop:enable Style/RaiseArgs
   # rubocop:enable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
 end

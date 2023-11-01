@@ -10,7 +10,8 @@ class Document < ApplicationRecord
 
   after_create :update_laus
   after_update :update_laus
-  after_create :add_to_unlatch
+  after_create :sync_with_unlatch
+  after_update :sync_with_unlatch
 
   belongs_to :documentable, polymorphic: true
   delegate :lots, to: :documentable
@@ -46,6 +47,10 @@ class Document < ApplicationRecord
 
           documents
         }
+
+  def section
+    documentable.section(self)
+  end
 
   def to_s
     title
@@ -113,9 +118,13 @@ class Document < ApplicationRecord
     res_comp? && !RequestStore.store[:current_user].cf_admin?
   end
 
-  def add_to_unlatch
-    return unless documentable.unlatch_developer.present?
-    Unlatch::Document::add(self)
+  def sync_with_unlatch
+    return if documentable.unlatch_developer.blank?
+    if documentable.sync_to_unlatch?
+      Unlatch::Document.sync(self)
+    else
+      unlatch_documents.destroy_all
+    end
   end
 
   def source

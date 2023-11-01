@@ -2,7 +2,6 @@
 
 module Unlatch
   class Program < ApplicationRecord
-
     self.table_name = "unlatch_programs"
 
     belongs_to :development, class_name: "::Development"
@@ -10,10 +9,10 @@ module Unlatch
     has_many :documents, class_name: "Unlatch::Document", dependent: :destroy
 
     scope :in_division,
-        lambda { |division|
-          joins(:development)
-            .where(developments: { division_id: division.id})
-        }
+          lambda { |division|
+            joins(:development)
+              .where(developments: { division_id: division.id })
+          }
 
     # rubocop:disable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
     # rubocop:disable Style/RaiseArgs, Metrics/LineLength
@@ -33,7 +32,7 @@ module Unlatch
                                   timeout: 10)
           if response.code == 200
             programs = response.parsed_response.map { |p| [p["caption"], p["programId"]] }
-          elsif [401,403].include?(response.code) && retries.zero?
+          elsif [401, 403].include?(response.code) && retries.zero?
             developer.refresh_token
             retries += 1
             raise Unlatch::Unauthorised.new
@@ -56,29 +55,14 @@ module Unlatch
       # If there are documents at developer/division level, then these also have to be added
       # to the program at this point
       def add(u_developer, s_development)
-        unlatch_id = list(u_developer)&.select{|(name, id)| name == s_development.name}&.map{|(name, id)| id}
+        unlatch_id = list(u_developer)&.select { |(name, _)| name.casecmp(s_development.name).zero? }&.map { |(_, id)| id }
         return if unlatch_id.blank? || unlatch_id&.empty?
-        program = Unlatch::Program.create(id: unlatch_id[0], 
-                                          development_id: s_development.id,
-                                          developer_id: u_developer.id)
-        program.sync
+        Unlatch::Program.create(id: unlatch_id[0],
+                                development_id: s_development.id,
+                                developer_id: u_developer.id)
       end
-
     end
     # rubocop:enable Style/RaiseArgs, Metrics/LineLength
     # rubocop:enable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
-
-    # sync all the documents for this program
-    def sync
-      sync_library
-    end
-
-    # Add any documents already associated with the development
-    def sync_library
-      development.library.each do | document |
-        next if document.unlatch_documents.find_by(document_id: document.id, program_id: self.id)
-        Unlatch::Document.add(document, [self])
-      end
-    end
   end
 end

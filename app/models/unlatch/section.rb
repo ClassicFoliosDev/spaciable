@@ -2,12 +2,11 @@
 
 module Unlatch
   class Section < ApplicationRecord
-  	include CategoryEnum
+    include CategoryEnum
 
-  	self.table_name = "unlatch_sections"
+    self.table_name = "unlatch_sections"
 
     belongs_to :developer, class_name: "Unlatch::Developer"
     has_many :documents, class_name: "Unlatch::Document"
-    
   end
 end
