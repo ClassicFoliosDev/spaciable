@@ -11,13 +11,14 @@ module Unlatch
     before_action :unlatch
 
     def rooms
-      @plot = Unlatch::Lot.find_by(id: params["lot_id"])&.plot
+      byebug
+      @plot = Unlatch::Lot.find_by(id: params[:lot_id])&.plot
       @rooms = @plot&.rooms
       render template: (@plot.nil? ? "homeowners/rooms/no_match" : "homeowners/rooms/show")
     end
 
     def appliances
-      @plot = Unlatch::Lot.find_by(id: params["lot_id"])&.plot
+      @plot = Unlatch::Lot.find_by(id: params[:lot_id])&.plot
       @appliances = @plot&.appliances
       render template: (@plot.nil? ? "homeowners/appliances/no_match" : "homeowners/appliances/show")
     end

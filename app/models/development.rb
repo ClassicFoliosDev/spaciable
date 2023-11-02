@@ -277,7 +277,13 @@ class Development < ApplicationRecord
   # Find a matching Unlatch::Program if necessary
   def sync_with_unlatch
     return if unlatch_developer.blank?
+    return unless program.blank?
     Unlatch::Program.add(unlatch_developer, self)
+  end
+
+  # Unlatch::Interface implementation
+  def paired_with_unlatch?
+    !program.nil?
   end
 
   def my_construction_name

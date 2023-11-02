@@ -14,7 +14,7 @@ class Plot < ApplicationRecord
 
   before_save :set_build_status
   before_save :set_validity
-  after_create :add_to_unlatch
+  after_create :sync_with_unlatch
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -860,14 +860,19 @@ class Plot < ApplicationRecord
     platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
   end
 
-  def add_to_unlatch
+  def sync_with_unlatch
     return if developer.unlatch_developer.blank?
+    return unless lot.blank?
     Unlatch::Lot.add(self)
   end
 
   # Unlatch::Interface implementation
   def lots
     [self&.lot&.id]
+  end
+
+  def paired_with_unlatch?
+    !lot.nil?
   end
 
   # Reservation and Completion documents appear in My Documents,

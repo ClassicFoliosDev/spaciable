@@ -38,6 +38,9 @@
     <% if current_user.cf_admin? || !plot.free? %>
       <strong><%= plot.unit_type %></strong><br/>
     <% end %>
+    <% if plot.linked_to_unlatch? %>
+      <%= unlatch_sync_btn(plot) %>
+    <% end %>
     <%= edit_btn [:edit, plot], element: plot %>
     <%= (link_to t(".preview"), plot_preview_path(plot), class: "btn") unless plot.expired? && !(current_user.cf_admin?) %>
   </div>

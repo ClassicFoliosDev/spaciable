@@ -458,6 +458,7 @@ Rails.application.routes.draw do
   namespace :unlatch do
     get 'rooms/:lot_id', to: 'meta#rooms', controller: 'meta'
     get 'appliances/:lot_id', to: 'meta#appliances', controller: 'meta'
+    post 'sync_with_unlatch/:linkable_class/:linkable_id', format: :json, to: "sync#sync_with_unlatch"
   end
 
   devise_scope :resident do

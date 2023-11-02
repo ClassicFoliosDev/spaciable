@@ -65,6 +65,9 @@
           <% end %>
           <td><span class = 'circle <%= comp %>'>&nbsp;</span></td>
           <td class="actions">
+            <% if plot.linked_to_unlatch? %>
+              <%= unlatch_sync_btn(plot) %>
+            <% end %>
             <%= edit_btn [:edit, plot], element: plot %>
             <%= delete_btn plot, path: url_for(plot), element: plot %>
           </td>

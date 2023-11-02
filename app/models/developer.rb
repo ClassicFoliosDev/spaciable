@@ -340,6 +340,20 @@ class Developer < ApplicationRecord
     build_sequence || Global.root.build_sequence
   end
 
+  # Unlatch::Interface implementation
+
+  # Is this developer paired with Unlatch
+  def paired_with_unlatch?
+    !unlatch_developer.nil?
+  end
+
+  # A developer will be manually paired, synchronised and checked
+  # during initialisation and will never have to be re-synchronised.
+  # It does however have to satisfy the Unlatch::Interface implementation
+  def sync_with_unlatch
+      nil
+  end
+  
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and

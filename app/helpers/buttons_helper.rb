@@ -114,4 +114,19 @@ module ButtonsHelper
       icon "files-o", label
     end
   end
+
+  def unlatch_sync_btn(linkable)
+    icon_class = if linkable.paired_with_unlatch?
+                   "link"
+                 else
+                   "chain-broken"
+                 end
+
+    button_tag "", type: "button", class: "btn", data: { linkable_type: linkable.class.to_s, 
+                                                         linkable_id: linkable.id,
+                                                         type: :sync } do
+      icon icon_class
+    end
+  end
+
 end
