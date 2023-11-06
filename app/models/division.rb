@@ -197,5 +197,11 @@ class Division < ApplicationRecord
     lib = parent.library
     lib << documents
   end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+    developments.each(&:unlatch_deep_sync)
+    sync_docs_with_unlatch
+  end
 end
 # rubocop:enable Metrics/ClassLength

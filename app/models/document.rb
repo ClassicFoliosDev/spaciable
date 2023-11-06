@@ -12,24 +12,18 @@ class Document < ApplicationRecord
   after_update :update_laus
   after_create :sync_with_unlatch
   after_update :sync_with_unlatch
-
   belongs_to :documentable, polymorphic: true
   delegate :lots, to: :documentable
-
-  delegate :unlatch_developer, to: :parent
   belongs_to :user, optional: true
   belongs_to :custom_tile, optional: true
-
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
+  delegate :unlatch_developer, to: :parent
   has_many :unlatch_documents, class_name: "Unlatch::Document", dependent: :destroy
-
   validates :file, presence: true
   validates :guide, uniqueness: { scope: :documentable }, if: -> { guide.present? }
-
   delegate :expired?, to: :parent
   delegate :partially_expired?, to: :parent
-
   delegate :construction, :construction_name, to: :parent
 
   scope :of_cat_visible_on_plot,
@@ -119,12 +113,16 @@ class Document < ApplicationRecord
   end
 
   def sync_with_unlatch
-    return if documentable.unlatch_developer.blank?
+    return if unlatch_developer.blank?
     if documentable.sync_to_unlatch?
       Unlatch::Document.sync(self)
     else
       unlatch_documents.destroy_all
     end
+  end
+
+  def unlatch_deep_sync
+    sync_with_unlatch
   end
 
   def paired_with_unlatch?

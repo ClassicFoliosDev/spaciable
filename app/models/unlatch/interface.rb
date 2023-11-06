@@ -11,7 +11,7 @@ module Unlatch
     # to guard against cases when a Phase or UnitType document
     # is added but doesn't have any associated plots. Any
     # document added to Unlatch with a blank array of plots
-    # is visible to ALL plots. 
+    # is visible to ALL plots.
     def sync_to_unlatch?
       true
     end
@@ -19,6 +19,11 @@ module Unlatch
     # Sync object with Unlatch.  Different objects will have perform
     # specialist actions in order to synchronise
     def sync_with_unlatch
+      raise "Not implemented"
+    end
+
+    # Synh an Object's Unlatch items tree
+    def unlatch_deep_sync
       raise "Not implemented"
     end
 

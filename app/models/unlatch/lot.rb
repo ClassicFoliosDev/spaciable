@@ -58,7 +58,7 @@ module Unlatch
 
       # Find the associated Unlatch Program,and if found, create a child Lot
       def add(plot)
-        lot = lots(plot&.program).select { |l| l["lotNumber"].casecmp(plot.number).zero? }
+        lot = lots(plot&.program)&.select { |l| l["lotNumber"].casecmp(plot.number).zero? }
         return unless lot&.count == 1
         lot = Unlatch::Lot.create(id: lot[0]["lotId"],
                                   plot_id: plot.id,

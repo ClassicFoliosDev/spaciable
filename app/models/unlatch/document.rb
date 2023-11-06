@@ -57,7 +57,6 @@ module Unlatch
                                      },
                                    timeout: 10)
           if response.code == 200
-            puts "****** Document updated" 
             return document unless document.nil? # updated, not new
             document_id = response.parsed_response["documentId"]
             document = Unlatch::Document.create(id: document_id,

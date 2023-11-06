@@ -29,11 +29,8 @@ var unlatch = {
       case "synchronising":
         icon.addClass("fa fa-fas fa-spinner fa-spin synchronising")
         break;
-      case "linked":
-        icon.addClass("fa fa-fas fa-link")
-        break;
-      case "unlinked":
-        icon.addClass("fa fa-fas fa-chain-broken")
+      case "working":
+        icon.addClass("fa fa-fas fa-gear fa-spin")
         break;
       default:
         icon.addClass("fa fa-fas fa-sync unsynchronised")

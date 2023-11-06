@@ -11,7 +11,6 @@ module Unlatch
     before_action :unlatch
 
     def rooms
-      byebug
       @plot = Unlatch::Lot.find_by(id: params[:lot_id])&.plot
       @rooms = @plot&.rooms
       render template: (@plot.nil? ? "homeowners/rooms/no_match" : "homeowners/rooms/show")

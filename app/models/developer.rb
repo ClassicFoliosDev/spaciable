@@ -347,13 +347,19 @@ class Developer < ApplicationRecord
     !unlatch_developer.nil?
   end
 
-  # A developer will be manually paired, synchronised and checked
-  # during initialisation and will never have to be re-synchronised.
-  # It does however have to satisfy the Unlatch::Interface implementation
+  # Developer is manually synched at creation
   def sync_with_unlatch
-      nil
+    nil
   end
-  
+
+  # Go through the structure and resync everything
+  def unlatch_deep_sync
+    return unless paired_with_unlatch?
+    developments.each(&:unlatch_deep_sync)
+    divisions.each(&:unlatch_deep_sync)
+    sync_docs_with_unlatch
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and

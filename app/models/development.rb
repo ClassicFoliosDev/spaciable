@@ -106,7 +106,7 @@ class Development < ApplicationRecord
     ]
 
   def programs
-    [program]
+    program.blank? ? [] : [program]
   end
 
   def brand_any
@@ -277,13 +277,21 @@ class Development < ApplicationRecord
   # Find a matching Unlatch::Program if necessary
   def sync_with_unlatch
     return if unlatch_developer.blank?
-    return unless program.blank?
+    return if program.present?
     Unlatch::Program.add(unlatch_developer, self)
   end
 
   # Unlatch::Interface implementation
   def paired_with_unlatch?
     !program.nil?
+  end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+    sync_with_unlatch
+    sync_docs_with_unlatch
+    phases.each(&:unlatch_deep_sync)
+    unit_types.each(&:unlatch_deep_sync)
   end
 
   def my_construction_name

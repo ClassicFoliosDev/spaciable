@@ -159,5 +159,13 @@ class UnitType < ApplicationRecord
   def sync_to_unlatch?
     !lots.empty?
   end
+
+  delegate :paired_with_unlatch?, to: :development
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+    development.reload
+    sync_docs_with_unlatch
+  end
 end
 # rubocop:enable Metrics/ClassLength

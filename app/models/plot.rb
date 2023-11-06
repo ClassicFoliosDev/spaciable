@@ -862,7 +862,7 @@ class Plot < ApplicationRecord
 
   def sync_with_unlatch
     return if developer.unlatch_developer.blank?
-    return unless lot.blank?
+    return if lot.present?
     Unlatch::Lot.add(self)
   end
 
@@ -873,6 +873,13 @@ class Plot < ApplicationRecord
 
   def paired_with_unlatch?
     !lot.nil?
+  end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+    development.reload
+    sync_with_unlatch
+    sync_docs_with_unlatch
   end
 
   # Reservation and Completion documents appear in My Documents,
