@@ -12,11 +12,11 @@ module FinishFixture
   end
 
   def description
-    "Some text\nSome more text"
+    "Some text. Some more text"
   end
 
   def description_display
-    "Some text\r\nSome more text"
+    "Some text. Some more text"
   end
 
   def updated_category

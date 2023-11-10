@@ -76,7 +76,7 @@ module Divisions
     private
 
     def update_my_home
-      @development.update_attributes(construction_name: nil) if @development.residential?
+      @development.update(construction_name: nil) if @development.residential?
     end
 
     def development_params

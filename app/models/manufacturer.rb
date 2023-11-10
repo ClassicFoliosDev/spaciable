@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Manufacturer < ApplicationRecord
   has_many :finish_types_manufacturer
   has_many :finish_types, through: :finish_types_manufacturer
@@ -11,3 +12,4 @@ class Manufacturer < ApplicationRecord
 
   delegate :to_s, to: :name
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

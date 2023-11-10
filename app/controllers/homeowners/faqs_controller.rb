@@ -75,7 +75,7 @@ module Homeowners
     # Get the populated FAQ categories
     def populate_categories
       @categories = []
-      @faq_type.categories.each do |cat|
+      @faq_type&.categories&.each do |cat|
         faqs = @faqs.where(faq_type: @faq_type, faq_category: cat)
         faqs = faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
         faqs = faqs.where(faq_package: :standard) if @plot.free?
@@ -86,7 +86,7 @@ module Homeowners
 
       return unless @categories.empty?
 
-      @categories << @faq_type.categories.first
+      @categories << @faq_type&.categories&.first
     end
 
     def authorise

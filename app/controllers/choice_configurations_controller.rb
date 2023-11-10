@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/LexicallyScopedActionFilter
 class ChoiceConfigurationsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -102,3 +103,4 @@ class ChoiceConfigurationsController < ApplicationController
     "phase_#{phase.id}_ids".to_sym
   end
 end
+# rubocop:enable Rails/LexicallyScopedActionFilter

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf
 class Developer < ApplicationRecord
   acts_as_paranoid
 
@@ -101,6 +101,7 @@ class Developer < ApplicationRecord
     end
 
     return if wecomplete_sign_in.present?
+
     errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
     errors.add(:wecomplete_quote, "please populate")
   end
@@ -147,6 +148,7 @@ class Developer < ApplicationRecord
 
   def clone_faqs
     return if development_faqs
+
     CloneDefaultFaqsJob.perform_later(faqable_type: "Developer",
                                       faqable_id: id,
                                       country_id: country_id)
@@ -242,13 +244,13 @@ class Developer < ApplicationRecord
   # as the developer edit page can get/set it.  The
   # prime_lettings_admin is a user whose lettings_management
   # status is set to 'prime'
-  def prime_lettings_admin # getter method
+  def prime_lettings_admin
     User.prime_admin(potential_prime_admins.pluck(:id))&.id
   end
 
   # This is called by 'update' when it sets the
   # Developer attributes
-  def prime_lettings_admin=(prime_id) # setter method
+  def prime_lettings_admin=(prime_id)
     User.update_prime_admin(potential_prime_admins.pluck(:id),
                             prime_id&.to_i)
   end
@@ -303,6 +305,7 @@ class Developer < ApplicationRecord
     build_branded_perk unless branded_perk
 
     return unless charts.empty?
+
     Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
   end
 
@@ -342,7 +345,7 @@ class Developer < ApplicationRecord
   # proliferate through to all child developments
   # rubocop:disable SkipsModelValidations
   def update_development_cas
-    return unless cas_changed?
+    return unless saved_change_to_cas?
 
     # update all developments to have cas on
     all_developments.each { |d| d.update_attribute(:cas, cas) }
@@ -356,11 +359,11 @@ class Developer < ApplicationRecord
   def update_custom_tiles
     changed = []
 
-    { "area_guide" => house_search_changed? && !house_search?,
-      "services" => enable_services_changed? && !enable_services?,
-      "home_designer" => enable_roomsketcher_changed? && !enable_roomsketcher?,
-      "referrals" => enable_referrals_changed? && !enable_referrals?,
-      "perks" => enable_perks_changed? && !enable_perks? }.each do |name, disabled|
+    { "area_guide" => saved_change_to_house_search? && !house_search?,
+      "services" => saved_change_to_enable_services? && !enable_services?,
+      "home_designer" => saved_change_to_enable_roomsketcher? && !enable_roomsketcher?,
+      "referrals" => saved_change_to_enable_referrals? && !enable_referrals?,
+      "perks" => saved_change_to_enable_perks? && !enable_perks? }.each do |name, disabled|
       changed << name if disabled
     end
 
@@ -369,7 +372,7 @@ class Developer < ApplicationRecord
 
   # rubocop:disable SkipsModelValidations
   def update_convayencing
-    return unless conveyancing_changed?
+    return unless saved_change_to_conveyancing?
 
     divisions.update_all(conveyancing: conveyancing,
                          wecomplete_sign_in: wecomplete_sign_in,
@@ -379,4 +382,4 @@ class Developer < ApplicationRecord
   end
   # rubocop:enable SkipsModelValidations
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf

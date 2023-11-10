@@ -9,6 +9,7 @@ class Uniqodo
   CONNECT_ERROR = "Failed to redeem offer. Please try again later."
   VERIFY = false
 
+  # rubocop:disable Style/RescueStandardError
   def self.redeem(code, uid)
     offer_url = error = nil
 
@@ -17,6 +18,7 @@ class Uniqodo
                               timeout: TIMEOUT, verify: VERIFY)
 
       return CONNECT_ERROR, nil unless response.code == 200
+
       if response.parsed_response["result"] == "success"
         offer_url = response.parsed_response["data"]["url"]
       else
@@ -28,4 +30,5 @@ class Uniqodo
 
     return error, offer_url
   end
+  # rubocop:enable Style/RescueStandardError
 end

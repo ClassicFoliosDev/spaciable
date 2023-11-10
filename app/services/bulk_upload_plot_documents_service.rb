@@ -31,10 +31,6 @@ module BulkUploadPlotDocumentsService
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable MethodLength
 
-  private
-
-  module_function
-
   def find_matches(files, plots)
     Rails.logger.debug(">>> Bulk upload plot document service find matches start #{Time.zone.now}")
     unmatched = []
@@ -67,6 +63,7 @@ module BulkUploadPlotDocumentsService
       return plot[1] if plot[0] == file_name
 
       next unless file_name.include?(plot[0])
+
       file_name_parts = file_name.split(" ")
       plot_name_parts = plot[0].split(" ")
 

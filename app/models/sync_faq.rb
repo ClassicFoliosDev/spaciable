@@ -12,7 +12,7 @@ class SyncFaq
     # if the global faq (title) exists for the parent then update the parent faq answer
     # otherwise create a new faq for the parent
     if (pfaq = Faq.find_by(faqable: parent, faq_type: faq.faq_type, question: faq.question))
-      pfaq.update_attributes(answer: faq.answer)
+      pfaq.update(answer: faq.answer)
     else
       Faq.create(question: faq.question,
                  answer: faq.answer,

@@ -24,7 +24,7 @@ class FinishesController < ApplicationController
     @origin = params[:origin]
   end
 
-  # rubocop:disable LineLength, Metrics/AbcSize
+  # rubocop:disable LineLength, Metrics/AbcSize, Style/IfUnlessModifier
   def create
     if !params[:finish][:picture] &&
        !parse_boolean(params[:finish][:remove_picture]) &&
@@ -41,7 +41,7 @@ class FinishesController < ApplicationController
       render :new
     end
   end
-  # rubocop:enable LineLength, Metrics/AbcSize
+  # rubocop:enable LineLength, Metrics/AbcSize, Style/IfUnlessModifier
 
   def update
     if @finish.update(finish_params)
@@ -115,6 +115,7 @@ class FinishesController < ApplicationController
 
   def filter_params
     return unless params.include?("finish_filter")
+
     params.require("finish_filter").permit(:finish_category_id,
                                            :finish_type_id,
                                            :finish_manufacturer_id)
@@ -122,6 +123,7 @@ class FinishesController < ApplicationController
 
   def filter
     return {} unless params.include?("finish_filter")
+
     f = params.permit(finish_filter: %i[finish_category_id
                                         finish_type_id
                                         finish_manufacturer_id])

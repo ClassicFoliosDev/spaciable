@@ -2,10 +2,10 @@
 
 source "https://rubygems.org"
 
-ruby "2.3.1"
+ruby "2.7.8"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 5.0.0", ">= 5.0.0.1"
+gem "rails", "~> 5.2.0", ">= 5.0.0.1"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 0.18"
 # Use Puma as the app server
@@ -42,27 +42,27 @@ gem "bcrypt", "~> 3.1.12", platforms: %i[ruby x64_mingw mingw]
 # gem 'capistrano-rails', group: :development
 
 # Forms
-gem "ckeditor"
-gem "simple_form"
+gem "ckeditor", "< 5.0"
+gem "simple_form", "~>4.0"
 # Validation for phone numbers
 gem "phonelib"
 # Date/Time input cross-browser support
 gem "flatpickr"
 
-gem "cancancan", "~> 1"
+gem "cancancan", "~> 2"
 gem "gretel" # breadcrumbs
 
 # File Uploads
 gem "carrierwave"
 gem "carrierwave-aws", "~> 1.3"
 gem "fog-aws"
-gem "mini_magick", "~> 4.8"
+gem "mini_magick", "~> 4.9"
 
 # File share
 gem "wetransfer", "~> 0.9.0.beta2"
 
 # Authentication
-gem "devise", "~> 4.2"
+gem "devise", "~> 4.4.2"
 gem "devise_invitable", "~> 1.7.0"
 
 # Rollbar for exception monitoring, see https://rollbar.com/alliants/Hoozzi/#rails
@@ -85,16 +85,17 @@ gem "simple_calendar", "~> 2.0"
 gem "kaminari"
 
 # Soft Delete
-gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"
+# gem "paranoia", "~>2.4.3" ,branch: 'core',  git: "https://github.com/rubysherpas/paranoia.git"
+gem "paranoia", "~> 2.0"
 
 # Background Jobs
 gem "carrierwave_backgrounder"
 gem "daemons", "~> 1.2"
-gem "delayed_job_active_record", "~> 4.1"
+gem "delayed_job_active_record", "~> 4.1.3"
 gem "whenever", "~> 0.10.0"
 
 # Process management
-gem "activerecord-session_store" # Store session data to avoid cookie cache overflow
+gem "activerecord-session_store", "~>1.1.3" # Store session data to avoid cookie cache overflow
 gem "foreman" # configuration in the Procfile
 
 # APIs
@@ -156,12 +157,14 @@ group :development, :test, :qa, :staging do
 end
 
 group :development, :test do
+  gem "dotenv-rails", "~> 2.8"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "brakeman", require: false
   gem "byebug", platform: %i[mri mingw x64_mingw]
   gem "pry-rails"
   gem "rails_best_practices", "~> 1.17", require: false
-  gem "rubocop", "~> 0.49"
+  gem "rubocop", "~> 0.71"
+  gem "rubocop-rails", "~> 2.0.0"
 end
 
 group :development do
@@ -189,14 +192,15 @@ group :development, :qa do
 end
 
 group :test do
+  gem "capybara"
   gem "codeclimate-test-reporter", "~> 0.6"
-  gem "cucumber-rails", require: false
-  gem "database_cleaner"
+  gem "cucumber-rails", "~>2.0.0", require: false
+  gem "database_cleaner", "~>1.6.0"
   gem "launchy"
   gem "rspec-rails"
   gem "simplecov", "~> 0.12", require: false
   gem "timecop"
-  gem "webmock"
+  gem "webmock", "~> 3.5.0"
   # Headless browser, see https://github.com/teampoltergeist/poltergeist
   gem "poltergeist"
   gem "rails-controller-testing"

@@ -79,6 +79,7 @@ module TabsHelper
   end
   # rubocop:enable BlockLength
 
+  # rubocop:disable Rails/HelperInstanceVariable
   class Tab
     attr_reader :title, :icon, :link, :active, :menus
 
@@ -104,4 +105,5 @@ module TabsHelper
       [title, icon, link, active?, menus]
     end
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 end

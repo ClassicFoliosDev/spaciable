@@ -19,6 +19,7 @@ class CcEmail < ApplicationRecord
     end
 
     return unless users
+
     users.each do |user|
       cc = CcEmail.find_by(user_id: user.id, email_type: type)
       emails << cc.email_list.split(", ") if cc

@@ -12,7 +12,7 @@
 <div class="row contact">
   <div class="row-item third">
     <div class="contact-picture">
-      <%= image_tag @contact.picture.url :thumbnail if @contact.picture? %>
+      <%= image_tag (@contact.picture.url :thumbnail, alt: image_alt(@contact.picture.url)) if @contact.picture? %>
     </div>
     <div class="organisation">
       <% if @contact.organisation? %>

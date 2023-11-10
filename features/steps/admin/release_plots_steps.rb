@@ -58,7 +58,7 @@ When(/^I submit with no parameters$/) do
 end
 
 Then(/^there is a message to telling me to populate the data$/) do
-  find(".alert", visible: all)
+  find(".alert", visible: true)
   within ".alert" do
     expect(page).to have_content 'Please populate plots and date'
   end

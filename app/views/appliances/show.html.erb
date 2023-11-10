@@ -70,14 +70,14 @@
     <% if @appliance.primary_image? %>
       <div class="appliance_primary_image">
         <%= label_tag :appliance_primary_image, t(".primary_image") %>
-        <%= image_tag(@appliance.primary_image.url) if @appliance.primary_image? %>
+        <%= image_tag(@appliance.primary_image.url, alt: image_alt(@appliance.primary_image.url)) if @appliance.primary_image? %>
       </div>
     <% end %>
 
     <% if @appliance.secondary_image? %>
       <div class="appliance_secondary_image">
         <%= label_tag :appliance_secondary_image, t(".secondary_image") %>
-        <span><%= image_tag(@appliance.secondary_image.url)  %></span>
+        <span><%= image_tag(@appliance.secondary_image.url, alt: image_alt(@appliance.secondary_image.url))  %></span>
       </div>
     <% end %>
 

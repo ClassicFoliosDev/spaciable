@@ -25,7 +25,7 @@ module Ckeditor
 
       respond_to do |format|
         format.html { redirect_to pictures_path }
-        format.json { render json: @picture, status: 204 }
+        format.json { render json: @picture, status: :no_content }
       end
     end
 

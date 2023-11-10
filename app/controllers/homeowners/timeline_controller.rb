@@ -60,7 +60,6 @@ module Homeowners
           category2: I18n.t("homeowners.timeline.task.#{params[:response_action]}")
         )
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
 
       respond_to do |format|
         format.html do
@@ -78,7 +77,7 @@ module Homeowners
 
           render task || :complete
         end
-        format.json { render json: { status: 200 } }
+        format.json { render json: { status: :ok } }
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -88,7 +87,7 @@ module Homeowners
                                                 timeline_stage_id: params[:stage])
       pts.collapsed = params[:collapsed]
       pts.save
-      render json: { status: 200 }
+      render json: { status: :ok }
     end
 
     private
@@ -121,6 +120,7 @@ module Homeowners
 
     def complete
       return unless @complete
+
       "Complete"
     end
   end

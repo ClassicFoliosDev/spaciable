@@ -50,7 +50,7 @@ module Phases
 
       respond_to do |format|
         format.html { redirect_to(session[:adminlistings]) }
-        format.json { render status: 200, json: session[:adminlistings].redirect_url.to_json }
+        format.json { render status: :ok, json: session[:adminlistings].redirect_url.to_json }
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -60,6 +60,7 @@ module Phases
     # then have to authorise them in PlanetRent
     def check_account
       return if current_user.check_account?
+
       flash.now[:notice] = t("admin.users.lettings.no_account", user: current_user.to_s)
     end
 

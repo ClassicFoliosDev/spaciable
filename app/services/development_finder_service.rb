@@ -9,10 +9,6 @@ module DevelopmentFinderService
     development_matching_path(params)
   end
 
-  private
-
-  module_function
-
   def development_matching_path(params)
     return unless params[:developer_name]
     return unless params[:development_name]
@@ -35,6 +31,7 @@ module DevelopmentFinderService
     division = Division.where("lower(division_name) = ?", division_name)
                        .where(developer_id: developer_id).first
     return unless division
+
     Development.where("lower(name) = ?", development_name)
                .where(division_id: division.id).first
   end

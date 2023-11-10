@@ -18,6 +18,7 @@ module BulkPlots
       service
     end
 
+    # rubocop:disable Lint/SafeNavigationWithEmpty
     def update(plot_params)
       self.params = plot_params.to_h.symbolize_keys
       params[:build_step_id] = base_plot.build_step_id if plot_params[:build_step_id]&.empty?
@@ -29,6 +30,7 @@ module BulkPlots
     rescue StandardError => e
       @param_error = e.message
     end
+    # rubocop:enable Lint/SafeNavigationWithEmpty
 
     def bulk_or_single_update
       if any_bulk_attrs?
@@ -61,6 +63,7 @@ module BulkPlots
       templated_rooms.each(&:really_destroy!)
     end
 
+    # rubocop:disable Lint/SafeNavigationChain
     def bulk_update
       update_plot_numbers
       return no_numbers_error if numbers.empty?
@@ -69,6 +72,7 @@ module BulkPlots
         update_existing_plot(attrs)
       end.any?
     end
+    # rubocop:enable Lint/SafeNavigationChain
 
     def successful_numbers
       numbers = sanitize
@@ -149,7 +153,8 @@ module BulkPlots
       if @attribute_params[:copy_plot_numbers] == true
         plots_scope.where(number: attrs[:number].to_s).map do |plot|
           next if plot.number == Plot::DUMMY_PLOT_NAME
-          plot.update_attributes(house_number: plot.number)
+
+          plot.update(house_number: plot.number)
         end
       end
 

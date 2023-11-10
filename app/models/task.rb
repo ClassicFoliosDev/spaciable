@@ -4,7 +4,7 @@
 # are linked together in a list through their 'next' attribute.  The
 # 'Head' attribute indicates the Task is the first in the list
 # for the associated Stage
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/InverseOf
 class Task < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -137,9 +137,9 @@ class Task < ApplicationRecord
       previous = prev
       following = Task.find_by(id: next_id) # and next
       # set prev->next to following
-      previous&.update_attributes(next_id: following&.id)
+      previous&.update(next_id: following&.id)
       # set following->head true if the stages change between tasks
-      following&.update_attributes(
+      following&.update(
         head: previous.blank? || previous.stage != following&.stage)
 
       # destroy any logs for this task
@@ -161,7 +161,7 @@ class Task < ApplicationRecord
   # Reset the head true/false based on previous task
   def reset_head
     prev = timeline.before(self)
-    update_attributes(head: prev.blank? || prev.stage != stage)
+    update(head: prev.blank? || prev.stage != stage)
   end
 
   # Get the tasks contact types as integers
@@ -192,4 +192,4 @@ class Task < ApplicationRecord
     (0..1).each { |i| task_contacts.build unless task_contacts[i] }
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/InverseOf

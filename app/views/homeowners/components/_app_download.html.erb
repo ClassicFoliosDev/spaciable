@@ -1,5 +1,5 @@
 <div class="app-download hidden">
-  <div class="app-icon"><%= image_tag BrandedApp.relevant_icon(plot.developer) %></div>
+  <div class="app-icon"><%= link_to image_tag(BrandedApp.relevant_icon(plot.developer)) %></div>
   <h4 class="app-download-title underline branded-text"><%= t(".modal_title").html_safe %></h4>
 
   <div class="text app-download-text branded-text" style="text-align:center;"><%= t(".modal_content").html_safe %></div>

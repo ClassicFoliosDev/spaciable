@@ -11,7 +11,6 @@ module Developers
       @developments = paginate(sort(@developments, default: :name))
     end
 
-    # rubocop:disable Metrics/AbcSize
     def show
       @selected_tab = params[:active_tab]
       @active_tab = @selected_tab || "phases"
@@ -30,7 +29,6 @@ module Developers
                       @development.plots
                     end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def new
       @development.build
@@ -96,7 +94,7 @@ module Developers
     private
 
     def update_my_home
-      @development.update_attributes(construction_name: nil) if @development.residential?
+      @development.update(construction_name: nil) if @development.residential?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

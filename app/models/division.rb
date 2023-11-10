@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
@@ -56,6 +56,7 @@ class Division < ApplicationRecord
     end
 
     return if wecomplete_sign_in.present?
+
     errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
     errors.add(:wecomplete_quote, "please populate")
   end
@@ -69,6 +70,7 @@ class Division < ApplicationRecord
   def expired?
     expired = true
     return expired = false if developments.empty?
+
     developments.each do |development|
       return expired = false unless development.expired?
     end
@@ -137,13 +139,13 @@ class Division < ApplicationRecord
   # as the developer edit page can get/set it.  The
   # prime_lettings_admin is a user whose lettings_management
   # status is set to 'prime'
-  def prime_lettings_admin # getter method
+  def prime_lettings_admin
     User.prime_admin(potential_prime_admins.pluck(:id))&.id
   end
 
   # This is called by 'update' when it sets the
   # Developer attributes
-  def prime_lettings_admin=(prime_id) # setter method
+  def prime_lettings_admin=(prime_id)
     User.update_prime_admin(potential_prime_admins.pluck(:id),
                             prime_id&.to_i)
   end
@@ -162,7 +164,8 @@ class Division < ApplicationRecord
 
   # rubocop:disable SkipsModelValidations
   def update_convayencing
-    return unless conveyancing_changed?
+    return unless saved_change_to_conveyancing?
+
     developments.update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
@@ -184,4 +187,4 @@ class Division < ApplicationRecord
     build_sequence || developer.sequence_in_use
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

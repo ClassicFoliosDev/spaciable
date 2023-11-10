@@ -39,6 +39,7 @@ module Homeowners
     def viewed; end
 
     # Homeowner response to a proposed event
+    # rubocop:disable Rails/ActiveRecordAliases
     def feedback
       event = Event.find(params[:event_id])
       resource = event.event_resources.find_by(resourceable_id: params[:resourceable_id],
@@ -53,6 +54,7 @@ module Homeowners
 
       render json: { status: 200 }
     end
+    # rubocop:enable Rails/ActiveRecordAliases
 
     def event_params
       params.require(:event).permit(:eventable_type, :eventable_id,

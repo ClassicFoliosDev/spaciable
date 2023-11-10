@@ -83,13 +83,13 @@ class Document < ApplicationRecord
   end
 
   def update_laus
-    return unless lau_visible_changed? || id_changed?
+    return unless saved_change_to_lau_visible? || saved_change_to_id?
 
     documentable&.plots&.each do |plot|
       if lau_visible
         pd = PlotDocument.find_by(plot_id: plot.id, document_id: id)
         if pd
-          pd.update_attributes(enable_tenant_read: true)
+          pd.update(enable_tenant_read: true)
         else
           PlotDocument.create(plot_id: plot.id, document_id: id,
                               enable_tenant_read: true)

@@ -38,7 +38,7 @@ module Homeowners
 
     def update
       unless current_resident&.plot_residency_homeowner?(@plot)
-        render json: {}, status: 401
+        render json: {}, status: :unauthorized
         return
       end
 
@@ -79,10 +79,10 @@ module Homeowners
       plot_document = PlotDocument.find_or_create_by!(plot_id: @plot.id, document_id: document_id)
 
       if plot_document.enable_tenant_read.blank?
-        plot_document.update_attributes(enable_tenant_read: true)
+        plot_document.update(enable_tenant_read: true)
         t(".shared", title: document.title, address: @plot.to_homeowner_s)
       else
-        plot_document.update_attributes(enable_tenant_read: false)
+        plot_document.update(enable_tenant_read: false)
         t(".not_shared", title: document.title, address: @plot.to_homeowner_s)
       end
     end

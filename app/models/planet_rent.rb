@@ -217,6 +217,7 @@ class PlanetRent
 
     def get_property_link(plot)
       return unless plot.listing.live?
+
       "#{URL}/show_spaciable_property?other_ref=#{plot.listing_other_ref}"
     end
 

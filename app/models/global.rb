@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Timeline Task actions.
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Global < ApplicationRecord
   GLOBAL = "CFAdmin"
   has_many :timelines, as: :timelineable
@@ -36,3 +37,4 @@ class Global < ApplicationRecord
     "Global"
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

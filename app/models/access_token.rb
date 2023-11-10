@@ -30,9 +30,9 @@ class AccessToken < ApplicationRecord
     if expired?
       PlanetRent.refresh_token(to_hash) do |new_token, error|
         unless error
-          update_attributes access_token: new_token.token,
-                            refresh_token: new_token.refresh_token,
-                            expires_at: new_token.expires_at
+          update access_token: new_token.token,
+                 refresh_token: new_token.refresh_token,
+                 expires_at: new_token.expires_at
           save
         end
       end

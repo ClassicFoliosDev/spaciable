@@ -227,7 +227,7 @@ Then(/^I can begin My Journey$/) do
   click_on t("layouts.homeowner.nav.timeline")
 
   # splash page
-  find(".timeline-btn").click() # find waits ..
+  find(".timeline-btn", wait: 5).click() # find waits ..
   # select stage
   find(".step-options a", match: :first).click() # find waits ..
 end
@@ -309,21 +309,21 @@ def check_active(task_title, homeowner = false, negative = true)
   expect active.text == task[:title]
 
   if negative
-    homeowner ? click_on(task[:negative]) :
-                find(:xpath, "//div[@id='viewAnswer']").click()
+    homeowner ? find("button[action='viewed_content_negative']").trigger('click') :
+                find(:xpath, "//div[@id='viewAnswer']").trigger('click')
 
     expect(page).to have_content(parsed(task[:response]))
 
     if task[:action]
       expect(page).to have_content(task[:action][:title])
-      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]", visible: all)
+      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]", visible: true)
     end
 
     if task[:feature]
       expect(page).to have_content(task[:feature][:title])
       expect(page).to have_content(parsed(task[:feature][:precis]))
       expect(page).to have_content(parsed(task[:feature][:description]))
-      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]", visible: all)
+      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]", visible: true)
     end
   end
 
@@ -354,10 +354,10 @@ def check_task(task_title, homeowner, answer)
 
   # select task
   click_on task_title
-  find(:xpath, "//li[@id='activeTaskScroll']/a[contains(text(),'#{task_title}')]", visible:all)
+  find(:xpath, "//li[@id='activeTaskScroll']/a[contains(text(),'#{task_title}')]", visible:false)
   check_active(task_title, homeowner, answer.downcase == "no")
   if answer.downcase == "no"
-    find(:xpath, "//button[@action='skipped_on_content']", visible: all).trigger('click')
+    find(:xpath, "//button[@action='skipped_on_content']", visible: true).trigger('click')
   else
     click_on task[:positive]
   end
@@ -388,7 +388,7 @@ Then(/^I can allocate plots (.*) to (.*)$/) do |plots, timeline|
   find(".phase_timeline_timeline_id")
   select_from_selectmenu :phase_timeline_timeline_id, with: eval(timeline)
   plots.split(",").each do |plot|
-    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: all
+    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: false
   end
 
   click_on "Submit"
@@ -433,7 +433,7 @@ Then(/^I can delete plots ([\d+,?]*) Clear All Plots and allocate plots ([\d+,?]
   find("#clear_timeline_plots").trigger('click')
 
   add_plots.split(",").each do |plot|
-    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: all
+    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: false
   end
 
   click_on "Submit"

@@ -1,5 +1,6 @@
 # frozen_string_literal: false
 
+# rubocop:disable Rails/HelperInstanceVariable
 module PlotRouteHelper
   def resident_invitation_route(plot, token)
     token = token[:invitation_token] unless token.to_s == token
@@ -57,11 +58,14 @@ module PlotRouteHelper
 
   def homeowners_notifications_route(plot, note_id)
     return resident_sign_in_route(plot) if plot.platform_is?(:living)
+
     homeowners_notifications_url(note_id: note_id)
   end
 
   def login_platform(plot)
     return "Spaciable Living" if plot.platform_is?(:living)
+
     "Spaciable"
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Choice < ApplicationRecord
   belongs_to :choiceable, polymorphic: true
   belongs_to :room_item, optional: false
@@ -15,3 +16,4 @@ class Choice < ApplicationRecord
     fullname ? full_name : short_name
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

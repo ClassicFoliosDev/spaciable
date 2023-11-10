@@ -29,6 +29,7 @@ class ResidentInvitationSummaryJob < ApplicationJob
                                       created_at: ((Time.zone.now - 7.days)..Time.zone.now))
 
     return unless residencies.size.positive?
+
     InvitationSummaryMailer.resident_summary(user, permission_level,
                                              residencies.to_a).deliver_later
   end

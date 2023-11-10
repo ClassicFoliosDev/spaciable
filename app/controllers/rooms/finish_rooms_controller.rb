@@ -14,7 +14,7 @@ module Rooms
       return unless new_room
 
       @room = new_room
-      redirect_to [:new, @room, "finish_room"]
+      redirect_to [:new, @room, :finish_room]
     end
 
     def edit; end
