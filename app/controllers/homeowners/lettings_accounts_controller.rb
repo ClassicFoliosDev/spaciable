@@ -32,7 +32,7 @@ module Homeowners
         respond_to do |format|
           format.html { redirect_to(session[:landlordlistings].redirect_url) }
           format.json do
-            render status: 200,
+            render status: :ok,
                    json: session[:landlordlistings].redirect_url.to_json
           end
         end

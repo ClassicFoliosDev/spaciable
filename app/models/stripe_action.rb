@@ -21,8 +21,9 @@ class StripeAction
       )
     end
 
+    # rubocop:disable Style/RescueStandardError
     def create_payment_link(resident, payment_for)
-      return Stripe::PaymentLink.create(
+      Stripe::PaymentLink.create(
         line_items: [
           { price: PRICE,
             quantity: 1 }
@@ -33,7 +34,6 @@ class StripeAction
     rescue => e
       raise "Failed to create payment link for user #{resident.id}:" + e.message
     end
-    # rubocop:enable Metrics/MethodLength
 
     def deactivate_payment_link(link)
       success = true
@@ -47,5 +47,6 @@ class StripeAction
 
       success
     end
+    # rubocop:enable Style/RescueStandardError
   end
 end

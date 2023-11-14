@@ -30,6 +30,7 @@ class ExpandableList
     def initialize(range)
       @chars = range.scan(/[A-Za-z]+-?/)
       raise "Invalid range #{range}" if @chars.first != @chars.second
+
       @nums = range.scan(/[0-9]+/).map!(&:to_i)
       @increment = @nums.first > @nums.second ? -1 : 1
     end
@@ -41,6 +42,7 @@ class ExpandableList
       loop do
         range << "#{@chars.first}#{num}"
         break if num == @nums.second
+
         num += @increment
       end
       range

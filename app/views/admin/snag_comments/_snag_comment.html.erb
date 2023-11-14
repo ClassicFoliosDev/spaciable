@@ -3,6 +3,6 @@
   <span class="comment-date timeago"><%= timeago_tag snag_comment.created_at %></span><br/>
   <span class="content"><%= snag_comment.content %></span><br/>
   <% if snag_comment.image? %>
-  <span class="comment-image"><%= link_to image_tag(snag_comment.image), snag_comment.image.url %></span>
+  <span class="comment-image"><%= link_to image_tag(snag_comment.image_url, alt: image_alt(snag_comment.image_url)), snag_comment.image.url %></span>
   <% end %>
 </div>

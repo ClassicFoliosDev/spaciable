@@ -99,8 +99,8 @@ Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
   # You have no idea how much of my life I wasted finding out
   # exactly how and why I had to do this!
   drag_from = find(".fc-day[data-date='#{(CalendarFixture.now).strftime('%Y-%m-%d')}']")
-  target = find(".fc-day[data-date='#{(CalendarFixture.now).strftime('%Y-%m-%d')}']")
-  drag_from.drag_to(target)
+  target = find(".fc-day[data-date='#{(CalendarFixture.now + 1.day).strftime('%Y-%m-%d')}']")
+  elem = drag_from.drag_to(target)
 
   expect(page).to have_content("Add #{type.capitalize()} Event")
 
@@ -350,16 +350,16 @@ Then (/^I can accept the rescheduled date and time$/) do
   event_id = find("#event_id", visible: false).value.to_i
 
   within find(".ui-dialog", visible: true) do
-    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y"))
-    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%l:%M"))
-    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%d-%m-%Y"))
-    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%l:%M"))
+    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y").strip)
+    expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%l:%M").strip)
+    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%d-%m-%Y").strip)
+    expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%l:%M").strip)
     expect(page).to have_content(t("events.accept_proposal"))
     expect(page).to have_content("Proposed Reschedule")
   end
 
   find("#accept_reschedule").trigger('click')
-  find(".proposed_datetime", visible: all).visible?
+  find(".proposed_datetime", visible: false).visible?
   expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::td//parent::tr")['class']).to eq("invited")
 
   click_on "Update"
@@ -414,10 +414,10 @@ Then (/^I can view but not update the rescheduled event$/) do
   expect(find("#event_title").disabled?).to eq(true)
   expect(find("#event_location").disabled?).to eq(true)
   expect(find("#event_repeat-button").disabled?).to eq(true)
-  expect(find(:xpath, "//input[@id='event_start_date']/following-sibling::input", visible: all).disabled?).to eq(true)
-  expect(find(:xpath, "//input[@id='event_start_time']/following-sibling::input", visible: all).disabled?).to eq(true)
-  expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
-  expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
+  expect(find(:xpath, "//input[@id='event_start_date']/following-sibling::input", visible: false).disabled?).to eq(true)
+  expect(find(:xpath, "//input[@id='event_start_time']/following-sibling::input", visible: false).disabled?).to eq(true)
+  expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: false).disabled?).to eq(true)
+  expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: false).disabled?).to eq(true)
 
   expect(page).to have_content("Proposed Reschedule")
 
@@ -475,15 +475,15 @@ end
 def setDateTime(field, event = CalendarFixture.event)
   if event.send(field)
     dt = event.send(field).utc.strftime("%Y-%m-%dT%H:%M:00.000Z")
-    find("#event_#{field}_date", visible:all).set(dt)
-    find("#event_#{field}_time", visible:all).set(dt)
+    find("#event_#{field}_date", visible:false).set(dt)
+    find("#event_#{field}_time", visible:false).set(dt)
   end
 end
 
 def setRepeatUntil(event = CalendarFixture.event)
   return unless event.repeat_until
 
-  find(:xpath, "//input[@id='event_repeat_until']/following-sibling::node()", visible: all).trigger('focus')
+  find(:xpath, "//input[@id='event_repeat_until']/following-sibling::node()", visible: false).trigger('focus')
   within ".flatpickr-calendar.open" do
     find(".flatpickr-day[aria-label='#{tz(event.repeat_until).strftime('%B %-d, %Y')}']").trigger('mouseover')
     find(".flatpickr-day[aria-label='#{tz(event.repeat_until).strftime('%B %-d, %Y')}']").trigger('mousedown')
@@ -509,22 +509,22 @@ def check_homeowner_event(e = CalendarFixture.event, status: "invite", type: "pl
   expect(find('#event_location').value).to eql(e.location) if e.location
   check_datetimes(e)
 
-  within find(".event_details_form", visible: all) do
+  within find(".event_details_form", visible: false) do
     if status == "invite"
-      expect(find("#accept_event", visible: all).visible?).to eq(true)
-      expect(find("#decline_event", visible: all).visible?).to eq(true)
-      expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
+      expect(find("#accept_event", visible: false).visible?).to eq(true)
+      expect(find("#decline_event", visible: false).visible?).to eq(true)
+      expect(find("#change_event", visible: false).visible?).to eq(type == "plot")
     elsif status == "accept"
-      expect(find("#accept_event", visible: all).visible?).to eq(false)
-      expect(find("#decline_event", visible: all).visible?).to eq(true)
-      expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
+      expect(find("#accept_event", visible: false).visible?).to eq(false)
+      expect(find("#decline_event", visible: false).visible?).to eq(true)
+      expect(find("#change_event", visible: false).visible?).to eq(type == "plot")
     elsif status == "decline" || status == "change"
-      expect(find("#accept_event", visible: all).visible?).to eq(false)
-      expect(find("#decline_event", visible: all).visible?).to eq(false)
+      expect(find("#accept_event", visible: false).visible?).to eq(false)
+      expect(find("#decline_event", visible: false).visible?).to eq(false)
       if status == "change"
-        expect(find("#change_event", visible: all).visible?).to eq(false)
+        expect(find("#change_event", visible: false).visible?).to eq(false)
       else
-        expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
+        expect(find("#change_event", visible: false).visible?).to eq(type == "plot")
       end
     end
   end
@@ -587,12 +587,12 @@ def check_datetimes(event = CalendarFixture.event)
   # ensure all in the correct timezone as calendar displays in
   # 'local' time
   start = event.start
-  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_date', visible:all).value)))
-  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_time', visible:all).value)))
+  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_date', visible:false).value)))
+  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_time', visible:false).value)))
 
   finish = event.end
-  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_date', visible:all).value)))
-  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_time', visible:all).value)))
+  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_date', visible:false).value)))
+  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_time', visible:false).value)))
 end
 
 # Create an event in the first day on the calendar.  This allows us to know

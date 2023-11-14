@@ -28,7 +28,7 @@ module Homeowners
         end
         respond_to do |format|
           format.json do
-            render status: 200,
+            render status: :ok,
                    json: { url: dashboard_path }.to_json
           end
         end

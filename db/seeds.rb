@@ -50,6 +50,12 @@ if Rails.env.development?
   end
 end
 
+load(Rails.root + "db/seeds/globals.rb")
+load(Rails.root + "db/seeds/countries.rb")
+load(Rails.root + "db/seeds/construction_types.rb")
+load(Rails.root + "db/seeds/faq_types.rb")
+load(Rails.root + "db/seeds/faq_categories.rb")
+load(Rails.root + "db/seeds/faq_type_categories.rb")
 load(Rails.root + "db/seeds/default_faqs.rb")
 load(Rails.root + "db/seeds/default_spanish_faqs.rb")
 load(Rails.root + "db/seeds/manufacturers_and_appliance_seeds.rb")

@@ -6,11 +6,13 @@ module PlotRoomsHelper
                                             (!plot.free? && plot.cas &&
                                               plot.completion_release_date.present?)
     return "plots/rooms/empty_not_completed" if plot.free? || plot.cas
+
     nil
   end
 
   def plot_development_path(plot)
     return division_development_path(plot.division, plot.development) if plot.division.present?
+
     developer_development_path(plot.developer, plot.development)
   end
 end

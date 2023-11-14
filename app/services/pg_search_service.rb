@@ -15,10 +15,6 @@ module PgSearchService
     result_list
   end
 
-  private
-
-  module_function
-
   def build_path(context, instance)
     return "" unless instance
 

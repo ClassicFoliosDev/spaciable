@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Appliance < ApplicationRecord
   acts_as_paranoid
 
@@ -21,9 +21,9 @@ class Appliance < ApplicationRecord
   attr_accessor :name
   attr_accessor :added_by
 
-  belongs_to :appliance_category, required: true
+  belongs_to :appliance_category, optional: false
   has_many :choices, as: :choiceable
-  belongs_to :appliance_manufacturer, required: true
+  belongs_to :appliance_manufacturer, optional: false
   belongs_to :developer, optional: true
 
   has_many :appliance_rooms, dependent: :delete_all
@@ -115,6 +115,7 @@ class Appliance < ApplicationRecord
 
   def check_dup
     return unless RequestStore.store[:current_user]&.is_a? User
+
     developer_ids = [developer_id]
     developer_ids << nil unless RequestStore.store[:current_user]&.cf_admin?
 
@@ -158,9 +159,10 @@ class Appliance < ApplicationRecord
   # rubocop:disable SkipsModelValidations
   def update_rating
     return if e_rating.blank?
-    return unless main_uk_e_rating_changed? || supp_uk_e_rating_changed?
+    return unless saved_change_to_main_uk_e_rating? || saved_change_to_supp_uk_e_rating?
+
     update_attribute(:e_rating, nil)
   end
   # rubocop:enable SkipsModelValidations
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

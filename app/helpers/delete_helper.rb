@@ -33,6 +33,7 @@ module DeleteHelper
     end
 
     return t("destroy.confirm_resident_admin").html_safe if resource.plots.count > 1
+
     t("destroy.confirm_final_resident_admin").html_safe
   end
   # rubocop:enable OutputSafety

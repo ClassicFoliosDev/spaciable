@@ -18,6 +18,7 @@ module SyncFaqsHelper
     return :exact_match if pfaq.answer.strip == faq.answer.strip
     # parent answer has never been updated (legacy global)
     return :answer_legacy if pfaq.created_at == pfaq.updated_at
+
     # answer had been updated since creation
     :answer_updated
   end

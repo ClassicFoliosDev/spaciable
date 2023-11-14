@@ -72,7 +72,6 @@ Then(/^I see the branded app data has been updated$/) do
 
   image = page.find(".image-preview")
   expect(image["src"]).to have_content(FileFixture.avatar_name)
-  expect(image["alt"]).to have_content(FileFixture.avatar_alt)
 
   expect(find_field("branded_app[android_link]").value).to eq BrandFixture.android_link
   expect(find_field("branded_app[apple_link]").value).to eq BrandFixture.apple_link

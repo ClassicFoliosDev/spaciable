@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent, Lint/DuplicateMethods
 class EventResource < ApplicationRecord
-  validates :event, presence: true
-  belongs_to :event, required: true
-  belongs_to :resourceable, polymorphic: true, required: true
+  validates :event, optional: false
+  belongs_to :event, optional: false
+  belongs_to :resourceable, polymorphic: true, optional: false
   delegate :proposed_start, :proposed_end, :notify, :eventable, to: :event
   has_one :plot
 
@@ -37,3 +38,4 @@ class EventResource < ApplicationRecord
     (resourceable.is_a?(Plot) ? resourceable : eventable).signature(false)
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent, Lint/DuplicateMethods

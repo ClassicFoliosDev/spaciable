@@ -51,9 +51,9 @@ Then(/^I should see my private documents$/) do
 end
 
 When(/^I edit a private document$/) do
-  manual_document = PrivateDocument.find_by(title: "Washing machine manual")
+  manual_document = PrivateDocument.find_by(title: "Washing machine manual", resident: RequestStore.store[:current_user])
 
-  within ".private-document[data-document='#{manual_document.id}']" do
+  within find(".private-document[data-document='#{manual_document.id}']", wait: 5) do
     edit_button = page.find("[data-action='update']")
     edit_button.click
   end

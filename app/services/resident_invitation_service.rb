@@ -15,10 +15,6 @@ module ResidentInvitationService
     end
   end
 
-  private
-
-  module_function
-
   def new_resident(plot_residency, from_user, invited_by_name, plot_resident)
     resident = plot_resident || plot_residency.resident
     # Delete any reminders hanging around from a previous invitation

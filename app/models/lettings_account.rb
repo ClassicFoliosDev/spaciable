@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class LettingsAccount < ApplicationRecord
   has_many :listings
   belongs_to :access_token, dependent: :destroy
@@ -58,6 +59,7 @@ class LettingsAccount < ApplicationRecord
 
       PlanetRent.user_info(pr_token) do |user_info, uerror|
         return uerror if uerror
+
         if user_info["email"] != user.email
           return "Incorrect authorisation.  " \
                  "The authorising account must have the email " \
@@ -67,6 +69,7 @@ class LettingsAccount < ApplicationRecord
 
       AccessToken.create pr_token do |token, prerror|
         return prerror if prerror
+
         self.access_token_id = token.id
         self.authorisation_status = :authorised
         return !save ? "Failed to authorise" : nil
@@ -83,6 +86,8 @@ class LettingsAccount < ApplicationRecord
   # Find the owner of this account
   def belongs_to
     return "Nobody" unless accountable_id
+
     accountable_type.constantize.find(accountable_id).to_s
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

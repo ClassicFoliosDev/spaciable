@@ -54,7 +54,6 @@ class Ability
       concierge_abilities(role)
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def global_abilities(user)
     can :read, UserPreference

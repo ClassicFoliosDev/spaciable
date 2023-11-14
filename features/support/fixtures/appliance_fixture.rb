@@ -4,7 +4,7 @@ module ApplianceFixture
   module_function
 
   def description
-    "Some text\nSome more text"
+    "Some text. Some more text"
   end
 
   def model_num
@@ -28,7 +28,7 @@ module ApplianceFixture
   end
 
   def description_display
-    "Some text\r\nSome more text"
+    "Some text. Some more text"
   end
 
   def warranty_len

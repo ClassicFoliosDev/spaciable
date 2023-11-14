@@ -43,7 +43,6 @@ module Csv
                        report.developer_id == "*" ? nil : report.developer_id,
                        report.division_id,
                        report.development_id).each do |invoice|
-
         csv << [invoice.created_at,
                 invoice.phase.developer.identity,
                 invoice.phase&.division&.identity,
@@ -53,6 +52,7 @@ module Csv
                 invoice.plots]
 
         next unless invoice.ff_plots&.positive?
+
         csv << [invoice.created_at,
                 invoice.phase.developer.identity,
                 invoice.phase&.division&.identity,

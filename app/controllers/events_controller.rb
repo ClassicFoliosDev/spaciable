@@ -38,7 +38,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.remove(params[:repeat_opt])
-    render json: { status: 200 }
+    render json: { status: :ok }
   end
 
   def resources

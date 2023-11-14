@@ -73,7 +73,7 @@
       <h3 class="branded-text"><%= t(".snag_gallery") %></h3>
       <div class="snag-image-container">
         <% @snag.snag_attachments.each do |a| %>
-          <%= link_to image_tag(a.image_url), a.image_url %>
+          <%= link_to image_tag(a.image_url, alt: image_alt(a.image_url)), a.image_url %>
           <% unless @snag.approved? %>
             <%= link_to t(".replace"), edit_snag_attachment_path(a), class: "btn branded-btn" %>
             <%= button_tag t(".remove_image"), class: "btn branded-btn destroy-snag-image prompt-delete-snag-image",

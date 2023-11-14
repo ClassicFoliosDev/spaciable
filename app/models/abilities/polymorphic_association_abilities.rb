@@ -27,18 +27,22 @@ module Abilities
       PolymorphicAbility.new(klass, association, self).instance_eval(&block)
     end
 
+    # rubocop:disable Style/HashSyntax
     def manage_polymorphic_association(klass, association, id:, model_type:, actions:)
       can(actions, klass, :"#{association}_id" => id, :"#{association}_type" => model_type)
 
       create_unassociated(actions)
     end
+    # rubocop:enable Style/HashSyntax
 
     private
 
+    # rubocop:disable Style/HashSyntax
     def create_unassociated(actions)
       return if !actions.include?(:create) || !actions.include?(:manage)
 
       can(:create, klass, :"#{association}_id" => nil, :"#{association}_type" => nil)
     end
+    # rubocop:enable Style/HashSyntax
   end
 end

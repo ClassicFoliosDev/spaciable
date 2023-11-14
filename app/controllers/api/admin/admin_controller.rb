@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/LexicallyScopedActionFilter
 module Api
   module Admin
     class AdminController < ActionController::Base
@@ -29,3 +30,4 @@ module Api
     end
   end
 end
+# rubocop:enable Rails/LexicallyScopedActionFilter

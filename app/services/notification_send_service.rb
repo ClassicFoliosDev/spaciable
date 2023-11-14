@@ -9,10 +9,6 @@ module NotificationSendService
     notification
   end
 
-  private
-
-  module_function
-
   def send_to(notification, notification_params)
     if notification_params[:phase_id].to_i.positive?
       notification.send_to_id = notification_params[:phase_id].to_i

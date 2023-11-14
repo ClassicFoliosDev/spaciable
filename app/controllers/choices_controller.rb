@@ -26,9 +26,11 @@ class ChoicesController < ApplicationController
     end
   end
 
+  # rubocop:disable Naming/MemoizedInstanceVariableName
   def set_parent
     @parent ||= @phase || @development || @plot&.parent
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def set_status
     @status = :edit
@@ -38,6 +40,7 @@ class ChoicesController < ApplicationController
 
   def give_notice
     return if @plot.no_choices_made? || @plot.admin_updating?
+
     flash.now[:notice] = t("choices.admin.#{@plot.choice_selection_status}",
                            plot_name: @plot.number)
   end

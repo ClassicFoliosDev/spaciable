@@ -24,7 +24,7 @@ module Api
                            last_name: resource.last_name,
                            phone: resource.phone_number,
                            email: resource.email,
-                           residencies: resource.plot_residencies.pluck(:id) }, status: 200
+                           residencies: resource.plot_residencies.pluck(:id) }, status: :ok
             return
           end
         end

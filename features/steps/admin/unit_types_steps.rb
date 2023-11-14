@@ -168,7 +168,7 @@ end
 When(/^I edit a room for the unit type$/) do
   visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room.id}/edit"
   find("#room_name")
-  fill_in :room_name, with: CreateFixture.bedroom_name
+  fill_in :room_name, with: CreateFixture.kitchen_name
   click_on t("plots.rooms.form.submit")
 end
 

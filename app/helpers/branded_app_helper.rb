@@ -12,11 +12,13 @@ module BrandedAppHelper
 
   def self.create_branded_app(parent, branded_app)
     return if branded_app
+
     BrandedApp.create(app_owner: parent)
   end
 
   def self.delete_branded_app(_parent, branded_app)
     return unless branded_app
+
     branded_app.destroy!
   end
 end

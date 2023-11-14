@@ -15,14 +15,28 @@ end
 And(/^I should see a (.*) (.*) log entry created by (.*)/) do |item, action, user|
   goto_ut_logs
   within ".record-list" do
-   find(:xpath, ".//tr[td//text()[contains(., '#{eval(item)}')] and contains(., '#{action.capitalize()}') and contains(., '#{eval(user)}')]")
+    allfound = false
+    page.all(:xpath, "//tbody/tr") do |row|
+      next if allfound
+      allfound = false
+      row.find(:xpath, "td[text()[contains(.,'#{eval(item)}')]]")
+      row.find(:xpath, "td[text()[contains(.,'#{action.capitalize()}')]]")
+      row.find(:xpath, "td[text()[contains(.,'#{eval(user)}')]]")
+      allfound = true
+      break
+    rescue => error
+      # try again
+      next
+    end
+
+    expect(allfound).to eql true
   end
 end
 
 When(/^I add a finish to the unit type room$/) do
   visit "/unit_types/#{CreateFixture.unit_type.id}/rooms"
   within ".record-list" do
-    click_on CreateFixture.bedroom_name
+    click_on CreateFixture.kitchen_name
   end
 
   within ".empty" do
@@ -36,7 +50,7 @@ When(/^I add a finish to the unit type room$/) do
 
   within ".finish" do
     finish = Finish.find_by(name: CreateFixture.finish_name)
-    find("#finishes", visible: all) # to wait for JS to create
+    find("#finishes", visible: false) # to wait for JS to create
     select_from_selectmenu :finishes, with: finish.full_name
   end
 
@@ -46,7 +60,7 @@ When(/^I add a finish to the unit type room$/) do
 end
 
 When(/^I delete a finish from the unit type room$/) do
-  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.bedroom_name).id}?active_tab=finishes"
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.kitchen_name).id}?active_tab=finishes"
   delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.finish_name}')]/parent::td/parent::tr")
   within delete_scope do
     if delete_scope.has_css?('.archive-lnk')
@@ -58,7 +72,7 @@ When(/^I delete a finish from the unit type room$/) do
 end
 
 When(/^I add an appliance to the unit type room$/) do
-  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.bedroom_name).id}?active_tab=appliances"
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.kitchen_name).id}?active_tab=appliances"
 
   within ".empty" do
     click_on "Assign Appliance"
@@ -71,7 +85,7 @@ When(/^I add an appliance to the unit type room$/) do
 
   within ".appliance" do
     appliance = Appliance.find_by(model_num: CreateFixture.appliance_name)
-    find("#appliances", visible: all) # to wait for JS to create
+    find("#appliances", visible: false) # to wait for JS to create
     select_from_selectmenu :appliances, with: appliance.full_name
   end
 
@@ -81,7 +95,7 @@ When(/^I add an appliance to the unit type room$/) do
 end
 
 When(/^I delete an appliance from the unit type room$/) do
-  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.bedroom_name).id}?active_tab=appliances"
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.kitchen_name).id}?active_tab=appliances"
   delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
   within delete_scope do
     find(".remove").trigger(:click)
@@ -90,8 +104,9 @@ end
 
 When(/^I delete a unit type room$/) do
   visit "/unit_types/#{CreateFixture.unit_type.id}/rooms"
-  delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.bedroom_name}')]/parent::td/parent::tr")
+  delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.kitchen_name}')]/parent::td/parent::tr")
   delete_and_confirm!(scope: delete_scope)
+  sleep 1
 end
 
 When(/^I should see no logs for (.*)$/) do |plot|

@@ -53,6 +53,7 @@ module Admin
     # Is the matching search item readable by the current user?
     def readable?(match)
       return true if match[:id] == "-1" # indicates no matches
+
       # instantiate an object of the matching type using the id
       instance = match[:type].strip.classify.constantize.find_by(id: match[:id])
       # check if the instance is readable

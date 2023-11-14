@@ -19,8 +19,10 @@ module Abilities
     def cas_development_abilities(development_ids)
       Development.where(id: development_ids).find_each do |development|
         next unless development.cas
+
         development.phases.each do |phase|
           next if phase.free?
+
           crud_plot_rooms(development, phase)
           crud_finish_rooms(development, phase)
           crud_appliance_rooms(development, phase)

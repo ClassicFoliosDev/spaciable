@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class UnitType < ApplicationRecord
   acts_as_paranoid
   belongs_to :development, optional: false
@@ -137,6 +137,7 @@ class UnitType < ApplicationRecord
   # are all the associated plots on the free package?
   def free?
     return false unless plots.count.positive?
+
     plots.each { |p| return false unless p.free? }
     true
   end
@@ -168,4 +169,4 @@ class UnitType < ApplicationRecord
     sync_docs_with_unlatch
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

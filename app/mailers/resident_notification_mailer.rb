@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 class ResidentNotificationMailer < ApplicationMailer
@@ -104,6 +103,7 @@ class ResidentNotificationMailer < ApplicationMailer
   def brand_logo_or_default_logo
     return @plot.branded_logo if @plot&.branded_logo
     return @plot&.platform_logo if @plot&.platform_logo
+
     "Spaciable_full.svg"
   end
 

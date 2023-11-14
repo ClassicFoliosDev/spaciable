@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HelperInstanceVariable
 module AdminSnagCountHelper
   def user_unresolved_snag_count(current_user)
     @unresolved_snag_count = 0
@@ -18,3 +19,4 @@ module AdminSnagCountHelper
     @unresolved_snag_count
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable

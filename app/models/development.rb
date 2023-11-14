@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf
 class Development < ApplicationRecord
   include ConstructionEnum
   include ClientPlatformEnum
@@ -237,7 +237,7 @@ class Development < ApplicationRecord
     return unless commercial?
 
     phases.each do |phase|
-      phase.update_attributes(business: :commercial)
+      phase.update(business: :commercial)
     end
   end
 
@@ -256,6 +256,7 @@ class Development < ApplicationRecord
   def set_default_spotlights
     %w[services perks referrals].each do |tile|
       next unless parent_developer.send("enable_#{tile}")
+
       spotlight = Spotlight.create(development_id: id,
                                    editable: !%w[services perks].include?(tile))
       CustomTile.create(spotlight: spotlight, feature: tile)
@@ -263,16 +264,18 @@ class Development < ApplicationRecord
   end
 
   # check whether any features have been disabled and delete any relevant custom tiles
+  # rubocop:disable Metrics/LineLength
   def update_spotlights
     changed = []
 
     { "issues" => !Maintenance.exists?(development_id: id),
-      "snagging" => enable_snagging_changed? && !enable_snagging? }.each do |name, disabled|
+      "snagging" => saved_change_to_enable_snagging? && !enable_snagging? }.each do |name, disabled|
       changed << name if disabled
     end
 
     Spotlight.delete_disabled(changed, self) unless changed.empty?
   end
+  # rubocop:enable Metrics/LineLength
 
   # Find a matching Unlatch::Program if necessary
   def sync_with_unlatch
@@ -294,9 +297,11 @@ class Development < ApplicationRecord
     unit_types.each(&:unlatch_deep_sync)
   end
 
+  # rubocop:disable Rails/Presence
   def my_construction_name
     construction_name.blank? ? I18n.t("homeowners.home") : construction_name
   end
+  # rubocop:enable Rails/Presence
 
   def faq_types
     faq_types = FaqType.for_country(parent.country).to_a
@@ -353,4 +358,4 @@ class Development < ApplicationRecord
       (phases.where(package: :free).count == phases.count)
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf

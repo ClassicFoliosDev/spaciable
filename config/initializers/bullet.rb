@@ -9,8 +9,8 @@ if Rails.env.development?
   # Not using slack
   # Bullet.slack = { webhook_url: 'https://classic-folios.slack.com/', channel: '#client-hoozzi', username: 'bullet-notifier' }
 
-  Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :finish_manufacturers)
-  Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :appliance_manufacturers)
-  Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :appliance_categories)
-  Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Plot", association: :division)
+  Bullet.add_safelist :type => :unused_eager_loading, :class_name => "Room", :association => :finish_manufacturers
+  Bullet.add_safelist :type => :unused_eager_loading, :class_name => "Room", :association => :appliance_manufacturers
+  Bullet.add_safelist :type => :unused_eager_loading, :class_name => "Room", :association => :appliance_categories
+  Bullet.add_safelist :type => :unused_eager_loading, :class_name => "Plot", :association => :division
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/InverseOf
 class User < ApplicationRecord
   include RoleEnum
   acts_as_paranoid
@@ -50,6 +50,7 @@ class User < ApplicationRecord
 
   def developer
     return if permission_level.nil?
+
     if permission_level.is_a?(Developer)
       permission_level_id
     elsif permission_level.parent.is_a?(Developer)
@@ -82,6 +83,7 @@ class User < ApplicationRecord
 
   def permission_level_name
     return "Classic Folios" if permission_level.nil?
+
     permission_level
   end
 
@@ -128,6 +130,7 @@ class User < ApplicationRecord
     emails = []
     assoiciations.each do |association|
       next if association.nil?
+
       details = User.where.not(invitation_accepted_at: nil)
                     .where(receive_release_emails: true)
                     .where(permission_level_type: association.class.to_s)
@@ -145,6 +148,7 @@ class User < ApplicationRecord
     emails = []
     associations.each do |association|
       next if association.nil?
+
       details = User.where.not(invitation_accepted_at: nil)
                     .where(snag_notifications: true)
                     .where(permission_level_type: association.class.to_s)
@@ -160,6 +164,7 @@ class User < ApplicationRecord
     admins = []
     assoiciations.each do |association|
       next if association.nil?
+
       admins << User.all.select do |u|
         u.receive_choice_emails == true &&
           u.permission_level_type == association.class.to_s &&
@@ -338,7 +343,7 @@ class User < ApplicationRecord
     self.cc_emails.each do |cc|
       return unless cc.email_list.present?
       com_sep = (cc.email_list.split(/\s|,|;/).reject { |e| e.empty? }).join(", ")
-      cc.update_attributes(email_list: com_sep)
+      cc.update(email_list: com_sep)
     end
   end
 
@@ -440,3 +445,4 @@ class User < ApplicationRecord
     end
   end
 end
+# rubocop:enable Metrics/ClassLength, Rails/InverseOf

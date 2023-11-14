@@ -19,7 +19,7 @@ class StageSetsController < ApplicationController
         @stage_set.clone? ? update_stage_set : create_new_stage_set
 
         # update timeline stage set
-        @timeline.update_attributes(stage_set: @stage_set)
+        @timeline.update(stage_set: @stage_set)
         resolve_stages
         @timeline.refactor
       end
@@ -48,6 +48,7 @@ class StageSetsController < ApplicationController
   def remove_deleted_stages
     @prev.each do |p|
       next unless @next.select { |s| s["id"] == p["id"] }.empty?
+
       @timeline.remove_stage(Stage.find(p["id"]))
     end
   end
@@ -74,7 +75,7 @@ class StageSetsController < ApplicationController
       if n["id"].zero?
         Stage.create(title: n["title"], order: order + 1, stage_set_id: @stage_set.id)
       else
-        Stage.find(n["id"]).update_attributes(title: n["title"], order: order + 1)
+        Stage.find(n["id"]).update(title: n["title"], order: order + 1)
       end
     end
 
@@ -88,6 +89,7 @@ class StageSetsController < ApplicationController
       # what position is the id now in?
       new_order = @next.each_index.select { |n| @next[n]["id"] == s["id"] }[0]
       next unless new_order
+
       # reset the stage
       @timeline.change_stage(Stage.find(s["id"]), @stage_set.stages[new_order])
     end

@@ -26,6 +26,7 @@ class BrandedApp < ApplicationRecord
   # link to the spaciable app if the app owner does not have a branded link or a branded app
   def self.relevant_link(user_agent, app_parent)
     return unless user_agent
+
     user_agent = user_agent.downcase
     if user_agent =~ /android/
       android_link(app_parent)
@@ -46,14 +47,12 @@ class BrandedApp < ApplicationRecord
     if app_parent&.branded_app&.apple_link?
       app_parent.branded_app_apple_link
     else
-      # rubocop:disable LineLength
       "https://apps.apple.com/app/apple-store/id1454008219?pt=119736329&ct=download%20reminder&mt=8"
-      # rubocop:enable LineLength
     end
   end
 
   # show the spaciable logo if the app owner does not have a branded app icon or a branded app
   def self.relevant_icon(app_parent)
-    app_parent&.branded_app&.app_icon? ? app_parent.branded_app_app_icon : "Spaciable_icon.png"
+    app_parent&.branded_app&.app_icon? ? app_parent.branded_app_app_icon.url : "Spaciable_icon.png"
   end
 end

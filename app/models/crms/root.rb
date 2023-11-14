@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Define a common interface for CRM functions
+# rubocop:disable Rails/Date, Lint/DuplicateMethods
 module Crms
   class Root
     include ActiveModel::Model
@@ -137,3 +138,4 @@ module Crms
     end
   end
 end
+# rubocop:enable Rails/Date, Lint/DuplicateMethods
