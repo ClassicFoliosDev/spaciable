@@ -4,11 +4,14 @@
 class UnitType < ApplicationRecord
   acts_as_paranoid
   belongs_to :development, optional: false
+  delegate :programs, to: :development
   alias parent development
   include InheritParentPermissionIds
+  include Unlatch::Interface
   mount_uploader :picture, PictureUploader
 
   belongs_to :developer, optional: false
+  delegate :unlatch_developer, to: :developer
   belongs_to :division, optional: true
 
   has_many :rooms, dependent: :destroy, inverse_of: :unit_type
@@ -146,6 +149,24 @@ class UnitType < ApplicationRecord
     unit_type.division_id = development.division_id
 
     unit_type
+  end
+
+  # Unlatch::Interface implementation
+  def lots
+    Unlatch::Lot.with_unit_type(self).pluck(:id)
+  end
+
+  # only sync to unlatch if there are assocated lots
+  def sync_to_unlatch?
+    !lots.empty?
+  end
+
+  delegate :paired_with_unlatch?, to: :development
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+    development.reload
+    sync_docs_with_unlatch
   end
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

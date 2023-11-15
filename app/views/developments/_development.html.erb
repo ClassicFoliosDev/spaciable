@@ -35,6 +35,9 @@
   <div class="section-data">
     <%= render 'address/address', address: development.address %><br/>
     <%= render 'components/contacts', contact: development %><br/>
+    <% if development.linked_to_unlatch? %>
+      <%= unlatch_sync_btn(development) %>
+    <% end %>
     <%= edit_btn [:edit, development.parent, development], element: development %>
   </div>
 </div>

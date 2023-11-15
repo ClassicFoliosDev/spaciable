@@ -24,6 +24,9 @@
         <td><%= link_to development.name, [parent, development], title: development.name %></td>
         <td><%= l development.updated_at.to_date, format: :digits %></td>
         <td class="actions">
+          <% if development.linked_to_unlatch? %>
+             <%= unlatch_sync_btn(development) %>
+          <% end %>
           <%= link_to t(".unit_types"), [parent, development, active_tab: :unit_types], class: "btn" %>
           <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
           <%= edit_btn [:edit, parent, development], element: development %>

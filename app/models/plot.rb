@@ -2,6 +2,8 @@
 
 # rubocop:disable Rails/HasManyOrHasOneDependent, Metrics/ClassLength
 class Plot < ApplicationRecord
+  include Unlatch::Interface
+
   acts_as_paranoid
   require "csv"
 
@@ -12,6 +14,7 @@ class Plot < ApplicationRecord
 
   before_save :set_build_status
   before_save :set_validity
+  after_create :sync_with_unlatch
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -22,6 +25,8 @@ class Plot < ApplicationRecord
 
   belongs_to :unit_type, optional: true
   belongs_to :developer, optional: false
+  delegate :unlatch_developer, to: :developer
+  delegate :programs, to: :development
   has_one :crm, through: :developer
   belongs_to :division, optional: true
   has_many :plot_timelines, dependent: :destroy
@@ -34,7 +39,7 @@ class Plot < ApplicationRecord
   has_many :plot_residencies, dependent: :destroy
   has_many :plot_private_documents, dependent: :destroy
   has_many :private_documents, through: :plot_private_documents
-  has_many :plot_documents, dependent: :destroy
+  has_one :lot, class_name: "Unlatch::Lot", dependent: :destroy
   has_many :documents, through: :plot_documents
   has_many :residents, through: :plot_residencies
 
@@ -47,9 +52,12 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
   belongs_to :build_step
   delegate :build_sequenceable_type, to: :build_step
+  delegate :program, to: :development
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
+
+  has_many :plot_documents, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
@@ -196,6 +204,10 @@ class Plot < ApplicationRecord
                                .where.not(id: templated_room_ids)
 
     room_scope.where(plot_id: id).or(unit_type_rooms_relation)
+  end
+
+  def appliances(room_scope = Room.all)
+    Appliance.in_rooms(rooms(room_scope))
   end
 
   # ADDRESSES
@@ -853,6 +865,36 @@ class Plot < ApplicationRecord
 
   def platform_logo
     platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
+  end
+
+  def sync_with_unlatch
+    return if developer.unlatch_developer.blank?
+    return if lot.present?
+    Unlatch::Lot.add(self)
+  end
+
+  # Unlatch::Interface implementation
+  def lots
+    [self&.lot&.id]
+  end
+
+  def paired_with_unlatch?
+    !lot.nil?
+  end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+    development.reload
+    sync_with_unlatch
+    sync_docs_with_unlatch
+  end
+
+  # Reservation and Completion documents appear in My Documents,
+  # not in a Unlatch Section (sub folder)
+  def section(document)
+    return nil if document&.reservation? || document&.completion?
+    Unlatch::Section.find_by(developer_id: document.unlatch_developer.id,
+                             category: document.category)
   end
 end
 # rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength

@@ -1,11 +1,12 @@
-<%= render "components/homeowner/hero" %>
-
-<%= render "components/homeowner/sub_menu", active_tab: "rooms", plot: @plot %>
+<% if !defined?(@skip_menus) %>
+  <%= render "components/homeowner/hero" %>
+  <%= render "components/homeowner/sub_menu", active_tab: "rooms", plot: @plot %>
+<% end %>
 
 <div class="branded-body">
   <div class="rooms">
     <span class="branded-text rooms-disclaimer"><%= t(".disclaimer") %></span>
-    <% @rooms.each do | room | %>
+    <% @rooms&.each do | room | %>
       <% if @plot.choices_approved? %>
         <% plot_choices = RoomChoice.plot_choices(room, @plot) %>
       <% end %>

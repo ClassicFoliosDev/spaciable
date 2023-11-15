@@ -6,6 +6,9 @@
   </div>
 
   <div class="section-data">
+    <% if @document.linked_to_unlatch? %>
+      <%= unlatch_sync_btn(@document) %>
+    <% end %>
     <%= (edit_btn [:edit, @document], element: @document) unless @document.expired? && !(current_user.cf_admin?) %>
   </div>
 </div>

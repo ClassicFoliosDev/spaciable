@@ -56,6 +56,12 @@ class Appliance < ApplicationRecord
           appliances
         }
 
+  scope :in_rooms,
+        lambda { |rooms|
+          joins(:appliance_rooms)
+            .where(appliances_rooms: { room_id: rooms })
+        }
+
   validates :model_num, presence: true
 
   validate :check_dup
