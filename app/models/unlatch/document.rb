@@ -26,6 +26,7 @@ module Unlatch
 
       private
 
+      # rubocop:disable LineLength, Style/RescueStandardError
       def POST(spaciable_doc, program)
         retries = 0
         developer = spaciable_doc.unlatch_developer
@@ -58,6 +59,7 @@ module Unlatch
                                    timeout: 10)
           if response.code == 200
             return document unless document.nil? # updated, not new
+
             document_id = response.parsed_response["documentId"]
             document = Unlatch::Document.create(id: document_id,
                                                 document_id: spaciable_doc.id,
@@ -82,8 +84,10 @@ module Unlatch
         document
       end
     end
+    # rubocop:enable LineLength, Style/RescueStandardError
 
     # remove document from unlatch
+    # rubocop:disable Style/RescueStandardError
     def DELETE
       retries = 0
 
@@ -97,6 +101,7 @@ module Unlatch
                                      },
                                    timeout: 10)
         return if response.code == 200
+
         if response.code == 401 && retries.zero?
           developer.refresh_token
           retries += 1
@@ -113,6 +118,7 @@ module Unlatch
         Rails.logger.error("UNLATCH: Failed to DELETE Document - #{e.message}")
       end
     end
+    # rubocop:enable Style/RescueStandardError
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:enable Style/RaiseArgs, Naming/MethodName, Metrics/PerceivedComplexity

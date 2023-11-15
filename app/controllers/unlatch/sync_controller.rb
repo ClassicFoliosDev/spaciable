@@ -8,7 +8,7 @@ module Unlatch
       DeepSyncJob.perform_later(synchable)
 
       render json: { linkable_id: synchable.id,
-                     sync_status: :working }, status: 200
+                     sync_status: :working }, status: :ok
     end
   end
 end

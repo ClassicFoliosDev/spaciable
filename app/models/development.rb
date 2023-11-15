@@ -280,7 +280,9 @@ class Development < ApplicationRecord
   # Find a matching Unlatch::Program if necessary
   def sync_with_unlatch
     return if unlatch_developer.blank?
+
     return if program.present?
+
     Unlatch::Program.add(unlatch_developer, self)
   end
 
@@ -291,6 +293,7 @@ class Development < ApplicationRecord
 
   def unlatch_deep_sync
     return unless linked_to_unlatch?
+
     sync_with_unlatch
     sync_docs_with_unlatch
     phases.each(&:unlatch_deep_sync)

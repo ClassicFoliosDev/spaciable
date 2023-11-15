@@ -11,6 +11,5 @@ module Unlatch
         Rails.logger.error(error)
       end
     end
-
   end
 end

@@ -5,24 +5,24 @@ module Unlatch
     self.table_name = "unlatch_developers"
 
     belongs_to :developer, class_name: "::Developer"
-    has_many :programs, class_name: "Unlatch::Program"
-    has_many :sections, class_name: "Unlatch::Section"
+    has_many :programs, class_name: "Unlatch::Program", dependent: :destroy
+    has_many :sections, class_name: "Unlatch::Section", dependent: :destroy
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Layout/AlignArguments, Metrics/LineLength, Style/RescueStandardError
     def refresh_token
       begin
         response = HTTParty.post("#{api}key/",
-                                 body:
-                                  {
-                                    email:    email,
-                                    password: password
-                                  }.to_json,
-                                 headers:
-                                  {
-                                    "Content-Type" => "application/json",
-                                    "Accept" => "application/json"
-                                  },
-                                 timeout: 10)
+          body:
+            {
+              email: email,
+              password: password
+            }.to_json,
+          headers:
+            {
+              "Content-Type" => "application/json",
+              "Accept" => "application/json"
+            },
+          timeout: 10)
 
         if response.code == 200
           self.token = response.parsed_response["token"]
@@ -39,6 +39,6 @@ module Unlatch
 
       token
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Layout/AlignArguments, Metrics/LineLength, Style/RescueStandardError
   end
 end

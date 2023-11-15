@@ -165,6 +165,7 @@ class UnitType < ApplicationRecord
 
   def unlatch_deep_sync
     return unless linked_to_unlatch?
+
     development.reload
     sync_docs_with_unlatch
   end

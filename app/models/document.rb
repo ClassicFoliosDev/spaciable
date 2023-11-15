@@ -114,6 +114,7 @@ class Document < ApplicationRecord
 
   def sync_with_unlatch
     return if unlatch_developer.blank?
+
     if documentable.sync_to_unlatch?
       Unlatch::Document.sync(self)
     else
@@ -133,6 +134,7 @@ class Document < ApplicationRecord
 
   def source
     return File.open(file.file.file) if Rails.env.development?
+
     URI.open(file.url)
   end
 end

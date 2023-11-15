@@ -203,6 +203,7 @@ class Division < ApplicationRecord
 
   def unlatch_deep_sync
     return unless linked_to_unlatch?
+
     developments.each(&:unlatch_deep_sync)
     sync_docs_with_unlatch
   end
