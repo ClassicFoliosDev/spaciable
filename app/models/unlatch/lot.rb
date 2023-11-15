@@ -48,9 +48,9 @@ module Unlatch
         rescue Unlatch::Unauthorised
           retry
         rescue Net::OpenTimeout
-          Rails.logger.error("UNLATCH: Uplatch is currently unavaliable. Please try again later")
+          Unlatch::Log.add(program, "UNLATCH: #{__method__} Uplatch is currently unavaliable. Please try again later")
         rescue => e
-          Rails.logger.error("UNLATCH: Failed to retrieve Lots - #{e.message}")
+          Unlatch::Log.add(program, "UNLATCH: #{__method__} Failed to retrieve Lots - #{e.message}")
         end
 
         lots

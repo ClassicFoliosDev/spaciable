@@ -74,9 +74,9 @@ module Unlatch
         rescue Unlatch::Unauthorised
           retry
         rescue Net::OpenTimeout
-          Rails.logger.error("UNLATCH: Uplatch is currently unavaliable. Please try again later")
+          Unlatch::Log.add(spaciable_doc, "UNLATCH: #{__method__} Uplatch is currently unavaliable. Please try again later")
         rescue => e
-          Rails.logger.error("UNLATCH: Failed to POST document - #{e.message}")
+          Unlatch::Log.add(spaciable_doc, "UNLATCH: #{__method__} Failed to POST document - #{e.message}")
         end
 
         document

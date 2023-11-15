@@ -37,15 +37,14 @@ module Unlatch
             retries += 1
             raise Unlatch::Unauthorised.new
           else
-            Rails.logger.error("UNLATCH: Failed to obtain Programs - " \
-                               "status #{response.code}")
+            Unlatch::Log.add(developer, "UNLATCH: #{__method__} Failed to obtain Programs - #{response.code}")
           end
         rescue Unlatch::Unauthorised
           retry
         rescue Net::OpenTimeout
-          Rails.logger.error("UNLATCH: Uplatch is currently unavaliable. Please try again later")
+          Unlatch::Log.add(developer, "UNLATCH: #{__method__} Uplatch is currently unavaliable. Please try again later")
         rescue => e
-          Rails.logger.error("UNLATCH: Failed to retrieve programs - #{e.message}")
+          Unlatch::Log.add(developer, "UNLATCH: #{__method__ } Failed to retrieve programs - #{e.message}")
         end
 
         programs

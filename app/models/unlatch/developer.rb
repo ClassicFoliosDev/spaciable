@@ -32,9 +32,9 @@ module Unlatch
           Rails.logger.error("Failed to obtain Uplatch token - status #{response.code}")
         end
       rescue Net::OpenTimeout
-        Rails.logger.error("Failed to obtain Uplatch token - status #{response.code}")
+        Unlatch::Log.add(nil, "#{__method__} Failed to obtain Uplatch token - status #{response.code}")
       rescue => e
-        Rails.logger.error("UNLATCH: Failed to retrieve token - #{e.message}")
+        Unlatch::Log.add(nil, "UNLATCH: #{__method__} Failed to retrieve token - #{e.message}")
       end
 
       token
