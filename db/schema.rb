@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20231002123924) do
+ActiveRecord::Schema.define(version: 2023_10_02_123924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1320,54 +1320,53 @@ ActiveRecord::Schema.define(version: 20231002123924) do
     t.index ["name", "development_id"], name: "index_unit_types_on_name_and_development_id", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "unlatch_developers", force: :cascade do |t|
-    t.integer  "developer_id"
-    t.string   "api"
-    t.string   "email"
-    t.string   "password"
-    t.string   "token"
+  create_table "unlatch_developers", id: :serial, force: :cascade do |t|
+    t.integer "developer_id"
+    t.string "api"
+    t.string "email"
+    t.string "password"
+    t.string "token"
     t.datetime "expires"
-    t.index ["developer_id"], name: "index_unlatch_developers_on_developer_id", using: :btree
+    t.index ["developer_id"], name: "index_unlatch_developers_on_developer_id"
   end
 
-  create_table "unlatch_documents", force: :cascade do |t|
+  create_table "unlatch_documents", id: :serial, force: :cascade do |t|
     t.integer "document_id"
     t.integer "program_id"
     t.integer "section_id"
-    t.index ["document_id"], name: "index_unlatch_documents_on_document_id", using: :btree
-    t.index ["program_id"], name: "index_unlatch_documents_on_program_id", using: :btree
-    t.index ["section_id"], name: "index_unlatch_documents_on_section_id", using: :btree
+    t.index ["document_id"], name: "index_unlatch_documents_on_document_id"
+    t.index ["program_id"], name: "index_unlatch_documents_on_program_id"
+    t.index ["section_id"], name: "index_unlatch_documents_on_section_id"
   end
 
-  create_table "unlatch_lots", force: :cascade do |t|
+  create_table "unlatch_logs", id: :serial, force: :cascade do |t|
+    t.string "linkable_type"
+    t.integer "linkable_id"
+    t.string "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unlatch_lots", id: :serial, force: :cascade do |t|
     t.integer "plot_id"
     t.integer "program_id"
-    t.index ["plot_id"], name: "index_unlatch_lots_on_plot_id", using: :btree
-    t.index ["program_id"], name: "index_unlatch_lots_on_program_id", using: :btree
+    t.index ["plot_id"], name: "index_unlatch_lots_on_plot_id"
+    t.index ["program_id"], name: "index_unlatch_lots_on_program_id"
   end
 
-  create_table "unlatch_programs", force: :cascade do |t|
+  create_table "unlatch_programs", id: :serial, force: :cascade do |t|
     t.integer "developer_id"
     t.integer "development_id"
-    t.index ["developer_id"], name: "index_unlatch_programs_on_developer_id", using: :btree
-    t.index ["development_id"], name: "index_unlatch_programs_on_development_id", using: :btree
+    t.index ["developer_id"], name: "index_unlatch_programs_on_developer_id"
+    t.index ["development_id"], name: "index_unlatch_programs_on_development_id"
   end
 
-  create_table "unlatch_sections", force: :cascade do |t|
+  create_table "unlatch_sections", id: :serial, force: :cascade do |t|
     t.integer "developer_id"
     t.integer "category"
-    t.index ["developer_id"], name: "index_unlatch_sections_on_developer_id", using: :btree
+    t.index ["developer_id"], name: "index_unlatch_sections_on_developer_id"
   end
 
-  create_table "user_preferences", force: :cascade do |t|
-    t.integer  "user_id",                    null: false
-    t.integer  "preference",                 null: false
-    t.boolean  "on",         default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
-  end
-  
   create_table "user_preferences", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "preference", null: false

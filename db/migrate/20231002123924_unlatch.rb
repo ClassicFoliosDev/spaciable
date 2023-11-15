@@ -29,5 +29,11 @@ class Unlatch < ActiveRecord::Migration[5.0]
   	  t.references :plot
       t.references :program
   	end
+
+    create_table :unlatch_logs do |t|
+      t.references :linkable, polymorphic: true, index: false
+      t.string :error
+      t.timestamps null: false
+    end
   end
 end
