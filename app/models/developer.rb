@@ -358,6 +358,7 @@ class Developer < ApplicationRecord
   # Go through the structure and resync everything
   def unlatch_deep_sync
     return unless paired_with_unlatch?
+
     developments.each(&:unlatch_deep_sync)
     divisions.each(&:unlatch_deep_sync)
     sync_docs_with_unlatch

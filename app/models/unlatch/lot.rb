@@ -2,7 +2,7 @@
 
 module Unlatch
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Style/RaiseArgs
+  # rubocop:disable Style/RaiseArgs, Metrics/LineLength, Style/RescueStandardError
   class Lot < ApplicationRecord
     self.table_name = "unlatch_lots"
 
@@ -60,6 +60,7 @@ module Unlatch
       def add(plot)
         lot = lots(plot&.program)&.select { |l| l["lotNumber"].casecmp(plot.number).zero? }
         return unless lot&.count == 1
+
         lot = Unlatch::Lot.create(id: lot[0]["lotId"],
                                   plot_id: plot.id,
                                   program_id: plot.program.id)
@@ -72,6 +73,6 @@ module Unlatch
       plot.unit_type.sync_docs_with_unlatch
     end
   end
-  # rubocop:enable Style/RaiseArgs
-  # rubocop:enable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
+  # rubocop:enable Style/RaiseArgs, Metrics/LineLength, Style/RescueStandardError
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

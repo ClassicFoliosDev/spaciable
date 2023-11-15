@@ -869,7 +869,9 @@ class Plot < ApplicationRecord
 
   def sync_with_unlatch
     return if developer.unlatch_developer.blank?
+
     return if lot.present?
+
     Unlatch::Lot.add(self)
   end
 
@@ -884,6 +886,7 @@ class Plot < ApplicationRecord
 
   def unlatch_deep_sync
     return unless linked_to_unlatch?
+
     development.reload
     sync_with_unlatch
     sync_docs_with_unlatch
@@ -893,6 +896,7 @@ class Plot < ApplicationRecord
   # not in a Unlatch Section (sub folder)
   def section(document)
     return nil if document&.reservation? || document&.completion?
+
     Unlatch::Section.find_by(developer_id: document.unlatch_developer.id,
                              category: document.category)
   end

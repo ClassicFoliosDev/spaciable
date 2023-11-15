@@ -284,8 +284,10 @@ class Phase < ApplicationRecord
 
   def unlatch_deep_sync
     return unless linked_to_unlatch?
+
     development.reload
     return if development.program.blank?
+
     plots.each(&:unlatch_deep_sync)
     sync_docs_with_unlatch
   end

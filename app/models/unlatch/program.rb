@@ -15,7 +15,7 @@ module Unlatch
           }
 
     # rubocop:disable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
-    # rubocop:disable Style/RaiseArgs, Metrics/LineLength
+    # rubocop:disable Style/RaiseArgs, Metrics/LineLength, Style/RescueStandardError
     class << self
       def list(developer)
         retries = 0
@@ -44,7 +44,7 @@ module Unlatch
         rescue Net::OpenTimeout
           Unlatch::Log.add(developer, "UNLATCH: #{__method__} Uplatch is currently unavaliable. Please try again later")
         rescue => e
-          Unlatch::Log.add(developer, "UNLATCH: #{__method__ } Failed to retrieve programs - #{e.message}")
+          Unlatch::Log.add(developer, "UNLATCH: #{__method__} Failed to retrieve programs - #{e.message}")
         end
 
         programs
@@ -56,12 +56,13 @@ module Unlatch
       def add(u_developer, s_development)
         unlatch_id = list(u_developer)&.select { |(name, _)| name.casecmp(s_development.name).zero? }&.map { |(_, id)| id }
         return if unlatch_id.blank? || unlatch_id&.empty?
+
         Unlatch::Program.create(id: unlatch_id[0],
                                 development_id: s_development.id,
                                 developer_id: u_developer.id)
       end
     end
-    # rubocop:enable Style/RaiseArgs, Metrics/LineLength
+    # rubocop:enable Style/RaiseArgs, Metrics/LineLength, Style/RescueStandardError
     # rubocop:enable Metrics/MethodLength, Lint/UselessAssignment, Metrics/AbcSize
   end
 end
