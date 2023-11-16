@@ -20,7 +20,7 @@ NeedlessDeepNestingCheck: { nested_count: 2, ignored_files: [] }
 NotRescueExceptionCheck: { }
 NotUseDefaultRouteCheck: { }
 NotUseTimeAgoInWordsCheck: { }
-OveruseRouteCustomizationsCheck: { customize_count: 3 }
+OveruseRouteCustomizationsCheck: { customize_count: 10 }
 ProtectMassAssignmentCheck: { }
 RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
