@@ -27,7 +27,7 @@ module Unlatch
         retries = 0
 
         begin
-          response = HTTParty.get("#{program.developer.api}lots/",
+          response = HTTParty.get("#{program.developer.api}programs/#{program.id}",
                                   headers:
                                     {
                                       "Content-Type" => "application/json",
@@ -36,7 +36,7 @@ module Unlatch
                                     },
                                   timeout: 10)
           if response.code == 200
-            lots = response.parsed_response.select { |l| l["programId"] == program.id }
+            lots = response.parsed_response["lots"]
           elsif [403, 401].include?(response.code) && retries.zero?
             program.developer.refresh_token
             retries += 1
