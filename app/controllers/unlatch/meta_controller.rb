@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Unlatch
-  # rubocop:disable LineLength
   class MetaController < ApplicationController
     after_action :allow_iframe
 
@@ -13,13 +12,13 @@ module Unlatch
     def rooms
       @plot = Unlatch::Lot.find_by(id: params[:lot_id])&.plot
       @rooms = @plot&.rooms
-      render (@plot.nil? ? "homeowners/rooms/no_match" : "homeowners/rooms/show")
+      render(@plot.nil? ? "homeowners/rooms/no_match" : "homeowners/rooms/show")
     end
 
     def appliances
       @plot = Unlatch::Lot.find_by(id: params[:lot_id])&.plot
       @appliances = @plot&.appliances
-      render (@plot.nil? ? "homeowners/appliances/no_match" : "homeowners/appliances/show")
+      render(@plot.nil? ? "homeowners/appliances/no_match" : "homeowners/appliances/show")
     end
 
     def unlatch
@@ -34,5 +33,4 @@ module Unlatch
       response.set_header("X-Frame-Options", "ALLOWALL")
     end
   end
-  # rubocop:enable LineLength
 end
