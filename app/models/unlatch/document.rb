@@ -36,19 +36,19 @@ module Unlatch
 
         return if developer.blank?
 
-        body = {
-          "file" => spaciable_doc.source,
-          "caption" => spaciable_doc.title,
-          "documentType" => "brochure",
-          "showToBuyers" => true
-        }
-
-        # API only accepts lots and section if populated :(
-        body[:lots] = spaciable_doc.lots if spaciable_doc.lots&.any?
-        body[:section] = spaciable_doc.section.id if spaciable_doc.section&.present?
-        body[:documentId] = document.id unless document.nil?
-
         begin
+          body = {
+            "file" => spaciable_doc.source,
+            "caption" => spaciable_doc.title,
+            "documentType" => "brochure",
+            "showToBuyers" => true
+          }
+
+          # API only accepts lots and section if populated :(
+          body[:lots] = spaciable_doc.lots if spaciable_doc.lots&.any?
+          body[:section] = spaciable_doc.section.id if spaciable_doc.section&.present?
+          body[:documentId] = document.id unless document.nil?
+
           response = HTTParty.post("#{developer.api}programs/#{program.id}/document/",
                                    body: body,
                                    headers:
