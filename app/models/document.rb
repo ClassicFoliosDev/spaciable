@@ -133,8 +133,6 @@ class Document < ApplicationRecord
   delegate :linked_to_unlatch?, to: :documentable
 
   def source
-    return File.open(file.file.file) if Rails.env.development?
-
-    URI.open(file.url)
+    File.open(file.file.file)
   end
 end
