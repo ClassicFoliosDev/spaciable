@@ -750,7 +750,7 @@ module CreateFixture
   end
 
   def unit_type(ut_name=unit_type_name)
-    UnitType.find_by(name: ut_name)
+    UnitType.find_by(name: ut_name) || FactoryGirl.create(:unit_type, name: unit_type_name)
   end
 
   def room(name = room_name, ut = unit_type)
@@ -784,6 +784,7 @@ module CreateFixture
   def phase_plot
     plot = phase&.plots&.first
     plot = division_phase&.plots&.first if plot.nil?
+    plot = Plot.last if plot.nil?
 
     plot
   end
