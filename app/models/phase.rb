@@ -4,6 +4,7 @@
 class Phase < ApplicationRecord
   attribute :number, :integer
   include PackageEnum
+  include Unlatch::Interface
 
   acts_as_paranoid
 
@@ -11,6 +12,8 @@ class Phase < ApplicationRecord
   multisearchable against: [:name], using: %i[tsearch trigram]
 
   belongs_to :development, optional: false, counter_cache: true
+  delegate :unlatch_developer, to: :development
+  delegate :programs, to: :development
   delegate :name, to: :development, prefix: true
   alias parent development
   include InheritParentPermissionIds
@@ -264,6 +267,29 @@ class Phase < ApplicationRecord
 
   def conveyancing_enabled?
     conveyancing && parent.conveyancing_enabled?
+  end
+
+  # Unlatch::Interface implementation.
+  # Work out the Unlatch Lots associated with the Plots in this Phase
+  def lots
+    Unlatch::Lot.in_phase(self).pluck(:id)
+  end
+
+  # only sync to unlatch if there are assocated lots
+  def sync_to_unlatch?
+    !lots.empty?
+  end
+
+  delegate :paired_with_unlatch?, to: :development
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+
+    development.reload
+    return if development.program.blank?
+
+    plots.each(&:unlatch_deep_sync)
+    sync_docs_with_unlatch
   end
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

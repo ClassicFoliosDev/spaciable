@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf
 class Developer < ApplicationRecord
+  include Unlatch::Interface
   acts_as_paranoid
 
   attr_accessor :personal_app
@@ -16,6 +17,7 @@ class Developer < ApplicationRecord
   has_many :developments, dependent: :destroy
 
   has_many :documents, as: :documentable, dependent: :destroy
+  alias library documents
   has_many :faqs, as: :faqable, dependent: :destroy
   has_many :phases, dependent: :destroy
   has_many :plots, dependent: :destroy
@@ -31,6 +33,8 @@ class Developer < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
+  has_one :unlatch_developer, class_name: "Unlatch::Developer", dependent: :destroy
+  delegate :programs, to: :unlatch_developer
 
   scope :on_package,
         lambda {
@@ -337,6 +341,27 @@ class Developer < ApplicationRecord
 
   def sequence_in_use
     build_sequence || Global.root.build_sequence
+  end
+
+  # Unlatch::Interface implementation
+
+  # Is this developer paired with Unlatch
+  def paired_with_unlatch?
+    !unlatch_developer.nil?
+  end
+
+  # Developer is manually synched at creation
+  def sync_with_unlatch
+    nil
+  end
+
+  # Go through the structure and resync everything
+  def unlatch_deep_sync
+    return unless paired_with_unlatch?
+
+    developments.each(&:unlatch_deep_sync)
+    divisions.each(&:unlatch_deep_sync)
+    sync_docs_with_unlatch
   end
 
   private

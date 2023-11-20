@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_24_143256) do
+ActiveRecord::Schema.define(version: 2023_10_02_123924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1318,6 +1318,53 @@ ActiveRecord::Schema.define(version: 2023_02_24_143256) do
     t.index ["development_id"], name: "index_unit_types_on_development_id"
     t.index ["division_id"], name: "index_unit_types_on_division_id"
     t.index ["name", "development_id"], name: "index_unit_types_on_name_and_development_id", unique: true, where: "(deleted_at IS NULL)"
+  end
+
+  create_table "unlatch_developers", id: :serial, force: :cascade do |t|
+    t.integer "developer_id"
+    t.string "api"
+    t.string "email"
+    t.string "password"
+    t.string "token"
+    t.datetime "expires"
+    t.index ["developer_id"], name: "index_unlatch_developers_on_developer_id"
+  end
+
+  create_table "unlatch_documents", id: :serial, force: :cascade do |t|
+    t.integer "document_id"
+    t.integer "program_id"
+    t.integer "section_id"
+    t.index ["document_id"], name: "index_unlatch_documents_on_document_id"
+    t.index ["program_id"], name: "index_unlatch_documents_on_program_id"
+    t.index ["section_id"], name: "index_unlatch_documents_on_section_id"
+  end
+
+  create_table "unlatch_logs", id: :serial, force: :cascade do |t|
+    t.string "linkable_type"
+    t.integer "linkable_id"
+    t.string "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unlatch_lots", id: :serial, force: :cascade do |t|
+    t.integer "plot_id"
+    t.integer "program_id"
+    t.index ["plot_id"], name: "index_unlatch_lots_on_plot_id"
+    t.index ["program_id"], name: "index_unlatch_lots_on_program_id"
+  end
+
+  create_table "unlatch_programs", id: :serial, force: :cascade do |t|
+    t.integer "developer_id"
+    t.integer "development_id"
+    t.index ["developer_id"], name: "index_unlatch_programs_on_developer_id"
+    t.index ["development_id"], name: "index_unlatch_programs_on_development_id"
+  end
+
+  create_table "unlatch_sections", id: :serial, force: :cascade do |t|
+    t.integer "developer_id"
+    t.integer "category"
+    t.index ["developer_id"], name: "index_unlatch_sections_on_developer_id"
   end
 
   create_table "user_preferences", id: :serial, force: :cascade do |t|

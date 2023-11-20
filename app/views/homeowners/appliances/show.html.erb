@@ -1,7 +1,7 @@
-
-<%= render "components/homeowner/hero" %>
-
-<%= render "components/homeowner/sub_menu", active_tab: "appliances", plot: @plot %>
+<% if !defined?(@skip_menus) %>
+  <%= render "components/homeowner/hero" %>
+  <%= render "components/homeowner/sub_menu", active_tab: "appliances", plot: @plot %>
+<% end %>
 
 <div class="branded-body">
   <div class="appliances">

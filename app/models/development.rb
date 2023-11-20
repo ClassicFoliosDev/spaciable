@@ -4,6 +4,7 @@
 class Development < ApplicationRecord
   include ConstructionEnum
   include ClientPlatformEnum
+  include Unlatch::Interface
   acts_as_paranoid
 
   belongs_to :developer, optional: true
@@ -17,8 +18,15 @@ class Development < ApplicationRecord
     division || developer
   end
 
+  delegate :unlatch_developer, to: :parent
+
   def parent_developer
     developer || division.developer
+  end
+
+  def library
+    lib = parent.library
+    lib << documents
   end
 
   has_many :documents, as: :documentable, dependent: :destroy
@@ -42,6 +50,7 @@ class Development < ApplicationRecord
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
+  has_one :program, class_name: "Unlatch::Program", dependent: :destroy
 
   has_one :premium_perk
   accepts_nested_attributes_for :premium_perk
@@ -85,6 +94,7 @@ class Development < ApplicationRecord
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_spotlights
   after_save :update_spotlights
+  after_create :sync_with_unlatch
 
   alias_attribute :identity, :name
 
@@ -94,6 +104,10 @@ class Development < ApplicationRecord
       admin_can_choose
       either_can_choose
     ]
+
+  def programs
+    program.blank? ? [] : [program]
+  end
 
   def brand_any
     return brand if brand
@@ -262,6 +276,29 @@ class Development < ApplicationRecord
     Spotlight.delete_disabled(changed, self) unless changed.empty?
   end
   # rubocop:enable Metrics/LineLength
+
+  # Find a matching Unlatch::Program if necessary
+  def sync_with_unlatch
+    return if unlatch_developer.blank?
+
+    return if program.present?
+
+    Unlatch::Program.add(unlatch_developer, self)
+  end
+
+  # Unlatch::Interface implementation
+  def paired_with_unlatch?
+    !program.nil?
+  end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+
+    sync_with_unlatch
+    sync_docs_with_unlatch
+    phases.each(&:unlatch_deep_sync)
+    unit_types.each(&:unlatch_deep_sync)
+  end
 
   # rubocop:disable Rails/Presence
   def my_construction_name
