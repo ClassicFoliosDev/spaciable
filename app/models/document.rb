@@ -132,6 +132,7 @@ class Document < ApplicationRecord
 
   delegate :linked_to_unlatch?, to: :documentable
 
+  # rubocop:disable Rails/UnknownEnv
   def source
     if Rails.env.production? || Rails.env.staging?
       url = file.url
@@ -140,4 +141,5 @@ class Document < ApplicationRecord
       File.open(file.current_path)
     end
   end
+  # rubocop:enable Rails/UnknownEnv
 end
