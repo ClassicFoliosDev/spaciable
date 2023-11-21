@@ -132,14 +132,13 @@ class Document < ApplicationRecord
 
   delegate :linked_to_unlatch?, to: :documentable
 
-  # rubocop:disable Rails/UnknownEnv
+  # rubocop:disable Style/IfUnlessModifier
   def source
-    if Rails.env.production? || Rails.env.staging?
-      url = file.url
-      file.download!(url)
-    else
-      File.open(file.current_path)
+    unless Rails.env.development?
+      file.download!(file.url)
     end
+
+    File.open(file.current_path)
   end
-  # rubocop:enable Rails/UnknownEnv
+  # rubocop:enable Style/IfUnlessModifier
 end
