@@ -56,7 +56,7 @@ module Unlatch
                                        "Accept" => "application/json",
                                        "Authorization" => "Bearer #{developer.token}"
                                      },
-                                   timeout: 10)
+                                   timeout: 20)
           if response.code == 200
             return document unless document.nil? # updated, not new
 
