@@ -10,8 +10,8 @@ class Document < ApplicationRecord
 
   after_create :update_laus
   after_update :update_laus
-  after_create :sync_with_unlatch
-  after_update :sync_with_unlatch
+  after_create :queue_sync_with_unlatch
+  after_update :queue_sync_with_unlatch
   belongs_to :documentable, polymorphic: true
   delegate :lots, to: :documentable
   belongs_to :user, optional: true
@@ -112,6 +112,13 @@ class Document < ApplicationRecord
     res_comp? && !RequestStore.store[:current_user].cf_admin?
   end
 
+  # Put the synch request on the delayed job queue.  This ensures the
+  # Document object has persisted the physical file at a location available
+  # through the url
+  def queue_sync_with_unlatch
+    DeepSyncJob.perform_later(self)
+  end
+
   def sync_with_unlatch
     return if unlatch_developer.blank?
 
@@ -132,13 +139,7 @@ class Document < ApplicationRecord
 
   delegate :linked_to_unlatch?, to: :documentable
 
-  # rubocop:disable Style/IfUnlessModifier
   def source
-    unless Rails.env.development?
-      file.download!(file.url)
-    end
-
-    File.open(file.current_path)
+    URI.open("#{EnvVar[:localhost]}#{file.url}")
   end
-  # rubocop:enable Style/IfUnlessModifier
 end
