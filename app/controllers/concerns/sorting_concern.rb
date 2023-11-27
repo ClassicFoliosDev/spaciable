@@ -53,7 +53,7 @@ module SortingConcern
     accepted = PlotResidency.accepted(resources).group_by(&:plot_id).keys
     invited =  PlotResidency.invited(resources)
                             .group_by(&:plot_id)
-                            .keys.reject! { |i| accepted.include? i }
+                            .keys.reject { |i| accepted.include? i }
 
     plot_array = resources.sort
     @numbers = plot_array.map(&:number)
