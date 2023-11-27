@@ -76,3 +76,20 @@
     cursor: pointer;
   }
 }
+
+.plot-occupancy {
+  font-size: 18px !important;
+
+  &.unoccupied {
+    color: #D3D3D3;
+  }
+
+  &.accepted {
+    color: #3cb371;
+  }
+
+  &.invited {
+    color: #ff8503;
+  }
+
+}
