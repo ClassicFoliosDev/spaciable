@@ -113,6 +113,7 @@ class DevelopersController < ApplicationController
                              @developer.divisions.empty?
     return "developments" if @developer.developments.present? &&
                              @developer.divisions.empty?
+
     "divisions"
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable ModuleLength
+# rubocop:disable Metrics/ModuleLength
 module DevelopmentCsvService
   module_function
 
@@ -8,6 +8,7 @@ module DevelopmentCsvService
 
   def call(file, development, flash)
     return notify_type_error(flash) unless correct_content_type(file) # check the file type
+
     @parsed = {}
     @success_plots = []
     import(file, development)
@@ -24,7 +25,7 @@ module DevelopmentCsvService
 
   # the loop will exit once an error is encountered, so will not check any further fields,
   # meaning only the first found error for each plot will be stored for the alert
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Style/IfUnlessModifier
   def import(file, development)
     csv = CSV.open(file.path, headers: true).read
     return unless headers_check?(csv.headers.reject(&:nil?))
@@ -58,7 +59,7 @@ module DevelopmentCsvService
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Style/IfUnlessModifier
 
   # store an error if the phase is unknown/free
   def phase_check?(phase_name, phase)
@@ -132,7 +133,7 @@ module DevelopmentCsvService
 
   # check the legal completion date is in date format and within the specified range
   # and store an error if it is not
-  # rubocop:disable Rails/Date,  Style/CaseEquality
+  # rubocop:disable Rails/Date,  Style/CaseEquality, Style/RescueStandardError
   def completion_check?(phase_name, _, row, plot, _)
     @parsed[phase_name][:completion] ||= []
     passed = datum(row, :completion_date).blank?
@@ -153,7 +154,7 @@ module DevelopmentCsvService
     @parsed[phase_name][:completion] << datum(row, :completion_date) unless passed
     passed
   end
-  # rubocop:enable Rails/Date,  Style/CaseEquality
+  # rubocop:enable Rails/Date,  Style/CaseEquality, Style/RescueStandardError
 
   # check the build progress is valid and store an error if it is not
   def progress_check?(phase_name, phase, row, plot, _)
@@ -229,6 +230,7 @@ module DevelopmentCsvService
     @parsed.each do |phase_name, stages|
       stages.each do |stage, errs|
         next if errs.empty?
+
         messages[stage] ||= []
         messages[stage] <<
           "#{%i[phase invalid_column].include?(stage) ? nil : phase_name + ':'} #{errs.reject(&:blank?).uniq.join(', ')}"
@@ -270,4 +272,4 @@ module DevelopmentCsvService
     plot.send("#{column_name}=", datum(row, column_name)) if datum(row, column_name).present?
   end
 end
-# rubocop:enable ModuleLength
+# rubocop:enable Metrics/ModuleLength

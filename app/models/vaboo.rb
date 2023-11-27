@@ -114,10 +114,11 @@ class Vaboo
   end
 
   # Does the resident have a perks account?
+  # rubocop:disable Style/IfUnlessModifier, Style/RescueStandardError
   def self.perks_account_activated?(resident, plot)
     activated = error = false
-
     return unless resident
+
     account_id = account_number(plot.developer)
 
     full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}?#{EMAIL}=#{resident.email}"
@@ -133,6 +134,7 @@ class Vaboo
     end
     yield activated, error
   end
+  # rubocop:enable Style/IfUnlessModifier, Style/RescueStandardError
 
   # Has another resident on the plot registered for premium perks?
   # This check is only made after perks_account_activated has succeeded,
@@ -155,8 +157,10 @@ class Vaboo
   end
 
   # What type of perk (basic, premium) does the resident have (on the plot)? Used in analytics.
+  # rubocop:disable Style/RescueStandardError
   def self.perk_type_registered(resident, plot)
     return unless resident && plot.enable_perks?
+
     account_id = account_number(plot.developer)
 
     # call the API to check the access type that the resident has requested (basic/premium)
@@ -177,9 +181,11 @@ class Vaboo
       return "Unknown"
     end
   end
+  # rubocop:enable Style/RescueStandardError
 
   def self.available_premium_licences(development)
     return unless development.enable_premium_perks
+
     development.premium_licences_bought - development.premium_perk_sign_up_count
   end
 
@@ -188,6 +194,7 @@ class Vaboo
   # Are premium perks available to residents on the plot?
   def self.premium_perks_available?(resident, plot)
     return false unless resident
+
     plot.enable_premium_perks && resident.plot_residency_homeowner?(plot) &&
       available_premium_licences(plot.development).positive?
   end
@@ -212,6 +219,7 @@ class Vaboo
 
   def self.perk_type(plot)
     return unless RequestStore.store[:current_resident]
+
     # if Premium is available on the plot for the current resident
     if Vaboo.premium_perks_available?(RequestStore.store[:current_resident], plot)
       # has the plot reached legal completion?

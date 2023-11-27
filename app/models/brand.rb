@@ -52,6 +52,7 @@ class Brand < ApplicationRecord
 
   def check_hero_height
     return if hero_height.blank? || hero_height.between?(MIN_HEIGHT, MAX_HEIGHT)
+
     errors.add(:hero_height, I18n.t("brands.hero_height.message",
                                     min: MIN_HEIGHT,
                                     max: MAX_HEIGHT))

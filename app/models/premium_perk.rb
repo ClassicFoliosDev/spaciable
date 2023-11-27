@@ -13,6 +13,7 @@ class PremiumPerk < ApplicationRecord
   def self.increment_sign_up(development)
     account = PremiumPerk.find_by(development_id: development)
     return unless account
-    account.update_attributes(sign_up_count: (account.sign_up_count + 1))
+
+    account.update(sign_up_count: (account.sign_up_count + 1))
   end
 end

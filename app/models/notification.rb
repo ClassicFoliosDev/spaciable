@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Notification < ApplicationRecord
   attr_accessor :range_from, :range_to, :list
   attr_accessor :read_at
@@ -31,7 +31,8 @@ class Notification < ApplicationRecord
 
   def picture_name
     return "user-circle-o.jpg" if picture.blank?
-    picture
+
+    picture.url
   end
 
   def send_to_conflicts
@@ -48,11 +49,13 @@ class Notification < ApplicationRecord
 
   def send_to
     return SendToAll.new(notification: self) if send_to_all?
+
     super
   end
 
   def send_to_all?
     return false if sender && !sender.cf_admin?
+
     super
   end
 
@@ -164,4 +167,4 @@ class Notification < ApplicationRecord
   delegate :to_str, to: :subject
   delegate :permission_level, to: :sender, allow_nil: true
 end
-# rubocop:enable ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

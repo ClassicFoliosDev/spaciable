@@ -6,9 +6,8 @@ class PlotsController < ApplicationController
   include PaginationConcern
   include SortingConcern
 
-  load_and_authorize_resource :development
   load_and_authorize_resource :phase
-  load_and_authorize_resource :plot, through: %i[development phase], shallow: true
+  load_and_authorize_resource :plot, through: %i[phase], shallow: true
 
   before_action :set_parent
   before_action :check_access, except: %i[show update complete]
@@ -137,9 +136,11 @@ class PlotsController < ApplicationController
         letter_type letable_type reservation_order_number completion_order_number ]
   end
 
+  # rubocop:disable Naming/MemoizedInstanceVariableName
   def set_parent
     @parent ||= @phase || @development || @plot&.parent
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def check_access
     return if current_user.cf_admin? || can?(:update, @plot)

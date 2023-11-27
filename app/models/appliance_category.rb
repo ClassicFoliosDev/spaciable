@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class ApplianceCategory < ApplicationRecord
   belongs_to :appliance, optional: true
   has_many :room_items, as: :room_itemable
@@ -14,3 +15,4 @@ class ApplianceCategory < ApplicationRecord
     name == "Washer Dryer"
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

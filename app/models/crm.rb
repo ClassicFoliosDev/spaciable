@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Crm < ApplicationRecord
   belongs_to :developer
   has_one :access_token
@@ -7,3 +8,4 @@ class Crm < ApplicationRecord
   delegate :token, to: :access_token
   delegate :refresh_token, to: :access_token
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

@@ -32,6 +32,9 @@
         <td><%= link_to developer.company_name, developer_path(developer), active_tab: :divisions, title: developer.company_name %></td>
         <td><%= l developer.updated_at.to_date, format: :digits %></td>
         <td class="actions">
+          <% if developer.linked_to_unlatch? %>
+             <%= unlatch_sync_btn(developer) %>
+          <% end %>
           <%= link_to t(".divisions"), [developer, active_tab: :divisions], class: "btn" %>
           <%= link_to t(".developments"), [developer, active_tab: :developments], class: "btn" %>
           <%= edit_btn edit_developer_path(developer), element: developer %>

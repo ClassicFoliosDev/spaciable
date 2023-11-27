@@ -27,6 +27,7 @@ module SortingConcern
     return false unless resources&.table_name == table_name
     return true if params[:sort] == sort_on
     return true if params[:sort].nil? && default.to_s == sort_on
+
     false
   end
 

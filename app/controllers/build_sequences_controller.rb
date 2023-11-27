@@ -36,7 +36,7 @@ class BuildSequencesController < ApplicationController
     )
   end
 
-  # rubocop:disable LineLength, Metrics/MethodLength
+  # rubocop:disable LineLength, Metrics/MethodLength, Style/RedundantBegin, Style/RescueStandardError
   def update_steps
     success = true
 
@@ -65,7 +65,7 @@ class BuildSequencesController < ApplicationController
 
     success
   end
-  # rubocop:enable LineLength, Metrics/MethodLength
+  # rubocop:enable LineLength, Metrics/MethodLength, Style/RedundantBegin, Style/RescueStandardError
 
   def set_parent
     @parent = @division || @developer || @global

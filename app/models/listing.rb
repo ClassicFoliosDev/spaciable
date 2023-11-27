@@ -35,10 +35,12 @@ class Listing < ApplicationRecord
 
   def belongs_to
     return "Nobody" unless live?
+
     lettings_account.belongs_to
   end
 
   # Update a listing
+  # rubocop:disable Rails/Presence
   def self.update?(owner, params, &block)
     listing = Listing.find_by(plot_id: params[:plot_id].to_i)
     error = "Cannot find plot #{params[:plot_id]}" unless listing
@@ -53,4 +55,5 @@ class Listing < ApplicationRecord
 
     block.call error.blank?, error.present? ? error : nil
   end
+  # rubocop:enable Rails/Presence
 end

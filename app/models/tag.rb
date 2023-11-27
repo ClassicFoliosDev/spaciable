@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Tag < ApplicationRecord
   delegate :to_s, to: :name
 
@@ -8,3 +9,4 @@ class Tag < ApplicationRecord
 
   delegate :to_s, to: :name
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

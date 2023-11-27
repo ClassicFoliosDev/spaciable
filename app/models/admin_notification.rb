@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class AdminNotification < ApplicationRecord
   attr_accessor :read_at
   attr_accessor :developer_id
@@ -29,6 +30,7 @@ class AdminNotification < ApplicationRecord
 
   def send_to_conflicts
     return unless send_to_all? && send_to_id.present?
+
     errors.add(:send_to_all, :conflicts)
   end
 
@@ -38,6 +40,7 @@ class AdminNotification < ApplicationRecord
     errors.add(:send_to, :select)
   end
 
+  # rubocop:disable Rails/Presence
   def sent_to
     if send_to_all
       "All"
@@ -45,4 +48,6 @@ class AdminNotification < ApplicationRecord
       send_to.present? ? send_to : "(Removed)"
     end
   end
+  # rubocop:enable Rails/Presence
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

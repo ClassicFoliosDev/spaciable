@@ -12,24 +12,24 @@ module FinishTabsHelper
     {
       finishes: {
         icon: :shower,
-        link: ["finishes", active_tab: :finishes],
+        link: [:finishes, active_tab: :finishes],
         permissions_on: -> { Finish.new(developer_id: developer_id) }
       },
       finish_categories: {
         icon: "folder-o",
-        link: ["finish_categories", active_tab: :finish_categories],
+        link: [:finish_categories, active_tab: :finish_categories],
         permissions_on: -> { Finish.new(developer_id: developer_id) },
         hide: !RequestStore.store[:current_user].cf_admin?
       },
       finish_types: {
         icon: "folder-o",
-        link: ["finish_types", active_tab: :finish_types],
+        link: [:finish_types, active_tab: :finish_types],
         permissions_on: -> { Finish.new(developer_id: developer_id) },
         hide: !RequestStore.store[:current_user].cf_admin?
       },
       finish_manufacturers: {
         icon: :industry,
-        link: ["finish_manufacturers", active_tab: :finish_manufacturers],
+        link: [:finish_manufacturers, active_tab: :finish_manufacturers],
         permissions_on: -> { Finish.new(developer_id: developer_id) }
       }
     }

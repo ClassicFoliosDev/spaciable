@@ -12,10 +12,6 @@ module AdminNotificationSendService
     admin_notification
   end
 
-  private
-
-  module_function
-
   def send_to(admin_notification, admin_notification_params)
     admin_notification.send_to_id = admin_notification_params[:developer_id].to_i
     admin_notification.send_to_type = :Developer

@@ -18,7 +18,7 @@ end
 
 Then(/^I see an error that I need to enter an account type$/) do
   within ".submission-errors" do
-    notice = "Maintenance account type #{I18n.t("activerecord.errors.messages.blank")}"
+    notice = "Maintenance account type#{I18n.t("activerecord.errors.messages.blank")}"
     expect(page).to have_content(notice)
   end
 end

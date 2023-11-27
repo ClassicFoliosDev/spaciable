@@ -22,7 +22,7 @@
     <% if @finish.picture? %>
       <div class="finish-picture">
         <%= label_tag(:image) %>
-        <%= image_tag @finish.picture.url %>
+        <%= image_tag @finish.picture.url, alt: image_alt(@finish.picture.url) %>
       </div>
     <% end %>
     <div class="description">

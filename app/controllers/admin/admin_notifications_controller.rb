@@ -8,6 +8,7 @@ module Admin
 
     def index
       return redirect_to root_path unless current_user.cf_admin?
+
       @admin_notifications = @admin_notifications.includes(:send_to, :sender)
       @admin_notifications = paginate(sort(@admin_notifications, default: { sent_at: :desc }))
     end

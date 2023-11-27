@@ -19,7 +19,7 @@ module Homeowners
       file_title = @private_document&.file&.filename&.split(".")
       @private_document.title = file_title[0].humanize if file_title
       if @private_document.save
-        @private_document.update_attributes(plot_id: @plot.id)
+        @private_document.update(plot_id: @plot.id)
         notice = t("controller.success.create", name: @private_document.title)
         redirect_to private_documents_path, notice: notice
       else
@@ -38,7 +38,7 @@ module Homeowners
                end
 
       if plot_private_document.nil? || notice.nil?
-        render json: {}, status: 401
+        render json: {}, status: :unauthorized
         return
       end
 
@@ -58,11 +58,11 @@ module Homeowners
       return nil if current_resident.plot_residency_tenant?(@plot)
 
       if plot_private_document.enable_tenant_read.blank?
-        plot_private_document.update_attributes(enable_tenant_read: true)
+        plot_private_document.update(enable_tenant_read: true)
         t("homeowners.private_documents.update.shared", title: @private_document.title,
                                                         address: @plot.to_homeowner_s)
       else
-        plot_private_document.update_attributes(enable_tenant_read: false)
+        plot_private_document.update(enable_tenant_read: false)
         t("homeowners.private_documents.update.not_shared", title: @private_document.title,
                                                             address: @plot.to_homeowner_s)
       end

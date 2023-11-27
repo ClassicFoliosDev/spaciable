@@ -14,6 +14,7 @@ module Homeowners
 
     def category(cat)
       return nil if params[cat].blank?
+
       I18n.t("ahoy.calendar.#{params[:category1]}")
     end
   end

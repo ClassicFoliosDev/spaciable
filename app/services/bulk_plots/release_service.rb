@@ -22,6 +22,7 @@ module BulkPlots
 
     # Validate the release request. Check all requested plots do not already have
     # release dates when necessary
+    # rubocop:disable Style/RescueStandardError
     def process(params)
       phase = params[:phase_id]
       # only check for popuated plots if a db_column has been specified
@@ -30,6 +31,7 @@ module BulkPlots
     rescue => e
       @release_errors = e.message
     end
+    # rubocop:enable Style/RescueStandardError
 
     # Given a list of plot numbers, check if any are already populated
     def check_populated_plots(phase, plot_numbers, db_column)
@@ -38,6 +40,7 @@ module BulkPlots
                   .where("plots.#{db_column} IS NOT NULL").pluck(:number).natural_sort
 
       return unless dirty.any?
+
       raise "#{dirty.count > 1 ? 'Plots' : 'Plot'} #{dirty * ','}" \
             " already #{dirty.count > 1 ? 'have' : 'has'} a #{db_column.tr('_', ' ')}"
     end

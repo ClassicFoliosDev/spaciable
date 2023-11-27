@@ -47,7 +47,7 @@ module Homeowners
 
       how_tos = HowTo.where(category: category).order(updated_at: :asc)
 
-      render json: how_tos, status: 200
+      render json: how_tos, status: :ok
     end
 
     def show
@@ -57,9 +57,9 @@ module Homeowners
     def show_how_to
       @how_to = HowTo.find(params[:id])
 
-      render json: @how_to, status: 200
+      render json: @how_to, status: :ok
     rescue ActiveRecord::RecordNotFound
-      render json: "", status: 404
+      render json: "", status: :not_found
     end
 
     private

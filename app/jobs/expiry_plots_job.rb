@@ -13,6 +13,7 @@ class ExpiryPlotsJob < ApplicationJob
     residencies = get_residencies(plot_ids)
     residencies.each do |residency|
       next if residency.extended? # ignore extended residents
+
       ExpiryPlotsMailer.notify_expiry_residents(residency).deliver_now
     end
   end

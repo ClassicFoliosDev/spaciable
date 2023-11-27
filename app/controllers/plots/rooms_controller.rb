@@ -12,7 +12,7 @@ module Plots
     load_resource :room, only: %i[edit update destroy]
     load_and_authorize_resource :room, except: %i[edit update destroy]
 
-    before_action :set_editor, only: %i[create edit update]
+    after_action :set_editor, only: %i[create edit update]
 
     def index
       @rooms = paginate(sort(@rooms, default: :name))
@@ -167,10 +167,12 @@ module Plots
       @rooms = @plot.rooms
     end
 
+    # rubocop:disable Naming/MemoizedInstanceVariableName
     def find_plot_room
       @room = @plot.plot_rooms.find_by(id: params[:id])
       @room ||= @plot.unit_type.rooms.find_by(id: params[:id])
     end
+    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def set_editor
       @room.update_mark

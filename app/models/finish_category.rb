@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class FinishCategory < ApplicationRecord
   has_many :finish_categories_type
   has_many :finish_types, through: :finish_categories_type, dependent: :destroy
@@ -16,3 +17,4 @@ class FinishCategory < ApplicationRecord
     FinishCategory.find_or_create_by(name: name, developer_id: developer)
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

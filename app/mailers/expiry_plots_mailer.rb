@@ -3,6 +3,7 @@
 class ExpiryPlotsMailer < ApplicationMailer
   default from: "hello@spaciable.com"
 
+  # rubocop:disable Style/RescueStandardError
   def notify_expiry_residents(residency)
     residency_information(residency)
     @payment_link = residency.create_extension_payment_link
@@ -12,6 +13,7 @@ class ExpiryPlotsMailer < ApplicationMailer
   rescue => e
     Rails.logger.debug(e.message)
   end
+  # rubocop:enable Style/RescueStandardError
 
   def notify_reduced_expiry_residents(residency)
     residency_information(residency)

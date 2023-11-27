@@ -96,9 +96,9 @@ module Api
                                                role: @role,
                                                invited_by: RequestStore.store[:current_user])
       else
-        plot_residency.update_attributes!(deleted_at: nil,
-                                          role: @role,
-                                          invited_by: RequestStore.store[:current_user])
+        plot_residency.update!(deleted_at: nil,
+                               role: @role,
+                               invited_by: RequestStore.store[:current_user])
       end
 
       # Resident invitation service will not send new invitations if the resident has

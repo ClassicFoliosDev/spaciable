@@ -37,6 +37,7 @@ module ChoiceConcern
       end
 
       next if room_items.empty?
+
       @full_house += room_items.length # the total number of choise options
       @choices << { id: room.id, name: room.name, icon_name: room.icon_name,
                     items: room_items }

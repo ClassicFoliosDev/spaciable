@@ -21,6 +21,7 @@ module PolymorphicPermissionable
     def permissionable_ids_selected
       id_attr = permissionable_id_by_role
       return unless id_attr
+
       errors.add(id_attr, :select) if send(id_attr).blank?
     end
 

@@ -16,6 +16,7 @@ module Homeowners
 
     layout "homeowner"
 
+    # rubocop:disable Naming/MemoizedInstanceVariableName
     def current_ability
       if current_user.present?
         @resident ||= Resident.new(email: current_user.email, admin_preview: true)
@@ -24,6 +25,7 @@ module Homeowners
       end
       @ability ||= Ability.new(@resident, plot: @plot)
     end
+    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def change_plot
       @plot = Plot.find(params[:id])
@@ -34,9 +36,11 @@ module Homeowners
 
     protected
 
+    # rubocop:disable Naming/MemoizedInstanceVariableName
     def set_brand
       @brand ||= @plot&.brand
     end
+    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def set_plot
       return if @plot
@@ -55,6 +59,7 @@ module Homeowners
 
     def store
       return if session[:sign_in]
+
       session[:forwarding_url] = request.original_url if request.get?
     end
 

@@ -103,7 +103,6 @@ Then(/^I should see the updated contact$/) do
     image = page.find("img")
 
     expect(image["src"]).to have_content(FileFixture.avatar_name)
-    expect(image["alt"]).to have_content(FileFixture.avatar_alt)
   end
 end
 

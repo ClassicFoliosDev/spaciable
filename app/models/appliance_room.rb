@@ -13,7 +13,7 @@ class ApplianceRoom < ApplicationRecord
     include_association :mark
   end
 
-  before_save :make_mark
+  after_save :make_mark
 
   after_create -> { log :added }
   after_update -> { log :updated }
@@ -35,11 +35,13 @@ class ApplianceRoom < ApplicationRecord
   validates :appliance, presence: true
   validates :room, presence: true
 
+  # rubocop:disable Style/RescueStandardError
   def self.marker(room, appliance)
     appliance_room(room, appliance).marker
   rescue
     nil
   end
+  # rubocop:enable Style/RescueStandardError
 
   private
 

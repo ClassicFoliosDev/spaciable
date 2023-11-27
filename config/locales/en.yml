@@ -1621,6 +1621,8 @@ en:
         title: "Rooms."
         view: "View room"
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
+      no_match:
+        no_match: "Oops, something hasn't quite gone as expected. We're unable to locate room specifications for your property.  Please contact your Hill representative for more information."
     about_videos:
       show:
         title: "Introductory Video"
@@ -1851,6 +1853,8 @@ en:
         wash: "Wash Only"
         e_rating: "A+++ to D Energy Rating<br/>"
         main_uk_e_rating: "A to G Energy Rating<br/>(introduced March 2021)"
+      no_match:
+        no_match: "Oops, something hasn't quite gone as expected. We're unable to locate the appliances for your property.  Please contact your Hill representative for more information."
     how_tos:
       index:
         title: "How To."

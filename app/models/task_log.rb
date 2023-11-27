@@ -2,6 +2,7 @@
 
 # A Tasklog records a positive/negative reponse to a
 # Timeline_Task on a Plot_Timeline
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class TaskLog < ApplicationRecord
   belongs_to :plot_timeline
   has_one :task
@@ -11,3 +12,4 @@ class TaskLog < ApplicationRecord
     negative
   ]
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

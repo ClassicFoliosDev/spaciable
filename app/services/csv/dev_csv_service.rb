@@ -114,16 +114,19 @@ module Csv
 
     def self.enabled_free_essentials?(plot, record, field)
       return "No" if plot.free? || plot.essentials?
+
       yes_or_no(record, field)
     end
 
     def self.enabled_free?(plot, record, field)
       return "No" if plot.free?
+
       yes_or_no(record, field)
     end
 
     def self.referrals_count(resident)
       return 0 if resident.nil?
+
       resident.referrals_count
     end
 
@@ -155,6 +158,7 @@ module Csv
 
     def self.build_date(record, column)
       return "" if record.send(column).nil?
+
       record.send(column).strftime("%d/%m/%Y")
     end
 
@@ -172,6 +176,7 @@ module Csv
       return "Yes" if record.send(column) == true
       return(record.send(column).positive? ? "Yes" : "No") if record.send(column).is_a? Integer
       return "Yes" if record.send(column).present? # if not boolean or integer, check for a value
+
       "No"
     end
 
@@ -181,6 +186,7 @@ module Csv
 
     def self.maintenance_type(plot)
       return unless plot&.maintenance&.account_type
+
       I18n.t("activerecord.attributes.maintenance.account_types.#{plot.maintenance.account_type}")
     end
   end

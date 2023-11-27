@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Room < ApplicationRecord
   acts_as_paranoid
 
@@ -49,14 +49,14 @@ class Room < ApplicationRecord
   delegate :restricted, to: :unit_type, prefix: true
 
   after_destroy -> { finishes.delete_all }
-  before_save :make_mark
+  after_save :update_mark
 
   alias_attribute :identity, :name
 
   before_create -> { @previous_rooms = current_rooms }
   after_create -> { log :created }
   before_update -> { @previous_rooms = current_rooms }
-  after_update -> { log :updated if name_changed? }
+  after_update -> { log :updated if saved_change_to_name? }
   before_destroy -> { @previous_rooms = current_rooms }
   after_destroy -> { log :deleted }
 
@@ -118,10 +118,13 @@ class Room < ApplicationRecord
   def furnish_log(furnish, action)
     return unless cas?
     return PlotLog.furnish_update(self, furnish, action) if plot
+
     UnitTypeLog.furnish_update(self, furnish, action)
   end
 
   def update_mark(user = RequestStore.store[:current_user])
+    return unless user
+
     mark&.destroy!
     create_mark(username: user.full_name, role: user.role)
   end
@@ -132,6 +135,7 @@ class Room < ApplicationRecord
   def log(action)
     return unless cas?
     return PlotLog.process_rooms(plot, @previous_rooms, current_rooms) if plot
+
     UnitTypeLog.room_update(self, action)
   end
 
@@ -141,10 +145,5 @@ class Room < ApplicationRecord
 
     plot ? plot.rooms.to_a : unit_type.rooms.to_a
   end
-
-  def make_mark
-    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
-                              role: RequestStore.store[:current_user]&.role)
-  end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

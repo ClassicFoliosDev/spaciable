@@ -15,10 +15,6 @@ module ResidentChangeNotifyService
     I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
   end
 
-  private
-
-  module_function
-
   # rubocop:disable LineLength
   def subscribed_residents(parent, resource, is_private_document)
     plot_residencies = PlotResidency.where(plot_id: notifyable_plots_for(parent, resource).pluck(:id))
@@ -61,6 +57,7 @@ module ResidentChangeNotifyService
               !((parent.is_a?(Phase) && resource.is_a?(Document)) ||
               (resource.is_a?(Document) && resource.override))
       next if plot.essentials? && resource.is_a?(Faq) && resource.custom?
+
       notifyable_plots << plot
     end
 
@@ -70,6 +67,7 @@ module ResidentChangeNotifyService
 
   def plots_for(parent, resource)
     return [parent] if parent.is_a?(Plot)
+
     plots = parent.plots
     if resource.is_a?(Document)
       uploader_type = User.find_by(id: resource.user_id)

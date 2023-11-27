@@ -6,6 +6,7 @@ module InheritPolymorphicParentPermissionIds
   included do
     def set_permissable_ids
       return unless parent
+
       set_permissable_ids_for_parent_associations
       set_permissable_ids_for_parent_type
     end

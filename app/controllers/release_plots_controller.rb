@@ -7,6 +7,7 @@ class ReleasePlotsController < ApplicationController
   # just show the base form
   def index
     return redirect_to root_path unless current_user.cf_admin?
+
     @resident_count = @phase.plot_residencies.size
     @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
 
@@ -82,14 +83,17 @@ class ReleasePlotsController < ApplicationController
     map_validity
     map_extended
     return if r_params[:release_date].empty?
+
     map_date
     return if r_params[:order_number].blank?
+
     map_order_number
     @bu_prams
   end
 
   def map_validity
     return if r_params[:validity].blank? || r_params[:validity].empty?
+
     @bu_params[:validity] = r_params[:validity]
     @bu_params[:validity_check] = "1"
   end
@@ -106,6 +110,7 @@ class ReleasePlotsController < ApplicationController
 
   def map_extended
     return if r_params[:extended].blank? || r_params[:extended].empty?
+
     @bu_params[:extended_access] = r_params[:extended]
     @bu_params[:extended_access_check] = "1"
   end
@@ -141,6 +146,7 @@ class ReleasePlotsController < ApplicationController
   # Use the ReleaseMailer to the email to concerned parties if necessary
   def send_email(updated_plots)
     return if r_params[:release_date].empty? # no mail sent for validity/extended updates
+
     if r_params[:release_type] == "completion_release_date"
       ReleaseMailer.completion_release_email(@phase, updated_plots, r_params).deliver
     else

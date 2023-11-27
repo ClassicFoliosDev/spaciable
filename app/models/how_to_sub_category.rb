@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class HowToSubCategory < ApplicationRecord
   validates :name, presence: true
 
@@ -9,3 +10,4 @@ class HowToSubCategory < ApplicationRecord
     name
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

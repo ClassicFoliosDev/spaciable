@@ -17,7 +17,7 @@ When(/^I create a FAQ for a (additional )?(\(\w+\) )?(\w+)$/) do |additional, pa
   sleep 0.4
 
   attrs = FaqsFixture.attrs(:created, parent, under: resource)
-  find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: all).trigger('click')
+  find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: false).trigger('click')
 
   within ".main-container" do
     click_on t("faqs.collection.add", type: attrs[:faq_type].name)
@@ -124,7 +124,7 @@ Then(/^I should only be able to see the (additional )?(\w+) FAQs for my .+$/) do
   goto_resource_show_page(nil, parent_resource, additional)
 
   sleep 0.2
-  find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: all).trigger('click')
+  find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: false).trigger('click')
 
   within ".main-container" do
     expect(page).not_to have_link(t("faqs.collection.add"))
@@ -185,7 +185,7 @@ Then(/^I should not see default faqs for the developer$/) do
   click_on CreateFixture.developer_name
 
   CreateFixture.developer.faq_types.each do |faq_type|
-    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: false).trigger('click')
 
     within ".empty" do
       expect(page).to have_content t("faqs.collection.empty_list", type: faq_type.name)
@@ -217,7 +217,7 @@ Then(/^I should see default faqs for the development$/) do
   end
 
   CreateFixture.developer.faq_types.each do |faq_type|
-    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: false).trigger('click')
 
     DeveloperFixture.default_faqs.select {|faq| faq[:faq_type] == faq_type }.each do |faq|
       expect(page).to have_content(faq[:question])
@@ -242,7 +242,7 @@ When(/^I edit a developer faq$/) do
   faq_params = DeveloperFixture.default_faqs.first
   faq = Faq.find_by(question: faq_params.first)
 
-  find(:xpath,"//a[contains(., '#{faq_params[:faq_type].name}')]", visible: all).trigger('click')
+  find(:xpath,"//a[contains(., '#{faq_params[:faq_type].name}')]", visible: false).trigger('click')
 
   within "[data-faq='#{faq.id}']" do
     find("[data-action='edit']").trigger("click")
@@ -258,7 +258,7 @@ end
 Then(/^I should see no faqs for the development$/) do
 
   CreateFixture.development.faq_types.each do |faq_type|
-    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: false).trigger('click')
 
     within ".empty" do
       expect(page).to have_content t("faqs.collection.empty_list", type: faq_type.name)
@@ -269,7 +269,7 @@ end
 Then(/^I should not see the edited faq in the development faqs$/) do
 
   CreateFixture.development.faq_types.each do |faq_type|
-    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: false).trigger('click')
 
     within ".faqs" do
       expect(page).not_to have_content FaqsFixture.edited_question

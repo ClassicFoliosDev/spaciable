@@ -95,6 +95,7 @@ module RoomConfigurations
     def export_choices
       plot = Plot.find(params[:plot_id])
       return if plot.blank?
+
       choices_csv = Csv::ChoicesCsvService.call(plot)
       send_file(choices_csv, disposition: :attachment)
     end

@@ -108,7 +108,7 @@ Then(/^I should see default faqs for the developer$/) do
   click_on CreateFixture.developer_name
 
   CreateFixture.developer.faq_types.each do |faq_type|
-    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: false).trigger('click')
 
     DeveloperFixture.default_faqs.select{ |faq| faq[:faq_type] == faq_type }.each do |faq|
       expect(page).to have_content(faq[:question])

@@ -217,7 +217,6 @@ end
 When(/^I delete the finish category$/) do
   visit "./finish_categories"
   finish_category = FinishCategory.find_by(name: CreateFixture.finish_category_name)
-
   delete_scope = "[data-finish-category='#{finish_category.id}']"
   delete_and_confirm!(scope: delete_scope)
 end

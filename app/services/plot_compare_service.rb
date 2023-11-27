@@ -10,10 +10,6 @@ module PlotCompareService
     compare_number(plot_a.number.scan(/\d+/), plot_b.number.scan(/\d+/), preferred)
   end
 
-  private
-
-  module_function
-
   def compare_number(integer_array_a, integer_array_b, preferred)
     integer_a = integer_b = 0
     counter = 0
@@ -36,6 +32,7 @@ module PlotCompareService
   def compare_length(array_a, array_b, preferred)
     return -1 if array_b.length > array_a.length
     return preferred if array_a.length == array_b.length
+
     1
   end
 end
