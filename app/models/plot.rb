@@ -520,7 +520,9 @@ class Plot < ApplicationRecord
 
   def occupancy?
     return OCCUPATION_STATUS["unoccupied"] if residents.count.zero?
+
     return OCCUPATION_STATUS["invited"] if activated_resident_count.zero?
+
     OCCUPATION_STATUS["accepted"]
   end
 
