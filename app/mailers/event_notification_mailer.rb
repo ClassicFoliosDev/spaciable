@@ -5,6 +5,7 @@ class EventNotificationMailer < ApplicationMailer
 
   def remind_sender(event)
     @event = event
+    @logo = email_logo_or_brand_logo(event.eventable.developer)
     @parent = @event.eventable
     @link = admin_link(@event)
     @name = User.find_by(email: event.email)&.first_name
@@ -79,6 +80,7 @@ class EventNotificationMailer < ApplicationMailer
             else
               @resource.resourceable
             end
+    @logo = email_logo_or_brand_logo(@plot)
     @link = admin_link(resource.event)
     @name = resource.event.userable.first_name
     mail to: resource.event.userable.email,
@@ -111,8 +113,18 @@ class EventNotificationMailer < ApplicationMailer
             elsif resource.resourceable.is_a?(Plot)
               resource.resourceable
             end
+    @logo = email_logo_or_brand_logo(@plot)
     @event = event
     @link = resource_link(event)
     @name = Resident.find_by(email: email)&.first_name
   end
+
+  def email_logo_or_brand_logo(parent)
+    parent.branded_email_logo ? parent.branded_email_logo : brand_logo_or_default_logo(parent)
+  end
+
+  def brand_logo_or_default_logo(parent)
+    parent.branded_logo ? parent.branded_logo : "Spaciable_full.svg"
+  end
+
 end

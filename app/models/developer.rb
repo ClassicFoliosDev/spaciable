@@ -29,6 +29,8 @@ class Developer < ApplicationRecord
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :timelines, as: :timelineable, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy
+  delegate :branded_email_logo, to: :brand, allow_nil: true
+  delegate :branded_logo, to: :brand, allow_nil: true
   has_many :brands, as: :brandable
   has_one :address, as: :addressable, dependent: :destroy
   has_one :branded_app, as: :app_owner, dependent: :destroy
