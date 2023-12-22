@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class EventNotificationMailer < ApplicationMailer
   default from: "hello@spaciable.com", content_type: "multipart/alternative"
 
@@ -120,11 +121,11 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def email_logo_or_brand_logo(parent)
-    parent.branded_email_logo ? parent.branded_email_logo : brand_logo_or_default_logo(parent)
+    parent.branded_email_logo || brand_logo_or_default_logo(parent)
   end
 
   def brand_logo_or_default_logo(parent)
-    parent.branded_logo ? parent.branded_logo : "Spaciable_full.svg"
+    parent.branded_logo || "Spaciable_full.svg"
   end
-
 end
+# rubocop:enable Metrics/ClassLength
