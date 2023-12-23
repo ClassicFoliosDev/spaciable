@@ -6,7 +6,7 @@ class EventNotificationMailer < ApplicationMailer
 
   def remind_sender(event)
     @event = event
-    @logo = email_logo_or_brand_logo(event.eventable.developer)
+    @logo = email_logo_or_brand_logo(event.developer)
     @parent = @event.eventable
     @link = admin_link(@event)
     @name = User.find_by(email: event.email)&.first_name
