@@ -16,6 +16,7 @@ class Event < ApplicationRecord
   after_save :notify_reminder, :reset_rescheduled
 
   delegate :email, to: :userable
+  delegate :developer, to: :eventable
   delegate :id, to: :eventable, prefix: true
   delegate :time_zone, to: :eventable
   delegate :full_name, to: :userable
