@@ -13,7 +13,10 @@ module Admin
     end
 
     def new
-      current_user.assign_permissionable_ids
+      if current_user.cf_admin? || 
+         Developer.accessible_by(current_ability).one?
+        current_user.assign_permissionable_ids
+      end
     end
 
     def show; end
