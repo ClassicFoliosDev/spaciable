@@ -58,7 +58,7 @@ module Homeowners
     def build_articles
       return unless @plot.enable_how_tos
 
-      how_tos_limit = Plot::DASHBOARD_TILES - @custom_tiles.size
+      how_tos_limit = [(Plot::DASHBOARD_TILES - @custom_tiles.size), 0].max
 
       # Filter the HowTo records according to the country
       @how_tos = HowTo.active.order(featured: :asc)
