@@ -3156,6 +3156,8 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      register: "Register?"
+      register_description: "Register the appliance category?"
     edit:
       title: "Edit %{name}"
     show:
