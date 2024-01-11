@@ -33,6 +33,7 @@ class PlotResidency < ApplicationRecord
   delegate :create_extension_payment_link, to: :resident
   delegate :invitation_accepted_at, to: :resident
   delegate :number, to: :plot, prefix: true
+  delegate :platform?, to: :plot
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 
