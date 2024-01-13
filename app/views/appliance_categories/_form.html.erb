@@ -1,3 +1,4 @@
+
 <%= simple_form_for appliance_category do |f| %>
   <% if appliance_category.errors.any? %>
     <div class="submission-errors">
@@ -17,7 +18,7 @@
         <%= f.input :name %>
         <%= f.label :register, t(".register") %>
         <%= f.check_box :register %>
-        <p class="checkbox-description"><%= t(".register_description") %>
+        <p class="checkbox-description"><%= t(".register_description").html_safe %>
 
       </fieldset>
     </div>
