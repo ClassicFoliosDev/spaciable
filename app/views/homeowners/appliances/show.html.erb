@@ -23,7 +23,7 @@
             <%= link_to image_tag(appliance.secondary_image.url, alt: image_alt(appliance.secondary_image.url), class: "secondary-image"), appliance.secondary_image.url %>
           <% end %>
 
-          <% if appliance.appliance_manufacturer_link %>
+          <% if appliance.register && appliance.appliance_manufacturer_link %>
             <%= link_to t(".register"), appliance.appliance_manufacturer_link, class: "branded-btn", target: :_blank %>
           <% end %>
         </div>

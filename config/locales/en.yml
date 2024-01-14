@@ -3156,12 +3156,15 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      register: "Appliance Guarantee"
+      register_description: "Do the appliances within this category require residents to register them?<br><br>Many household appliances require the resident to register them within a certain timeframe in order to validate the warranty, e.g., ovens, fridges, dishwashers, etc.  Spaciable can remind residents to carry this out by providing a link to the manufacturer’s registration page."
     edit:
       title: "Edit %{name}"
     show:
       back: "Back"
     appliance_category:
       manufacturers: "Manufacturers"
+      guarantee: "Appliance Guarantee"
 
   finishes:
     destroy:

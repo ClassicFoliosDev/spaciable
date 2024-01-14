@@ -50,7 +50,7 @@ class ApplianceCategoriesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def appliance_category_params
     params.require(:appliance_category).permit(
-      :name
+      :name, :register
     )
   end
 end

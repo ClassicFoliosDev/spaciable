@@ -67,6 +67,7 @@ class Appliance < ApplicationRecord
   validate :check_dup
 
   delegate :link, :name, to: :appliance_manufacturer, prefix: true
+  delegate :register, to: :appliance_category
   delegate :washer_dryer?, to: :appliance_category
 
   enum warranty_length: %i[
