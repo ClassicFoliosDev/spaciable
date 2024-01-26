@@ -16,7 +16,6 @@ class ResidentNotificationMailer < ApplicationMailer
 
     template_configuration(plot_residency)
     @content = notification.message
-    notification.see_domain
     @note_id = notification.id
     @sender = sender
     @plot_residency = plot_residency

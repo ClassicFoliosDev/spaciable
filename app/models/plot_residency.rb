@@ -102,6 +102,15 @@ class PlotResidency < ApplicationRecord
     end
   end
 
+  # Plot receives Notifications if the development is Spaciable (native)
+  # or its a Spaciable/Living (hybrid) development and the resident does
+  # not have an account on Living
+  def receives_notifications?
+    return false if platform?(:living)
+
+    !(platform?(:hybrid) && resident.living)
+  end
+
   private
 
   def set_resident
