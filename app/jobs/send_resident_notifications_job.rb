@@ -23,7 +23,8 @@ class SendResidentNotificationsJob < ApplicationJob
       next if resident.notifications.include?(notification)
 
       plot_residency = PlotResidency.find_by(resident_id: resident.id, plot_id: plot_ids)
-      next unless plot_residency
+
+      next unless plot_residency&.receives_notifications?
 
       # Resident notification mailer will only mail if the resident has subscribed to email updates
       if direct

@@ -222,5 +222,13 @@ class Resident < ApplicationRecord
   def reset_token
     set_reset_password_token
   end
+
+  # rubocop:disable Naming/PredicateName
+  def has_living_plot?
+    plot_residencies.each { |pr| return true unless pr.platform?(:native) }
+
+    false
+  end
+  # rubocop:enable Naming/PredicateName
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

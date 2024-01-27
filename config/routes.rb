@@ -432,6 +432,7 @@ Rails.application.routes.draw do
     namespace :resident do
       scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
         resources :meta, only: [:index]
+        post "meta/register_living_resident", to: "meta#register_living_resident"
         devise_scope :resident do
           put "/invitation/accept", to: "invitation#update"
           post "/password/request_new", to: "password#create"

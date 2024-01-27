@@ -154,7 +154,8 @@ class Notification < ApplicationRecord
   def living_plot_ids
     plots = Plot.joins(:development)
                 .where(id: plot_ids)
-                .where(developments: { client_platform: Development.client_platforms[:living] })
+                .where(developments: { client_platform: [Development.client_platforms[:living],
+                                                         Development.client_platforms[:hybrid]] })
     plots.pluck(:id)
   end
 
