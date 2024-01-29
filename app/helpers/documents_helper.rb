@@ -5,7 +5,7 @@ module DocumentsHelper
     Plot => %w[reservation completion floor_plan],
     Phase => %w[reservation completion floor_plan],
     Development => %w[reservation completion],
-    UnitType => %w[floor_plan]
+    UnitType => %w[floor_plan spec_template]
   }.freeze
 
   def category_collection(document = nil)

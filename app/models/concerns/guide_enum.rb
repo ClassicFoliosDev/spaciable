@@ -8,6 +8,7 @@ module GuideEnum
       reservation
       completion
       floor_plan
+      spec_template
     ]
   end
 end
