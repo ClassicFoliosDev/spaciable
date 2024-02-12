@@ -31,6 +31,7 @@ class Package
               Invoice.create(created_at: created_at,
                              phase_id: phase.id,
                              package: p,
+                             cpp: CPP.find_by(package: p)&.value,
                              plots: package_plots.count,
                              ff_plots: ff_plots)
             end

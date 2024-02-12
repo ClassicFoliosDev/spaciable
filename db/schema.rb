@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_19_144103) do
+ActiveRecord::Schema.define(version: 2024_01_29_133101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -329,6 +329,11 @@ ActiveRecord::Schema.define(version: 2024_01_19_144103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "time_zone"
+  end
+
+  create_table "cpps", force: :cascade do |t|
+    t.integer "package"
+    t.float "value", default: 0.0
   end
 
   create_table "crms", id: :serial, force: :cascade do |t|
@@ -753,6 +758,7 @@ ActiveRecord::Schema.define(version: 2024_01_19_144103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "ff_plots", default: 0
+    t.float "cpp", default: 0.0
     t.index ["phase_id"], name: "index_invoices_on_phase_id"
   end
 
@@ -911,6 +917,7 @@ ActiveRecord::Schema.define(version: 2024_01_19_144103) do
     t.integer "business", default: 0
     t.boolean "conveyancing", default: true
     t.integer "package", default: 3
+    t.float "cpp", default: 0.0
     t.index ["deleted_at"], name: "index_phases_on_deleted_at"
     t.index ["developer_id"], name: "index_phases_on_developer_id"
     t.index ["development_id"], name: "index_phases_on_development_id"
