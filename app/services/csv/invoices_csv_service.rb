@@ -49,7 +49,7 @@ module Csv
                 invoice.phase.development.identity,
                 invoice.phase.identity,
                 I18n.t("activerecord.attributes.phase.packages.#{invoice.package}"),
-                invoice.phase.cpp,
+                invoice.cpp,
                 invoice.plots]
 
         next unless invoice.ff_plots&.positive?
