@@ -1,3 +1,3 @@
 #!/bin/bash
-gem update --system
-gem install bundler -v 2.4.18
+#gem update --system
+#gem install bundler -v 2.4.18
