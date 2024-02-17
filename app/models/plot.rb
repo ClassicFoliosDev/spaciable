@@ -885,7 +885,7 @@ class Plot < ApplicationRecord
     return if lot.present?
 
     Unlatch::Lot.add(self)
-    self.reload
+    reload
   end
 
   # Unlatch::Interface implementation
