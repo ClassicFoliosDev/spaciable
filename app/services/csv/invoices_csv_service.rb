@@ -32,7 +32,7 @@ module Csv
     def self.headers
       [
         "Creation Date", "Developer", "Division",
-        "Development", "Phase", "Package", "Package Plots"
+        "Development", "Phase", "Package", "CPP", "Package Plots"
       ]
     end
 
@@ -49,6 +49,7 @@ module Csv
                 invoice.phase.development.identity,
                 invoice.phase.identity,
                 I18n.t("activerecord.attributes.phase.packages.#{invoice.package}"),
+                invoice.cpp,
                 invoice.plots]
 
         next unless invoice.ff_plots&.positive?

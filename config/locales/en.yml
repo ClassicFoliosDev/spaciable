@@ -2534,6 +2534,7 @@ en:
       back: "Back"
       conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete"
+      cpp: "Cost Per Plot(£)"
     index:
       title: "Phases."
     show:
