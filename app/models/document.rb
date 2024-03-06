@@ -13,6 +13,7 @@ class Document < ApplicationRecord
   after_create :queue_sync_with_unlatch
   after_update :queue_sync_with_unlatch
   belongs_to :documentable, polymorphic: true
+  belongs_to :plot, -> { where(documents: { documentable_type: 'Plot' }) }, foreign_key: 'documentable_id'
   delegate :lots, to: :documentable
   belongs_to :user, optional: true
   belongs_to :custom_tile, optional: true
