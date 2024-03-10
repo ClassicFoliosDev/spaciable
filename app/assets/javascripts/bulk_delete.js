@@ -4,8 +4,12 @@ var bulk_delete_guide = '#BulkDeleteGuideSelector'
 
 document.addEventListener('turbolinks:load', function () {
   if ($(bulk_delete_category).length == 0) { return }
+
   bulk_delete.show_hide_guide()
   bulk_delete.populate()
+
+  // Add on onClick handler for the submit button
+  document.getElementById("submit-bulk-delete-btn").addEventListener("click", bulk_delete.submit);
 })
 
 // show or hide the guide selector on category change
@@ -13,8 +17,6 @@ $(document).on('click', '#phase_bulk_delete_category-menu', function (event) {
   bulk_delete.show_hide_guide()
   bulk_delete.populate()
 })
-
-
 
 // show or hide the guide selector on guide change
 $(document).on('click', '#phase_bulk_delete_guide-menu', function (event) {
@@ -30,6 +32,8 @@ $(document).on('change', '#delete_all_docs', function (event) {
 
 var bulk_delete = {
   $documents: "",
+  $currentPlot: "",
+  $checked_documents: "",
 
   show_hide_guide: function() {
     if ($(bulk_delete_guide).length) {
@@ -57,14 +61,20 @@ var bulk_delete = {
   },
 
   render: function() {
+    $currentPlot = ""
+    $("#delete_all_docs").prop("checked", false)
     $("#plot_documents").empty()
     $response.forEach(bulk_delete.render_row);
   },
 
   render_row: function(row) {
+    var plot = ""
+
+    if ($currentPlot != row["number"]) { $currentPlot = plot = row["number"] }
+
     $('.record-list > tbody:last-child').append(
             '<tr data-document = "' + row["id"] + '">'
-            +'<td>'+ row["number"] + '</td>'
+            + '<td><a title="' + plot + '" href="/plots/' + row["plot_id"] + '">' + plot + '</a></td>'
             +'<td colspan="2">'+ row["title"] + '</td>'
             +'<td>'+ row["category"] + '</td>'
             +'<td>'+ row["guide"] + '</td>'
@@ -72,8 +82,65 @@ var bulk_delete = {
             +'</tr>');
   },
 
+  submit: function() {
+    $checked_documents = $( '.record-list' )
+                        .find( 'tbody' ).find( 'tr' )
+                        .has( 'input[type=checkbox]:checked')
+
+    if ($checked_documents.length == 0) { return }
+    bulk_delete.confirm()
+  },
+
+  confirm: function() {
+    dialog_body = '<div>' +
+                    '<p style="margin:0">Are you sure you want to delete the <strong>' +
+                    $checked_documents.length +
+                    '</strong> selected plot document/s?</p>' 
+                    '</div>'
+
+    var $dialogContainer = $('<div>', { id: 'dialog', class: 'archive-dialog' })
+      .html(dialog_body)
+
+    // Display the modal dialog and ask for confirm/cancel
+    $(document.body).append($dialogContainer)
+
+    $dialogContainer.dialog({
+      title: "Delete Plot Documents",
+      show: 'show',
+      modal: true,
+      dialogClass: 'archive-dialog',
+      buttons: [
+        {
+          text: "Cancel",
+          class: 'btn-secondary',
+          click: function () {
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: "Confirm",
+          class: 'btn-primary',
+          id: 'btn_confirm',
+          click: function () {
+            bulk_delete.delete()
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        }]
+    }).prev().find('.ui-dialog-titlebar-close').hide()
+  },
+
   delete: function() {
 
+    $.ajax({
+      url: 'bulk_delete/delete',
+      type: "POST",
+      data: { docs: arr = $.makeArray($checked_documents).map((item) => $(item).data("document")) },
+      success: function(data) {
+                 bulk_delete.populate();
+               }
+    })
   }
 }
 

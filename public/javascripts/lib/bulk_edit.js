@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
 
+  if ($('#submit-bulk-btn').length == 0) { return }
+
   // Add on onClick handler for the submit button
   document.getElementById("submit-bulk-btn").addEventListener("click", CheckUnitType);
 
