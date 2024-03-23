@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_29_133101) do
+ActiveRecord::Schema.define(version: 2024_03_23_183428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -985,6 +985,7 @@ ActiveRecord::Schema.define(version: 2024_01_29_133101) do
     t.string "reservation_order_number"
     t.string "uprn"
     t.integer "build_step_id"
+    t.datetime "auto_completed"
     t.index ["build_step_id"], name: "index_plots_on_build_step_id"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at"
     t.index ["developer_id"], name: "index_plots_on_developer_id"
