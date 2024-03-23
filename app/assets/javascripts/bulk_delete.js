@@ -150,14 +150,17 @@ var bulk_delete = {
   },
 
   delete: function() {
-
+    selected_docs = []
+    $checked_documents.each(function() { 
+     selected_docs.push($(this).data("document"))
+    })
     $.ajax({
       url: 'bulk_delete/delete',
-      type: "POST",
-      data: { docs: arr = $.makeArray($checked_documents).map((item) => $(item).data("document")) },
-      success: function(data) {
-                 bulk_delete.populate();
-               }
+      type: 'POST',
+      data: { docs: arr = selected_docs },
+      success : function(data) {
+        bulk_delete.populate()
+      }
     })
   }
 }
