@@ -1,6 +1,8 @@
 
 var bulk_delete_category = '#BulkDeleteCategorySelector'
 var bulk_delete_guide = '#BulkDeleteGuideSelector'
+var deleteTimer
+var plot_selected = new Boolean(false)
 
 document.addEventListener('turbolinks:load', function () {
   if ($(bulk_delete_category).length == 0) { return }
@@ -28,6 +30,22 @@ $(document).on('change', '#delete_all_docs', function (event) {
     $(".delete_doc").each(function( index, element ) {
        $(element).prop("checked", checked)
     });
+})
+
+$(document).on('mouseup', '.delete_doc', function (event, element) {
+  clearTimeout(deleteTimer)
+  if (plot_selected == true) { this.checked = !this.checked }
+})
+
+$(document).on('mousedown', '.delete_doc', function (event, element) {
+  plot_selected = false
+  deleteTimer = window.setTimeout(function(){
+    plot_selected = true
+    checked = !this.checked
+    $("tr[data-plot='" + $(event.target).data("plot") + "'] input").each(function( index, element ) {
+       $(element).prop("checked", checked)
+    });
+  }, 1000)
 })
 
 var bulk_delete = {
@@ -73,12 +91,12 @@ var bulk_delete = {
     if ($currentPlot != row["number"]) { $currentPlot = plot = row["number"] }
 
     $('.record-list > tbody:last-child').append(
-            '<tr data-document = "' + row["id"] + '">'
+            '<tr data-document = "' + row["id"] + '" data-plot = "' + $currentPlot + '">'
             + '<td><a title="' + plot + '" href="/plots/' + row["plot_id"] + '">' + plot + '</a></td>'
             +'<td colspan="2">'+ row["title"] + '</td>'
             +'<td>'+ row["category"] + '</td>'
             +'<td>'+ row["guide"] + '</td>'
-            +'<td><input type="checkbox" class="delete_doc"></td>'
+            +'<td><input type="checkbox" class="delete_doc" data-plot = "' + $currentPlot + '"></td>'
             +'</tr>');
   },
 
