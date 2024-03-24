@@ -3609,6 +3609,7 @@ en:
       unit_type: "Spec Template"
       date_r: "R"
       date_c: "C"
+      date_a: "A"
       name: "Plot"
       prefix: "Prefix"
       sync: "CRM Sync"

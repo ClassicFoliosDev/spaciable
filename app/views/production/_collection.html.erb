@@ -29,8 +29,11 @@
         <th><%= sortable({Plot => Address}, :road_name, t(".#{parent.developer.country.name}.road_name")) %></th>
         <th><%= sortable({Plot => Address}, :postcode, t(".#{parent.developer.country.name}.postcode")) %></th>
         <th><%= sortable({Plot => UnitType}, :id, t(".unit_type")) %></th>
-        <th><span class="date"><%= sortable(Plot, :reservation_release_date, t(".date_r")) %></span>
-            <span class="date"><%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
+        <th>
+            <span class="date"><%= sortable(Plot, :reservation_release_date, t(".date_r")) %></span>
+            <span class="date"><%= sortable(Plot, :completion_release_date, t(".date_c")) %></span>
+            <span class="date"><%= sortable(Plot, :auto_completed, t(".date_a")) %></span>
+        </th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -48,6 +51,8 @@
           <td><%= plot.unit_type %></td>
           <% res = "white" %>
           <% comp = "white" %>
+          <% auto = "white" %>
+          <% auto_date = "" %>
           <% if plot.reservation_release_date? %>
             <% res = plot.expired? ? "red" : "green" %>
           <% else %>
@@ -55,8 +60,15 @@
           <% if plot.completion_release_date? %>
             <% comp = plot.expired? ? "red" : "green" %>
           <% end %>
-          <td><span class = 'circle <%= res %>'>&nbsp;</span>
-              <span class = 'circle <%= comp %>'>&nbsp;</span></td>
+          <% if plot.auto_completed? %>
+            <% auto = "orange" %>
+            <% auto_date = plot.auto_completed.strftime("%a, %d %b %Y")  %>
+          <% end %>
+          <td>
+            <span class = 'circle <%= res %>'>&nbsp;</span>
+            <span class = 'circle <%= comp %>'>&nbsp;</span>
+            <span class = 'circle <%= auto %>' title="' <%= auto_date %> '"'>&nbsp;</span>
+          </td>
           <td class="actions">
             <% if plot.linked_to_unlatch? %>
               <%= unlatch_sync_btn(plot) %>
