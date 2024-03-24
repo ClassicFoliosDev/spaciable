@@ -1,0 +1,47 @@
+<% breadcrumb :phase_bulk_edit, @phase %>
+<script type="text/javascript" src="/javascripts/lib/bulk_edit.js"></script>
+
+<%= render @phase, active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
+    expired_plots_count: @expired_plots_count, resident_count: @resident_count,
+    activated_resident_count: @activated_resident_count %>
+
+<%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
+
+<input type="hidden" id="phase_id" value="<%= @phase.id %>">
+
+<div class="bulk-delete">
+  <%= simple_form_for(:phase_bulk_delete) do |f| %>
+    <div class="slim-row-item row">
+      <div class="slim-row-item stumpy-third">
+        <div class="ui-front" id="BulkDeleteCategorySelector">
+                  <%= f.input :category, as: :select, collection: all_category_collection, include_blank: false %>
+        </div>
+      </div>
+      <div class="slim-row-item stumpy-third">
+        <div class="ui-front" id="BulkDeleteGuideSelector">
+                  <%= f.input :guide, label: t(".guide"), as: :select, collection: parent_guide_collection(Plot), include_blank: false %>
+        </div>
+      </div>
+    </div>
+
+    <table class="record-list">
+      <thead>
+      <tr>
+        <th>Plot</th>
+        <th colspan="2">Document Name</th>
+        <th>Category</th>
+        <th>Document Tag</th>
+        <th width="30"><input type="checkbox" id="delete_all_docs" name="delete_all_docs" value="Bike"></th>
+      </tr>
+      </thead>
+      <tbody id="plot_documents">
+      </tbody>
+    </table>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+       <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit-bulk-delete-btn' %>
+      </div>
+    </div>
+  <% end %>
+</div>

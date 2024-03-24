@@ -120,6 +120,9 @@ Rails.application.routes.draw do
       post :bulk_update, on: :collection
     end
     resources :bulk_edit, only: [:index, :create]
+    resources :bulk_delete, only: [:index]
+    get 'bulk_delete/documents', to: 'bulk_delete#documents', format: :json
+    post 'bulk_delete/delete', to: 'bulk_delete#delete', format: :json
     resources :contacts
     resource :brand
     resources :brands, shallow: true, only: [:index]

@@ -2561,6 +2561,7 @@ en:
       plot_documents: "Plot Documents"
       progresses: "Build Progress"
       bulk_edit: "Bulk Edit"
+      bulk_delete: "Bulk Delete"
       production: "Production"
       release_plots: "Release Plots"
       lettings: "Lettings"
@@ -3560,6 +3561,10 @@ en:
       title: "Edit %{name}"
     show:
       back: "Back"
+
+  bulk_delete:
+    index:
+      guide: "Document Tag"
 
   bulk_edit:
     index:
