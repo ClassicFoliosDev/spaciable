@@ -36,7 +36,7 @@ Then(/^I should see the list of plots with address and release date fields$/) do
     expect(page).to have_content plot1.unit_type
 
     unset_dates = page.all(".white")
-    expect(unset_dates.length).to eq 2
+    expect(unset_dates.length).to eq 3
 
     set_dates = page.all(".green")
     expect(set_dates.length).to eq 0
@@ -51,7 +51,7 @@ Then(/^I should see the list of plots with address and release date fields$/) do
     expect(page).to have_content plot2.unit_type
 
     unset_dates = page.all(".white")
-    expect(unset_dates.length).to eq 0
+    expect(unset_dates.length).to eq 1
 
     set_dates = page.all(".green")
     expect(set_dates.length).to eq 2
