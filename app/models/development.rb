@@ -24,6 +24,8 @@ class Development < ApplicationRecord
     developer || division.developer
   end
 
+  delegate :company_name, to: :parent_developer
+
   def library
     lib = parent.library
     lib << documents

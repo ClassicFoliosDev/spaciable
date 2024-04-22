@@ -1485,6 +1485,8 @@ en:
       snag_name: "Snagging Name"
       maintenance_auto_populate: "Auto-Populate FixFlo Details"
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo or Clixifix."
+      fixflow_direct: "Fixfow Billing"
+      fixflow_direct_description: "Is the maintenance billed direct to %{developer}?"
       choices_email: "Choices Email"
       account_type: "Maintenance Account Type"
       enable_cas: "Client Adding Specifications"

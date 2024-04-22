@@ -32,7 +32,7 @@ module Csv
     def self.headers
       [
         "Creation Date", "Developer", "Division",
-        "Development", "Phase", "Package", "CPP", "Package Plots"
+        "Development", "Phase", "Package", "CPP", "Billed Direct", "Package Plots"
       ]
     end
 
@@ -50,6 +50,7 @@ module Csv
                 invoice.phase.identity,
                 I18n.t("activerecord.attributes.phase.packages.#{invoice.package}"),
                 invoice.cpp,
+                nil,
                 invoice.plots]
 
         next unless invoice.ff_plots&.positive?
@@ -60,6 +61,8 @@ module Csv
                 invoice.phase.development.identity,
                 invoice.phase.identity,
                 "FixFlo",
+                nil,
+                invoice.phase.development.maintenance.fixflow_direct ? "Yes" : "No",
                 invoice.ff_plots]
       end
     end

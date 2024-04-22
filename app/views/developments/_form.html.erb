@@ -39,6 +39,11 @@
               <div class="ui-front select-container">
                 <%= m.input :account_type, label: t(".account_type"), as: :select, collection: maintenance_account_types_collection, include_blank: true %>
               </div>
+              <div id="fixflow_billing">
+                <%= m.label t(".fixflow_direct") %>
+                <%= m.check_box :fixflow_direct %>
+                <p class="checkbox-description"><%= t(".fixflow_direct_description", developer: development.company_name) %></p>
+              </div>
             </div>
           <% end %>
         </div>

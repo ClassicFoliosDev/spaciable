@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_23_183428) do
+ActiveRecord::Schema.define(version: 2024_04_08_164227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -810,6 +810,7 @@ ActiveRecord::Schema.define(version: 2024_03_23_183428) do
     t.string "path"
     t.integer "account_type"
     t.boolean "populate", default: true
+    t.boolean "fixflow_direct", default: false
     t.index ["development_id"], name: "index_maintenances_on_development_id"
   end
 
