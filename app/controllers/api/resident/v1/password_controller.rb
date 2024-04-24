@@ -53,6 +53,22 @@ module Api
           end
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+        # rubocop:disable Rails/SkipsModelValidations
+        def register_living_resident
+          status = Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
+          resident = ::Resident.find_by(id: params["resident_id"])
+
+          status = Rack::Utils::SYMBOL_TO_STATUS_CODE[:not_found] unless
+                   resident&.has_living_plot?
+
+          if status == Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
+            resident.update_column(:living, true)
+          end
+
+          render json: {}, status: status
+        end
+        # rubocop:enable Rails/SkipsModelValidations
       end
     end
   end
