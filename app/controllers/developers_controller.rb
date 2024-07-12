@@ -92,7 +92,7 @@ class DevelopersController < ApplicationController
       :analytics_dashboard,
       :company_name, :custom_url, :email,
       :contact_number, :about,
-      :api_key, :house_search, :enable_referrals,
+      :api_key, :house_search, :enable_referrals, :auto_complete,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
       :prime_lettings_admin, :personal_app, :cas, :timeline,
