@@ -20,9 +20,9 @@ module Csv
 
     def self.append_data(csv, plot)
       csv << [
-        plot.developer.company_name,
-        plot.development.name,
-        plot.phase.name,
+        plot.developer_company_name,
+        plot.development_name,
+        plot.phase_name,
         plot.number
       ]
     end

@@ -219,6 +219,9 @@ class Plot < ApplicationRecord
   delegate :address, to: :parent, prefix: :parent, allow_nil: true
   delegate :locality, :city, :county, to: :parent, allow_nil: true
   delegate :api_key, to: :developer, allow_nil: true
+  delegate :company_name, to: :developer, prefix: true
+  delegate :name, to: :development, prefix: true
+  delegate :name, to: :phase, prefix: true
 
   def building_name
     if address&.building_name?
