@@ -2182,6 +2182,7 @@ en:
       prime_admin: "Primary lettings administrator"
       branded_app: "Branded App"
       branded_app_description: "Developer has a branded app"
+      auto_complete: "Auto Complete plots threshold(months)"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
       timeline: "My Journey and Interactive Guides"

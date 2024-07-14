@@ -35,6 +35,7 @@
         <%= f.label :personal_app, t(".branded_app") %>
         <%= f.check_box :personal_app, checked: developer.branded_app? %>
         <p class="checkbox-description"><%= t(".branded_app_description") %></p>
+        <%= f.input :auto_complete, label: t(".auto_complete") %>
       </fieldset>
     </div>
 
