@@ -6,7 +6,7 @@ class AutoCompletePlotsJob < ApplicationJob
   # rubocop:disable Metrics/LineLength, Rails/SkipsModelValidations
   def perform
     # only run on the last day of the month
-    return unless Date.today.month != Date.tomorrow.month
+    return unless Time.zone.today.month != Time.zone.tomorrow.month
 
     Lock.run :auto_complete_plots do
       plots = Plot.joins(:developer)
