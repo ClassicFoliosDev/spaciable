@@ -3,7 +3,7 @@
 # rubocop:disable Rails/HasManyOrHasOneDependent, Metrics/ClassLength
 class Plot < ApplicationRecord
   include Unlatch::Interface
-
+  
   acts_as_paranoid
   require "csv"
 
@@ -15,6 +15,7 @@ class Plot < ApplicationRecord
   before_save :set_build_status
   before_save :set_validity
   after_create :sync_with_unlatch
+  after_create :create_material_info
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -58,6 +59,8 @@ class Plot < ApplicationRecord
   has_many :events, as: :eventable, dependent: :destroy
 
   has_many :plot_documents, dependent: :destroy
+  has_one :material_info, dependent: :destroy
+  accepts_nested_attributes_for :material_info
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
@@ -915,6 +918,10 @@ class Plot < ApplicationRecord
 
     Unlatch::Section.find_by(developer_id: document.unlatch_developer.id,
                              category: document.category)
+  end
+
+  def create_material_info
+    MaterialInfo.create!(plot_id: self.id)
   end
 end
 # rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength

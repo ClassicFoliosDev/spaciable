@@ -12,6 +12,12 @@
     $('.skip-global-selectmenu select').hide()
   })
 
+  document.addEventListener('turbolinks:load', function () {
+    $('select').not('.skip-global-selectmenu select').selectmenu()
+    $('select#plot_material_info_attributes_heating_fuel_ids').select2({ width: 400 })
+    $('.skip-global-selectmenu select').hide()
+  })
+
   document.addEventListener('turbolinks:render', function () {
     $('select').not('.skip-global-selectmenu select').selectmenu()
     $('select#finish_type_finish_category_ids').select2({ width: 400 })

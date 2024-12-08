@@ -120,7 +120,8 @@ class PlotsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def plot_params
     params.require(:plot).permit(
-      %i[range_from range_to list].concat(plot_attributes)
+      %i[range_from range_to list].concat(plot_attributes),
+      material_info_attributes: material_info_attributes
     )
   end
 
@@ -134,6 +135,13 @@ class PlotsController < ApplicationController
         postcode build_step_id notify user_id completion_date reservation_release_date
         completion_release_date validity extended_access copy_plot_numbers letable let
         letter_type letable_type reservation_order_number completion_order_number ]
+  end
+
+  def material_info_attributes
+    [
+      :selling_price, 
+      heating_fuel_ids: []
+    ]
   end
 
   # rubocop:disable Naming/MemoizedInstanceVariableName

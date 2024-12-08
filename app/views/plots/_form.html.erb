@@ -41,6 +41,19 @@
       <% end %>
     <% end %>
 
+    <% if f.object.persisted? %>
+      <fieldset>
+        <%= f.simple_fields_for :material_info do |m| %>
+          <%= m.input :selling_price %>
+          <fieldset class="skip-global-selectmenu">
+            <div class="finish_manufacturer_finish_type ui-front select-container">
+              <%= m.association :heating_fuels, label: t(".heating_fuels"), collection: HeatingFuel.all.order(:id), multiple: true, class: "multiple" %>
+            </div>
+          </fieldset>
+        <% end %>
+      </fieldset>
+    <% end %>
+
     <% if plot.spanish? %>
       <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
     <% else %>

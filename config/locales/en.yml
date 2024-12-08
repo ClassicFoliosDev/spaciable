@@ -2834,6 +2834,8 @@ en:
       back: "Back"
       notify: "Notify subscribed residents about this change"
       update_ut: "You have requested a change in Spec Template from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
+      heating_fuels: "Heating Fuels"
+
 
     index:
       title: "%{parent_name} Plots"
