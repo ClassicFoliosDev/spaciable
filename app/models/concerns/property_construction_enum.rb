@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-module PlotConstructionEnum
+module PropertyConstructionEnum
   extend ActiveSupport::Concern
 
   included do
-    enum plot_construction:
+    enum property_construction:
     %i[
-      traditional,
-      timber_frame,
-      modular_build,
+      traditional
+      timber_frame
+      modular_build
       plot_construction_other
     ]
   end

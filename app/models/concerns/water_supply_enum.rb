@@ -6,7 +6,7 @@ module WaterSupplyEnum
   included do
     enum water_supply:
     %i[
-      mains_water, 
+      mains_water
       private_water_supply
     ]
   end

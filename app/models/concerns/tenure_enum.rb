@@ -5,11 +5,11 @@ module TenureEnum
 
   included do
     enum tenure: %i[
-      unassigned,
-      freehold,
-      leasehold,
-      shared_ownership,
-      rented,
+      unassigned
+      freehold
+      leasehold
+      shared_ownership
+      rented
       commonhold
   ]
   end

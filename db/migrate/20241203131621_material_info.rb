@@ -24,12 +24,12 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
       t.integer :property_type, default: 0 #MaterialInfo.property_types[:detached]
       t.integer :floor, default: 0 #MaterialInfo.floors[:ground]
       t.integer :floorspace, default: 0
-      t.datetime :estimated_legal_completion_date, default: nil
+      t.date :estimated_legal_completion_date, default: nil
       t.integer :epc_rating, default: 0 #MaterialInfo.epc_ratings[:no_rating]
-      t.integer :plot_construction, default: 0 #MaterialInfo.plot_constructions[:traditional]
-      t.string :plot_construction_other, default: nil
-      t.integer :electricty_supply, default: 0 #MaterialInfo.electricity_supplies[:mains_electricity]
-      t.string :electricty_supply_other, default: nil
+      t.integer :property_construction, default: 0 #MaterialInfo.plot_constructions[:traditional]
+      t.string :property_construction_other, default: nil
+      t.integer :electricity_supply, default: 0 #MaterialInfo.electricity_supplies[:mains_electricity]
+      t.string :electricity_supply_other, default: nil
       t.integer :water_supply, default: 0 #MaterialInfo.water_supplies[:mains_water]
       t.integer :sewerage, default: 0 #MaterialInfo.sewerages[:mains_sewerage]
       t.string :sewerage_other, default: nil
@@ -37,14 +37,14 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
       t.integer :mobile_signal, default: 0 #MaterialInfo.mobile_signals[:good]
       t.string :mobile_signal_restrictions, default: nil
       t.integer :parking, default: 0 #MaterialInfo.parkings[:no_parking]
-      t.string :building_safety, default: nil
-      t.string :restrictions, default: nil
-      t.string :rights_and_easements, default: nil
-      t.string :flood_risk, default: nil
-      t.string :planning_permission_or_proposals, default: nil
-      t.string :accessibility, default: nil
-      t.string :coalfield_or_mining_areas, default: nil
-      t.string :other_considerations, default: nil
+      t.text :building_safety, default: nil
+      t.text :restrictions, default: nil
+      t.text :rights_and_easements, default: nil
+      t.text :flood_risk, default: nil
+      t.text :planning_permission_or_proposals, default: nil
+      t.text :accessibility, default: nil
+      t.text :coalfield_or_mining_areas, default: nil
+      t.text :other_considerations, default: nil
       t.string :warranty_num
       t.integer :mprn 
       t.integer :mpan

@@ -867,12 +867,12 @@ ActiveRecord::Schema.define(version: 2024_12_03_131621) do
     t.integer "property_type", default: 0
     t.integer "floor", default: 0
     t.integer "floorspace", default: 0
-    t.datetime "estimated_legal_completion_date"
+    t.date "estimated_legal_completion_date"
     t.integer "epc_rating", default: 0
-    t.integer "plot_construction", default: 0
-    t.string "plot_construction_other"
-    t.integer "electricty_supply", default: 0
-    t.string "electricty_supply_other"
+    t.integer "property_construction", default: 0
+    t.string "property_construction_other"
+    t.integer "electricity_supply", default: 0
+    t.string "electricity_supply_other"
     t.integer "water_supply", default: 0
     t.integer "sewerage", default: 0
     t.string "sewerage_other"
@@ -880,14 +880,14 @@ ActiveRecord::Schema.define(version: 2024_12_03_131621) do
     t.integer "mobile_signal", default: 0
     t.string "mobile_signal_restrictions"
     t.integer "parking", default: 0
-    t.string "building_safety"
-    t.string "restrictions"
-    t.string "rights_and_easements"
-    t.string "flood_risk"
-    t.string "planning_permission_or_proposals"
-    t.string "accessibility"
-    t.string "coalfield_or_mining_areas"
-    t.string "other_considerations"
+    t.text "building_safety"
+    t.text "restrictions"
+    t.text "rights_and_easements"
+    t.text "flood_risk"
+    t.text "planning_permission_or_proposals"
+    t.text "accessibility"
+    t.text "coalfield_or_mining_areas"
+    t.text "other_considerations"
     t.string "warranty_num"
     t.integer "mprn"
     t.integer "mpan"

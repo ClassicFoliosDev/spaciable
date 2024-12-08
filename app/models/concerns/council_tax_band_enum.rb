@@ -6,13 +6,13 @@ module CouncilTaxBandEnum
   included do
     enum council_tax_band: 
     %i[
-      unavailable,
-      a,
-      b,
-      c,
-      d,
-      e,
-      f,
+      unavailable
+      a
+      b
+      c
+      d
+      e
+      f
       g
     ]
   end

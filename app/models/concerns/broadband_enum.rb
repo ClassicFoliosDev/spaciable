@@ -5,10 +5,10 @@ module BroadbandEnum
 
   included do
     enum broadband: %i[
-      not_applicable,
-      adsl_copper,
-      cable,
-      fttc,
+      not_applicable
+      adsl_copper
+      cable
+      fttc
       fttp
     ]
   end

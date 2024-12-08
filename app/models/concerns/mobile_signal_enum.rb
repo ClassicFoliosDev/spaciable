@@ -6,9 +6,9 @@ module MobileSignalEnum
   included do
     enum mobile_signal:
     %i[
-      good,
-      fair, 
-      restricted,
+      good
+      fair 
+      restricted
       no_mobile_signal
     ]
   end

@@ -6,13 +6,13 @@ module PropertyTypeEnum
   included do
     enum property_type: 
     %i[
-      detached, 
-      semi,
-      terraced,
-      bungalow,
-      apartment,
-      duplex,
-      maisonette,
+      detached
+      semi
+      terraced
+      bungalow
+      apartment
+      duplex
+      maisonette
       studio
     ]
   end
