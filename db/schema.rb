@@ -889,8 +889,8 @@ ActiveRecord::Schema.define(version: 2024_12_03_131621) do
     t.text "coalfield_or_mining_areas"
     t.text "other_considerations"
     t.string "warranty_num"
-    t.integer "mprn"
-    t.integer "mpan"
+    t.bigint "mprn"
+    t.bigint "mpan"
     t.index ["plot_id"], name: "index_material_infos_on_plot_id"
   end
 

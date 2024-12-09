@@ -13,6 +13,10 @@ $data-section-color: $primary-navy;
   &.build_sequence {
     margin-bottom: unset;
   }
+
+  &.with-tabs {
+    margin-bottom: 10px;
+  }
 }
 
 .expired {

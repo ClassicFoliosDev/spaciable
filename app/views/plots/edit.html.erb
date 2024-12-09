@@ -1,6 +1,6 @@
 <% breadcrumb :plot_edit, @plot %>
 
-<div class="section-header">
+<div class="section-header with-tabs">
   <div class="section-title">
     <div class="plot-title"><span><%= t(".title", plot_name: @plot.to_s) %></span></div>
     <% if @plot&.persisted? && @plot&.completion_release_date %>

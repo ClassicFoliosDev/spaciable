@@ -12,7 +12,17 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <% if f.object.persisted? %>
+    <div class="tabs">
+      <ul>
+        <% %i[primary material].each_with_index do |tab, index| %>
+          <li class="tab" id=<%= "#{tab}" %>><span class="tabspan"><%= t(".tabs.#{tab}") %></span></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row" id="primary">
     <div class="row-item third">
       <% if f.object.persisted? %>
         <fieldset>
@@ -41,8 +51,6 @@
       <% end %>
     <% end %>
 
-    
-
     <% if plot.spanish? %>
       <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
     <% else %>
@@ -51,7 +59,7 @@
 
   </div>
 
-  <div>
+  <div class="row" id="material">
     <% if f.object.persisted? %>
       <fieldset>
         <%= f.simple_fields_for :material_info do |m| %>

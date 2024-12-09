@@ -60,7 +60,7 @@ class Plot < ApplicationRecord
 
   has_many :plot_documents, dependent: :destroy
   has_one :material_info, dependent: :destroy
-  accepts_nested_attributes_for :material_info
+  accepts_nested_attributes_for :material_info, allow_destroy: false
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development

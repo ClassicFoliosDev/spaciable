@@ -46,8 +46,8 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
       t.text :coalfield_or_mining_areas, default: nil
       t.text :other_considerations, default: nil
       t.string :warranty_num
-      t.integer :mprn 
-      t.integer :mpan
+      t.bigint :mprn 
+      t.bigint :mpan
     end
 
     create_table :heating_fuels_material_infos do |t|

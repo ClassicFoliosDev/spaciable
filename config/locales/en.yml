@@ -2866,8 +2866,9 @@ en:
       warranty_num: "Warranty Number"
       mprn: "MPRN"
       mpan: "MPAN"
-
-
+      tabs:
+        primary: "Primary"
+        material: "Material Info"
     index:
       title: "%{parent_name} Plots"
     new:
