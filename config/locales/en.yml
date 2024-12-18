@@ -591,6 +591,7 @@ en:
       sub_menu:
         about: "Home Tour"
         rooms: "Rooms"
+        material_info: "Material Info"
         appliances: "Appliances"
         library: "Library"
         calendar: "Calendar"
@@ -2838,9 +2839,14 @@ en:
       heating_sources: "Heating Sources"
       heating_outputs: "Heating Outputs"
       tenure: "Tenure"
+      lease_length: "Lease Length"
+      selling_price: "Selling Price"
+      reservation_fee: "Reservation Fee"
+      service_charges: "Service Charges"
       council_tax_band: "Council Tax Band"
       property_type: "Property Type"
       floor: "Floor"
+      specification: "Specification"
       floorspace: "Size of Property (total m2)"
       estimated_legal_completion_date: "Estimated legal completion date"
       epc_rating: "EPC Rating"
@@ -2868,7 +2874,9 @@ en:
       mpan: "MPAN"
       tabs:
         primary: "Primary"
-        material: "Material Info"
+        details: "Details"
+        services: "Services"
+        metadata: "Metadata"
     index:
       title: "%{parent_name} Plots"
     new:
@@ -3915,6 +3923,7 @@ en:
            internal_finishes: "Internal finishes"
            stairway: "Landing / hall / stairway"
            utility: "Utility room"
+           ensuite: "En Suite"
       finish:
         name: "Finish Name"
         type: "Finish Type"
@@ -4456,6 +4465,7 @@ en:
     homeowner_log_in: "Returning User"
     homeowner_accept_invite: "New User"
     root: "%{category} Menu"
+    material_info: "Material Info"
     calendar:
       calendar_viewed: "Calendar Viewed"
       viewed: "Events Viewed"

@@ -363,6 +363,7 @@ Rails.application.routes.draw do
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
     get :home_tour, to: 'home_tour#show', as: :homeowner_home_tour
     get :rooms, to: 'rooms#show', as: :homeowner_rooms
+    get :material_info, to: 'material_info#show', as: :homeowner_material_info
     get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
     get :change_plot, to: 'base#change_plot'
     post :create_resident, to: "residents#create", format: :json

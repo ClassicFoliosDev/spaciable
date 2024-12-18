@@ -13,6 +13,8 @@ module Homeowners
         redirect_to homeowner_home_tour_path
       elsif @plot.rooms.any?
         redirect_to homeowner_rooms_path
+      elsif @plot&.material_info
+        redirect_to homeowner_material_info_path
       else
         redirect_to homeowner_library_path
       end

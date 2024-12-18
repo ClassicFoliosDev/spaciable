@@ -3,8 +3,12 @@
 module BroadbandHelper
   def broadband_collection
     MaterialInfo.broadbands.map do |(supply, _int)|
-      [t(supply, scope: broadband_label_scope), supply]
+      [t_broadband(supply), supply]
     end
+  end
+
+  def t_broadband(supply)
+    t(supply, scope: broadband_label_scope)
   end
 
   private

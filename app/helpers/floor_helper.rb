@@ -3,8 +3,12 @@
 module FloorHelper
   def floor_collection
     MaterialInfo.floors.map do |(floor, _int)|
-      [t(floor, scope: floor_label_scope), floor]
+      [t_floor(floor), floor]
     end
+  end
+
+  def t_floor(floor)
+    t(floor, scope: floor_label_scope)
   end
 
   private

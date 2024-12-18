@@ -15,7 +15,7 @@
   <% if f.object.persisted? %>
     <div class="tabs">
       <ul>
-        <% %i[primary material].each_with_index do |tab, index| %>
+        <% %i[primary details services metadata].each_with_index do |tab, index| %>
           <li class="tab" id=<%= "#{tab}" %>><span class="tabspan"><%= t(".tabs.#{tab}") %></span></li>
         <% end %>
       </ul>
@@ -59,52 +59,74 @@
 
   </div>
 
-  <div class="row" id="material">
-    <% if f.object.persisted? %>
-      <fieldset>
-        <%= f.simple_fields_for :material_info do |m| %>
-          <%= m.input :selling_price %>
-          <%= m.input :reservation_fee %>
-          <fieldset>
-            <%= m.input :tenure, label: t(".tenure"), as: :select, collection: client_tenure_collection, include_blank: false %>
-            <%= m.input :lease_length %>
+  <% if f.object.persisted? %>
+    <%= f.simple_fields_for :material_info do |m| %>
+      <div class="row" id="services">
+        <div class="row-item third">
+          <%= m.input :electricity_supply, label: p_label(:electricity_supply), as: :select, collection: electricity_supply_collection, include_blank: false %>
+          <%= m.input :electricity_supply_other, label: t(".electricity_supply_other") %>
+          <%= m.input :water_supply, label: p_label(:water_supply), as: :select, collection: water_supply_collection, include_blank: false %>
+          <%= m.input :sewerage, label: p_label(:sewerage), as: :select, collection: sewerage_collection, include_blank: false %>
+          <%= m.input :sewerage_other, label: p_label(:sewerage_other) %>
+        </div>
+
+        <div class="row-item third">
+          <%= m.input :broadband, label: p_label(:broadband), as: :select, collection: broadband_collection, include_blank: false %>
+          <%= m.input :mobile_signal, label: p_label(:mobile_signal), as: :select, collection: mobile_signal_collection, include_blank: false %>
+          <%= m.input :mobile_signal_restrictions, label: t(".mobile_signal_restrictions") %>
+        </div>
+        <div class="row-item third">
+          <fieldset class="skip-global-selectmenu">
+            <div class="finish_manufacturer_finish_type ui-front select-container">
+              <%= m.association :heating_fuels, label: p_label(:heating_fuels), collection: HeatingFuel.all.order(:id), multiple: true, class: "multiple" %>
+            </div>
           </fieldset>
-          <%= m.input :service_charges %>
-          <%= m.input :council_tax_band, label: t(".council_tax_band"), as: :select, collection: council_tax_band_collection, include_blank: false %>
-          <%= m.input :property_type, label: t(".property_type"), as: :select, collection: property_type_collection, include_blank: false %>
-          <%= m.input :floor, label: t(".floor"), as: :select, collection: floor_collection, include_blank: false %>
-          <%= m.input :floorspace, label: t(".floorspace") %>
-          <%= m.input :estimated_legal_completion_date, label: t(".estimated_legal_completion_date"), as: :string,
+          <fieldset class="skip-global-selectmenu">
+            <div class="finish_manufacturer_finish_type ui-front select-container">
+              <%= m.association :heating_sources, label: p_label(:heating_sources), collection: HeatingSource.all.order(:id), multiple: true, class: "multiple" %>
+            </div>
+          </fieldset>
+          <fieldset class="skip-global-selectmenu">
+            <div class="finish_manufacturer_finish_type ui-front select-container">
+              <%= m.association :heating_outputs, label: p_label(:heating_outputs), collection: HeatingOutput.all.order(:id), multiple: true, class: "multiple" %>
+            </div>
+          </fieldset>
+        </div>
+
+      </div>
+
+      <div class="row" id="details">
+        <div class="row-item third">
+          <fieldset>
+            <%= m.input :tenure, label: p_label(:tenure), as: :select, collection: client_tenure_collection, include_blank: false %>
+            <%= m.input :lease_length, label: p_label(:lease_length) %>
+            <%= m.input :selling_price, label: p_label(:selling_price) %>
+            <%= m.input :reservation_fee, label: p_label(:reservation_fee) %>
+            <%= m.input :service_charges, label: p_label(:service_charges) %>
+            <%= m.input :floorspace, label: t(".floorspace") %>
+            <%= m.input :estimated_legal_completion_date, label: p_label(:estimated_legal_completion_date), as: :string,
              placeholder: "DD/MM/YYYY",
              input_html: { type: :date, :value => m.object&.estimated_legal_completion_date&.html } %>
-          <%= m.input :epc_rating, label: t(".epc_rating"), as: :select, collection: epc_collection, include_blank: false %>
-          <%= m.input :property_construction, label: t(".property_construction"), as: :select, collection: property_construction_collection, include_blank: false %>
+          </fieldset>
+        </div>
+        <div class="row-item third">
+          <%= m.input :property_type, label: p_label(:property_type), as: :select, collection: property_type_collection, include_blank: false %>
+          <%= m.input :floor, label: t(".floor"), as: :select, collection: floor_collection, include_blank: false %>
+          <%= m.input :property_construction, label: p_label(:property_construction), as: :select, collection: property_construction_collection, include_blank: false %>
           <%= m.input :property_construction_other, label: t(".property_construction_other") %>
-          <%= m.input :electricity_supply, label: t(".electricity_supply"), as: :select, collection: electricity_supply_collection, include_blank: false %>
-          <%= m.input :electricity_supply_other, label: t(".electricity_supply_other") %>
-          <%= m.input :water_supply, label: t(".water_supply"), as: :select, collection: water_supply_collection, include_blank: false %>
-          <%= m.input :sewerage, label: t(".sewerage"), as: :select, collection: sewerage_collection, include_blank: false %>
-          <%= m.input :sewerage_other, label: t(".sewerage_other") %>
-          <fieldset class="skip-global-selectmenu">
-            <div class="finish_manufacturer_finish_type ui-front select-container">
-              <%= m.association :heating_fuels, label: t(".heating_fuels"), collection: HeatingFuel.all.order(:id), multiple: true, class: "multiple" %>
-            </div>
-          </fieldset>
-          <fieldset class="skip-global-selectmenu">
-            <div class="finish_manufacturer_finish_type ui-front select-container">
-              <%= m.association :heating_sources, label: t(".heating_sources"), collection: HeatingSource.all.order(:id), multiple: true, class: "multiple" %>
-            </div>
-          </fieldset>
-          <fieldset class="skip-global-selectmenu">
-            <div class="finish_manufacturer_finish_type ui-front select-container">
-              <%= m.association :heating_outputs, label: t(".heating_outputs"), collection: HeatingOutput.all.order(:id), multiple: true, class: "multiple" %>
-            </div>
-          </fieldset>
-          <%= m.input :broadband, label: t(".broadband"), as: :select, collection: broadband_collection, include_blank: false %>
-          <%= m.input :mobile_signal, label: t(".mobile_signal"), as: :select, collection: mobile_signal_collection, include_blank: false %>
-          <%= m.input :mobile_signal_restrictions, label: t(".mobile_signal_restrictions") %>
+          <%= m.input :council_tax_band, label: p_label(:council_tax_band), as: :select, collection: council_tax_band_collection, include_blank: false %>
           <%= m.input :parking, label: t(".parking"), as: :select, collection: parking_collection, include_blank: false %>
-          <%= m.input :building_safety, label: t(".building_safety"), as: :ckeditor %>
+          <%= m.input :epc_rating, label: p_label(:epc_rating), as: :select, collection: epc_collection, include_blank: false %>
+        </div>
+        <div class="row-item third">
+          <%= m.input :warranty_num, label: t(".warranty_num") %>
+          <%= m.input :mprn, label: t(".mprn") %>
+          <%= m.input :mpan, label: t(".mpan") %>
+        </div>
+      </div>
+
+      <div class="row" id="metadata">
+        <%= m.input :building_safety, label: t(".building_safety"), as: :ckeditor %>
           <%= m.input :restrictions, label: t(".restrictions"), as: :ckeditor %>
           <%= m.input :rights_and_easements, label: t(".rights_and_easements"), as: :ckeditor %>
           <%= m.input :flood_risk, label: t(".flood_risk"), as: :ckeditor %>
@@ -112,13 +134,9 @@
           <%= m.input :accessibility, label: t(".accessibility"), as: :ckeditor %>
           <%= m.input :coalfield_or_mining_areas, label: t(".coalfield_or_mining_areas"), as: :ckeditor %>
           <%= m.input :other_considerations, label: t(".other_considerations"), as: :ckeditor %>
-          <%= m.input :warranty_num, label: t(".warranty_num") %>
-          <%= m.input :mprn, label: t(".mprn") %>
-          <%= m.input :mpan, label: t(".mpan") %>
-        <% end %>
-      </fieldset>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

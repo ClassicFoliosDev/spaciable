@@ -3,8 +3,12 @@
 module MobileSignalHelper
   def mobile_signal_collection
     MaterialInfo.mobile_signals.map do |(supply, _int)|
-      [t(supply, scope: mobile_label_scope), supply]
+      [t_mobile_signal(supply), supply]
     end
+  end
+
+  def t_mobile_signal(supply)
+    t(supply, scope: mobile_label_scope)
   end
 
   private

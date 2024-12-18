@@ -3,8 +3,12 @@
 module TenureHelper
   def client_tenure_collection
     MaterialInfo.tenures.map do |(tenure, _int)|
-      [t(tenure, scope: tenure_label_scope), tenure]
+      [t_tenure(tenure), tenure]
     end
+  end
+
+  def t_tenure(tenure)
+    t(tenure, scope: tenure_label_scope)
   end
 
   private

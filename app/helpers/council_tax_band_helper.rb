@@ -3,8 +3,12 @@
 module CouncilTaxBandHelper
   def council_tax_band_collection
     MaterialInfo.council_tax_bands.map do |(band, _int)|
-      [t(band, scope: band_label_scope), band]
+      [t_council_tax_band(band), band]
     end
+  end
+
+  def t_council_tax_band(band)
+    t(band, scope: band_label_scope)
   end
 
   private

@@ -3,8 +3,12 @@
 module SewerageHelper
   def sewerage_collection
     MaterialInfo.sewerages.map do |(sewerage, _int)|
-      [t(sewerage, scope: sewerage_label_scope), sewerage]
+      [t_sewerage(sewerage), sewerage]
     end
+  end
+
+  def t_sewerage(sewerage)
+    t(sewerage, scope: sewerage_label_scope)
   end
 
   private

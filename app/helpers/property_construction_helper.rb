@@ -3,8 +3,12 @@
 module PropertyConstructionHelper
   def property_construction_collection
     MaterialInfo.property_constructions.map do |(construction, _int)|
-      [t(construction, scope: property_construction_label_scope), construction]
+      [t_property_construction(construction), construction]
     end
+  end
+
+  def t_property_construction(construction)
+    t(construction, scope: property_construction_label_scope)
   end
 
   private
