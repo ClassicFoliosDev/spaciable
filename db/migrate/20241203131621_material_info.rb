@@ -46,7 +46,7 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
       t.text :coalfield_or_mining_areas, default: nil
       t.text :other_considerations, default: nil
       t.string :warranty_num
-      t.bigint :mprn 
+      t.bigint :mprn
       t.bigint :mpan
     end
 
@@ -66,7 +66,7 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
     end
 
     add_reference :plots, :material_info, foreign_key: true
-    
+
     Rake::Task['material_info:migrate'].invoke
   end
 end

@@ -25,6 +25,6 @@ namespace :material_info do
     HeatingOutput.create(name: "Radiators")
     HeatingOutput.create(name: "Underfloor heating")
     HeatingOutput.create(name: "Panel heaters")
-    HeatingOutput.create(name: "Fireplace")    
+    HeatingOutput.create(name: "Fireplace")
   end
 end

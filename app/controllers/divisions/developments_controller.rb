@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Divisions
+  # rubocop:disable Metrics/ClassLength
   class DevelopmentsController < ApplicationController
     include PaginationConcern
     include SortingConcern
@@ -147,4 +148,5 @@ module Divisions
                                         country_id: developer.country)
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

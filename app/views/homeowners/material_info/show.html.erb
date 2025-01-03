@@ -13,21 +13,21 @@
             <h5 class="branded-text"><%= p_label(:address) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
-              <span class="branded-text"><%= @plot.address.prefix if @plot.address.prefix %> <%= @plot.address.postal_number %></span>
-              <% if @plot.address.building_name %>
-                <span class="branded-text"><%= @plot.address.building_name %></span>
+              <span class="branded-text"><%= @plot.prefix %> <%= @plot.postal_number %></span>
+              <% if @plot.building_name %>
+                <span class="branded-text"><%= @plot.building_name %></span>
               <% end %>
-              <% if @plot.address.locality %>
-                <span class="branded-text"><%= @plot.address.locality %></span>
-              <% elsif @plot.address.city %>
-                <span class="branded-text"><%= @plot.address.city %></span>
+              <% if @plot.locality %>
+                <span class="branded-text"><%= @plot.locality %></span>
+              <% elsif @plot.city %>
+                <span class="branded-text"><%= @plot.city %></span>
               <% end %>
-              <% if @plot.address.postcode %>
-                <span class="branded-text"><%= @plot.address.postcode %></span>
+              <% if @plot.postcode %>
+                <span class="branded-text"><%= @plot.postcode %></span>
               <% end %>
             </div>
           </div>
@@ -41,7 +41,7 @@
           <h5 class="branded-text"><%= p_label(:plot_number) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -57,7 +57,7 @@
           <h5 class="branded-text"><%= p_label(:selling_price) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -73,7 +73,7 @@
           <h5 class="branded-text"><%= p_label(:reservation_fee) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -89,7 +89,7 @@
           <h5 class="branded-text"><%= p_label(:tenure) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -108,7 +108,7 @@
           <h5 class="branded-text"><%= p_label(:service_charges) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -124,7 +124,7 @@
           <h5 class="branded-text"><%= p_label(:council_tax_band) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -140,7 +140,7 @@
           <h5 class="branded-text"><%= p_label(:property_type) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -159,7 +159,7 @@
           <h5 class="branded-text"><%= p_label(:floorspace) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -176,7 +176,7 @@
             <h5 class="branded-text"><%= p_label(:estimated_legal_completion_date) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -193,7 +193,7 @@
           <h5 class="branded-text"><%= p_label(:epc_rating) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -209,7 +209,7 @@
           <h5 class="branded-text"><%= p_label(:property_construction) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -225,7 +225,7 @@
           <h5 class="branded-text"><%= p_label(:specification) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <% rooms = num_plot_rooms(@plot, %i[bathroom ensuite]) %>
@@ -251,7 +251,7 @@
           <h5 class="branded-text"><%= p_label(:electricity_supply) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -271,7 +271,7 @@
           <h5 class="branded-text"><%= p_label(:water_supply) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -287,7 +287,7 @@
           <h5 class="branded-text"><%= p_label(:sewerage) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -308,7 +308,7 @@
             <h5 class="branded-text"><%= p_label(:heating_fuels) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -328,7 +328,7 @@
             <h5 class="branded-text"><%= p_label(:heating_sources) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -348,7 +348,7 @@
             <h5 class="branded-text"><%= p_label(:heating_outputs) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -367,7 +367,7 @@
           <h5 class="branded-text"><%= p_label(:broadband) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -383,7 +383,7 @@
           <h5 class="branded-text"><%= p_label(:mobile_signal) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -403,7 +403,7 @@
           <h5 class="branded-text"><%= p_label(:parking) %></h5>
         </div>
       </div>
-      
+
       <div class="values" class="branded-text">
         <div class="value">
           <div>
@@ -420,7 +420,7 @@
             <h5 class="branded-text"><%= p_label(:warranty_num) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -438,7 +438,7 @@
             <h5 class="branded-text"><%= p_label(:mprn) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -456,7 +456,7 @@
             <h5 class="branded-text"><%= p_label(:mpan) %></h5>
           </div>
         </div>
-        
+
         <div class="values" class="branded-text">
           <div class="value">
             <div>
@@ -475,7 +475,7 @@
               <h5 class="branded-text"><%= p_label(attr.to_sym) %></h5>
             </div>
           </div>
-          
+
           <div class="values" class="branded-text">
             <%= raw @material_info.send(attr) %>
           </div>

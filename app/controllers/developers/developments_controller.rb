@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Developers
+  # rubocop:disable Metrics/ClassLength
   class DevelopmentsController < ApplicationController
     include PaginationConcern
     include SortingConcern
@@ -98,6 +99,7 @@ module Developers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # rubocop:disable Metrics/MethodLength
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
@@ -115,6 +117,7 @@ module Developers
         material_info_attributes: material_info_attributes
       )
     end
+    # rubocop:enable Metrics/MethodLength
 
     # rubocop:disable Metrics/MethodLength
     def material_info_attributes
@@ -160,4 +163,5 @@ module Developers
     end
     # rubocop:enable Metrics/MethodLength
   end
+  # rubocop:enable Metrics/ClassLength
 end

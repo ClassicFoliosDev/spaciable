@@ -251,6 +251,10 @@ class Development < ApplicationRecord
     build_address unless address
     build_maintenance unless maintenance
     build_premium_perk unless premium_perk
+
+    return if persisted?
+
+    build_material_info unless material_info
   end
 
   def descendants
@@ -364,13 +368,6 @@ class Development < ApplicationRecord
   def all_phases_free?
     phases.count.positive? &&
       (phases.where(package: :free).count == phases.count)
-  end
-
-  # build dependent if new
-  def build
-    return if persisted?
-
-    build_material_info unless material_info
   end
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf

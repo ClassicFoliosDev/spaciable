@@ -921,7 +921,11 @@ class Plot < ApplicationRecord
   end
 
   def create_material_info
-    MaterialInfo.create!(infoable: self)
+    return unless development.material_info
+
+    mi = development.material_info.amoeba_dup
+    mi.infoable = self
+    mi.save
   end
 end
 # rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength
