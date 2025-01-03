@@ -137,8 +137,10 @@ class PlotsController < ApplicationController
         letter_type letable_type reservation_order_number completion_order_number ]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def material_info_attributes
     [
+      :id,
       :selling_price,
       :reservation_fee,
       :tenure,
@@ -160,7 +162,7 @@ class PlotsController < ApplicationController
       :broadband,
       :mobile_signal,
       :mobile_signal_restrictions,
-      :parking,      
+      :parking,
       :building_safety,
       :restrictions,
       :rights_and_easements,
@@ -174,9 +176,10 @@ class PlotsController < ApplicationController
       :mpan,
       heating_fuel_ids: [],
       heating_source_ids: [],
-      heating_output_ids: [],
+      heating_output_ids: []
     ]
   end
+  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Naming/MemoizedInstanceVariableName
   def set_parent

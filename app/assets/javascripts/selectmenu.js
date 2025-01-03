@@ -13,21 +13,15 @@
   })
 
   document.addEventListener('turbolinks:load', function () {
-    $('select').not('.skip-global-selectmenu select').selectmenu()
-    $('select#plot_material_info_attributes_heating_fuel_ids').select2({ width: 400 })
-    $('.skip-global-selectmenu select').hide()
+    create_select2('select#plot_material_info_attributes_heating_fuel_ids')
+    create_select2('select#plot_material_info_attributes_heating_source_ids')
+    create_select2('select#plot_material_info_attributes_heating_output_ids')
   })
 
   document.addEventListener('turbolinks:load', function () {
-    $('select').not('.skip-global-selectmenu select').selectmenu()
-    $('select#plot_material_info_attributes_heating_source_ids').select2({ width: 400 })
-    $('.skip-global-selectmenu select').hide()
-  })
-
-  document.addEventListener('turbolinks:load', function () {
-    $('select').not('.skip-global-selectmenu select').selectmenu()
-    $('select#plot_material_info_attributes_heating_output_ids').select2({ width: 400 })
-    $('.skip-global-selectmenu select').hide()
+    create_select2('select#development_material_info_attributes_heating_fuel_ids')
+    create_select2('select#development_material_info_attributes_heating_source_ids')
+    create_select2('select#development_material_info_attributes_heating_output_ids')
   })
 
   document.addEventListener('turbolinks:render', function () {
@@ -60,6 +54,12 @@
     $('.cke_editor_notification_message').remove()
   })
 })(document, window.jQuery)
+
+function create_select2(select) {
+  $('select').not('.skip-global-selectmenu select').selectmenu()
+  $(select).select2({ width: '100%' })
+  $('.skip-global-selectmenu select').hide()
+};
 
 
 

@@ -64,6 +64,9 @@ class Development < ApplicationRecord
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
 
+  has_one :material_info, as: :infoable, dependent: :destroy
+  accepts_nested_attributes_for :material_info, allow_destroy: false
+
   alias_attribute :development_name, :name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
@@ -361,6 +364,13 @@ class Development < ApplicationRecord
   def all_phases_free?
     phases.count.positive? &&
       (phases.where(package: :free).count == phases.count)
+  end
+
+  # build dependent if new
+  def build
+    return if persisted?
+
+    build_material_info unless material_info
   end
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf

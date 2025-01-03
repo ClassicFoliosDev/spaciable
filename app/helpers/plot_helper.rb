@@ -10,16 +10,14 @@ module PlotHelper
   end
 
   def show_lease_length(tenure)
-    @material_info.tenure == 'leasehold'
+    tenure == "leasehold"
   end
 
   def show_floor(property_type)
-    %i[apartment duplex maisonette studio].include? @material_info.property_type.to_sym
+    %i[apartment duplex maisonette studio].include? property_type.to_sym
   end
 
   def floor_plan
-    Document.accessible_by(current_ability).where(guide: 'floor_plan')&.first
+    Document.accessible_by(current_ability).where(guide: "floor_plan")&.first
   end
-
-
 end

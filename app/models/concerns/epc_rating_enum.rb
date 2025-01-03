@@ -4,7 +4,7 @@ module EpcRatingEnum
   extend ActiveSupport::Concern
 
   included do
-    enum epc_rating: 
+    enum epc_rating:
     %i[
       no_rating
       epc_a

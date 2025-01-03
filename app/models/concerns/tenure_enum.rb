@@ -4,13 +4,14 @@ module TenureEnum
   extend ActiveSupport::Concern
 
   included do
-    enum tenure: %i[
+    enum tenure:
+    %i[
       unassigned
       freehold
       leasehold
       shared_ownership
       rented
       commonhold
-  ]
+    ]
   end
 end

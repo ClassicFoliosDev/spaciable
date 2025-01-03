@@ -4,7 +4,7 @@ module PropertyTypeEnum
   extend ActiveSupport::Concern
 
   included do
-    enum property_type: 
+    enum property_type:
     %i[
       detached
       semi

@@ -4,7 +4,7 @@ module FloorEnum
   extend ActiveSupport::Concern
 
   included do
-    enum floor: 
+    enum floor:
     %i[
       ground
       first_

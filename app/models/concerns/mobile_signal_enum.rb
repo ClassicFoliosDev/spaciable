@@ -7,7 +7,7 @@ module MobileSignalEnum
     enum mobile_signal:
     %i[
       good
-      fair 
+      fair
       restricted
       no_mobile_signal
     ]

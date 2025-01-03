@@ -8,7 +8,6 @@ module Living
     class << self
       def notify(notification)
         return if Rails.env.test?
-        byebug
 
         response = HTTParty.post("#{EnvVar[:living_api_url]}" +
                                   "#{EnvVar[:living_admin_notification_webhook]}",

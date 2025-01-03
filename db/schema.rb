@@ -857,7 +857,8 @@ ActiveRecord::Schema.define(version: 2024_12_03_131621) do
   end
 
   create_table "material_infos", force: :cascade do |t|
-    t.bigint "plot_id"
+    t.string "infoable_type"
+    t.bigint "infoable_id"
     t.integer "selling_price", default: 0
     t.integer "reservation_fee", default: 0
     t.integer "tenure", default: 0
@@ -891,7 +892,7 @@ ActiveRecord::Schema.define(version: 2024_12_03_131621) do
     t.string "warranty_num"
     t.bigint "mprn"
     t.bigint "mpan"
-    t.index ["plot_id"], name: "index_material_infos_on_plot_id"
+    t.index ["infoable_type", "infoable_id"], name: "index_material_infos_on_infoable_type_and_infoable_id"
   end
 
   create_table "notifications", id: :serial, force: :cascade do |t|

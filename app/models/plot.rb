@@ -3,7 +3,7 @@
 # rubocop:disable Rails/HasManyOrHasOneDependent, Metrics/ClassLength
 class Plot < ApplicationRecord
   include Unlatch::Interface
-  
+
   acts_as_paranoid
   require "csv"
 
@@ -59,7 +59,7 @@ class Plot < ApplicationRecord
   has_many :events, as: :eventable, dependent: :destroy
 
   has_many :plot_documents, dependent: :destroy
-  has_one :material_info, dependent: :destroy
+  has_one :material_info, as: :infoable, dependent: :destroy
   accepts_nested_attributes_for :material_info, allow_destroy: false
 
   delegate :other_ref, to: :listing, prefix: true
@@ -921,7 +921,7 @@ class Plot < ApplicationRecord
   end
 
   def create_material_info
-    MaterialInfo.create!(plot_id: self.id)
+    MaterialInfo.create!(infoable: self)
   end
 end
 # rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength

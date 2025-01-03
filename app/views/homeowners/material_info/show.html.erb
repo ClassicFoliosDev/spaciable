@@ -6,6 +6,51 @@
 <div class="branded-body">
   <div class="material_info">
 
+    <% if @plot.address %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:address) %></h5>
+          </div>
+        </div>
+        
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= @plot.address.prefix if @plot.address.prefix %> <%= @plot.address.postal_number %></span>
+              <% if @plot.address.building_name %>
+                <span class="branded-text"><%= @plot.address.building_name %></span>
+              <% end %>
+              <% if @plot.address.locality %>
+                <span class="branded-text"><%= @plot.address.locality %></span>
+              <% elsif @plot.address.city %>
+                <span class="branded-text"><%= @plot.address.city %></span>
+              <% end %>
+              <% if @plot.address.postcode %>
+                <span class="branded-text"><%= @plot.address.postcode %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="item">
+      <div class="label">
+        <div class="branded-text">
+          <h5 class="branded-text"><%= p_label(:plot_number) %></h5>
+        </div>
+      </div>
+      
+      <div class="values" class="branded-text">
+        <div class="value">
+          <div>
+            <span class="branded-text"><%= @plot.number %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="item">
       <div class="label">
         <div class="branded-text">
@@ -185,7 +230,6 @@
         <div class="value">
           <% rooms = num_plot_rooms(@plot, %i[bathroom ensuite]) %>
           <span class="branded-text"><%= rooms %> <%= 'Bathroom'.pluralize(rooms) %></span>
-          <span class="branded-text"><%= num_plot_rooms(@plot, %i[ensuite]) %> En Suite</span>
           <% rooms = num_plot_rooms(@plot, %i[bedroom]) %>
           <span class="branded-text"><%= rooms %> <%= 'Bedroom'.pluralize(rooms) %> </span>
 
@@ -356,7 +400,7 @@
     <div class="item">
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:broadband) %></h5>
+          <h5 class="branded-text"><%= p_label(:parking) %></h5>
         </div>
       </div>
       
@@ -368,6 +412,60 @@
         </div>
       </div>
     </div>
+
+    <% if @material_info.warranty_num %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:warranty_num) %></h5>
+          </div>
+        </div>
+        
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= @material_info.warranty_num %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @material_info.mprn %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:mprn) %></h5>
+          </div>
+        </div>
+        
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= @material_info.mprn %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @material_info.mpan %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:mpan) %></h5>
+          </div>
+        </div>
+        
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= @material_info.mpan %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
     <% %w[building_safety restrictions rights_and_easements flood_risk planning_permission_or_proposals accessibility coalfield_or_mining_areas other_considerations].each do |attr| %>
       <% if !@material_info.send(attr).empty? %>

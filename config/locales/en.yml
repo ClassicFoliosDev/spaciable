@@ -2870,13 +2870,9 @@ en:
       coalfield_or_mining_areas: "Coal Or Minefield Areas"
       other_considerations: "Other Considerations"
       warranty_num: "Warranty Number"
+      plot_number: "Plot Number"
       mprn: "MPRN"
       mpan: "MPAN"
-      tabs:
-        primary: "Primary"
-        details: "Details"
-        services: "Services"
-        metadata: "Metadata"
     index:
       title: "%{parent_name} Plots"
     new:
@@ -4282,6 +4278,13 @@ en:
       action: "Action"
       user: "User"
       at: "Created At"
+
+  material_info:
+    tabs:
+      primary: "Primary"
+      details: "Details"
+      services: "Services"
+      metadata: "Metadata"
 
   timelines:
     turned_off: "Turned Off"

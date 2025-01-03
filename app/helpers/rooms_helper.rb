@@ -28,8 +28,7 @@ module RoomsHelper
 
   def num_plot_rooms(plot, keys)
     rooms = 0
-    keys.map {|key| rooms += plot.rooms?(Room.icon_names[key])}
+    keys.map { |key| rooms += plot.rooms?(Room.icon_names[key]) }
     rooms
   end
-
 end

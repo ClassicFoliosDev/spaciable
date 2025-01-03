@@ -4,7 +4,7 @@ module CouncilTaxBandEnum
   extend ActiveSupport::Concern
 
   included do
-    enum council_tax_band: 
+    enum council_tax_band:
     %i[
       unavailable
       a

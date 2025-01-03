@@ -14,7 +14,7 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
     end
 
     create_table :material_infos do |t|
-      t.references :plot
+      t.references :infoable, polymorphic: true
       t.integer :selling_price, default: 0
       t.integer :reservation_fee, default: 0
       t.integer :tenure, default: 0 #MaterialInfo.tenures[:unassigned]
