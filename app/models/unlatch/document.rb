@@ -79,6 +79,7 @@ module Unlatch
           Unlatch::Log.add(spaciable_doc, "UNLATCH: #{__method__} Uplatch is currently unavaliable. Please try again later")
         rescue => e
           Unlatch::Log.add(spaciable_doc, "UNLATCH: #{__method__} Failed to POST document - #{e.message}")
+          Unlatch::Log.add(spaciable_doc, response)
         end
 
         document
