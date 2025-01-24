@@ -34,6 +34,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
+    namespace :residents do
+      namespace :app do
+        post 'sign_in', to: "sessions#create"
+      end
+    end
   end
 
   namespace :admin do
