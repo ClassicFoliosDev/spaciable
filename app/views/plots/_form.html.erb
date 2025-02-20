@@ -25,7 +25,7 @@
           <% if current_user.cf_admin? || (plot.cas && !plot.free?) %>
             <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent), disabled: (cannot? :update_unit_type, plot) %>
           <% end %>
-          <%= f.input :uprn, label: t("activerecord.attributes.plot.uprn") %>
+          <%= f.input :uprn, label: t("activerecord.attributes.plot.uprn"), placeholder: p_label(:uprn_placeholder)  %>
           <%= render "components/admin/plot_fields", f: f, plot: plot %>
 
         </fieldset>
@@ -54,7 +54,7 @@
   </div>
 
   <% if f.object.persisted? && plot.material_info %>
-    <%= render "material_info/form", f: f %>
+    <%= render "material_info/form", f: f , development: false%>
   <% end %>
 
   <div class="form-actions-footer-container">

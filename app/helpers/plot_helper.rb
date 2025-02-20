@@ -9,8 +9,8 @@ module PlotHelper
     t("plots.form." + item.to_s)
   end
 
-  def show_lease_length(tenure)
-    tenure == "leasehold"
+  def show_lease_length(tenure, lease_length)
+    tenure == "leasehold" && lease_length&.positive?
   end
 
   def show_floor(property_type)

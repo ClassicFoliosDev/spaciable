@@ -15,16 +15,15 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
 
     create_table :material_infos do |t|
       t.references :infoable, polymorphic: true
-      t.integer :selling_price, default: 0
-      t.integer :reservation_fee, default: 0
+      t.integer :selling_price, default: nil
+      t.integer :reservation_fee, default: nil
       t.integer :tenure, default: 0 #MaterialInfo.tenures[:unassigned]
-      t.integer :lease_length, default: 0
-      t.integer :service_charges, default: 0
+      t.integer :lease_length, default: nil
+      t.integer :service_charges, default: nil
       t.integer :council_tax_band, default: 0 #MaterialInfo.council_tax_bands[:unavailable]
       t.integer :property_type, default: 0 #MaterialInfo.property_types[:detached]
       t.integer :floor, default: 0 #MaterialInfo.floors[:ground]
-      t.integer :floorspace, default: 0
-      t.date :estimated_legal_completion_date, default: nil
+      t.integer :floorspace, default: nil
       t.integer :epc_rating, default: 0 #MaterialInfo.epc_ratings[:no_rating]
       t.integer :property_construction, default: 0 #MaterialInfo.plot_constructions[:traditional]
       t.string :property_construction_other, default: nil

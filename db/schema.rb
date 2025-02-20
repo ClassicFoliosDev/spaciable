@@ -859,16 +859,15 @@ ActiveRecord::Schema.define(version: 2024_12_03_131621) do
   create_table "material_infos", force: :cascade do |t|
     t.string "infoable_type"
     t.bigint "infoable_id"
-    t.integer "selling_price", default: 0
-    t.integer "reservation_fee", default: 0
+    t.integer "selling_price"
+    t.integer "reservation_fee"
     t.integer "tenure", default: 0
-    t.integer "lease_length", default: 0
-    t.integer "service_charges", default: 0
+    t.integer "lease_length"
+    t.integer "service_charges"
     t.integer "council_tax_band", default: 0
     t.integer "property_type", default: 0
     t.integer "floor", default: 0
-    t.integer "floorspace", default: 0
-    t.date "estimated_legal_completion_date"
+    t.integer "floorspace"
     t.integer "epc_rating", default: 0
     t.integer "property_construction", default: 0
     t.string "property_construction_other"

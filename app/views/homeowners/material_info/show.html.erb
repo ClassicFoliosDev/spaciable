@@ -21,6 +21,9 @@
               <% if @plot.building_name %>
                 <span class="branded-text"><%= @plot.building_name %></span>
               <% end %>
+              <% if @plot.road_name %>
+                <span class="branded-text"><%= @plot.road_name %></span>
+              <% end %>
               <% if @plot.locality %>
                 <span class="branded-text"><%= @plot.locality %></span>
               <% elsif @plot.city %>
@@ -51,6 +54,24 @@
       </div>
     </div>
 
+    <% unless @plot.uprn.empty? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:uprn) %></h5>
+          </div>
+        </div>
+
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= @plot.uprn %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <div class="item">
       <div class="label">
         <div class="branded-text">
@@ -61,27 +82,33 @@
       <div class="values" class="branded-text">
         <div class="value">
           <div>
-            <span class="branded-text">£<%= number_with_delimiter(@material_info.selling_price) %></span>
+            <% if @material_info.selling_price&.nonzero? %>
+              <span class="branded-text">£<%= number_with_delimiter(@material_info.selling_price) %></span>
+            <% else %>
+              <span class="branded-text"><%= p_label(:selling_price_placeholder) %></span>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:reservation_fee) %></h5>
+    <% if @material_info.reservation_fee&.nonzero? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:reservation_fee) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text">£<%= number_with_delimiter(@material_info.reservation_fee) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text">£<%= number_with_delimiter(@material_info.reservation_fee) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="item">
       <div class="label">
@@ -94,7 +121,7 @@
         <div class="value">
           <div>
             <span class="branded-text"><%= t_tenure(@material_info.tenure) %></span>
-            <% if show_lease_length(@material_info.tenure) %>
+            <% if show_lease_length(@material_info.tenure, @material_info.lease_length) %>
               <span class="branded-text"><%= @material_info.lease_length %> year lease</span>
             <% end %>
           </div>
@@ -102,21 +129,23 @@
       </div>
     </div>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:service_charges) %></h5>
+    <% if @material_info.service_charges&.nonzero? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:service_charges) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text">£<%= number_with_delimiter(@material_info.service_charges) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text">£<%= number_with_delimiter(@material_info.service_charges) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="item">
       <div class="label">
@@ -153,23 +182,25 @@
       </div>
     </div>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:floorspace) %></h5>
+    <% if @material_info.floorspace&.nonzero? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:floorspace) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= number_with_delimiter(@material_info.floorspace) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= number_with_delimiter(@material_info.floorspace) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <% if @material_info.estimated_legal_completion_date %>
+    <% if @plot.completion_date %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
@@ -180,7 +211,7 @@
         <div class="values" class="branded-text">
           <div class="value">
             <div>
-              <span class="branded-text"><%= number_with_delimiter(@material_info.estimated_legal_completion_date) %></span>
+              <span class="branded-text"><%= @plot.completion_date %></span>
             </div>
           </div>
         </div>
@@ -413,7 +444,7 @@
       </div>
     </div>
 
-    <% if @material_info.warranty_num %>
+    <% unless @material_info.warranty_num.empty? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
