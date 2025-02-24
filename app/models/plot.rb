@@ -15,6 +15,7 @@ class Plot < ApplicationRecord
   before_save :set_build_status
   before_save :set_validity
   after_create :sync_with_unlatch
+  after_create :create_material_info
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -58,6 +59,9 @@ class Plot < ApplicationRecord
   has_many :events, as: :eventable, dependent: :destroy
 
   has_many :plot_documents, dependent: :destroy
+  has_one :material_info, as: :infoable, dependent: :destroy
+  delegate :unassigned?, to: :material_info
+  accepts_nested_attributes_for :material_info, allow_destroy: false
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
@@ -915,6 +919,14 @@ class Plot < ApplicationRecord
 
     Unlatch::Section.find_by(developer_id: document.unlatch_developer.id,
                              category: document.category)
+  end
+
+  def create_material_info
+    return unless development.material_info
+
+    mi = development.material_info.amoeba_dup
+    mi.infoable = self
+    mi.save
   end
 end
 # rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength

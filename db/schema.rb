@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_03_141434) do
+ActiveRecord::Schema.define(version: 2024_12_03_131621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -715,6 +715,39 @@ ActiveRecord::Schema.define(version: 2024_07_03_141434) do
     t.index ["user_id"], name: "index_grants_on_user_id"
   end
 
+  create_table "heating_fuels", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "heating_fuels_material_infos", force: :cascade do |t|
+    t.bigint "heating_fuel_id"
+    t.bigint "material_info_id"
+    t.index ["heating_fuel_id"], name: "index_heating_fuels_material_infos_on_heating_fuel_id"
+    t.index ["material_info_id"], name: "index_heating_fuels_material_infos_on_material_info_id"
+  end
+
+  create_table "heating_outputs", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "heating_outputs_material_infos", force: :cascade do |t|
+    t.bigint "heating_output_id"
+    t.bigint "material_info_id"
+    t.index ["heating_output_id"], name: "index_heating_outputs_material_infos_on_heating_output_id"
+    t.index ["material_info_id"], name: "index_heating_outputs_material_infos_on_material_info_id"
+  end
+
+  create_table "heating_sources", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "heating_sources_material_infos", force: :cascade do |t|
+    t.bigint "heating_source_id"
+    t.bigint "material_info_id"
+    t.index ["heating_source_id"], name: "index_heating_sources_material_infos_on_heating_source_id"
+    t.index ["material_info_id"], name: "index_heating_sources_material_infos_on_material_info_id"
+  end
+
   create_table "how_to_sub_categories", id: :serial, force: :cascade do |t|
     t.text "name"
     t.text "parent_category"
@@ -823,6 +856,44 @@ ActiveRecord::Schema.define(version: 2024_07_03_141434) do
     t.index ["markable_type", "markable_id"], name: "index_marks_on_markable_type_and_markable_id"
   end
 
+  create_table "material_infos", force: :cascade do |t|
+    t.string "infoable_type"
+    t.bigint "infoable_id"
+    t.integer "selling_price"
+    t.integer "reservation_fee"
+    t.integer "tenure", default: 0
+    t.integer "lease_length"
+    t.integer "service_charges"
+    t.integer "council_tax_band", default: 0
+    t.integer "property_type", default: 0
+    t.integer "floor", default: 0
+    t.integer "floorspace"
+    t.integer "epc_rating", default: 0
+    t.integer "property_construction", default: 0
+    t.string "property_construction_other"
+    t.integer "electricity_supply", default: 0
+    t.string "electricity_supply_other"
+    t.integer "water_supply", default: 0
+    t.integer "sewerage", default: 0
+    t.string "sewerage_other"
+    t.integer "broadband", default: 0
+    t.integer "mobile_signal", default: 0
+    t.string "mobile_signal_restrictions"
+    t.integer "parking", default: 0
+    t.text "building_safety"
+    t.text "restrictions"
+    t.text "rights_and_easements"
+    t.text "flood_risk"
+    t.text "planning_permission_or_proposals"
+    t.text "accessibility"
+    t.text "coalfield_or_mining_areas"
+    t.text "other_considerations"
+    t.string "warranty_num"
+    t.bigint "mprn"
+    t.bigint "mpan"
+    t.index ["infoable_type", "infoable_id"], name: "index_material_infos_on_infoable_type_and_infoable_id"
+  end
+
   create_table "notifications", id: :serial, force: :cascade do |t|
     t.string "subject"
     t.text "message"
@@ -927,6 +998,27 @@ ActiveRecord::Schema.define(version: 2024_07_03_141434) do
     t.index ["name", "development_id"], name: "index_phases_on_name_and_development_id", unique: true, where: "(deleted_at IS NULL)"
   end
 
+  create_table "plot_heating_fuels", force: :cascade do |t|
+    t.bigint "plots_id"
+    t.bigint "heating_fuels_id"
+    t.index ["heating_fuels_id"], name: "index_plot_heating_fuels_on_heating_fuels_id"
+    t.index ["plots_id"], name: "index_plot_heating_fuels_on_plots_id"
+  end
+
+  create_table "plot_heating_outputs", force: :cascade do |t|
+    t.bigint "plots_id"
+    t.bigint "heating_outputs_id"
+    t.index ["heating_outputs_id"], name: "index_plot_heating_outputs_on_heating_outputs_id"
+    t.index ["plots_id"], name: "index_plot_heating_outputs_on_plots_id"
+  end
+
+  create_table "plot_heating_sources", force: :cascade do |t|
+    t.bigint "plots_id"
+    t.bigint "heating_sources_id"
+    t.index ["heating_sources_id"], name: "index_plot_heating_sources_on_heating_sources_id"
+    t.index ["plots_id"], name: "index_plot_heating_sources_on_plots_id"
+  end
+
   create_table "plot_residencies", id: :serial, force: :cascade do |t|
     t.integer "plot_id"
     t.integer "resident_id"
@@ -988,11 +1080,13 @@ ActiveRecord::Schema.define(version: 2024_07_03_141434) do
     t.string "uprn"
     t.integer "build_step_id"
     t.datetime "auto_completed"
+    t.bigint "material_info_id"
     t.index ["build_step_id"], name: "index_plots_on_build_step_id"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at"
     t.index ["developer_id"], name: "index_plots_on_developer_id"
     t.index ["development_id"], name: "index_plots_on_development_id"
     t.index ["division_id"], name: "index_plots_on_division_id"
+    t.index ["material_info_id"], name: "index_plots_on_material_info_id"
     t.index ["phase_id"], name: "index_plots_on_phase_id"
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id"
   end
@@ -1495,6 +1589,7 @@ ActiveRecord::Schema.define(version: 2024_07_03_141434) do
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"
+  add_foreign_key "plots", "material_infos"
   add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
   add_foreign_key "premium_perks", "developments"

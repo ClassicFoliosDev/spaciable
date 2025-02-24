@@ -109,7 +109,11 @@ module BulkPlots
 
     BulkUpdatePlotsModel = Class.new(Plot) do
       delegate :model_name, to: :Plot
-      attr_accessor :range_from, :range_to, :list
+      attr_accessor :range_from, :range_to, :list,
+                    :building_safety, :restrictions, :rights_and_easements,
+                    :flood_risk, :planning_permission_or_proposals,
+                    :accessibility, :coalfield_or_mining_areas,
+                    :other_considerations
 
       def persisted?
         true

@@ -26,6 +26,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.action_view.automatically_disable_submit_tag = false
+
   # Alert if missing translation
   config.action_view.raise_on_missing_translations = true
 

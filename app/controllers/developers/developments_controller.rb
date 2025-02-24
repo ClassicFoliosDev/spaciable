@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Developers
+  # rubocop:disable Metrics/ClassLength
   class DevelopmentsController < ApplicationController
     include PaginationConcern
     include SortingConcern
@@ -98,6 +99,7 @@ module Developers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # rubocop:disable Metrics/MethodLength
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
@@ -111,8 +113,55 @@ module Developers
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],
         address_attributes: %i[postal_number road_name building_name
-                               locality city county postcode]
+                               locality city county postcode],
+        material_info_attributes: material_info_attributes
       )
     end
+    # rubocop:enable Metrics/MethodLength
+
+    # rubocop:disable Metrics/MethodLength
+    def material_info_attributes
+      [
+        :id,
+        :selling_price,
+        :reservation_fee,
+        :tenure,
+        :lease_length,
+        :service_charges,
+        :council_tax_band,
+        :property_type,
+        :floor,
+        :floorspace,
+        :estimated_legal_completion_date,
+        :epc_rating,
+        :property_construction,
+        :property_construction_other,
+        :electricity_supply,
+        :electricity_supply_other,
+        :water_supply,
+        :sewerage,
+        :sewerage_other,
+        :broadband,
+        :mobile_signal,
+        :mobile_signal_restrictions,
+        :parking,
+        :building_safety,
+        :restrictions,
+        :rights_and_easements,
+        :flood_risk,
+        :planning_permission_or_proposals,
+        :accessibility,
+        :coalfield_or_mining_areas,
+        :other_considerations,
+        :warranty_num,
+        :mprn,
+        :mpan,
+        heating_fuel_ids: [],
+        heating_source_ids: [],
+        heating_output_ids: []
+      ]
+    end
+    # rubocop:enable Metrics/MethodLength
   end
+  # rubocop:enable Metrics/ClassLength
 end

@@ -34,6 +34,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
+    namespace :residents do
+      namespace :app do
+        post 'sign_in', to: "sessions#create"
+      end
+    end
   end
 
   namespace :admin do
@@ -363,6 +368,7 @@ Rails.application.routes.draw do
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
     get :home_tour, to: 'home_tour#show', as: :homeowner_home_tour
     get :rooms, to: 'rooms#show', as: :homeowner_rooms
+    get :material_info, to: 'material_info#show', as: :homeowner_material_info
     get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
     get :change_plot, to: 'base#change_plot'
     post :create_resident, to: "residents#create", format: :json

@@ -72,6 +72,7 @@ Style/ClassAndModuleChildren:
 Lint/UnusedMethodArgument:
   Exclude:
     - app/controllers/residents/sessions_controller.rb
+    - app/controllers/residents/app/sessions_controller.rb
     - app/controllers/users/sessions_controller.rb
 
 Metrics/ClassLength:

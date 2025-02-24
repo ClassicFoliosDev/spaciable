@@ -64,6 +64,9 @@ class Development < ApplicationRecord
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
 
+  has_one :material_info, as: :infoable, dependent: :destroy
+  accepts_nested_attributes_for :material_info, allow_destroy: false
+
   alias_attribute :development_name, :name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
@@ -248,6 +251,10 @@ class Development < ApplicationRecord
     build_address unless address
     build_maintenance unless maintenance
     build_premium_perk unless premium_perk
+
+    return if persisted?
+
+    build_material_info unless material_info
   end
 
   def descendants

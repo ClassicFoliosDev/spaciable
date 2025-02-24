@@ -120,7 +120,8 @@ class PlotsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def plot_params
     params.require(:plot).permit(
-      %i[range_from range_to list].concat(plot_attributes)
+      %i[range_from range_to list].concat(plot_attributes),
+      material_info_attributes: material_info_attributes
     )
   end
 
@@ -135,6 +136,50 @@ class PlotsController < ApplicationController
         completion_release_date validity extended_access copy_plot_numbers letable let
         letter_type letable_type reservation_order_number completion_order_number ]
   end
+
+  # rubocop:disable Metrics/MethodLength
+  def material_info_attributes
+    [
+      :id,
+      :selling_price,
+      :reservation_fee,
+      :tenure,
+      :lease_length,
+      :service_charges,
+      :council_tax_band,
+      :property_type,
+      :floor,
+      :floorspace,
+      :estimated_legal_completion_date,
+      :epc_rating,
+      :property_construction,
+      :property_construction_other,
+      :electricity_supply,
+      :electricity_supply_other,
+      :water_supply,
+      :sewerage,
+      :sewerage_other,
+      :broadband,
+      :mobile_signal,
+      :mobile_signal_restrictions,
+      :parking,
+      :building_safety,
+      :restrictions,
+      :rights_and_easements,
+      :flood_risk,
+      :planning_permission_or_proposals,
+      :accessibility,
+      :coalfield_or_mining_areas,
+      :other_considerations,
+      :warranty_num,
+      :mprn,
+      :mpan,
+      heating_fuel_ids: [],
+      heating_source_ids: [],
+      heating_output_ids: []
+    ]
+  end
+  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Naming/MemoizedInstanceVariableName
   def set_parent
