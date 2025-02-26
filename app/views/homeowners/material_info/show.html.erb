@@ -332,7 +332,7 @@
       </div>
     </div>
 
-    <% if !@material_info.heating_fuels.empty? %>
+    <% if !@material_info.heating_fuels&.empty? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
@@ -352,7 +352,7 @@
       </div>
     <% end %>
 
-    <% if !@material_info.heating_sources.empty? %>
+    <% if !@material_info.heating_sources&.empty? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
@@ -372,7 +372,7 @@
       </div>
     <% end %>
 
-    <% if !@material_info.heating_outputs.empty? %>
+    <% if !@material_info.heating_outputs&.empty? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
@@ -444,7 +444,7 @@
       </div>
     </div>
 
-    <% unless @material_info.warranty_num.empty? %>
+    <% unless @material_info.warranty_num&.empty? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
@@ -499,7 +499,7 @@
     <% end %>
 
     <% %w[building_safety restrictions rights_and_easements flood_risk planning_permission_or_proposals accessibility coalfield_or_mining_areas other_considerations].each do |attr| %>
-      <% if !@material_info.send(attr).empty? %>
+      <% if !@material_info.send(attr)&.empty? %>
         <div class="item">
           <div class="label">
             <div class="branded-text">
