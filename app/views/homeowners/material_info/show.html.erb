@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <% unless @plot.uprn&.empty? %>
+    <% if @plot.uprn? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
@@ -444,7 +444,7 @@
       </div>
     </div>
 
-    <% unless @material_info.warranty_num&.empty? %>
+    <% if @material_info.warranty_num? %>
       <div class="item">
         <div class="label">
           <div class="branded-text">
