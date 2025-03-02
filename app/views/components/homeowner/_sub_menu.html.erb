@@ -23,7 +23,7 @@
         <% unless plot&.material_info.unassigned? %>
           <div class="navbar-item">
             <%= link_to homeowner_material_info_path, active_tab: "material_info",
-                class: "branded-primary #{'active' if active_tab == 'material_info' }" do %>
+                class: "branded-primary #{'active' if active_tab == 'material' }" do %>
               <li class="navbar-item-secondary"><%= t(".material_info") %></li>
             <% end %>
           </div>
