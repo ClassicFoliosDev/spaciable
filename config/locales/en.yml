@@ -1474,6 +1474,7 @@ en:
     edit:
       back: "Back"
     form:
+      proliferate: "This development has %{plots} dependent plots. "
       submit: "Submit"
       address: "Postal Address"
       back: "Back"

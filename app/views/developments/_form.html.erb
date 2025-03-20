@@ -129,3 +129,11 @@
   </div>
 <% end %>
 
+<% material_info_plots = MaterialInfo.where(infoable: development.plots).count %>
+
+<% if params[:action] == "edit" && material_info_plots.nonzero? %>
+  <div class="ut-update-option-form hidden">
+    <%= render 'components/admin/development_update_options_form', affected_plots: t(".proliferate", plots: material_info_plots).html_safe %>
+  </div>
+<% end %>
+

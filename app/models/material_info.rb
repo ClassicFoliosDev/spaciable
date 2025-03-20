@@ -28,4 +28,7 @@ class MaterialInfo < ApplicationRecord
     include_association :heating_sources_material_info
     include_association :heating_outputs_material_info
   end
+
+  #Development update plot proliferation option
+  PROLIFERATE = 1
 end

@@ -27,7 +27,15 @@
                       regex: '^[0-9]{13,13}$',
                       info: 'must be 13 digits'}]
 
-  var classes = ['plot', 'development'] 
+  var classes = ['plot', 'development']
+
+  var checks = [{datum: '#development_material_info_attributes_service_charges', 
+                 label: 'div.development_material_info_service_charges label'},
+                {datum: '#development_material_info_attributes_council_tax_band', 
+                 label: 'div.development_material_info_council_tax_band label'},
+                {datum: '#development_material_info_attributes_epc_rating', 
+                 label: 'div.development_material_info_epc_rating label'}
+               ]
 
   document.addEventListener('turbolinks:load', function (event) {
 
@@ -54,7 +62,15 @@
       })
     })
 
-    tab_selected($('.tab').first())
+    // If there are associated plots with material info
+    if ($('.ut-update-option-form').length != 0) { 
+      // Add on onClick handler for the submit button
+      hijack_development_submit()
+      //document.getElementsByClassName('btn-form-submit')[0].addEventListener("click", CheckMaterialInfoChanges);
+      set_initial_mi_data() 
+    }
+
+    tab_selected($('.tab').first())    
   })
 
   function create_validation(field, regex, info) {
@@ -107,6 +123,109 @@
     })
 
     return mi_dependencies
+  }
+
+  function hijack_development_submit() {
+    $(".edit_development").on('submit', function(e) {
+      // what has been submitted?
+      set_submit_mi_data()
+
+      // If anything has changed
+      if (mi_data_updated()) {
+        ConfirmMaterialInfoPropogation()
+        e.preventDefault();
+        e.returnValue = false;
+      }
+    })
+  }
+
+  function set_initial_mi_data() {
+    checks.forEach(function (c, index) {
+      c.initial_value = $(c.datum).val()
+    })
+  }
+
+  function set_submit_mi_data() {
+    checks.forEach(function (c, index) {
+      c.submit_value = $(c.datum).val()
+    })
+  }
+
+  function mi_data_updated() {
+    var delta = ''
+    var updates = []
+    checks.forEach(function (c, index) {
+      if (c.submit_value != c.initial_value) { updates.push(c) }
+    })
+    updates.forEach(function (c, index) {
+      delta = delta.concat($(c.label).text())
+      if (index != (updates.length - 1)) { // ignore the last
+        if (updates.length > 1) {
+          if (index == (updates.length - 2)) {
+            delta = delta.concat(' and ')
+          } else {
+            delta = delta.concat(', ')
+          }
+        }
+      }
+    })
+
+    if (updates.length == 1) { 
+      delta = delta.concat(' has')
+      $('#ut_confirm').text($('#ut_prompt').text().concat("In addition to saving this change, do you want it to be proliferated to all the dependent plots?"))
+    } else if (updates.length > 1) { 
+      delta = delta.concat(' have') 
+      $('#ut_confirm').text($('#ut_prompt').text().concat("In addition to saving these changes, do you them to be proliferated to all the dependent plots?"))
+    }
+
+    $('#ut_header').text(delta.concat(" been updated."))
+
+    return delta.length != 0
+  }
+
+  function ConfirmMaterialInfoPropogation() {
+    var $option_container = $('.ut-update-option-form')
+    $('body').append($option_container)
+
+    $option_container.dialog({
+      show: 'show',
+      modal: true,
+      width: 700,
+      title: "Proliferate Updates",
+      buttons: [
+        {
+          text: "Yes",
+          class: 'btn-primary',
+          id: 'btn_confirm',
+          click: function () {
+            SubmitDevelopment()
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: "No",
+          class: 'btn',
+          id: 'btn_deny',
+          click: function () {
+            SubmitDevelopment()
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: "Cancel",
+          class: 'btn',
+          click: function () {
+            $(this).dialog('destroy')
+          }
+        }]
+    }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  }
+
+  function SubmitDevelopment(){
+    var x = document.getElementsByClassName("edit_development");
+    x[0].submit(); // Form submission
   }
 
 })(document, window.jQuery)
