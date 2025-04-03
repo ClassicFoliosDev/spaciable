@@ -389,6 +389,10 @@ Then(/^when I click next$/) do
   find(".branded-btn").click
 end
 
+Then(/^when I click Go To Dashboard$/) do
+  find(".services-btn").click
+end
+
 Then(/^I am redirected to the welcome home page$/) do
   within ".navbar-item-secondary" do
     expect(page).to have_content(t("homeowners.welcome_home.show.title"))
@@ -453,6 +457,6 @@ When(/^I complete the onboarding$/) do
   find(".video-container")
 
   within ".next-page" do
-    click_on "Next"
+    click_on "Go to Dashboard"
   end
 end

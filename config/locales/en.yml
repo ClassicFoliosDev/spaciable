@@ -2103,7 +2103,7 @@ en:
         title: "Intro Video"
         welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers."
         welcome_2: "The content on your portal is personalised to your home."
-        next: "Next"
+        go_to_dashboard: "Go to Dashboard"
         return: "You can also view this welcome video on your portal’s Account page."
     development_messages:
       index:
