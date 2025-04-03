@@ -1,4 +1,9 @@
   <%= f.simple_fields_for :material_info do |m| %>
+
+    <% if defined? material_info_plots && material_info_plots > 0 %>
+      <%= m.hidden_field :proliferate%>
+    <% end %>
+
     <div class="row" id="services">
       <div class="row-item third">
         <%= m.input :electricity_supply, label: p_label(:electricity_supply), as: :select, collection: electricity_supply_collection, include_blank: false %>

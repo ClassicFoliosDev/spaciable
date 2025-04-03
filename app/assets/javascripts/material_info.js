@@ -41,6 +41,11 @@
 
     if ($('#metadata').length == 0) { return }
 
+    if ($('div#primary').length == 0 ) { 
+      $('li#primary').remove()
+      $('li#details span').addClass('active')
+    }
+
     $('.tabspan').each(function(tab) {
       $(this).on('click', function (event) {
         tab_selected($(this).parent())
@@ -160,25 +165,19 @@
     updates.forEach(function (c, index) {
       delta = delta.concat($(c.label).text())
       if (index != (updates.length - 1)) { // ignore the last
-        if (updates.length > 1) {
-          if (index == (updates.length - 2)) {
-            delta = delta.concat(' and ')
-          } else {
-            delta = delta.concat(', ')
-          }
-        }
+        delta = delta.concat('/')
       }
     })
 
     if (updates.length == 1) { 
-      delta = delta.concat(' has')
-      $('#ut_confirm').text($('#ut_prompt').text().concat("In addition to saving this change, do you want it to be proliferated to all the dependent plots?"))
+      delta = "You have requested a change to ".concat(delta).concat(". Would you like to make this change across all existing plots?")
+      $('#ut_confirm').text("If this change doesn’t apply to all existing plots, you will need to make individual changes at plot level.")
     } else if (updates.length > 1) { 
-      delta = delta.concat(' have') 
-      $('#ut_confirm').text($('#ut_prompt').text().concat("In addition to saving these changes, do you them to be proliferated to all the dependent plots?"))
+      delta = "You have requested changes to ".concat(delta).concat(". Would you like to make these across all existing plots?")
+      $('#ut_confirm').text("If these changes don't apply to all existing plots, you will need to make individual changes at plot level.")
     }
 
-    $('#ut_header').text(delta.concat(" been updated."))
+    $('#ut_header').text(delta)
 
     return delta.length != 0
   }
@@ -190,21 +189,22 @@
     $option_container.dialog({
       show: 'show',
       modal: true,
-      width: 700,
-      title: "Proliferate Updates",
+      width: 800,
+      title: "Change Details",
       buttons: [
         {
-          text: "Yes",
+          text: "Yes – change all plots",
           class: 'btn-primary',
           id: 'btn_confirm',
           click: function () {
+            $('#development_material_info_attributes_proliferate').val('1')
             SubmitDevelopment()
             $(this).dialog('close')
             $(this).dialog('destroy').remove()
           }
         },
         {
-          text: "No",
+          text: "No – change at development level for future plots",
           class: 'btn',
           id: 'btn_deny',
           click: function () {
@@ -214,7 +214,7 @@
           }
         },
         {
-          text: "Cancel",
+          text: "Cancel – discard all changes",
           class: 'btn',
           click: function () {
             $(this).dialog('destroy')

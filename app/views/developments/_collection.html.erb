@@ -29,7 +29,7 @@
           <% end %>
           <%= link_to t(".unit_types"), [parent, development, active_tab: :unit_types], class: "btn" %>
           <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
-          <%= edit_btn [:edit, parent, development], element: development %>
+          <%= edit_btn [:edit, parent, development], element: development, override: development.material_info %>
           <%= permissable_delete_btn development, path: url_for([parent, development]), element: development %>
         </td>
       </tr>

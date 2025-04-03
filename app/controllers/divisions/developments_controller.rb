@@ -6,7 +6,7 @@ module Divisions
     include PaginationConcern
     include SortingConcern
     load_and_authorize_resource :division
-    load_and_authorize_resource :development, through: :division
+    load_resource :development, through: :division
 
     def index
       @developments = paginate(sort(@developments, default: :name))
@@ -83,9 +83,8 @@ module Divisions
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
-        :analytics_dashboard,
-        :division_id,
-        :email, :contact_number,
+        :analytics_dashboard, :choices_email_contact,
+        :division_id, :email, :contact_number,
         :enable_snagging, :snag_duration, :snag_name, :cas, :calendar, :conveyancing,
         :construction, :construction_name, :client_platform,
         maintenance_attributes: %i[id path account_type populate fixflow_direct],
@@ -101,6 +100,7 @@ module Divisions
     def material_info_attributes
       [
         :id,
+        :proliferate,
         :selling_price,
         :reservation_fee,
         :tenure,

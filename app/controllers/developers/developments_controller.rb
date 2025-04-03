@@ -6,7 +6,7 @@ module Developers
     include PaginationConcern
     include SortingConcern
     load_and_authorize_resource :developer
-    load_and_authorize_resource :development, through: [:developer]
+    load_resource :development, through: [:developer]
 
     def index
       @developments = paginate(sort(@developments, default: :name))
@@ -113,7 +113,7 @@ module Developers
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],
         address_attributes: %i[postal_number road_name building_name
-                               locality city county postcode],
+                               locality city county postcode id],
         material_info_attributes: material_info_attributes
       )
     end
@@ -123,6 +123,7 @@ module Developers
     def material_info_attributes
       [
         :id,
+        :proliferate,
         :selling_price,
         :reservation_fee,
         :tenure,
