@@ -2171,6 +2171,8 @@ en:
       enable_house_search: "Area Guide"
       house_search_description: "Provide residents with an external link to BestArea4Me"
       enable_services: "Savings"
+      enable_material_info: "Material Info"
+      material_info_description: "Create Material Info at Development and Plot levels"
       services_description: "A homeowner can select moving and other savings via the Spaciable landing page."
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"

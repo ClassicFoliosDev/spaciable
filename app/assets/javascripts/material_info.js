@@ -27,11 +27,24 @@
                       regex: '^[0-9]{13,13}$',
                       info: 'must be 13 digits'}]
 
-  var classes = ['plot', 'development'] 
+  var classes = ['plot', 'development']
+
+  var checks = [{datum: '#development_material_info_attributes_service_charges', 
+                 label: 'div.development_material_info_service_charges label'},
+                {datum: '#development_material_info_attributes_council_tax_band', 
+                 label: 'div.development_material_info_council_tax_band label'},
+                {datum: '#development_material_info_attributes_epc_rating', 
+                 label: 'div.development_material_info_epc_rating label'}
+               ]
 
   document.addEventListener('turbolinks:load', function (event) {
 
     if ($('#metadata').length == 0) { return }
+
+    if ($('div#primary').length == 0 ) { 
+      $('li#primary').remove()
+      $('li#details span').addClass('active')
+    }
 
     $('.tabspan').each(function(tab) {
       $(this).on('click', function (event) {
@@ -54,7 +67,15 @@
       })
     })
 
-    tab_selected($('.tab').first())
+    // If there are associated plots with material info
+    if ($('.ut-update-option-form').length != 0) { 
+      // Add on onClick handler for the submit button
+      hijack_development_submit()
+      //document.getElementsByClassName('btn-form-submit')[0].addEventListener("click", CheckMaterialInfoChanges);
+      set_initial_mi_data() 
+    }
+
+    tab_selected($('.tab').first())    
   })
 
   function create_validation(field, regex, info) {
@@ -107,6 +128,104 @@
     })
 
     return mi_dependencies
+  }
+
+  function hijack_development_submit() {
+    $(".edit_development").on('submit', function(e) {
+      // what has been submitted?
+      set_submit_mi_data()
+
+      // If anything has changed
+      if (mi_data_updated()) {
+        ConfirmMaterialInfoPropogation()
+        e.preventDefault();
+        e.returnValue = false;
+      }
+    })
+  }
+
+  function set_initial_mi_data() {
+    checks.forEach(function (c, index) {
+      c.initial_value = $(c.datum).val()
+    })
+  }
+
+  function set_submit_mi_data() {
+    checks.forEach(function (c, index) {
+      c.submit_value = $(c.datum).val()
+    })
+  }
+
+  function mi_data_updated() {
+    var delta = ''
+    var updates = []
+    checks.forEach(function (c, index) {
+      if (c.submit_value != c.initial_value) { updates.push(c) }
+    })
+    updates.forEach(function (c, index) {
+      delta = delta.concat($(c.label).text())
+      if (index != (updates.length - 1)) { // ignore the last
+        delta = delta.concat('/')
+      }
+    })
+
+    if (updates.length == 1) { 
+      delta = "You have requested a change to ".concat(delta).concat(". Would you like to make this change across all existing plots?")
+      $('#ut_confirm').text("If this change doesn’t apply to all existing plots, you will need to make individual changes at plot level.")
+    } else if (updates.length > 1) { 
+      delta = "You have requested changes to ".concat(delta).concat(". Would you like to make these across all existing plots?")
+      $('#ut_confirm').text("If these changes don't apply to all existing plots, you will need to make individual changes at plot level.")
+    }
+
+    $('#ut_header').text(delta)
+
+    return delta.length != 0
+  }
+
+  function ConfirmMaterialInfoPropogation() {
+    var $option_container = $('.ut-update-option-form')
+    $('body').append($option_container)
+
+    $option_container.dialog({
+      show: 'show',
+      modal: true,
+      width: 850,
+      title: "Change Details",
+      buttons: [
+        {
+          text: "Yes – change all plots",
+          class: 'btn-primary',
+          id: 'btn_confirm',
+          click: function () {
+            $('#development_material_info_attributes_proliferate').val('1')
+            SubmitDevelopment()
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: "No – change at development level for future plots",
+          class: 'btn',
+          id: 'btn_deny',
+          click: function () {
+            SubmitDevelopment()
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: "Cancel – discard all changes",
+          class: 'btn',
+          click: function () {
+            $(this).dialog('destroy')
+          }
+        }]
+    }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  }
+
+  function SubmitDevelopment(){
+    var x = document.getElementsByClassName("edit_development");
+    x[0].submit(); // Form submission
   }
 
 })(document, window.jQuery)
