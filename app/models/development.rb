@@ -254,7 +254,7 @@ class Development < ApplicationRecord
 
     return if persisted?
 
-    build_material_info unless material_info || !developer.enable_material_info
+    build_material_info unless material_info || !developer&.enable_material_info
   end
 
   def descendants
