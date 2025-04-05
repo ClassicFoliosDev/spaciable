@@ -189,7 +189,7 @@
     $option_container.dialog({
       show: 'show',
       modal: true,
-      width: 800,
+      width: 850,
       title: "Change Details",
       buttons: [
         {

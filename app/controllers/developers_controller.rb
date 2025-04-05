@@ -96,7 +96,7 @@ class DevelopersController < ApplicationController
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
       :prime_lettings_admin, :personal_app, :cas, :timeline,
-      :enable_perks, :is_demo, :enable_how_tos,
+      :enable_perks, :is_demo, :enable_how_tos, :enable_material_info,
       :conveyancing, :wecomplete_sign_in, :wecomplete_quote, :show_warranties,
       :account_manager_name, :account_manager_email, :account_manager_contact,
       :on_package, :stripe_code,
