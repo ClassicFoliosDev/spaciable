@@ -27,7 +27,7 @@ Feature: Legal emails
     Then I am redirected to the welcome home page
     And when I click next
     Then I should be redirected to the intro video page
-    And when I click next
+    And when I click Go To Dashboard
     And I should be redirected to the homeowner dashboard
     And I should not receive email notifications
     When I log out as a homeowner
