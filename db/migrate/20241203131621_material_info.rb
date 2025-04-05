@@ -66,8 +66,6 @@ class MaterialInfo < ActiveRecord::Migration[5.2]
 
     add_reference :plots, :material_info, foreign_key: true
 
-    add_column :developers, :enable_material_info, :boolean, default: false
-
     Rake::Task['material_info:migrate'].invoke
   end
 end
