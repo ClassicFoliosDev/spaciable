@@ -20,9 +20,7 @@ Feature: Homeowner Account
     Then I am redirected to the welcome home page
     And when I click next
     Then I should be redirected to the intro video page
-    And when I click next
-    Then I should be redirected to the savings page
-    When I select no savings
+    And when I click Go To Dashboard
     Then I should be redirected to the homeowner dashboard
     And I can see the intro video link in my account
     When I add another resident
@@ -108,7 +106,7 @@ Feature: Homeowner Account
     Then I am redirected to the welcome home page
     And when I click next
     Then I should be redirected to the intro video page
-    And when I click next
+    And when I click Go To Dashboard
     Then I should be redirected to the homeowner dashboard
     When I soft delete the plot residency
     And I log in as a Development Admin
