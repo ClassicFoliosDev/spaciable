@@ -3556,6 +3556,17 @@ en:
       header: "Header"
       text: "Content text paragraph"
 
+  no_comp_mailer:
+    hello: "Hello Spaciable admin"
+    regards: "Kind regards"
+    team: "The Spaciable Team"
+    no_comp_since_last_res: 
+      p1: "We added the plots at %{development} a couple of months ago but have noticed that you have not yet called off any plots for us to add the appliances and finishes."
+      p2: "If you have plots that are nearing completion/date of entry, please send us plot checklists/information so that we can populate this information."
+    no_comp_since_last_comp: 
+      p1: "We have noticed that you haven’t called off any plots from %{development} for a few weeks. You still have %{num_plots} plots left to call off on this development – plot numbers %{plots}."
+      p2: "Please send us plot checklists/information for any plots that are required at this time so that we can populate the appliances and finishes."
+
   invitation_summary_mailer:
     resident_summary:
       subject: "Spaciable Activation Report : %{permission_level}"
