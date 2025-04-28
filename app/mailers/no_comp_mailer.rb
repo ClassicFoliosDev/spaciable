@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NoCompMailer < ApplicationMailer
-  default from: "hello@spaciable.com"
+  default from: "hello@spaciable.com", content_type: "multipart/alternative"
 
   def no_comp_since_last_res(development, plots)
     @development = development.name
