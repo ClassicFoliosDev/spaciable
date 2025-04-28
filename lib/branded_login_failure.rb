@@ -2,7 +2,13 @@
 
 class BrandedLoginFailure < Devise::FailureApp
   def redirect_url
-    URI(request.referer).path
+    if RequestStore.store[:current_user].nil? &&
+      RequestStore.store[:current_resident].nil?
+      flash[:error] = "This account has been suspended...."
+      new_user_session_path
+    else
+      URI(request.referer).path
+    end
   end
 
   def respond

@@ -2173,6 +2173,8 @@ en:
       enable_services: "Savings"
       enable_material_info: "Material Info"
       material_info_description: "Create Material Info at Development and Plot levels"
+      suspended: "User Suspension"
+      suspended_description: "Suspend all Admin accounts associated with this developer?"
       services_description: "A homeowner can select moving and other savings via the Spaciable landing page."
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"

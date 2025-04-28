@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_05_143735) do
+ActiveRecord::Schema.define(version: 2025_04_23_160202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -438,6 +438,7 @@ ActiveRecord::Schema.define(version: 2025_04_05_143735) do
     t.integer "verified_association", default: 0
     t.integer "auto_complete", default: 24
     t.boolean "enable_material_info", default: false
+    t.boolean "suspended", default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)"
     t.index ["deleted_at"], name: "index_developers_on_deleted_at"
   end

@@ -12,7 +12,7 @@ en:
       your email address in a few minutes"
     failure:
       already_authenticated: "You are already signed in"
-      inactive: "Your account is not activated yet"
+      inactive: "Your account has been suspended"
       invalid: "Invalid email address or password"
       locked: "Your account is locked."
       last_attempt: "You have one more attempt before your account is locked"
