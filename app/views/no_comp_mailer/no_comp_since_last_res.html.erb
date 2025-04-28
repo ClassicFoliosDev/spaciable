@@ -3,7 +3,7 @@
 <p><%= t("no_comp_mailer.hello") %></p>
 
 <p><%= t("no_comp_mailer.no_comp_since_last_res.p1", development: @development) %>
-<p><%= t("no_comp_mailer.no_comp_since_last_res.p2") %>
+<p><%= t("no_comp_mailer.no_comp_since_last_res.p2").html_safe %>
 
 <p><%= t("no_comp_mailer.regards") %></p>
 <p><%= t("no_comp_mailer.team") %></p>
