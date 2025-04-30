@@ -369,5 +369,10 @@ class Development < ApplicationRecord
     phases.count.positive? &&
       (phases.where(package: :free).count == phases.count)
   end
+
+  # Generate the list of emails that currently will receive call off reminders
+  def call_off_users
+    User.users_associated_with([developer, self])
+  end
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf
