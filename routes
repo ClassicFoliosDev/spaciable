@@ -48,6 +48,7 @@
                                              PUT    /homeowners/invitation(.:format)                                                       residents/invitations#update
                                              POST   /homeowners/invitation(.:format)                                                       residents/invitations#create
                            new_admin_session GET    /admin(.:format)                                                                       users/sessions#new
+                       residents_app_sign_in POST   /residents/app/sign_in(.:format)                                                       residents/app/sessions#create
                          admin_notifications GET    /admin/notifications(.:format)                                                         admin/notifications#index
                                              POST   /admin/notifications(.:format)                                                         admin/notifications#create
                       new_admin_notification GET    /admin/notifications/new(.:format)                                                     admin/notifications#new
@@ -202,6 +203,9 @@
                             phase_progresses GET    /phases/:phase_id/progresses(.:format)                                                 progresses#index
                        phase_bulk_edit_index GET    /phases/:phase_id/bulk_edit(.:format)                                                  bulk_edit#index
                                              POST   /phases/:phase_id/bulk_edit(.:format)                                                  bulk_edit#create
+                     phase_bulk_delete_index GET    /phases/:phase_id/bulk_delete(.:format)                                                bulk_delete#index
+                 phase_bulk_delete_documents GET    /phases/:phase_id/bulk_delete/documents(.:format)                                      bulk_delete#documents
+                    phase_bulk_delete_delete POST   /phases/:phase_id/bulk_delete/delete(.:format)                                         bulk_delete#delete
                               phase_contacts GET    /phases/:phase_id/contacts(.:format)                                                   contacts#index
                                              POST   /phases/:phase_id/contacts(.:format)                                                   contacts#create
                            new_phase_contact GET    /phases/:phase_id/contacts/new(.:format)                                               contacts#new
@@ -760,6 +764,7 @@ edit_choice_configuration_room_configuration GET    /choice_configurations/:choi
                            homeowner_my_home GET    /homeowners/my_home(.:format)                                                          homeowners/my_home#show
                          homeowner_home_tour GET    /homeowners/home_tour(.:format)                                                        homeowners/home_tour#show
                              homeowner_rooms GET    /homeowners/rooms(.:format)                                                            homeowners/rooms#show
+                     homeowner_material_info GET    /homeowners/material_info(.:format)                                                    homeowners/material_info#show
                        homeowner_maintenance GET    /homeowners/maintenance(.:format)                                                      homeowners/maintenance#show
                                  change_plot GET    /homeowners/change_plot(.:format)                                                      homeowners/base#change_plot
                              create_resident POST   /homeowners/create_resident(.:format)                                                  homeowners/residents#create
@@ -810,11 +815,11 @@ edit_choice_configuration_room_configuration GET    /choice_configurations/:choi
                          api_admin_pre_sales POST   /api/admin/pre_sales(.:format)                                                         api/admin/v1/pre_sales#create {:format=>"json"}
          api_admin_single_page_app_pre_sales POST   /api/admin/single_page_app_pre_sales(.:format)                                         api/admin/v1/pre_sales#single_page_app_create {:format=>"json"}
                            api_resident_meta GET    /api/resident/meta(.:format)                                                           api/resident/v1/meta#index {:format=>"json"}
-  api_resident_meta_register_living_resident POST   /api/resident/meta/register_living_resident(.:format)                                  api/resident/v1/meta#register_living_resident {:format=>"json"}
               api_resident_invitation_accept PUT    /api/resident/invitation/accept(.:format)                                              api/resident/v1/invitation#update {:format=>"json"}
            api_resident_password_request_new POST   /api/resident/password/request_new(.:format)                                           api/resident/v1/password#create {:format=>"json"}
                  api_resident_password_reset PUT    /api/resident/password/reset(.:format)                                                 api/resident/v1/password#update {:format=>"json"}
           api_resident_password_authenticate PUT    /api/resident/password/authenticate(.:format)                                          api/resident/v1/password#authenticate {:format=>"json"}
+       api_resident_register_living_resident POST   /api/resident/register_living_resident(.:format)                                       api/resident/v1/password#register_living_resident {:format=>"json"}
                 api_resident_set_preferences PUT    /api/resident/set_preferences(.:format)                                                api/resident/v1/preferences#update {:format=>"json"}
                  api_concierge_find_resident GET    /api/concierge/find_resident(.:format)                                                 api/concierge/v1/find#find_resident {:format=>"json"}
                            api_stripe_charge POST   /api/stripe/charge(.:format)                                                           api/stripe/v1/event#charge {:format=>"json"}

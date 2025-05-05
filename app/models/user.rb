@@ -121,6 +121,16 @@ class User < ApplicationRecord
     end
   end
 
+  def suspended?
+    return false if cf_admin?
+
+    Developer.find(developer).suspended
+  end
+
+  def active_for_authentication?
+    super && !suspended?
+  end
+
   # Generate the list of user emails/names that currently will receive release plot updates
   # for the supplied associations. Return the data in an array of hashes
   # e.g.
