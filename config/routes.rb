@@ -34,6 +34,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
+    namespace :residents do
+      namespace :app do
+        post 'sign_in', to: "sessions#create"
+      end
+    end
   end
 
   namespace :admin do
@@ -120,6 +125,9 @@ Rails.application.routes.draw do
       post :bulk_update, on: :collection
     end
     resources :bulk_edit, only: [:index, :create]
+    resources :bulk_delete, only: [:index]
+    get 'bulk_delete/documents', to: 'bulk_delete#documents', format: :json
+    post 'bulk_delete/delete', to: 'bulk_delete#delete', format: :json
     resources :contacts
     resource :brand
     resources :brands, shallow: true, only: [:index]
@@ -138,6 +146,7 @@ Rails.application.routes.draw do
     get :progress, on: :member, to: "progresses#show"
     get 'choices', action: :edit , controller: 'choices'
     post 'choices', action: :update , controller: 'choices'
+    post 'sync_with_unlatch', format: :json
   end
 
   post 'plots/:plot_id/residents/:id/reinvite', action: :reinvite, controller: 'residents'
@@ -359,6 +368,7 @@ Rails.application.routes.draw do
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
     get :home_tour, to: 'home_tour#show', as: :homeowner_home_tour
     get :rooms, to: 'rooms#show', as: :homeowner_rooms
+    get :material_info, to: 'material_info#show', as: :homeowner_material_info
     get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
     get :change_plot, to: 'base#change_plot'
     post :create_resident, to: "residents#create", format: :json
@@ -431,6 +441,7 @@ Rails.application.routes.draw do
     namespace :resident do
       scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
         resources :meta, only: [:index]
+
         resources :contact, only: [:index]
         resources :faq_category, only: [:index]
         get "/faq/:faq_category",to: "faq#index"
@@ -441,6 +452,16 @@ Rails.application.routes.draw do
         get "library/my_docs", to: "library#my_documents"
         get "library/category/:name", to: "library#category"
         resources :rooms, only: %i[index show]
+
+        devise_scope :resident do
+          put "/invitation/accept", to: "invitation#update"
+          post "/password/request_new", to: "password#create"
+          put "/password/reset", to: "password#update"
+          put "/password/authenticate", to: "password#authenticate"
+          post "/register_living_resident", to: "password#register_living_resident"
+          put "/set_preferences", to: "preferences#update"
+        end
+
       end
     end
 
@@ -455,7 +476,12 @@ Rails.application.routes.draw do
         post '/charge', action: :charge
       end
     end
+  end
 
+  namespace :unlatch do
+    get 'rooms/:lot_id', to: 'meta#rooms', controller: 'meta'
+    get 'appliances/:lot_id', to: 'meta#appliances', controller: 'meta'
+    post 'sync_with_unlatch/:linkable_class/:linkable_id', format: :json, to: "sync#sync_with_unlatch"
   end
 
   devise_scope :resident do

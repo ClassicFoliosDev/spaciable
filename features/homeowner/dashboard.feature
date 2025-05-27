@@ -24,19 +24,19 @@ Feature: Dashboard
     When I change my homeowner password
     Then I should be logged out of homeowner
 
-  Scenario: Services and Referrals
+  Scenario: Savings and Referrals
     Given I have created and logged in as a homeowner user
     And FAQ metadata is available
-    And the developer has enabled services
+    And the developer has enabled savings
     And the developer has enabled referrals
     And there are how-tos
     When I navigate to the dashboard
     Then I see no referral link
-    And I see no services link
-    Given the developer has a custom tile for services
+    And I see no savings link
+    Given the developer has a custom tile for savings
     And the developer has a custom tile for referrals
     When I navigate to the dashboard
-    Then I see the services
+    Then I see the savings
     And I see the referral link
     And I only see three articles
 

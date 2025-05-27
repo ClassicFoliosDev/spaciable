@@ -1,0 +1,7 @@
+<div class="tabs">
+  <ul>
+    <% %i[primary details services metadata].each_with_index do |tab, index| %>
+      <li class="tab" id=<%= "#{tab}" %>><span class="tabspan"><%= t(".#{tab}") %></span></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,13 +1,17 @@
 # Alliants Rubocop standards
 
 inherit_from: .rubocop_todo.yml
+require: rubocop-rails
 
 AllCops:
   Include:
     - Rakefile
     - Gemfile
     - config.ru
+    - app/**/*
   Exclude:
+    - app/assets/**/*
+    - app/views/**/*
     - config/**/*
     - db/**/*
     - bin/**/*
@@ -17,7 +21,7 @@ AllCops:
     - features/**/*
     - lib/tasks/*
     - Guardfile
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7.1
 
 Rails:
   Enabled: true
@@ -33,7 +37,7 @@ Style/IfUnlessModifier:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   Enabled: true
-Style/MethodName:
+Naming/MethodName:
   Exclude:
     - features/support/fixtures/create_fixture.rb # ResourceName(resource, parent)
     - app/services/bulk_plots/numbers.rb # Number(int_or_float)
@@ -68,4 +72,13 @@ Style/ClassAndModuleChildren:
 Lint/UnusedMethodArgument:
   Exclude:
     - app/controllers/residents/sessions_controller.rb
+    - app/controllers/residents/app/sessions_controller.rb
     - app/controllers/users/sessions_controller.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - "app/models/document.rb"
+
+Metrics/ModuleLength:
+  Exclude:
+    - "app/helpers/buttons_helper.rb"

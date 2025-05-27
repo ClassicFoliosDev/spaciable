@@ -36,11 +36,10 @@ module PolymorphicAbilityHelper
     # [paremt] foreign key relationship and so we can set that using the parent object
     # for security testing purposes
     parent_name = parent&.class&.table_name&.singularize
-    if type.column_names.include?("#{parent_name}_id")
-      params[parent_name.to_sym] = parent
-    end
+    params[parent_name.to_sym] = parent if type.column_names.include?("#{parent_name}_id")
 
     return can? :create, type if params.empty?
+
     action = combine ? "create_#{type}_#{parent.class}".downcase.to_sym : :create
     can? action, type.new(params)
   end

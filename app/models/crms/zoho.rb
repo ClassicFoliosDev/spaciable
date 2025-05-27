@@ -78,7 +78,7 @@ module Crms
     end
 
     # Get related plots for parent then residents for the plots
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Style/RedundantBegin
     def residents(parent, s_plots)
       collection = PlotCollection.new
 
@@ -92,6 +92,7 @@ module Crms
           plot = Crms::Root::Plot.new(id: s.id, number: s.number)
           residents&.each do |resident|
             next if s.residents.find_by(email: resident.field_data["Email"])
+
             plot.residents << Crms::Root::Resident.new(
               title: resident.field_data["Title"].downcase,
               first_name: resident.field_data["Name"],
@@ -111,7 +112,7 @@ module Crms
 
       collection
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Style/RedundantBegin
 
     # download an individual document
     def download_doc(params)

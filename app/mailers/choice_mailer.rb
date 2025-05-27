@@ -6,7 +6,7 @@ class ChoiceMailer < ApplicationMailer
 
   def homeowner_choices_selected(plot, sender)
     @admins = plot.choice_admins ||
-              { email:  plot&.choices_email_contact,
+              { email: plot&.choices_email_contact,
                 first_name: "Sir/Madam" }
 
     # if there are no admins to receive the message - send to the cf admin

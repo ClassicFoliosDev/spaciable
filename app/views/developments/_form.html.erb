@@ -1,4 +1,6 @@
-<%= simple_form_for([parent, development]) do |f| %>
+ <% material_info_plots = MaterialInfo.where(infoable: development.plots).count %>
+
+ <%= simple_form_for([parent, development]) do |f| %>
   <script type="text/javascript" src="/javascripts/lib/developer.js"></script>
   <% if development.errors.any? %>
     <div class="submission-errors">
@@ -13,103 +15,127 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="row-item third">
-      <fieldset>
-        <%= f.input :name %>
-      </fieldset>
-      <br/>
-      <fieldset>
-        <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
-        <div id="construction_name">
-          <%= f.input :construction_name, label: t(".construction_name") %>
-        </div>
-      </fieldset>
-      <br/>
-      <fieldset>
-        <div id="maintenance_url">
-          <%= f.simple_fields_for :maintenance do |m| %>
-            <%= m.input :path, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>
-            <p><%= t(".maintenance_tip")%></p>
-            <div id="maintenance_details">
-              <%= m.label :populate, t(".maintenance_auto_populate") %>
-              <%= m.check_box :populate %>
-              <p class="checkbox-description"><%= t(".maintenance_auto_populate_description") %></p>
-              <div class="ui-front select-container">
-                <%= m.input :account_type, label: t(".account_type"), as: :select, collection: maintenance_account_types_collection, include_blank: true %>
-              </div>
+  <% if development.material_info %>
+    <%= render "material_info/tabs"%>
+  <% end %>
+
+  <% if can? :update, development %>
+    <div class="row" id="primary">
+      <div class="row">
+        <div class="row-item third">
+          <fieldset>
+            <%= f.input :name %>
+          </fieldset>
+          <fieldset>
+            <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
+            <div id="construction_name">
+              <%= f.input :construction_name, label: t(".construction_name") %>
             </div>
-          <% end %>
+          </fieldset>
+          <fieldset>
+            <%= f.input :client_platform, label: t(".client_platform"), as: :select, collection: client_platform_collection, include_blank: false %>
+          </fieldset>
+          <fieldset>
+            <div id="maintenance_url">
+              <%= f.simple_fields_for :maintenance do |m| %>
+                <%= m.input :path, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>
+                <p><%= t(".maintenance_tip")%></p>
+                <div id="maintenance_details">
+                  <%= m.label :populate, t(".maintenance_auto_populate") %>
+                  <%= m.check_box :populate %>
+                  <p class="checkbox-description"><%= t(".maintenance_auto_populate_description") %></p>
+                  <div class="ui-front select-container">
+                    <%= m.input :account_type, label: t(".account_type"), as: :select, collection: maintenance_account_types_collection, include_blank: true %>
+                  </div>
+                  <div id="fixflow_billing">
+                    <%= m.label t(".fixflow_direct") %>
+                    <%= m.check_box :fixflow_direct %>
+                    <p class="checkbox-description"><%= t(".fixflow_direct_description", developer: development.company_name) %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </fieldset>
+          <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
         </div>
-      </fieldset>
-      <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
-    </div>
-    <div class="row-item third">
-      <fieldset>
-        <%= f.simple_fields_for :address do |fields| %>
+        <div class="row-item third">
+          <fieldset>
+            <%= f.simple_fields_for :address do |fields| %>
 
-          <% if(development.country.uk?) %>
-            <%= render "address/short_fields", fields: fields %>
-          <% else %>
-            <label class="string optional"><%= t(".address") %></label>
-            <%= render "address/spanish_fields", fields: fields %>
-          <% end %>
-        <% end %>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
-         <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>
-        <div id="choices_email_contact">
-          <%= f.input :choices_email_contact, label: t(".choices_email") %>
-        </div>
-        <%= f.label :enable_snagging, t(".enable_snagging") %>
-        <%= f.check_box :enable_snagging %>
-        <p class="checkbox-description"><%= t(".snagging_description") %></p>
-        <%= f.input :snag_duration, label: t(".snag_duration") %>
-        <%= f.input :snag_name, label: t(".snag_name") %>
-        <% if development.parent_developer.cas %>
-          <%= f.label t(".enable_cas") %>
-          <%= f.check_box :cas %>
-          <p class="checkbox-description"><%= t(".cas_description") %></p>
-        <% end %>
-        <%= f.label t(".calendar") %>
-        <%= f.check_box :calendar %>
-        <p class="checkbox-description"><%= t(".calendar_description") %></p>
-        <br/>
-        <% if development.parent.conveyancing_enabled? %>
-          <%= f.label :conveyancing, t(".conveyancing") %>
-          <%= f.check_box :conveyancing %>
-          <p class="checkbox-description"><%= t(".conveyancing_description") %>
-        <% end %>
-        <br/>
-        <div id="premium_perks">
-          <div class="<%= parent.enable_perks %>">  <!-- used in css to determine visibility -->
-            <%= f.simple_fields_for :premium_perk do |p| %>
-              <%= p.label :enable_premium_perks, t(".enable_premium_perks") %>
-              <%= p.check_box :enable_premium_perks %>
-              <p class="checkbox-description"><%= t(".premium_perks_description") %></p>
-              <%= p.input :premium_licence_duration, label: t(".premium_licence_duration") %>
-              <%= p.input :premium_licences_bought, label: t(".premium_licences_bought") %>
-              <% if development.premium_licences_bought&.positive? %>
-                <label><%= t(".premium_licences_allocated") %></label>
-                <span class="read-only"><%= development.premium_perk_sign_up_count %></span>
-                <label><%= t(".premium_licences_remaining") %></label>
-                <span class="read-only"><%= Vaboo.available_premium_licences(development) %></span>
+              <% if(development.country.uk?) %>
+                <%= render "address/short_fields", fields: fields %>
+              <% else %>
+                <label class="string optional"><%= t(".address") %></label>
+                <%= render "address/spanish_fields", fields: fields %>
               <% end %>
             <% end %>
-          </div>
+          </fieldset>
         </div>
-      </fieldset>
+
+        <div class="row-item third">
+          <fieldset>
+             <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>
+            <div id="choices_email_contact">
+              <%= f.input :choices_email_contact, label: t(".choices_email") %>
+            </div>
+            <%= f.label :enable_snagging, t(".enable_snagging") %>
+            <%= f.check_box :enable_snagging %>
+            <p class="checkbox-description"><%= t(".snagging_description") %></p>
+            <%= f.input :snag_duration, label: t(".snag_duration") %>
+            <%= f.input :snag_name, label: t(".snag_name") %>
+            <% if development.parent_developer.cas %>
+              <%= f.label t(".enable_cas") %>
+              <%= f.check_box :cas %>
+              <p class="checkbox-description"><%= t(".cas_description") %></p>
+            <% end %>
+            <%= f.label t(".calendar") %>
+            <%= f.check_box :calendar %>
+            <p class="checkbox-description"><%= t(".calendar_description") %></p>
+            <br/>
+            <% if development.parent.conveyancing_enabled? %>
+              <%= f.label :conveyancing, t(".conveyancing") %>
+              <%= f.check_box :conveyancing %>
+              <p class="checkbox-description"><%= t(".conveyancing_description") %>
+            <% end %>
+            <br/>
+            <div id="premium_perks">
+              <div class="<%= parent.enable_perks %>">  <!-- used in css to determine visibility -->
+                <%= f.simple_fields_for :premium_perk do |p| %>
+                  <%= p.label :enable_premium_perks, t(".enable_premium_perks") %>
+                  <%= p.check_box :enable_premium_perks %>
+                  <p class="checkbox-description"><%= t(".premium_perks_description") %></p>
+                  <%= p.input :premium_licence_duration, label: t(".premium_licence_duration") %>
+                  <%= p.input :premium_licences_bought, label: t(".premium_licences_bought") %>
+                  <% if development.premium_licences_bought&.positive? %>
+                    <label><%= t(".premium_licences_allocated") %></label>
+                    <span class="read-only"><%= development.premium_perk_sign_up_count %></span>
+                    <label><%= t(".premium_licences_remaining") %></label>
+                    <span class="read-only"><%= Vaboo.available_premium_licences(development) %></span>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
+
+  <% if development.material_info %>
+    <%= render "material_info/form", f: f, development: true, material_info_plots: material_info_plots%>
+  <% end %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), ((parent.is_a?(Division)) ? (developer_division_path(developer_id: parent.developer_id, id: parent.id)) : [parent, active_tab: :developments]), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
+  </div>
+<% end %>
+
+<% if params[:action] == "edit" && material_info_plots.nonzero? %>
+  <div class="ut-update-option-form hidden">
+    <%= render 'components/admin/development_update_options_form' %>
   </div>
 <% end %>
 

@@ -28,13 +28,15 @@
           <span class="inactive"><%= " (not activated)" unless a.invitation_accepted_at %></span><br/>
         <% end %>
       </span>
-      <%= render 'components/admin/customer_experience_contact', developer: development.parent_developer %><br/>
     </span>
   </div>
 
   <div class="section-data">
     <%= render 'address/address', address: development.address %><br/>
     <%= render 'components/contacts', contact: development %><br/>
-    <%= edit_btn [:edit, development.parent, development], element: development %>
+    <% if development.linked_to_unlatch? %>
+      <%= unlatch_sync_btn(development) %>
+    <% end %>
+    <%= edit_btn [:edit, development.parent, development], element: development, override: development.material_info %>
   </div>
 </div>

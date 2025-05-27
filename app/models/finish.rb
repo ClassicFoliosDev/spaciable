@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent
 class Finish < ApplicationRecord
   require "fileutils"
 
@@ -13,8 +14,8 @@ class Finish < ApplicationRecord
   attr_accessor :picture_cache
   attr_accessor :added_by
 
-  belongs_to :finish_category, required: true
-  belongs_to :finish_type, required: true
+  belongs_to :finish_category, optional: false
+  belongs_to :finish_type, optional: false
   belongs_to :finish_manufacturer
   belongs_to :developer, optional: true
 
@@ -79,6 +80,7 @@ class Finish < ApplicationRecord
 
   def check_dup
     return unless RequestStore.store[:current_user]&.is_a? User
+
     developer_ids = [developer_id]
     developer_ids << nil unless RequestStore.store[:current_user]&.cf_admin?
 
@@ -119,3 +121,4 @@ class Finish < ApplicationRecord
     FinishRoom.with_finish(id).present?
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent

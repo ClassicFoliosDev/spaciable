@@ -40,6 +40,13 @@ module PhaseTabsHelper
         permissions_on: -> { phase },
         hide: RequestStore.store[:current_user].site_admin?
       },
+      bulk_delete: {
+        icon: "trash-o",
+        link: [phase, :bulk_delete_index],
+        check_assoc: true, # check phase for bulk_edit permission
+        permissions_on: -> { phase },
+        hide: RequestStore.store[:current_user].site_admin?
+      },
       release_plots: {
         icon: "rocket",
         link: [phase, :release_plots],

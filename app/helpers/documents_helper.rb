@@ -5,7 +5,7 @@ module DocumentsHelper
     Plot => %w[reservation completion floor_plan],
     Phase => %w[reservation completion floor_plan],
     Development => %w[reservation completion],
-    UnitType => %w[floor_plan]
+    UnitType => %w[floor_plan spec_template]
   }.freeze
 
   def category_collection(document = nil)
@@ -16,11 +16,30 @@ module DocumentsHelper
     end
   end
 
+  def all_category_collection
+    categories = category_collection
+    categories.insert(0, %w[All all])
+  end
+
   def guide_collection(_document, parent, exclude = nil)
     guides = Document.guides.map do |(guide_name, _)|
       next if exclude.present? && exclude.include?(guide_name)
       next unless GUIDES[parent.class]&.include?(guide_name)
+
       [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
+    end
+    guides.compact
+  end
+
+  def parent_guide_collection(parent, all_and_nothing = true)
+    guides = Document.guides.map do |(guide_name, _)|
+      next unless GUIDES[parent]&.include?(guide_name)
+
+      [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
+    end
+    if all_and_nothing
+      guides.insert(0, %w[None none])
+      guides.insert(0, %w[All all])
     end
     guides.compact
   end

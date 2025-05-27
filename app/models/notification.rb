@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
 class Notification < ApplicationRecord
   attr_accessor :range_from, :range_to, :list
   attr_accessor :read_at
@@ -31,7 +31,8 @@ class Notification < ApplicationRecord
 
   def picture_name
     return "user-circle-o.jpg" if picture.blank?
-    picture
+
+    picture.url
   end
 
   def send_to_conflicts
@@ -48,11 +49,13 @@ class Notification < ApplicationRecord
 
   def send_to
     return SendToAll.new(notification: self) if send_to_all?
+
     super
   end
 
   def send_to_all?
     return false if sender && !sender.cf_admin?
+
     super
   end
 
@@ -136,6 +139,26 @@ class Notification < ApplicationRecord
   end
   # rubocop:enable all
 
+  # get the valid plots associated with the notification
+  def plot_ids
+    plots = if send_to_type == "Plot"
+              [Plot.find(send_to_id)]
+            else
+              send_to.plots
+            end
+
+    plots.reject(&:expired?).pluck(:id) unless sender.cf_admin?
+    plots.pluck(:id)
+  end
+
+  def living_plot_ids
+    plots = Plot.joins(:development)
+                .where(id: plot_ids)
+                .where(developments: { client_platform: [Development.client_platforms[:living],
+                                                         Development.client_platforms[:hybrid]] })
+    plots.pluck(:id)
+  end
+
   delegate :role, to: :sender, allow_nil: true
   delegate :job_title, to: :sender, allow_nil: true
   delegate :first_name, to: :sender, allow_nil: true
@@ -145,4 +168,4 @@ class Notification < ApplicationRecord
   delegate :to_str, to: :subject
   delegate :permission_level, to: :sender, allow_nil: true
 end
-# rubocop:enable ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

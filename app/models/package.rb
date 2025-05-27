@@ -7,12 +7,13 @@ class Package
       Lock.run :package_invoice do
         Developer.on_package.each do |developer|
           next if developer.is_demo
+
           invoice(developer.id)
         end
       end
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Style/RescueStandardError
     def invoice(developer_id, created_at = Time.zone.now.midnight)
       developer = Developer.find(developer_id)
 
@@ -30,6 +31,7 @@ class Package
               Invoice.create(created_at: created_at,
                              phase_id: phase.id,
                              package: p,
+                             cpp: CPP.find_by(package: p)&.value,
                              plots: package_plots.count,
                              ff_plots: ff_plots)
             end
@@ -41,6 +43,6 @@ class Package
     rescue => e
       Rails.logger.debug("Failed creating #{developer.company_name} invoice - #{e.message}")
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Style/RescueStandardError
   end
 end

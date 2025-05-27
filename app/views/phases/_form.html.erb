@@ -27,13 +27,27 @@
         <% if phase.res_comp? && phase.package.present? && !phase.free? %>
           <label>Package</label>
           <p><%= t("activerecord.attributes.phase.packages.#{phase.package}") %></p>
+          <% if current_user.cf_admin? %>
+            <label>CPP</label>
+            <p>£<%= sprintf("%.2f",phase.cpp) %></p>
+          <% end %>
         <% elsif !current_user.cf_admin? %>
           <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true,
             disabled: true %>
         <% else %>
+          <script>
+            var cpps = {
+              <% CPP.all.each do |cpp| %>
+                <%= cpp.package %> : <%= cpp.value %> ,
+              <% end %>
+            }
+          </script>
           <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true,
             disabled: disabled_phase_packages(phase) %>
+          <%= f.input :cpp, as: :float, label: t(".cpp"), step: "0.01" %>
+
         <% end %>
+
       </fieldset>
     </div>
     <div class="row-item third">

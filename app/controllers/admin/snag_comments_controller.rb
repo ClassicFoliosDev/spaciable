@@ -22,7 +22,7 @@ module Admin
     private
 
     def notify_and_redirect(snag_comment)
-      snag_comment.update_attributes(commenter: current_user)
+      snag_comment.update(commenter: current_user)
       ResidentSnagMailer.snag_comment_email(snag_comment).deliver
       resident_notification(snag_comment)
       redirect_to admin_snag_path(id: snag_comment.snag_id)

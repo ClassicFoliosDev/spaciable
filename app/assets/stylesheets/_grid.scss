@@ -149,6 +149,12 @@ $row-bg-color: $ui-white;
   }
 }
 
+.slim-row-item {
+  @extend .row-item;
+
+  padding: 5px;  
+}
+
 .half {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);
@@ -191,6 +197,11 @@ $row-bg-color: $ui-white;
     @include span-columns(4 of 12);
     margin-bottom: $spacing-large;
   }
+}
+
+.stumpy-third {
+  @extend .third;
+  margin-bottom: 0;
 }
 
 .two-thirds {

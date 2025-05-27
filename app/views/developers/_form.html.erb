@@ -28,13 +28,14 @@
         <% end %>
         <%= f.input :custom_url, label: t(".custom_url"), input_html: {type: "text"} %>
         <div class="featured ui-front">
-          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
+          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: developer.persisted? %>
         </div>
         <%= f.input :about %>
         <%= f.input :api_key, as: :text, placeholder: t(".api_key_info"), label: t(".api_key") %>
         <%= f.label :personal_app, t(".branded_app") %>
         <%= f.check_box :personal_app, checked: developer.branded_app? %>
         <p class="checkbox-description"><%= t(".branded_app_description") %></p>
+        <%= f.input :auto_complete, label: t(".auto_complete") %>
       </fieldset>
     </div>
 
@@ -52,6 +53,12 @@
           <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
           <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
         </div>
+        <%= f.label t(".enable_material_info") %>
+        <%= f.check_box :enable_material_info %>
+        <p class="checkbox-description"><%= t(".material_info_description") %></p>
+        <%= f.label t(".suspended") %>
+        <%= f.check_box :suspended %>
+        <p class="checkbox-description"><%= t(".suspended_description") %></p>
       </fieldset>
     </div>
 
@@ -102,8 +109,6 @@
             <%= p.input :tile_image, label: t(".tile_image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
           </div>
         <% end %>
-
-
       </fieldset>
     </div>
   </div>

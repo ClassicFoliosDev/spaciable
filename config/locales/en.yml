@@ -412,9 +412,9 @@ en:
     videos: "Videos"
     videos_add: "New Video"
     videos_edit: "Edit %{video}"
-    services: "Services"
-    services_add: "New Service"
-    services_edit: "Edit Service"
+    services: "Savings"
+    services_add: "New Saving"
+    services_edit: "Edit Saving"
     finishes: "Finishes Catalogue"
     finish_categories: "Finish Categories"
     finish_edit: "Edit %{name}"
@@ -591,6 +591,7 @@ en:
       sub_menu:
         about: "Home Tour"
         rooms: "Rooms"
+        material_info: "Material Info"
         appliances: "Appliances"
         library: "Library"
         calendar: "Calendar"
@@ -611,7 +612,7 @@ en:
         helping_hand: "A Helping Hand"
         maintenance: "Issues"
         house_search: "Area Guide"
-        services: "Services"
+        services: "Savings"
         about: "Home Tour"
         rooms: "Rooms"
         appliances: "Appliances"
@@ -1464,7 +1465,7 @@ en:
       rooms: "Rooms"
       brands: "Styling"
       videos: "Videos"
-      services: "Services"
+      services: "Savings"
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
@@ -1485,6 +1486,8 @@ en:
       snag_name: "Snagging Name"
       maintenance_auto_populate: "Auto-Populate FixFlo Details"
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo or Clixifix."
+      fixflow_direct: "Fixfow Billing"
+      fixflow_direct_description: "Is the maintenance billed direct to %{developer}?"
       choices_email: "Choices Email"
       account_type: "Maintenance Account Type"
       enable_cas: "Client Adding Specifications"
@@ -1497,6 +1500,7 @@ en:
       premium_licences_remaining: "Premium Licences Remaining"
       construction: "Construction Type"
       construction_name: "Replace My 'Home':"
+      client_platform: "Client Platform"
       calendar: "Calendar"
       calendar_description: "Enable Plot Calendars for this Development"
       conveyancing: "Spaciable Legal Conveyancing"
@@ -1620,6 +1624,8 @@ en:
         title: "Rooms."
         view: "View room"
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
+      no_match:
+        no_match: "Oops, something hasn't quite gone as expected. We're unable to locate room specifications for your property.  Please contact your Hill representative for more information."
     about_videos:
       show:
         title: "Introductory Video"
@@ -1754,7 +1760,7 @@ en:
         how_tos: "How To"
         faqs: "FAQs"
         area_guide: "Area Guide"
-        services: "Services"
+        services: "Savings"
         phone: "Phone"
         tel: "tel: %{number}"
         email: "Email"
@@ -1850,6 +1856,8 @@ en:
         wash: "Wash Only"
         e_rating: "A+++ to D Energy Rating<br/>"
         main_uk_e_rating: "A to G Energy Rating<br/>(introduced March 2021)"
+      no_match:
+        no_match: "Oops, something hasn't quite gone as expected. We're unable to locate the appliances for your property.  Please contact your Hill representative for more information."
     how_tos:
       index:
         title: "How To."
@@ -1869,10 +1877,10 @@ en:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
       services:
-        services_description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
-        services: "Select Services"
-        services_title: "Services"
-        services_description_one: "Benefit from an exclusive range of services, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Services feature."
+        services_description: "Benefit from an exclusive range of savings, from utility and insurance to home furnishings and lifestyle."
+        services: "Select Savings"
+        services_title: "Savings"
+        services_description_one: "Benefit from an exclusive range of savings, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Savings feature."
         services_description_two: "Simply select the categories you are interested in and start saving money!"
       referral_form:
         first_name: "First Name"
@@ -1896,9 +1904,9 @@ en:
           send_invitation: "Submit"
           confirm: "Your referral has been sent"
         services:
-          description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
-          button: "Select Services"
-          title: "Services"
+          description: "Benefit from an exclusive range of savings, from utility and insurance to home furnishings and lifestyle."
+          button: "Select Savings"
+          title: "Savings"
         area_guide:
           title: "Area Guide"
           description: "Discover local amenities and learn more about your surroundings."
@@ -1945,7 +1953,7 @@ en:
       show:
         title: "Welcome home!"
         opening_one: "This is your %{developer} portal. Here you can access a wealth of features that will help you enjoy your new home."
-        opening_two: "We strongly reccommend that you explore your portal on your laptop, PC or tablet, to take full advantage of the time and money benefits on offer from our fantastic features. For quick, convenient access on the go, make sure you download the app to your mobile."
+        opening_two: "We strongly recommend that you explore your portal on your laptop, PC or tablet, to take full advantage of the time and money benefits on offer from our fantastic features. For quick, convenient access on the go, make sure you download the app to your mobile."
         opening_three: "You will receive updates on new features; however, here are some of the highlights:"
         library: "Document library - access important documents and certificates relating to your home, such as appliance manuals and warranty policies."
         contacts: "Contacts - while your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
@@ -2025,10 +2033,10 @@ en:
         title: "My Account"
       communications:
         title: "Communication Preferences."
-        updates_by: "Updates on offers and services from your portal:"
+        updates_by: "Updates on offers and savings from your portal:"
         helpful: "We want to stay in touch, but only in ways that you find helpful.<br/> Select from the options below and click Save."
       services:
-        title: "Services"
+        title: "Savings"
       show:
         title: "My Account"
         my_account: "My Account"
@@ -2088,14 +2096,14 @@ en:
         subtitle: ""
         description_html: ""
         submit: "Submit"
-        services_title: "Services."
+        services_title: "Savings."
         disclaimer: "You can access the Services feature at any time from your portal dashboard."
     intro_videos:
       show:
         title: "Intro Video"
         welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers."
         welcome_2: "The content on your portal is personalised to your home."
-        next: "Next"
+        go_to_dashboard: "Go to Dashboard"
         return: "You can also view this welcome video on your portal’s Account page."
     development_messages:
       index:
@@ -2162,8 +2170,12 @@ en:
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
       enable_house_search: "Area Guide"
       house_search_description: "Provide residents with an external link to BestArea4Me"
-      enable_services: "Services"
-      services_description: "A homeowner can select moving and other services via the Spaciable landing page."
+      enable_services: "Savings"
+      enable_material_info: "Material Info"
+      material_info_description: "Create Material Info at Development and Plot levels"
+      suspended: "User Suspension"
+      suspended_description: "Suspend all Admin accounts associated with this developer?"
+      services_description: "A homeowner can select moving and other savings via the Spaciable landing page."
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
       enable_homedesigner: "Planner 5D"
@@ -2175,6 +2187,7 @@ en:
       prime_admin: "Primary lettings administrator"
       branded_app: "Branded App"
       branded_app_description: "Developer has a branded app"
+      auto_complete: "Auto Complete plots threshold(months)"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
       timeline: "My Journey and Interactive Guides"
@@ -2239,7 +2252,7 @@ en:
       none: "(not configured)"
       roomsketcher: "Room Sketcher: "
       house_search: "Area Guide: "
-      services: "Services: "
+      services: "Savings: "
       referrals: "Referrals: "
       messages: "Community Messages: "
       enabled: "Enabled"
@@ -2529,6 +2542,7 @@ en:
       back: "Back"
       conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete"
+      cpp: "Cost Per Plot(£)"
     index:
       title: "Phases."
     show:
@@ -2555,6 +2569,7 @@ en:
       plot_documents: "Plot Documents"
       progresses: "Build Progress"
       bulk_edit: "Bulk Edit"
+      bulk_delete: "Bulk Delete"
       production: "Production"
       release_plots: "Release Plots"
       lettings: "Lettings"
@@ -2824,7 +2839,50 @@ en:
       back: "Back"
       notify: "Notify subscribed residents about this change"
       update_ut: "You have requested a change in Spec Template from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
-
+      heating_fuels: "Heating Fuels"
+      heating_sources: "Heating Sources"
+      heating_outputs: "Heating Outputs"
+      tenure: "Tenure"
+      lease_length: "Lease Length"
+      selling_price: "Selling Price"
+      selling_price_placeholder: "Not Yet Released"
+      reservation_fee: "Reservation Fee"
+      reservation_fee_placeholder: "TBA"
+      service_charges: "Service Charges (per annum)"
+      council_tax_band: "Council Tax Band"
+      property_type: "Property Type"
+      floor: "Floor"
+      specification: "Rooms"
+      floorspace: "Size of Property (total sq ft)"
+      estimated_legal_completion_date: "Estimated Legal Completion Date"
+      epc_rating: "EPC Rating"
+      property_construction: "Property Construction"
+      property_construction_other: "Property Construction (Other)"
+      electricity_supply: "Electricity Supply"
+      electricity_supply_other: "Electricity Supply (Other)"
+      water_supply: "Water Supply"
+      sewerage: "Sewerage"
+      sewerage_other: "Sewerage (Other)"
+      broadband: "Broadband"
+      mobile_signal: "Mobile Coverage"
+      mobile_signal_restrictions: "Mobile Coverage Restrictions"
+      parking: "Parking"
+      building_safety: "Building Safety"
+      restrictions: "Restrictions"
+      rights_and_easements: "Rights And Easements"
+      flood_risk: "Flood Risk"
+      planning_permission_or_proposals: "Planning Permission Or Proposals"
+      accessibility: "Accessibility"
+      coalfield_or_mining_areas: "Coal Or Minefield Areas"
+      other_considerations: "Other Considerations"
+      warranty_num: "Warranty Number"
+      plot_number: "Plot Number"
+      mprn: "MPRN"
+      mprn_placeholder: "Not Available"
+      mpan: "MPAN"
+      mpan_placeholder: "Not Available"
+      uprn: "UPRN"
+      uprn_placeholder: "Not Available"
     index:
       title: "%{parent_name} Plots"
     new:
@@ -2866,6 +2924,7 @@ en:
       activation: "Activated"
       activated: "%{activated} of %{all}"
       not_released: "Plot %{plot} has not been released"
+      occupied: "Occupied"
       status:
         title: "Spaciable Status"
         text: "<p><strong>Plots can have one of three Statuses on Spaciable:</strong></p>
@@ -3150,12 +3209,15 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      register: "Appliance Guarantee"
+      register_description: "Do the appliances within this category require residents to register them?<br><br>Many household appliances require the resident to register them within a certain timeframe in order to validate the warranty, e.g., ovens, fridges, dishwashers, etc.  Spaciable can remind residents to carry this out by providing a link to the manufacturer’s registration page."
     edit:
       title: "Edit %{name}"
     show:
       back: "Back"
     appliance_category:
       manufacturers: "Manufacturers"
+      guarantee: "Appliance Guarantee"
 
   finishes:
     destroy:
@@ -3496,6 +3558,17 @@ en:
       header: "Header"
       text: "Content text paragraph"
 
+  no_comp_mailer:
+    hello: "Hello Spaciable admin"
+    regards: "Kind regards"
+    team: "The Spaciable Team"
+    no_comp_since_last_res: 
+      p1: "We added the plots at %{development} a couple of months ago but have noticed that you have not yet called off any plots for us to add the appliances and finishes."
+      p2: "If you have plots that are nearing completion/date of entry, please send plot checklists/information to <a href='mailto:support@classicfolios.com'>support@classicfolios.com</a> so that we can populate this information."
+    no_comp_since_last_comp: 
+      p1: "We have noticed that you haven’t called off any plots from %{development} for a few weeks. You still have %{num_plots} plots left to call off on this development – plot numbers %{plots}."
+      p2: "Please send plot checklists/information for any plots that are required at this time to <a href='mailto:support@classicfolios.com'>support@classicfolios.com</a> so that we can populate the appliances and finishes."
+
   invitation_summary_mailer:
     resident_summary:
       subject: "Spaciable Activation Report : %{permission_level}"
@@ -3551,6 +3624,10 @@ en:
     show:
       back: "Back"
 
+  bulk_delete:
+    index:
+      guide: "Document Tag"
+
   bulk_edit:
     index:
       why_title: "<strong>Why should I use the Bulk Edit feature?</strong>"
@@ -3594,6 +3671,7 @@ en:
       unit_type: "Spec Template"
       date_r: "R"
       date_c: "C"
+      date_a: "A"
       name: "Plot"
       prefix: "Prefix"
       sync: "CRM Sync"
@@ -3639,6 +3717,101 @@ en:
       report: "Report"
 
     attributes:
+      material_info:
+        tenure_labels:
+          unassigned: "Unassigned"
+          freehold: "Freehold/Heritable"
+          leasehold: "Leasehold"
+          shared_ownership: "Shared Ownership"
+          rented: "Rented"
+          commonhold: "Commonhold"
+        council_tax_band_labels:
+          unavailable: "Not Yet Available"
+          a: "A"
+          b: "B"
+          c: "C"
+          d: "D"
+          e: "E"
+          f: "F"
+          g: "G"
+        property_type_labels:
+          detached: "Detached"
+          semi: "Semi-Detached"
+          terraced: "Terraced"
+          bungalow: "Bungalow"
+          apartment: "Apartment"
+          duplex: "Duplex"
+          maisonette: "Maisonette"
+          studio: "Studio"
+        floor_labels:
+          ground: "Ground"
+          first_: "First"
+          second_: "second"
+          third_: "Third"
+          forth_: "Forth"
+          fifth_: "Fifth"
+          sixth_: "Sixth"
+          seventh_: "Seventh"
+          eigth_: "Eigth"
+          ninth_: "Ninth"
+          tenth_: "Tenth"
+          eleventh_: "Eleventh"
+          twelth_: "Twelth"
+          thirteenth_: "Thirteenth"
+          fourteenth_: "Fourteenth"
+          fifteenth_: "Fifteenth"
+          sixteenth_: "Sixteenth"
+          seventeenth_: "Seventeenth"
+          eighteenth_: "Eighteenth"
+          nineteenth_: "Nineteenth"
+        epc_labels:
+          no_rating: "Not yet available"
+          epc_a: "A"
+          epc_b: "B"
+          epc_c: "C"
+          epc_d: "D"
+          epc_e: "E"
+          epc_f: "F"
+          epc_g: "G"
+        property_construction_labels:
+          traditional: "Traditional brick and block"
+          timber_frame: "Timber Frame"
+          modular_build: "Modular Build"
+          plot_construction_other: "Other"
+        electricity_supply_labels:
+          mains_electricity: "Mains"
+          pv_supplemented: "Mains supplemented by PV panels"
+          private_supply: "Generator/private supply"
+          wind_turbines: "Wind Turbines"
+          electricty_other: "Other"
+        water_supply_labels:
+          mains_water: "Mains (metered)"
+          private_water_supply: "Private"
+        sewerage_labels:
+          mains_sewerage: "Mains"
+          septic_tank: "Septic tank"
+          sewage_treatment_plant: "Sewage treatment plant"
+          cesspit_cesspool: "Cesspit/cesspool"
+          sewerage_other: "Other"
+        broadband_labels:
+          not_applicable: "None"
+          adsl_copper: "ADSL copper wire"
+          cable: "Cable"
+          fttc: "Fibre to the Cabinet"
+          fttp: "Fibre to the Premises"
+        mobile_signal_labels:
+          good: "Good - no known issues"
+          fair: "Fair"
+          restricted: "Restrictions/issues"
+          no_mobile_signal: "None"
+        parking_labels:
+          no_parking: "No parking"
+          garage: "Garage"
+          drive: "Drive"
+          allocated_car_park: "Car park (allocated)"
+          unallocated_car_park: "Car park (unallocated)"
+          street_parking_permit: "Street parking (permit)"
+          street_parking_no_permit: "Street parking (no permit)"
       developer:
         company_name: "Developer"
         head_office_address: "Head office address"
@@ -3674,6 +3847,10 @@ en:
         construction_labels:
           residential: "Residential"
           commercial: "Commercial"
+        client_platform_labels:
+          native: "Spaciable"
+          living: "Living"
+          hybrid: "Spaciable/Living"
       phase:
         name: "Name"
         updated_at: "Last Edited"
@@ -3763,6 +3940,7 @@ en:
            internal_finishes: "Internal finishes"
            stairway: "Landing / hall / stairway"
            utility: "Utility room"
+           ensuite: "En Suite"
       finish:
         name: "Finish Name"
         type: "Finish Type"
@@ -3834,6 +4012,7 @@ en:
           reservation: "Reservation"
           completion: "Completion"
           floor_plan: "Floor Plan"
+          spec_template: "Spec Template Doc"
 
       spotlights:
         category:
@@ -3849,7 +4028,7 @@ en:
           area_guide: "Area Guide"
           home_designer: "Home Designer"
           referrals: "Referrals"
-          services: "Services"
+          services: "Savings"
           perks: "Buyers' Club"
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
@@ -3859,6 +4038,7 @@ en:
           reservation: "Reservation"
           completion: "Completion"
           floor_plan: "Floor Plan"
+          spec_template: "Spec Template Doc"
         expiries:
           never: "Never"
           one_year: "1 Year after EMD"
@@ -4120,6 +4300,13 @@ en:
       user: "User"
       at: "Created At"
 
+  material_info:
+    tabs:
+      primary: "Primary"
+      details: "Details"
+      services: "Services"
+      metadata: "Issues"
+
   timelines:
     turned_off: "Turned Off"
     import: "Import Interactive Handover"
@@ -4302,6 +4489,7 @@ en:
     homeowner_log_in: "Returning User"
     homeowner_accept_invite: "New User"
     root: "%{category} Menu"
+    material_info: "Material Info"
     calendar:
       calendar_viewed: "Calendar Viewed"
       viewed: "Events Viewed"

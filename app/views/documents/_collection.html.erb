@@ -58,6 +58,9 @@
             <td><%= document.user_role(current_user) if document&.user %></td>
             <td><%= l document&.updated_at.to_date, format: :digits %></td>
             <td class="actions">
+              <% if document.linked_to_unlatch? %>
+                <%= unlatch_sync_btn(document) %>
+              <% end %>
               <%= link_to document&.file&.url, class: "btn",  target: "_blank" do %>
                 <%= icon "floppy-o" %>
               <% end %>

@@ -8,6 +8,8 @@
     <%= render "progresses/progress", plot: @plot, progress_id: @progress_id %>
   <% elsif @active_tab == "completion" %>
     <%= render "plots/completion", plot: @plot %>
+  <% elsif @active_tab == "material_info" %>
+    <%= render "plots/material_info/edit", plot: @plot %>
   <% elsif @active_tab == "calendar" %>
     <% if !current_user.cf_admin? && @plot.free? %>
       <%= render "components/admin/popup", title: t(".help_title"), preference: :show_plot_calendar_restriction_dialog, help: [t(".help", url: ENV["PACKAGE_URL"])], type: :warn %>

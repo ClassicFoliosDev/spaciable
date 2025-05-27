@@ -60,8 +60,8 @@ class TasksController < ApplicationController
 
     if @task.save
       # update the surrounding tasks
-      @task.update_attributes(next_id: after&.id)
-      prev&.update_attributes(next_id: @task.id)
+      @task.update(next_id: after&.id)
+      prev&.update(next_id: @task.id)
       @task.reset_head
       after&.reset_head
 

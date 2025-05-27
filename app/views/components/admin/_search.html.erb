@@ -5,7 +5,7 @@
       <fieldset>
         <%= f.input :developer_id,
           as: :select,
-          collection: Developer.all.order(:company_name),
+          collection: Developer.all.accessible_by(current_ability).order(:company_name),
           selected: usearch.developer_id,
           include_blank: t(".all") %>
         <%= f.input :division_id,
@@ -33,18 +33,20 @@
 
       </div>
     </div>
-    <div class="row-item third search-user">
-      <div class="search-container">
-        <%= simple_fields_for :search do |s| %>
-          <%= s.text_field :search_user_text, class: "search-user-field", autocomplete: "off", placeholder: search, data: {path: user_search_path}  %>
-          <%= link_to "", class: "btn search-btn" do %>
-            <i class="fa fa-search"></i>
+    <% if current_user.cf_admin? %>
+      <div class="row-item third search-user">
+        <div class="search-container">
+          <%= simple_fields_for :search do |s| %>
+            <%= s.text_field :search_user_text, class: "search-user-field", autocomplete: "off", placeholder: search, data: {path: user_search_path}  %>
+            <%= link_to "", class: "btn search-btn" do %>
+              <i class="fa fa-search"></i>
+            <% end %>
           <% end %>
-        <% end %>
-        <div class="search-results-container">
-          <ul class="search-results"></ul>
+          <div class="search-results-container">
+            <ul class="search-results"></ul>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

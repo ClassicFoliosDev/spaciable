@@ -18,6 +18,7 @@ module RoomEnum
       internal_finishes
       stairway
       utility
+      ensuite
     ]
   end
 end

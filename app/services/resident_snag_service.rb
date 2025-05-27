@@ -21,10 +21,6 @@ module ResidentSnagService
                 plot.building_name, plot.road_name].compact.join(" ")
   end
 
-  private
-
-  module_function
-
   def build_notification(user, update, plot)
     get_address(plot)
 

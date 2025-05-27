@@ -23,7 +23,7 @@ module Csv
         "Business Stream", "Package", "Reservation Order Number", "Completion Order Number",
         "Ready for Invites Date", "Ready for Handover Date",
         "Validity", "Extended Access", "Expiry Date", "Expired",
-        "Maintenance", "Residents Invited", "Residents Accepted"
+        "Maintenance", "Direct Billing", "Residents Invited", "Residents Accepted"
 
       ]
     end
@@ -55,7 +55,8 @@ module Csv
         plot.extended_access,
         expiry_date(plot),
         expired_status(plot),
-        maintenance_type(plot)
+        maintenance_type(plot),
+        plot&.maintenance&.fixflow_direct ? "Yes" : "No"
       ]
     end
 
@@ -68,6 +69,7 @@ module Csv
 
     def self.maintenance_type(plot)
       return unless plot&.maintenance&.account_type
+
       I18n.t("activerecord.attributes.maintenance.account_types.#{plot.maintenance.account_type}")
     end
   end

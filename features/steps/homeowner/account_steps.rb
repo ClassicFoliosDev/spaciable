@@ -20,7 +20,7 @@ Then(/^I should be redirected to the homeowner dashboard$/) do
   expect(current_path).to eq '/dashboard'
 end
 
-Given(/^the developer has enabled services$/) do
+Given(/^the developer has enabled savings$/) do
   developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
   developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
 
@@ -389,6 +389,10 @@ Then(/^when I click next$/) do
   find(".branded-btn").click
 end
 
+Then(/^when I click Go To Dashboard$/) do
+  find(".services-btn").click
+end
+
 Then(/^I am redirected to the welcome home page$/) do
   within ".navbar-item-secondary" do
     expect(page).to have_content(t("homeowners.welcome_home.show.title"))
@@ -401,13 +405,13 @@ Then(/^I should be redirected to the intro video page$/) do
   end
 end
 
-Then(/^I should be redirected to the services page$/) do
+Then(/^I should be redirected to the savings page$/) do
   within ".navbar-item-secondary" do
     expect(page).to have_content(t("homeowners.residents.services.title"))
   end
 end
 
-When(/^I select no services$/) do
+When(/^I select no savings$/) do
   within ".services-actions" do
     page.first(".branded-btn-inverted").click
   end
@@ -453,6 +457,6 @@ When(/^I complete the onboarding$/) do
   find(".video-container")
 
   within ".next-page" do
-    click_on "Next"
+    click_on "Go to Dashboard"
   end
 end

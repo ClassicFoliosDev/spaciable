@@ -349,7 +349,7 @@ Then(/^I can CRUD faqs$/) do
   development = Development.find_by(name: ExpiryFixture.development_name)
 
   development.faq_types.each do |faq_type|
-    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: false).trigger('click')
 
     within ".empty" do
       click_on t("components.empty_list.add", action: "Add", type_name: faq_type.name)
@@ -414,7 +414,7 @@ end
 
 When(/^I can no longer CRUD faqs$/) do
   development = Development.find_by(name: ExpiryFixture.development_name)
-  find(:xpath,"//a[contains(., '#{development.faq_types.first.name}')]", visible: all).trigger('click')
+  find(:xpath,"//a[contains(., '#{development.faq_types.first.name}')]", visible: false).trigger('click')
 
   # When there are legacy faqs, no new faqs can be created
   within ".main-container" do

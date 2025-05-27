@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Crms
-  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable Metrics/ClassLength, Lint/DuplicateMethods
   class Salesforce < Crms::Root
     include ActiveModel::Model
     include HTTParty
@@ -211,7 +211,7 @@ module Crms
     end
 
     # Get the attachments for the @parent
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Style/RescueStandardError
     def attachments
       docs = []
       return unless @parent.is_a?(Development) || @parent.is_a?(::Plot)
@@ -236,7 +236,7 @@ module Crms
     rescue
       nil
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Style/RescueStandardError
 
     # Download document to /tmp an give it a random filename
     def download(params)
@@ -277,5 +277,5 @@ module Crms
       retry if (retries += 1) <= 1
     end
   end
-  # rubocop:enable Metrics/ClassLength
+  # rubocop:enable Metrics/ClassLength, Lint/DuplicateMethods
 end

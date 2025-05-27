@@ -6,7 +6,9 @@ When(/^I visit the maintenance page$/) do
     check_box = find(".burger")
     check_box.trigger(:click)
   end
+  sleep 1
   click_on I18n.t("components.homeowner.navigation.maintenance")
+  sleep 2
   find(".maintenance")
 end
 
@@ -65,6 +67,7 @@ Then(/^when I visit the home designer page$/) do
   within ".navbar-menu" do
     click_on I18n.t("layouts.homeowner.nav.home_designer", construction: t("construction_type.home"))
   end
+  sleep 1
   page.find(".home-designer")
 end
 

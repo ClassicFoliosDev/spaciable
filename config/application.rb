@@ -30,9 +30,5 @@ module Hoozzi
     # Load ext
     config.autoload_paths += %W(#{config.root}/lib/ext)
     require "ext/string"
-
-    config.after_initialize do
-      EnvVar.initialise
-    end
   end
 end

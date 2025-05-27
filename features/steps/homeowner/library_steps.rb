@@ -29,7 +29,7 @@ When(/^I go to download the documents for my home$/) do
 end
 
 Then(/^I should see all of the documents related to my home$/) do
-  within find(".documents", visible: all)  do
+  within find(".documents", visible: true)  do
     MyLibraryFixture.default_filtered_documents.each do |title, download_link|
       expect(page).to have_content %r{#{title}}i
 
@@ -43,9 +43,7 @@ Then(/^I should see all of the documents related to my home$/) do
 
     MyLibraryFixture.default_filtered_out_documents.each do |title, download_link|
       expect(page).not_to have_content(title)
-
-      anchor = first("a[href='#{download_link}']")
-      expect(anchor).to be_nil
+      expect(page).not_to have_selector("a[href='#{download_link}']")
     end
   end
 
@@ -70,9 +68,7 @@ Then(/^I should only see the documents for the other category$/) do
 
     MyLibraryFixture.filtered_out_documents.each do |title, download_link|
       expect(page).not_to have_content(title)
-
-      anchor = first("a[href='#{download_link}']")
-      expect(anchor).to be_nil
+      expect(page).not_to have_selector("a[href='#{download_link}']")
     end
   end
 
@@ -187,7 +183,9 @@ Then(/^I should see the appliance documents$/) do
   visit "/homeowners/library/appliance_manuals"
 
   within ".documents" do
-    expect(page).to have_content FileFixture.manual_name_alt
-    expect(page).to have_content "Washing Machine Quick Reference Guide"
+
+    content = page.text.gsub(/\n/, ' ').gsub(/\s+/,' ')
+    expect(content).to have_content FileFixture.manual_name_alt
+    expect(content).to have_content "Washing Machine Quick Reference Guide"
   end
 end

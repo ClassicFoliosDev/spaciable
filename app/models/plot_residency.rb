@@ -33,6 +33,7 @@ class PlotResidency < ApplicationRecord
   delegate :create_extension_payment_link, to: :resident
   delegate :invitation_accepted_at, to: :resident
   delegate :number, to: :plot, prefix: true
+  delegate :platform?, to: :plot
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 
@@ -42,6 +43,20 @@ class PlotResidency < ApplicationRecord
             .where(resident: resident)
             .where(developers: { verified_association:
                                  Developer.verified_associations[developer] })
+        }
+
+  scope :accepted,
+        lambda { |plots|
+          joins(:resident)
+            .where(plot_id: plots)
+            .where.not(residents: { invitation_accepted_at: nil })
+        }
+
+  scope :invited,
+        lambda { |plots|
+          joins(:resident)
+            .where(plot_id: plots)
+            .where(residents: { invitation_accepted_at: nil })
         }
 
   # CRM SYNC CODE
@@ -85,6 +100,15 @@ class PlotResidency < ApplicationRecord
     roles.map do |name, _|
       [name, I18n.t("activerecord.attributes.plot_residency.roles.#{name}")]
     end
+  end
+
+  # Plot receives Notifications if the development is Spaciable (native)
+  # or its a Spaciable/Living (hybrid) development and the resident does
+  # not have an account on Living
+  def receives_notifications?
+    return false if platform?(:living)
+
+    !(platform?(:hybrid) && resident.living)
   end
 
   private

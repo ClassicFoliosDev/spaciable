@@ -2,19 +2,19 @@
 <div class="<%= tile.full_image? ? """tile-full-image""" : """tile-image"""%>">
   <% if !tile.render_button? %>
     <% if tile.document? %>
-      <%= link_to image_tag(tile.image), tile.document_location(documents.order(:documentable_type)), target: '_blank' %>
+      <%= link_to image_tag(tile.image_url), tile.document_location(documents.order(:documentable_type)), target: '_blank' %>
     <% elsif tile.content_proforma? %>
-      <%= link_to image_tag(tile.image), homeowner_timeline_path(tile.tileable) %>
+      <%= link_to image_tag(tile.image_url), homeowner_timeline_path(tile.tileable) %>
     <% else %>
       <% link = tile.formatted_link %>
       <% if tile.iframeable?(link) %>
-        <%= link_to image_tag(tile.image), custom_link_path(title: tile.title, page: link)  %>
+        <%= link_to image_tag(tile.image_url), custom_link_path(title: tile.title, page: link)  %>
       <% else %>
-        <%= link_to image_tag(tile.image), link, target: '_blank' %>
+        <%= link_to image_tag(tile.image_url), link, target: '_blank' %>
       <% end %>
     <% end %>
   <% else %>
-    <%= image_tag tile.image %>
+    <%= image_tag tile.image_url %>
   <% end %>
 
   <div class="<%= tile.full_image? ? """full-img-tile-details""" : """img-tile-details"""%>" >

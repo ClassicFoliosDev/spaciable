@@ -13,8 +13,7 @@ module Homeowners
 
       redirect_to root_url unless @plots_listing_by_homeowner
 
-      if current_resident.lettings_account &&
-         current_resident.lettings_account.authorised?
+      if current_resident.lettings_account&.authorised?
         PlanetRent.property_types current_resident do |types, error|
           flash[:alert] = error if error
           @property_types = types unless error
@@ -48,7 +47,7 @@ module Homeowners
 
       respond_to do |format|
         format.html { redirect_to(session[:landlordlistings]) }
-        format.json { render status: 200, json: session[:landlordlistings].redirect_url.to_json }
+        format.json { render status: :ok, json: session[:landlordlistings].redirect_url.to_json }
       end
     end
 

@@ -4,6 +4,7 @@
 class Invoice < ApplicationRecord
   include PackageEnum
   belongs_to :phase
+  delegate :cpp, to: :phase
 
   scope :by_phase,
         lambda { |start, finish, developer, division, development|

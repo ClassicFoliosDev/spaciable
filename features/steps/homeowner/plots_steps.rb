@@ -43,10 +43,7 @@ Given(/^there is another division phase plot$/) do
 end
 
 When(/^I show the plots$/) do
-  page.find("#dropdownMenu").click
-  within ".links-list" do
-    click_on t("components.homeowner.header.plots")
-  end
+  visit "/plots"
 end
 
 When(/^I switch to the second plot$/) do
@@ -54,11 +51,11 @@ When(/^I switch to the second plot$/) do
 
   stub_request(:get, "#{ENV['VABOO_APP_URL']}/api/v4/users/#{ENV['VABOO_ACCOUNT']}/#{ENV['VABOO_ACCESS']}?Email=#{RequestStore.store[:current_user].email}").
   with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-  to_return(status: 200, body: "", headers: {"Content-Type"=> "application/json"})
+  to_return(status: :ok, body: "", headers: {"Content-Type"=> "application/json"})
 
   stub_request(:get, "#{ENV['VABOO_APP_URL']}/api/v4/users/#{ENV['VABOO_ACCOUNT']}/#{ENV['VABOO_ACCESS']}?Email=#{RequestStore.store[:current_user].email}").
   with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-  to_return(status: 200, body: "", headers: {"Content-Type"=> "application/json"})
+  to_return(status: :ok, body: "", headers: {"Content-Type"=> "application/json"})
 
   within ".plots" do
     find(:xpath, "//a[@href='/homeowners/change_plot?id=#{second_plot.id}']").click

@@ -26,7 +26,6 @@ module PhasePlotFixture
     create_unit_types(spanish_development)
     create_spanish_phase(spanish_development)
     create_contact(spanish_development)
-
   end
 
   def create_spanish_developer

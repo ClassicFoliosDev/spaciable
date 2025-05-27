@@ -48,3 +48,11 @@ end
 every '0 0 1 * *' do
   runner "Package.invoice_developers"
 end
+
+every 1.day, at: '2:00 am' do
+  runner "AutoComplete.now"
+end
+
+every 1.day, at: '2:15 am' do
+  runner "ReservationCompletion.send_reminders"
+end

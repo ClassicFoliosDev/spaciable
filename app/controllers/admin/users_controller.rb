@@ -43,13 +43,13 @@ module Admin
 
     def update
       if UpdateUserService.call(@user, user_params)
-        if user_params[:password] && user_params[:password].present?
+        if user_params[:password]&.present?
           redirect_to new_user_session_url, notice: t(".success_password", user_name: @user.to_s)
         else
           redirect_to %i[admin users], notice: t(".success", user_name: @user.to_s)
         end
         if user_params[:role] == "cf_admin"
-          @user.update_attributes(permission_level_type: nil, permission_level_id: nil)
+          @user.update(permission_level_type: nil, permission_level_id: nil)
         end
       else
         render :edit
@@ -64,7 +64,7 @@ module Admin
 
     def export_csv
       ExportAdminsJob.perform_later(current_user, search_params.to_h)
-      render json: { status: 200 }
+      render json: { status: :ok }
     end
 
     def user_success

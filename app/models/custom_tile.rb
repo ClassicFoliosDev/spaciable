@@ -117,9 +117,6 @@ class CustomTile < ApplicationRecord
   end
 
   def iframeable?(link)
-    return false if HTTParty.get(link, verify: false).headers.key?("x-frame-options")
-    true
-  rescue
     false
   end
 

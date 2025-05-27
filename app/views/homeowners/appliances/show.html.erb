@@ -1,6 +1,7 @@
-<%= render "components/homeowner/hero" %>
-
-<%= render "components/homeowner/sub_menu", active_tab: "appliances", plot: @plot %>
+<% if !defined?(@skip_menus) %>
+  <%= render "components/homeowner/hero" %>
+  <%= render "components/homeowner/sub_menu", active_tab: "appliances", plot: @plot %>
+<% end %>
 
 <div class="branded-body">
   <div class="appliances">
@@ -13,16 +14,16 @@
         <div class="images">
           <h3 class="branded-text"><%= appliance.appliance_category %></h3>
           <% if appliance.primary_image? %>
-            <%= link_to image_tag(appliance.primary_image.url), appliance.primary_image.url %>
+            <%= link_to image_tag(appliance.primary_image.url, alt: image_alt(appliance.primary_image.url)), appliance.primary_image.url %>
           <% else %>
             <%= fa_icon "image", class: " dummy-image fa-5x" %>
             <span class="branded-text"><%= t("no_image") %></span>
           <% end %>
           <% if appliance.secondary_image? %>
-            <%= link_to image_tag(appliance.secondary_image.url, class: "secondary-image"), appliance.secondary_image.url %>
+            <%= link_to image_tag(appliance.secondary_image.url, alt: image_alt(appliance.secondary_image.url), class: "secondary-image"), appliance.secondary_image.url %>
           <% end %>
 
-          <% if appliance.appliance_manufacturer_link %>
+          <% if appliance.register && appliance.appliance_manufacturer_link %>
             <%= link_to t(".register"), appliance.appliance_manufacturer_link, class: "branded-btn", target: :_blank %>
           <% end %>
         </div>
@@ -62,7 +63,7 @@
 
             <% if appliance.e_rating %>
               <span class="branded-text"><%= label_tag :energy, t(".e_rating").html_safe %></span>
-              <%= image_tag "Energy Rating #{appliance.e_rating.upcase}.svg", class: "energy-rating" %>
+              <%= image_tag "Energy Rating #{appliance.e_rating.upcase}.svg", alt: "Energy Rating #{appliance.e_rating.upcase}", class: "energy-rating" %>
             <% end %>
 
             <% if (appliance.main_uk_e_rating || appliance.supp_uk_e_rating ) %>

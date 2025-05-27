@@ -5,7 +5,7 @@ module Abilities
     def cf_admin_abilities
       can :manage, :all
 
-      can %i[production bulk_edit release_plots], Phase
+      can %i[production bulk_edit bulk_delete release_plots], Phase
       can %i[development_csv], Development
 
       restricted(Appliance,

@@ -1,0 +1,13 @@
+Inspecting 499 files
+..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................C..C.....
+
+Offenses:
+
+app/mailers/snag_mailer.rb:49:5: C: Layout/EmptyLineAfterGuardClause: Add empty line after guard clause.
+    return if @emails.empty?
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+app/mailers/expiry_plots_mailer.rb:12:3: C: Style/RescueStandardError: Avoid rescuing without specifying an error class.
+  rescue => e
+  ^^^^^^
+
+499 files inspected, 2 offenses detected

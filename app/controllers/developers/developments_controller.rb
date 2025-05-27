@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 module Developers
+  # rubocop:disable Metrics/ClassLength
   class DevelopmentsController < ApplicationController
     include PaginationConcern
     include SortingConcern
     load_and_authorize_resource :developer
-    load_and_authorize_resource :development, through: [:developer]
+    load_resource :development, through: [:developer]
 
     def index
       @developments = paginate(sort(@developments, default: :name))
     end
 
-    # rubocop:disable Metrics/AbcSize
     def show
       @selected_tab = params[:active_tab]
       @active_tab = @selected_tab || "phases"
@@ -30,7 +30,6 @@ module Developers
                       @development.plots
                     end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def new
       @development.build
@@ -96,10 +95,11 @@ module Developers
     private
 
     def update_my_home
-      @development.update_attributes(construction_name: nil) if @development.residential?
+      @development.update(construction_name: nil) if @development.residential?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # rubocop:disable Metrics/MethodLength
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
@@ -108,13 +108,61 @@ module Developers
         :developer_id, :division_id,
         :email, :contact_number,
         :enable_snagging, :snag_duration, :snag_name, :cas, :calendar, :conveyancing,
-        :construction, :construction_name,
-        maintenance_attributes: %i[id path account_type populate],
+        :construction, :construction_name, :client_platform,
+        maintenance_attributes: %i[id path account_type populate fixflow_direct],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],
         address_attributes: %i[postal_number road_name building_name
-                               locality city county postcode]
+                               locality city county postcode id],
+        material_info_attributes: material_info_attributes
       )
     end
+    # rubocop:enable Metrics/MethodLength
+
+    # rubocop:disable Metrics/MethodLength
+    def material_info_attributes
+      [
+        :id,
+        :proliferate,
+        :selling_price,
+        :reservation_fee,
+        :tenure,
+        :lease_length,
+        :service_charges,
+        :council_tax_band,
+        :property_type,
+        :floor,
+        :floorspace,
+        :estimated_legal_completion_date,
+        :epc_rating,
+        :property_construction,
+        :property_construction_other,
+        :electricity_supply,
+        :electricity_supply_other,
+        :water_supply,
+        :sewerage,
+        :sewerage_other,
+        :broadband,
+        :mobile_signal,
+        :mobile_signal_restrictions,
+        :parking,
+        :building_safety,
+        :restrictions,
+        :rights_and_easements,
+        :flood_risk,
+        :planning_permission_or_proposals,
+        :accessibility,
+        :coalfield_or_mining_areas,
+        :other_considerations,
+        :warranty_num,
+        :mprn,
+        :mpan,
+        heating_fuel_ids: [],
+        heating_source_ids: [],
+        heating_output_ids: []
+      ]
+    end
+    # rubocop:enable Metrics/MethodLength
   end
+  # rubocop:enable Metrics/ClassLength
 end

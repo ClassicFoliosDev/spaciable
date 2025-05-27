@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Rails/HasManyOrHasOneDependent, Metrics/ClassLength
 class Plot < ApplicationRecord
+  include Unlatch::Interface
+
   acts_as_paranoid
   require "csv"
 
@@ -12,6 +14,8 @@ class Plot < ApplicationRecord
 
   before_save :set_build_status
   before_save :set_validity
+  after_create :sync_with_unlatch
+  after_create :create_material_info
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -22,6 +26,8 @@ class Plot < ApplicationRecord
 
   belongs_to :unit_type, optional: true
   belongs_to :developer, optional: false
+  delegate :unlatch_developer, to: :developer
+  delegate :programs, to: :development
   has_one :crm, through: :developer
   belongs_to :division, optional: true
   has_many :plot_timelines, dependent: :destroy
@@ -34,7 +40,7 @@ class Plot < ApplicationRecord
   has_many :plot_residencies, dependent: :destroy
   has_many :plot_private_documents, dependent: :destroy
   has_many :private_documents, through: :plot_private_documents
-  has_many :plot_documents, dependent: :destroy
+  has_one :lot, class_name: "Unlatch::Lot", dependent: :destroy
   has_many :documents, through: :plot_documents
   has_many :residents, through: :plot_residencies
 
@@ -47,12 +53,19 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
   belongs_to :build_step
   delegate :build_sequenceable_type, to: :build_step
+  delegate :program, to: :development
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
 
+  has_many :plot_documents, dependent: :destroy
+  has_one :material_info, as: :infoable, dependent: :destroy
+  delegate :unassigned?, to: :material_info
+  accepts_nested_attributes_for :material_info, allow_destroy: false
+
   delegate :other_ref, to: :listing, prefix: true
   delegate :snag_duration, to: :development
+  delegate :client_platform, :platform_is?, :platform?, to: :development
   delegate :cas, to: :developer
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
@@ -138,7 +151,7 @@ class Plot < ApplicationRecord
             .order(:id)
         }
 
-  # rubocop:disable LineLength, Metrics/ParameterLists
+  # rubocop:disable LineLength
   scope :filtered_by,
         lambda { |role, plot_type, developer, division, development, phase, plot_numbers|
           plots = Plot.joins(plot_residencies: :resident)
@@ -153,7 +166,7 @@ class Plot < ApplicationRecord
           plots = plots.where("plots.completion_date > ?", Time.zone.today) if plot_type == "reservation_plots"
           plots.uniq
         }
-  # rubocop:enable LineLength, Metrics/ParameterLists
+  # rubocop:enable LineLength
 
   enum progress: %i[
     soon
@@ -183,6 +196,10 @@ class Plot < ApplicationRecord
     choices_rejected
   ]
 
+  OCCUPATION_STATUS = { "unoccupied" => 0,
+                        "invited" => 1,
+                        "accepted" => 2 }.freeze
+
   # to satisfy 'plots' interface for all documentable_types
   def plots
     [self]
@@ -197,11 +214,18 @@ class Plot < ApplicationRecord
     room_scope.where(plot_id: id).or(unit_type_rooms_relation)
   end
 
+  def appliances(room_scope = Room.all)
+    Appliance.in_rooms(rooms(room_scope))
+  end
+
   # ADDRESSES
 
   delegate :address, to: :parent, prefix: :parent, allow_nil: true
   delegate :locality, :city, :county, to: :parent, allow_nil: true
   delegate :api_key, to: :developer, allow_nil: true
+  delegate :company_name, to: :developer, prefix: true
+  delegate :name, to: :development, prefix: true
+  delegate :name, to: :phase, prefix: true
 
   def building_name
     if address&.building_name?
@@ -333,6 +357,7 @@ class Plot < ApplicationRecord
       development.conveyancing_enabled?
     when :buyers_club
       return false unless developer.supports?(feature_type)
+
       Vaboo.perks_account_activated?(RequestStore.store[:current_resident],
                                      self) do |_, error|
         !error
@@ -367,6 +392,7 @@ class Plot < ApplicationRecord
                                      self) do |response, error|
         return nil if error
         return Vaboo.branded_perks_link(developer) if response
+
         Rails.application.routes.url_helpers.perks_path(type: perk_type)
       end
     when :issues
@@ -391,7 +417,8 @@ class Plot < ApplicationRecord
 
   def services
     return unless RequestStore.store[:current_resident]
-    EnvVar.services
+
+    EnvVar[:services]
   end
 
   def perk_type
@@ -496,6 +523,14 @@ class Plot < ApplicationRecord
 
   def activated_resident_count
     residents.where.not(invitation_accepted_at: nil).size
+  end
+
+  def occupancy?
+    return OCCUPATION_STATUS["unoccupied"] if residents.count.zero?
+
+    return OCCUPATION_STATUS["invited"] if activated_resident_count.zero?
+
+    OCCUPATION_STATUS["accepted"]
   end
 
   def to_homeowner_s
@@ -629,7 +664,7 @@ class Plot < ApplicationRecord
 
   # perform post update logging
   def post_update
-    return unless unit_type_id_changed?
+    return unless saved_change_to_unit_type_id?
     return unless cas
 
     old_rooms = UnitType.find(unit_type_id_was).rooms.to_a
@@ -664,7 +699,7 @@ class Plot < ApplicationRecord
       begin
         plots.each do |p|
           Plot.find(p.id.to_i)
-              .update_attributes(completion_date: p.completion_date.to_date)
+              .update(completion_date: p.completion_date.to_date)
         end
         updates = plots.count
       rescue ActiveRecord::RecordInvalid => e
@@ -729,7 +764,7 @@ class Plot < ApplicationRecord
     residents.map { |r| [r.id, r.to_s] }
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Rails/Presence
   def signature(admin = true)
     compnt = ""
 
@@ -745,7 +780,7 @@ class Plot < ApplicationRecord
       (building_name.blank? ? "" : "#{building_name} ") +
       (road_name.blank? ? "" : road_name)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Rails/Presence
 
   def hierarchy
     "#{phase.name}, Plot #{number}: "
@@ -754,6 +789,7 @@ class Plot < ApplicationRecord
   def comp_rel
     return if completion_date.blank?
     return I18n.t("calendar.events.select_all_res") if completion_date > Time.zone.now
+
     I18n.t("calendar.events.select_all_comp")
   end
 
@@ -787,6 +823,7 @@ class Plot < ApplicationRecord
     videos = []
     [developer, division, development].each do |level|
       next unless level.present? && level&.videos
+
       videos += if expiry_date.present?
                   level&.videos&.where("created_at <= ?", expiry_date)
                 else
@@ -798,6 +835,7 @@ class Plot < ApplicationRecord
 
   def package_videos
     return videos unless free?
+
     videos.select(&:override)
   end
 
@@ -808,10 +846,11 @@ class Plot < ApplicationRecord
   # Everything other than Legacy plots has a default validity of 36 months
   def set_validity
     return if legacy?
+
     self.validity = 36
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Style/ConditionalAssignment
   def self.billable(phase, kind: :package)
     return [] if kind == :ff && !%w[standard full_works].include?(phase.maintenance_account_type)
     return [] if kind == :package && phase.free?
@@ -834,7 +873,7 @@ class Plot < ApplicationRecord
 
     ActiveRecord::Base.connection.exec_query(sql)
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Style/ConditionalAssignment
 
   # True if the plot has expired and the current resident hasn't extended
   def expired_for_resident?
@@ -842,5 +881,52 @@ class Plot < ApplicationRecord
       (RequestStore.store[:current_resident].nil? ||
        !RequestStore.store[:current_resident]&.extended?)
   end
+
+  def platform_logo
+    platform_is?(:living) ? "Spaciable Living Logo.png" : "Spaciable_full.svg"
+  end
+
+  def sync_with_unlatch
+    return if developer.unlatch_developer.blank?
+
+    return if lot.present?
+
+    Unlatch::Lot.add(self)
+    reload
+  end
+
+  # Unlatch::Interface implementation
+  def lots
+    [self&.lot&.id]
+  end
+
+  def paired_with_unlatch?
+    !lot.nil?
+  end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+
+    development.reload
+    sync_with_unlatch
+    sync_docs_with_unlatch
+  end
+
+  # Reservation and Completion documents appear in My Documents,
+  # not in a Unlatch Section (sub folder)
+  def section(document)
+    return nil if document&.reservation? || document&.completion?
+
+    Unlatch::Section.find_by(developer_id: document.unlatch_developer.id,
+                             category: document.category)
+  end
+
+  def create_material_info
+    return unless development.material_info
+
+    mi = development.material_info.amoeba_dup
+    mi.infoable = self
+    mi.save
+  end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Rails/HasManyOrHasOneDependent, Metrics/ClassLength

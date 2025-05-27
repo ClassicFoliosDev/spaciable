@@ -32,7 +32,7 @@ module Csv
     def self.headers
       [
         "Creation Date", "Developer", "Division",
-        "Development", "Phase", "Package", "Package Plots"
+        "Development", "Phase", "Package", "CPP", "Billed Direct", "Package Plots"
       ]
     end
 
@@ -43,22 +43,26 @@ module Csv
                        report.developer_id == "*" ? nil : report.developer_id,
                        report.division_id,
                        report.development_id).each do |invoice|
-
         csv << [invoice.created_at,
                 invoice.phase.developer.identity,
                 invoice.phase&.division&.identity,
                 invoice.phase.development.identity,
                 invoice.phase.identity,
                 I18n.t("activerecord.attributes.phase.packages.#{invoice.package}"),
+                invoice.cpp,
+                nil,
                 invoice.plots]
 
         next unless invoice.ff_plots&.positive?
+
         csv << [invoice.created_at,
                 invoice.phase.developer.identity,
                 invoice.phase&.division&.identity,
                 invoice.phase.development.identity,
                 invoice.phase.identity,
                 "FixFlo",
+                nil,
+                invoice.phase.development.maintenance.fixflow_direct ? "Yes" : "No",
                 invoice.ff_plots]
       end
     end

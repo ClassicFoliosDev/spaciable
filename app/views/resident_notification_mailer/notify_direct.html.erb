@@ -20,5 +20,5 @@
 <% end %>
 
 <p style="text-align: center;">
-  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>View Message on Spaciable</button>".html_safe, homeowners_notifications_url(note_id: @note_id) %>
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>View Message on #{login_platform(@plot)}</button>".html_safe, homeowners_notifications_route(@plot, @note_id) %>
 </p>

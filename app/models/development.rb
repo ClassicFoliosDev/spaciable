@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf
 class Development < ApplicationRecord
   include ConstructionEnum
+  include ClientPlatformEnum
+  include Unlatch::Interface
   acts_as_paranoid
 
   belongs_to :developer, optional: true
@@ -16,8 +18,17 @@ class Development < ApplicationRecord
     division || developer
   end
 
+  delegate :unlatch_developer, to: :parent
+
   def parent_developer
     developer || division.developer
+  end
+
+  delegate :company_name, to: :parent_developer
+
+  def library
+    lib = parent.library
+    lib << documents
   end
 
   has_many :documents, as: :documentable, dependent: :destroy
@@ -41,6 +52,7 @@ class Development < ApplicationRecord
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
+  has_one :program, class_name: "Unlatch::Program", dependent: :destroy
 
   has_one :premium_perk
   accepts_nested_attributes_for :premium_perk
@@ -51,6 +63,9 @@ class Development < ApplicationRecord
   delegate :custom_url, to: :developer
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
   delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
+
+  has_one :material_info, as: :infoable, dependent: :destroy
+  accepts_nested_attributes_for :material_info, allow_destroy: false
 
   alias_attribute :development_name, :name
 
@@ -84,6 +99,7 @@ class Development < ApplicationRecord
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_spotlights
   after_save :update_spotlights
+  after_create :sync_with_unlatch
 
   alias_attribute :identity, :name
 
@@ -93,6 +109,10 @@ class Development < ApplicationRecord
       admin_can_choose
       either_can_choose
     ]
+
+  def programs
+    program.blank? ? [] : [program]
+  end
 
   def brand_any
     return brand if brand
@@ -222,7 +242,7 @@ class Development < ApplicationRecord
     return unless commercial?
 
     phases.each do |phase|
-      phase.update_attributes(business: :commercial)
+      phase.update(business: :commercial)
     end
   end
 
@@ -231,6 +251,10 @@ class Development < ApplicationRecord
     build_address unless address
     build_maintenance unless maintenance
     build_premium_perk unless premium_perk
+
+    return if persisted?
+
+    build_material_info unless material_info || !developer&.enable_material_info
   end
 
   def descendants
@@ -241,6 +265,7 @@ class Development < ApplicationRecord
   def set_default_spotlights
     %w[services perks referrals].each do |tile|
       next unless parent_developer.send("enable_#{tile}")
+
       spotlight = Spotlight.create(development_id: id,
                                    editable: !%w[services perks].include?(tile))
       CustomTile.create(spotlight: spotlight, feature: tile)
@@ -248,20 +273,47 @@ class Development < ApplicationRecord
   end
 
   # check whether any features have been disabled and delete any relevant custom tiles
+  # rubocop:disable Metrics/LineLength
   def update_spotlights
     changed = []
 
     { "issues" => !Maintenance.exists?(development_id: id),
-      "snagging" => enable_snagging_changed? && !enable_snagging? }.each do |name, disabled|
+      "snagging" => saved_change_to_enable_snagging? && !enable_snagging? }.each do |name, disabled|
       changed << name if disabled
     end
 
     Spotlight.delete_disabled(changed, self) unless changed.empty?
   end
+  # rubocop:enable Metrics/LineLength
 
+  # Find a matching Unlatch::Program if necessary
+  def sync_with_unlatch
+    return if unlatch_developer.blank?
+
+    return if program.present?
+
+    Unlatch::Program.add(unlatch_developer, self)
+  end
+
+  # Unlatch::Interface implementation
+  def paired_with_unlatch?
+    !program.nil?
+  end
+
+  def unlatch_deep_sync
+    return unless linked_to_unlatch?
+
+    sync_with_unlatch
+    sync_docs_with_unlatch
+    phases.each(&:unlatch_deep_sync)
+    unit_types.each(&:unlatch_deep_sync)
+  end
+
+  # rubocop:disable Rails/Presence
   def my_construction_name
     construction_name.blank? ? I18n.t("homeowners.home") : construction_name
   end
+  # rubocop:enable Rails/Presence
 
   def faq_types
     faq_types = FaqType.for_country(parent.country).to_a
@@ -317,5 +369,10 @@ class Development < ApplicationRecord
     phases.count.positive? &&
       (phases.where(package: :free).count == phases.count)
   end
+
+  # Generate the list of emails that currently will receive call off reminders
+  def call_off_users
+    User.users_associated_with([developer, self])
+  end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent, Rails/InverseOf

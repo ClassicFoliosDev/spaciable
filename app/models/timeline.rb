@@ -5,7 +5,7 @@
 # Tasks can be shared amongst different Timelines through Timeline_Tasks
 # The Timeline has a set of associated stages e.g. Reservation,
 # Exchange etc.
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength, Rails/InverseOf
 class Timeline < ApplicationRecord
   belongs_to :timelineable, polymorphic: true
   has_many :phase_timelines, dependent: :destroy
@@ -122,7 +122,7 @@ class Timeline < ApplicationRecord
     Task.find_by(id: task.next_id)
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Style/RedundantBegin
   def clone
     new_timeline = error = nil
     Timeline.transaction do
@@ -144,7 +144,7 @@ class Timeline < ApplicationRecord
           new_task.stage = new_timeline.stages[prev_tasks[index].stage.order - 1]
           new_task.save! # save it
           # link previous task to new task
-          prev_task&.update_attributes!(next_id: new_task.id)
+          prev_task&.update!(next_id: new_task.id)
           prev_task = new_task
         end
       rescue ActiveRecord::RecordInvalid => e
@@ -154,7 +154,7 @@ class Timeline < ApplicationRecord
     end
     yield new_timeline, error
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Style/RedundantBegin
 
   def to_s
     title
@@ -177,7 +177,8 @@ class Timeline < ApplicationRecord
 
   def change_stage(old_stage, new_stage)
     return if old_stage.id == new_stage.id
-    stage_tasks(old_stage)&.each { |t| t.update_attributes(stage: new_stage) }
+
+    stage_tasks(old_stage)&.each { |t| t.update(stage: new_stage) }
   end
 
   # Go through the stages and make sure all are connected in the right order
@@ -187,15 +188,15 @@ class Timeline < ApplicationRecord
       tasks = stage_tasks(stage)
       next unless tasks
 
-      prev_task&.update_attributes(next_id: tasks.first.id)
+      prev_task&.update(next_id: tasks.first.id)
       prev_task = tasks.to_a.last
     end
 
-    prev_task&.update_attributes(next_id: nil)
+    prev_task&.update(next_id: nil)
   end
 
   def event_tag
     stage_set.journey? ? :view_your_journey : :view_your_content_proforma
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Rails/InverseOf

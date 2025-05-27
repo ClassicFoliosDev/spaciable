@@ -16,10 +16,6 @@ module CloneNameService
     name
   end
 
-  private
-
-  module_function
-
   def calculate_base(old_name)
     last_index = old_name.length - 1
     last_char = old_name[last_index]

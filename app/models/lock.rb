@@ -7,6 +7,8 @@ class Lock < ApplicationRecord
     package_invoice
     notify_expiry_plots
     notify_expiry_residents
+    auto_complete_plots
+    res_comp_reminders
   ]
 
   # Create a temporary lock for the specified job and run the block

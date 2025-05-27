@@ -6,13 +6,7 @@ class SendResidentNotificationsJob < ApplicationJob
   def perform(resident_ids, notification, direct = false, sender = nil)
     return unless notification
 
-    plot_ids = if notification.send_to_type == "Plot"
-                 [notification.send_to_id]
-               else
-                 notification.send_to.plots.pluck(:id)
-               end
-
-    notify(resident_ids, notification, plot_ids, direct, sender)
+    notify(resident_ids, notification, notification.plot_ids, direct, sender)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -29,7 +23,8 @@ class SendResidentNotificationsJob < ApplicationJob
       next if resident.notifications.include?(notification)
 
       plot_residency = PlotResidency.find_by(resident_id: resident.id, plot_id: plot_ids)
-      next unless plot_residency
+
+      next unless plot_residency&.receives_notifications?
 
       # Resident notification mailer will only mail if the resident has subscribed to email updates
       if direct

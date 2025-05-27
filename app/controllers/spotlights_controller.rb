@@ -55,7 +55,7 @@ class SpotlightsController < ApplicationController
     seq1 = Spotlight.find(params[:row1]).sequence_no
     Spotlight.find(params[:row1]).update_column(:sequence_no, Spotlight.find(params[:row2]).sequence_no)
     Spotlight.find(params[:row2]).update_column(:sequence_no, seq1)
-    render json: {}, status: 200
+    render json: {}, status: :ok
   end
   # rubocop:enable Metrics/LineLength, SkipsModelValidations
 
@@ -83,6 +83,7 @@ class SpotlightsController < ApplicationController
   def delete_images(s_params)
     @spotlight.custom_tiles.each_with_index do |t, i|
       next if s_params[:custom_tiles_attributes][i.to_s][:image]
+
       t.remove_image! if s_params[:custom_tiles_attributes][i.to_s][:remove_image] == "1"
     end
   end

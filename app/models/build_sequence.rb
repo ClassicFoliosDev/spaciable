@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/HasManyOrHasOneDependent, Rails/InverseOf
 class BuildSequence < ApplicationRecord
   belongs_to :build_sequenceable, polymorphic: true
   alias parent build_sequenceable
@@ -13,6 +14,8 @@ class BuildSequence < ApplicationRecord
 
   def sequence_name
     return "Standard Spaciable" if build_sequenceable.is_a? Global
+
     "Customised #{build_sequenceable.identity}"
   end
 end
+# rubocop:enable Rails/HasManyOrHasOneDependent, Rails/InverseOf

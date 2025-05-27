@@ -1,0 +1,6 @@
+FaqType.create(name: "Homeowner", icon: "home", default_type: true, country_id: 1, construction_type_id: 1)
+FaqType.create(name: "Homeowner", icon: "home", default_type: true, country_id: 2, construction_type_id: 1)
+FaqType.create(name: "Tenant", icon: "user", default_type: false, country_id: 1, construction_type_id: 1)
+FaqType.create(name: "Tenant", icon: "user", default_type: false, country_id: 2, construction_type_id: 1)
+FaqType.create(name: "Commercial", icon: "building", default_type: false, country_id: 1, construction_type_id: 2)
+FaqType.create(name: "Commercial", icon: "building", default_type: false, country_id: 2, construction_type_id: 2)

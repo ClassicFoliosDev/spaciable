@@ -12,4 +12,4 @@
   <%= simple_format "#{@content[0..50]}..." %>
 <% end %>
 
-<%= t(".view_message") %>: <%= homeowners_notifications_url(note_id: @note_id) %>
+<%= t(".view_message") %>: <%= homeowners_notifications_route(@plot, @note_id) %>

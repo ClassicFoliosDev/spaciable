@@ -41,6 +41,9 @@ en:
         accept_until: "This invitation will be due in %{due_date}."
         ignore: "If you do not want to accept this invitation, please ignore this email."
         ignore2: "Your Spaciable account will not be created unless you access the link above and set your password."
+        living: 
+          someone_invited_you: "%{name} has invited you to join Spaciable Living – the app that is personalised to your home and community!"
+
       resident_invitation:
         reservation: "Thank you for reserving your new home at %{development_name}"
         new_home: "Welcome to your new home at %{development_name}"
@@ -58,6 +61,17 @@ en:
         welcome_back: "We're delighted to see you back!"
         already_activated: "To switch between your plots, please select 'My Plots' in the profile menu after logging in."
         name: "A Spaciable customer"
+        living: 
+            benefits: "On Spaciable Living, you can access*:"
+            benefit1: "Information about your home"
+            benefit2: "Important documents"
+            benefit3: "Notifications from %{developername}"     
+            benefit4: "Communal services"
+            summary: "And much more!"
+            activate: "To get started, click the link below and follow the instructions to download the app and set your password."
+            regards1: "Kind Regards,"
+            regards2: "The Spaciable Living Team"
+
       prospect_invitation:
         message1: "You have been invited to join Spaciable – the personalised portal for %{address} at %{development_name}."
         benefits: "You can use Spaciable to access a range of important information about this property, including:"

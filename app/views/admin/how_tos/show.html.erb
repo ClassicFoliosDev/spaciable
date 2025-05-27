@@ -17,7 +17,7 @@
   <div class="row-item third">
     <% if @how_to&.picture? %>
       <%= label_tag(HowTo.human_attribute_name(:picture)) %>
-      <%= image_tag @how_to.picture.url if @how_to.picture? %>
+      <%= image_tag @how_to.picture.url, alt: image_alt( @how_to.picture.url) if @how_to.picture? %>
     <% end %>
     <%= label_tag(HowTo.human_attribute_name(:summary)) %>
     <span><%= @how_to.summary %></span>

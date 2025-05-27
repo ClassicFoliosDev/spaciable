@@ -38,6 +38,7 @@
         <% end %>
         <th><%= t(".progress") %></th>
         <th><%= t(".activation") %></th>
+        <th><%= sortable(Plot, :occupied, t(".occupied")) %></th>
         <th>
           <%= help_btn text: t('.status.text'), title: t('.status.title'), width: 700 %>
           <%= sortable(Plot, :completion_release_date, t(".date_c")) %>
@@ -59,12 +60,19 @@
           <% end %>
           <td><%= plot.build_step_title %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
+          <td>
+            <a title='Plot residents' href= <%="/plots/#{plot.id}?active_tab=residents" %>>
+              <i class="<%=occupied_status(plot) %>"/></td>
+            </a>
           <% comp = "white" %>
           <% if plot.completion_release_date? %>
             <% comp = plot.expired? ? "red" : "green" %>
           <% end %>
           <td><span class = 'circle <%= comp %>'>&nbsp;</span></td>
           <td class="actions">
+            <% if plot.linked_to_unlatch? %>
+              <%= unlatch_sync_btn(plot) %>
+            <% end %>
             <%= edit_btn [:edit, plot], element: plot %>
             <%= delete_btn plot, path: url_for(plot), element: plot %>
           </td>

@@ -25,11 +25,13 @@ module InheritParentPermissionIds
 
     def permissable_id_presence
       return unless developer_id.blank? && division_id.blank?
+
       errors.add(:base, :missing_permissable_id)
     end
 
     def set_permissable_ids
       return unless parent
+
       set_permissable_ids_for_parent_associations
     end
 
@@ -43,6 +45,7 @@ module InheritParentPermissionIds
 
     def set_developer_if_division
       return unless division
+
       self.developer_id = division.developer_id
     end
   end
