@@ -188,7 +188,7 @@ class CustomTile < ApplicationRecord
   end
 
   def self.supports(developer, tile)
-    return true unless developer 
+    return true unless developer
 
     return true if developer&.cala?
 
