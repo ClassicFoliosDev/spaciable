@@ -4031,7 +4031,7 @@ en:
           services: "Savings"
           perks: "Buyers' Club"
           issues: "Issue Reporting"
-          snagging: "Snagging"
+          snagging: "%{snag_name}"
           timeline: "My Journey"
           conveyancing: "Spaciable Legal Conveyancing"
           cala_promotion: "EE Promotion"
