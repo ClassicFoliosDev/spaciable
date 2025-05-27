@@ -1,3 +1,7 @@
+Given(/^there is a spotlight promotion$/) do
+  CreatePromotion.seed
+end
+
 When(/^I visit the spotlights tab$/) do
   within ".tabs" do
     click_on I18n.t("developments.collection.spotlights")

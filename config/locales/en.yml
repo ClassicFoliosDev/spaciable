@@ -4034,6 +4034,7 @@ en:
           snagging: "%{snag_name}"
           timeline: "My Journey"
           conveyancing: "Spaciable Legal Conveyancing"
+          cala_promotion: "EE Promotion"
         guides:
           reservation: "Reservation"
           completion: "Completion"

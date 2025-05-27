@@ -52,7 +52,7 @@
 
           <fieldset id="customTileFeature">
             <div class="ui-front" id="featureSelector">
-              <%= ct.input :feature, as: :select, collection: tile_collection(:features, meta: :snag_name, meta_val: custom_tile.snag_name), include_blank: true, disabled: feature_disabled(spotlight) %>
+              <%= ct.input :feature, as: :select, collection: tile_collection(:features, meta: :snag_name, meta_val: custom_tile.snag_name, developer: spotlight.parent_developer), include_blank: true, disabled: feature_disabled(spotlight) %>
             </div>
           </fieldset>
 

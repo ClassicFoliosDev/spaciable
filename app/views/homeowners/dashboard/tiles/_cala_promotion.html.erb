@@ -1,0 +1,10 @@
+<div id="customTileImage" class="tile-cropped-image">
+  <div id="image" class="full-image">
+    <%= image_tag EnvVar[:cala_promotion] %>
+  </div>
+  <% unless defined?(preview) && preview %>
+    <div class="uniqodo-btn" data-promoId="<%=EnvVar[:promotion_code]%>" data-mode="<%=EnvVar[:promotion_mode]%>" data-url="<%=EnvVar[:promotion_url]%>">
+      <script async src="https://www.uqd.io/widgets/button.js"></script>
+    </div>
+  <% end %>
+</div>
