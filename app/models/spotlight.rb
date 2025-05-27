@@ -13,7 +13,7 @@ class Spotlight < ApplicationRecord
   before_save :set_cf
   after_save :check_dates
 
-  delegate :snag_name, to: :development
+  delegate :snag_name, :parent_developer, to: :development
 
   validates :start, presence: true, if: proc { emd_on_after? || emd_on_before? || emd_between? }
   validates :finish, presence: true, if: proc { emd_between? }

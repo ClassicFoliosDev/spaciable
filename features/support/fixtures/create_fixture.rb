@@ -825,6 +825,10 @@ module CreateFixture
     return unless EnvVar.all.empty?
     EnvVar.create(name: "services", value: "https://skyinyourhome.sky.com/spaciable")
     EnvVar.create(name: "savings_spotlight", value: "Spaciable and Sky Spotlight.png")
+    EnvVar.create(name: "cala_promotion", value: "https://public-hoozzi.s3.eu-west-1.amazonaws.com/ee_broadband.png")
+    EnvVar.create(name: "promotion_code", value: "f41aea68231ae1d51c8d3f67858ca896")
+    EnvVar.create(name: "promotion_mode", value: "2")
+    EnvVar.create(name: "promotion_url", value: "https://tidd.ly/3up2TCM")
   end
 
 end

@@ -57,7 +57,8 @@ class CustomTile < ApplicationRecord
     issues: 5,
     snagging: 6,
     timeline: 7,
-    conveyancing: 8
+    conveyancing: 8,
+    cala_promotion: 9
   }
 
   def snag_name
@@ -184,6 +185,16 @@ class CustomTile < ApplicationRecord
        self.guide.present?
       self.remove_file!
     end
+  end
+
+  def self.supports(developer, tile)
+    return true unless developer 
+
+    return true if developer&.cala?
+
+    return true unless [:cala_promotion].include?(tile.to_sym)
+
+    return false
   end
 
 end
