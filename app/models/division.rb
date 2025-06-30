@@ -41,6 +41,7 @@ class Division < ApplicationRecord
   delegate :enable_referrals, :enable_services, :enable_development_messages, to: :developer
   delegate :enable_perks, :timeline, to: :developer
   delegate :unlatch_developer, to: :developer
+  delegate :enable_material_info, to: :developer
 
   delegate :build_steps, to: :sequence_in_use
 
