@@ -6,6 +6,7 @@ module SewerageEnum
   included do
     enum sewerage:
     %i[
+      sewerage_unassigned
       mains_sewerage
       septic_tank
       sewage_treatment_plant

@@ -6,6 +6,7 @@ module WaterSupplyEnum
   included do
     enum water_supply:
     %i[
+      water_supply_unassigned
       mains_water
       private_water_supply
     ]
