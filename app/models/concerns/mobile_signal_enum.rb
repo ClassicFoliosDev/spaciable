@@ -6,6 +6,7 @@ module MobileSignalEnum
   included do
     enum mobile_signal:
     %i[
+      mobile_signal_unassigned
       good
       fair
       restricted

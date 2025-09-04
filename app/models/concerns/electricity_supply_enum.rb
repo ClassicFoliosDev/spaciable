@@ -6,6 +6,7 @@ module ElectricitySupplyEnum
   included do
     enum electricity_supply:
     %i[
+      electricity_supply_unassigned
       mains_electricity
       pv_supplemented
       private_supply

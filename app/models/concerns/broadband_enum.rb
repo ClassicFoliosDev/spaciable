@@ -5,6 +5,7 @@ module BroadbandEnum
 
   included do
     enum broadband: %i[
+      broadband_unassigned
       not_applicable
       adsl_copper
       cable

@@ -6,6 +6,7 @@ module PropertyConstructionEnum
   included do
     enum property_construction:
     %i[
+      property_construction_unassigned
       traditional
       timber_frame
       modular_build

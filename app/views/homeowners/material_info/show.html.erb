@@ -234,103 +234,119 @@
       </div>
     </div>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:property_construction) %></h5>
+    <% unless @material_info.property_construction_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:property_construction) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_property_construction(@material_info.property_construction) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= t_property_construction(@material_info.property_construction) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:specification) %></h5>
+    <% bathrooms = num_plot_rooms(@plot, %i[bathroom ensuite]) %>
+    <% bedrooms = num_plot_rooms(@plot, %i[bedroom]) %>
+
+    <% if bathrooms.positive? || bedrooms.positive? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:specification) %></h5>
+          </div>
+        </div>
+
+        <div class="values" class="branded-text">
+          <div class="value">
+
+            <% if bathrooms.positive? %>
+              <span class="branded-text"><%= bathrooms %> <%= 'Bathroom'.pluralize(bathrooms) %></span>
+            <% end %>
+            <% if bedrooms.positive? %>
+              <span class="branded-text"><%= bedrooms %> <%= 'Bedroom'.pluralize(bedrooms) %> </span>
+            <% end %>
+
+            <% if floor_plan %>
+              <div class="guide">
+                <%= link_to floor_plan.file.url, class: "branded-btn-inverted", target: "_blank" do %>
+                  <%= icon "cloud-download" %>
+                  Floor Plan
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
+    <% end %>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <% rooms = num_plot_rooms(@plot, %i[bathroom ensuite]) %>
-          <span class="branded-text"><%= rooms %> <%= 'Bathroom'.pluralize(rooms) %></span>
-          <% rooms = num_plot_rooms(@plot, %i[bedroom]) %>
-          <span class="branded-text"><%= rooms %> <%= 'Bedroom'.pluralize(rooms) %> </span>
+    <% unless @material_info.electricity_supply_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:electricity_supply) %></h5>
+          </div>
+        </div>
 
-          <% if floor_plan %>
-            <div class="guide">
-              <%= link_to floor_plan.file.url, class: "branded-btn-inverted", target: "_blank" do %>
-                <%= icon "cloud-download" %>
-                Floor Plan
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <% if @material_info.electricity_supply == 'electricty_other' %>
+                <span class="branded-text"><%= @material_info.electricity_supply_other %></span>
+              <% else %>
+                <span class="branded-text"><%= t_electricity_supply(@material_info.electricity_supply) %></span>
               <% end %>
             </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:electricity_supply) %></h5>
-        </div>
-      </div>
-
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% if @material_info.electricity_supply == 'electricty_other' %>
-              <span class="branded-text"><%= @material_info.electricity_supply_other %></span>
-            <% else %>
-              <span class="branded-text"><%= t_electricity_supply(@material_info.electricity_supply) %></span>
-            <% end %>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:water_supply) %></h5>
+    <% unless @material_info.water_supply_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:water_supply) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_water_supply(@material_info.water_supply) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= t_water_supply(@material_info.water_supply) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:sewerage) %></h5>
+    <% unless @material_info.sewerage_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:sewerage) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% if @material_info.sewerage == 'sewerage_other' %>
-              <span class="branded-text"><%= @material_info.sewerage_other %></span>
-            <% else %>
-              <span class="branded-text"><%= t_sewerage(@material_info.sewerage) %></span>
-            <% end %>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <% if @material_info.sewerage == 'sewerage_other' %>
+                <span class="branded-text"><%= @material_info.sewerage_other %></span>
+              <% else %>
+                <span class="branded-text"><%= t_sewerage(@material_info.sewerage) %></span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <% if !@material_info.heating_fuels&.empty? %>
       <div class="item">
@@ -392,57 +408,63 @@
       </div>
     <% end %>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:broadband) %></h5>
+    <% unless @material_info.broadband_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:broadband) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_broadband(@material_info.broadband) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= t_broadband(@material_info.broadband) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:mobile_signal) %></h5>
+    <% unless @material_info.mobile_signal_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:mobile_signal) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% if @material_info.mobile_signal == 'restricted' %>
-              <span class="branded-text"><%= @material_info.mobile_signal_restrictions %></span>
-            <% else %>
-              <span class="branded-text"><%= t_mobile_signal(@material_info.mobile_signal) %></span>
-            <% end %>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <% if @material_info.mobile_signal == 'restricted' %>
+                <span class="branded-text"><%= @material_info.mobile_signal_restrictions %></span>
+              <% else %>
+                <span class="branded-text"><%= t_mobile_signal(@material_info.mobile_signal) %></span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:parking) %></h5>
+    <% unless @material_info.parking_unassigned? %>
+      <div class="item">
+        <div class="label">
+          <div class="branded-text">
+            <h5 class="branded-text"><%= p_label(:parking) %></h5>
+          </div>
         </div>
-      </div>
 
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_parking(@material_info.parking) %></span>
+        <div class="values" class="branded-text">
+          <div class="value">
+            <div>
+              <span class="branded-text"><%= t_parking(@material_info.parking) %></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <% if @material_info.warranty_num? %>
       <div class="item">
