@@ -6,6 +6,7 @@ module ParkingEnum
   included do
     enum parking:
     %i[
+      parking_unassigned
       no_parking
       garage
       drive
