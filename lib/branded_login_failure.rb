@@ -14,8 +14,8 @@ class BrandedLoginFailure < Devise::FailureApp
   def respond
     if http_auth?
       http_auth
-    elsif request.referer
-      redirect
+    elsif warden_options[:recall]
+      recall
     else
       redirect_to new_resident_session_path
     end
