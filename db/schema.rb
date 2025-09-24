@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_30_122029) do
+ActiveRecord::Schema.define(version: 2025_09_20_165623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -893,6 +893,7 @@ ActiveRecord::Schema.define(version: 2025_08_30_122029) do
     t.string "warranty_num"
     t.bigint "mprn"
     t.bigint "mpan"
+    t.datetime "updated"
     t.index ["infoable_type", "infoable_id"], name: "index_material_infos_on_infoable_type_and_infoable_id"
   end
 
