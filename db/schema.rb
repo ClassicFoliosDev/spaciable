@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_20_165623) do
+ActiveRecord::Schema.define(version: 2025_09_24_125324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -425,7 +425,6 @@ ActiveRecord::Schema.define(version: 2025_09_20_165623) do
     t.boolean "enable_perks", default: true
     t.boolean "timeline", default: false
     t.string "custom_url"
-    t.boolean "is_demo", default: false
     t.string "account_manager_name"
     t.string "account_manager_email"
     t.string "account_manager_contact"
@@ -439,6 +438,7 @@ ActiveRecord::Schema.define(version: 2025_09_20_165623) do
     t.integer "auto_complete", default: 24
     t.boolean "enable_material_info", default: false
     t.boolean "suspended", default: false
+    t.boolean "is_demo", default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)"
     t.index ["deleted_at"], name: "index_developers_on_deleted_at"
   end
@@ -479,6 +479,7 @@ ActiveRecord::Schema.define(version: 2025_09_20_165623) do
     t.boolean "conveyancing", default: false
     t.boolean "analytics_dashboard", default: true
     t.integer "client_platform", default: 0
+    t.boolean "invoice_indefinately", default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at"
     t.index ["developer_id"], name: "index_developments_on_developer_id"
     t.index ["division_id"], name: "index_developments_on_division_id"

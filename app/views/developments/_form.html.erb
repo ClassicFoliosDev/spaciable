@@ -115,6 +115,9 @@
                 <% end %>
               </div>
             </div>
+            <%= f.label :invoice_indefinately, t(".invoice_indefinately") %>
+            <%= f.check_box :invoice_indefinately %>
+            <p class="checkbox-description"><%= t(".invoice_indefinately_description") %></p>
           </fieldset>
         </div>
       </div>

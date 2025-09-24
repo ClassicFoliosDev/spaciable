@@ -855,17 +855,19 @@ class Plot < ApplicationRecord
     return [] if kind == :ff && !%w[standard full_works].include?(phase.maintenance_account_type)
     return [] if kind == :package && phase.free?
 
+    threshold = phase.invoice_indefinately ? "100 years" : "36 months"
+
     case kind
     when :package
       sql = "select number from plots where phase_id = #{phase.id} " \
             "AND LEAST(completion_release_date, reservation_release_date) <= current_date " \
             "AND LEAST(completion_release_date, reservation_release_date) > " \
-            "(select current_date - interval '36 months')"
+            "(select current_date - interval '#{threshold}')"
     when :ff
       sql = "select number from plots where phase_id = #{phase.id} " \
             "AND completion_release_date <= current_date " \
             "AND LEAST(completion_release_date, reservation_release_date) > " \
-            "(select current_date - interval '36 months')"
+            "(select current_date - interval '#{threshold}')"
     else
       sql = "select number from plots completion_release_date < " \
             "(select current_date - interval '100 years')"

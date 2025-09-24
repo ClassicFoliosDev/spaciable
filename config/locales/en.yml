@@ -1506,6 +1506,8 @@ en:
       conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete"
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
+      invoice_indefinately: "Package Invoicing"
+      invoice_indefinately_description: "Phase plots are invoiced indefinately without being subjected to a 36 month threshold."
     index:
       add: "Add Development"
       title: "Developments"
