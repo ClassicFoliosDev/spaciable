@@ -29,15 +29,75 @@
 
   var classes = ['plot', 'development']
 
-  var checks = [{datum: '#development_material_info_attributes_service_charges', 
+  var checks = [{datum: '#development_material_info_attributes_tenure', 
+                 label: 'div.development_material_info_tenure label'},
+                {datum: '#development_material_info_attributes_service_charges', 
                  label: 'div.development_material_info_service_charges label'},
+                {datum: '#development_material_info_attributes_property_type', 
+                 label: 'div.development_material_info_property_type label'},
+                {datum: '#development_material_info_attributes_property_construction', 
+                 label: 'div.development_material_info_property_construction label'},
+                {datum: '#development_material_info_attributes_property_construction_other', 
+                 label: 'div.development_material_info_property_construction_other label'},
                 {datum: '#development_material_info_attributes_council_tax_band', 
                  label: 'div.development_material_info_council_tax_band label'},
+                {datum: '#development_material_info_attributes_parking', 
+                 label: 'div.development_material_info_parking label'},
                 {datum: '#development_material_info_attributes_epc_rating', 
-                 label: 'div.development_material_info_epc_rating label'}
+                 label: 'div.development_material_info_epc_rating label'},
+
+                {datum: '#development_material_info_attributes_electricity_supply', 
+                 label: 'div.development_material_info_electricity_supply label'},
+                {datum: '#development_material_info_attributes_electricity_supply_other', 
+                 label: 'div.development_material_info_electricity_supply_other label'},
+                {datum: '#development_material_info_attributes_water_supply', 
+                 label: 'div.development_material_info_water_supply label'},
+                {datum: '#development_material_info_attributes_sewerage', 
+                 label: 'div.development_material_info_sewerage label'},
+                {datum: '#development_material_info_attributes_sewerage_other', 
+                 label: 'div.development_material_info_sewerage_other label'},
+                {datum: '#development_material_info_attributes_broadband', 
+                 label: 'div.development_material_info_broadband label'},
+                {datum: '#development_material_info_attributes_mobile_signal', 
+                 label: 'div.development_material_info_mobile_signal label'},
+                {datum: '#development_material_info_attributes_mobile_signal_restrictions', 
+                 label: 'div.development_material_info_mobile_signal_restrictions label'},
+                {datum: '#development_material_info_attributes_heating_fuel_ids', 
+                 label: 'div.development_material_info_heating_fuels label',
+                 array: "true",
+                 updated: '#development_material_info_attributes_heating_fuels_updated'},
+                {datum: '#development_material_info_attributes_heating_source_ids', 
+                 label: 'div.development_material_info_heating_sources label',
+                 array: "true",
+                 updated: '#development_material_info_attributes_heating_sources_updated' },
+                {datum: '#development_material_info_attributes_heating_output_ids', 
+                 label: 'div.development_material_info_heating_outputs label',
+                 array: "true",
+                 updated: '#development_material_info_attributes_heating_outputs_updated'},
+
+                {editor: 'development_material_info_attributes_building_safety', 
+                 label: 'div.development_material_info_building_safety label'},
+                {editor: 'development_material_info_attributes_restrictions', 
+                 label: 'div.development_material_info_restrictions label'},
+                {editor: 'development_material_info_attributes_rights_and_easements', 
+                 label: 'div.development_material_info_rights_and_easements label'},
+                {editor: 'development_material_info_attributes_flood_risk', 
+                 label: 'div.development_material_info_flood_risk label'},
+                {editor: 'development_material_info_attributes_planning_permission_or_proposals', 
+                 label: 'div.development_material_info_planning_permission_or_proposals label'},
+                {editor: 'development_material_info_attributes_accessibility', 
+                 label: 'div.development_material_info_accessibility label'},
+                {editor: 'development_material_info_attributes_coalfield_or_mining_areas', 
+                 label: 'div.development_material_info_coalfield_or_mining_areas label'},
+                {editor: 'development_material_info_attributes_other_considerations', 
+                 label: 'div.development_material_info_other_considerations label'}
                ]
 
+
   document.addEventListener('turbolinks:load', function (event) {
+
+    var content_editor = CKEDITOR.instances['development_material_info_attributes_building_safety'];
+
 
     if ($('#metadata').length == 0) { return }
 
@@ -146,13 +206,27 @@
 
   function set_initial_mi_data() {
     checks.forEach(function (c, index) {
-      c.initial_value = $(c.datum).val()
+      if (typeof c.datum == 'string') {
+        c.initial_value = $(c.datum).val()
+      }
+      if (typeof c.editor == 'string') {
+        var content_editor = CKEDITOR.instances[c.editor];
+        c.initial_value = 'original'
+        c.submit_value = 'original'
+
+        content_editor.on( 'key', function() {
+          c.submit_value = 'changed'
+          $(c.updated).val('true')
+        });
+      }
     })
   }
 
   function set_submit_mi_data() {
     checks.forEach(function (c, index) {
-      c.submit_value = $(c.datum).val()
+      if (typeof c.datum == 'string') {
+        c.submit_value = $(c.datum).val()
+      }
     })
   }
 
@@ -160,7 +234,15 @@
     var delta = ''
     var updates = []
     checks.forEach(function (c, index) {
-      if (c.submit_value != c.initial_value) { updates.push(c) }
+
+      if (typeof c.array == 'string') {
+        if (!arraysEqual(c.initial_value, c.submit_value)) {
+          updates.push(c) 
+          if (typeof c.updated == 'string') { $(c.updated).val('true') }
+        }
+      } else if (c.submit_value != c.initial_value) {
+        updates.push(c) 
+      }      
     })
     updates.forEach(function (c, index) {
       delta = delta.concat($(c.label).text())
@@ -226,6 +308,17 @@
   function SubmitDevelopment(){
     var x = document.getElementsByClassName("edit_development");
     x[0].submit(); // Form submission
+  }
+
+  function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;
+
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
   }
 
 })(document, window.jQuery)

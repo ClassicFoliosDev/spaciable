@@ -2,6 +2,10 @@
 
     <% if defined? material_info_plots && material_info_plots > 0 %>
       <%= m.hidden_field :proliferate%>
+      <%= m.hidden_field :updated, :value => Time.zone.now.strftime("%F %H:%M:%S") %>
+      <%= m.hidden_field :heating_fuels_updated %>
+      <%= m.hidden_field :heating_sources_updated %>
+      <%= m.hidden_field :heating_outputs_updated %>
     <% end %>
 
     <div class="row" id="services">

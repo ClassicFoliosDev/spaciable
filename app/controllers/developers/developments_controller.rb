@@ -157,6 +157,11 @@ module Developers
         :warranty_num,
         :mprn,
         :mpan,
+        :updated,
+        :dependents,
+        :heating_fuels_updated,
+        :heating_sources_updated,
+        :heating_outputs_updated,
         heating_fuel_ids: [],
         heating_source_ids: [],
         heating_output_ids: []
