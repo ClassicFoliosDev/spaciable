@@ -15,6 +15,7 @@ class Phase < ApplicationRecord
   delegate :unlatch_developer, to: :development
   delegate :programs, to: :development
   delegate :name, to: :development, prefix: true
+  delegate :invoice_indefinately, to: :development
   alias parent development
   include InheritParentPermissionIds
 
