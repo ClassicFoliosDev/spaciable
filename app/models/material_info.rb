@@ -47,9 +47,11 @@ class MaterialInfo < ApplicationRecord
 
     updates = {}
     %w[tenure
+       lease_length
        service_charges
        council_tax_band
        property_type
+       floor
        property_construction
        property_construction_other
        council_tax_band
