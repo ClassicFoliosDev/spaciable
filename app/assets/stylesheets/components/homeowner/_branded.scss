@@ -68,21 +68,6 @@
   }
 }
 
-.branded-text-centred {
-  @extend .branded-text;
-  text-align: center;  
-}
-
-.branded-text-underlined {
-  @extend .branded-text;
-  border-bottom: 3px solid black;
-}
-
-.branded-text-aligned {
-  @extend .branded-text;
-  padding-bottom: 10px;
-}
-
 .branded-primary-text {
   color: $primary-navy;
 

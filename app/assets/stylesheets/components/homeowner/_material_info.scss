@@ -40,70 +40,8 @@
   }
 }
 
-@include media($tablet-landscape-down) {
-  .material_info {
-    margin: $spacing-small 20px;
-  }
-}
-
-@include media($tablet-portrait-down) {
-  .material_info {
-    .item {
-      border-bottom: 2px solid $ui-light-grey;
-      margin-bottom: 20px;
-
-      .label {
-        @include span-columns(6 of 12);
-      }
-      .values {
-        @include span-columns(6 of 12);
-
-        .value {
-          @include span-columns(12 of 12);
-
-          span {
-            width: 100%;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            text-align: center;
-          }
-
-          .guide {
-            display: flex;
-            justify-content: center;
-          }
-        }
-      }
-    }
-  }
-}
-
 .appliances-disclaimer {
   padding: 0 10;
-}
-
-@include media($mobile-down) {
-  .material_info {
-    .item {
-      border-bottom: 2px solid $ui-light-grey;
-      margin-bottom: 20px;
-
-      .label {
-        @include span-columns(12 of 12);
-      }
-      .values {
-        @include span-columns(12 of 12);
-      }
-    }
-  }
-
-  .appliances-disclaimer {
-    font-size: small;
-
-    a {
-      text-decoration: underline;
-    }
-  }
 }
 
 .appliances-disclaimer a {
@@ -125,6 +63,15 @@
   justify-content: center;
 }
 
+.info-left {
+  @extend .info;
+  margin-left: 60;
+}
+
+.info-right {
+  @extend .info;
+  margin-right: 60;
+}
 
 .material-info-lable {
   @extend .branded-text;
@@ -140,4 +87,43 @@
 .material-info-value {
   @extend .material-info-centred;
   padding-bottom: 10px;
+}
+
+@include media($tablet-landscape-down) {
+  .material_info {
+    margin: $spacing-small 20px;
+  }
+
+  .info-left {
+    margin-left: 0 !important;
+  }
+
+  .info-right {
+    margin-right: 0 !important;
+  }
+
+}
+
+@include media($mobile-down) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto !important;
+    grid-auto-rows: unset;
+  }
+
+  .info-right {
+    margin-right: 0 !important;
+  }
+
+  .info-left {
+    margin-right: 0 !important;
+  }
+
+  .appliances-disclaimer {
+    font-size: small;
+
+    a {
+      text-decoration: underline;
+    }
+  }
 }
