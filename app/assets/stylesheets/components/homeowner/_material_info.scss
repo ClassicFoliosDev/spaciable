@@ -65,18 +65,23 @@
 
 .info-left {
   @extend .info;
+  @extend .branded-text;
   margin-left: 60;
 }
 
 .info-right {
   @extend .info;
+  @extend .branded-text;
   margin-right: 60;
 }
 
 .material-info-lable {
-  @extend .branded-text;
   border-bottom: 3px solid black;
   white-space: nowrap;
+}
+
+.material-info-branded-text {
+  @extend .branded-text;
 }
 
 .material-info-centred {

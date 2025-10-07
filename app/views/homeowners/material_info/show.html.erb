@@ -24,24 +24,26 @@
         </div>
 
         <div class=<%="#{cell_class(column += 1)}"%>>
-          <div class="values" class="branded-text">
-            <div class="value">
-              <div>
-                <span class="material-info-centred"><%= @plot.prefix %> <%= @plot.postal_number %></span>
-                <% if @plot.building_name %>
-                  <span class="material-info-centred"><%= @plot.building_name %></span>
-                <% end %>
-                <% if @plot.road_name %>
-                  <span class="material-info-centred"><%= @plot.road_name %></span>
-                <% end %>
-                <% if @plot.locality %>
-                  <span class="material-info-centred"><%= @plot.locality %></span>
-                <% elsif @plot.city %>
-                  <span class="material-info-centred"><%= @plot.city %></span>
-                <% end %>
-                <% if @plot.postcode %>
-                  <span class="material-info-centred"><%= @plot.postcode %></span>
-                <% end %>
+          <div class="values">
+            <div class="branded-text">
+              <div class="value">
+                <div>
+                  <span class="material-info-centred"><%= @plot.prefix %> <%= @plot.postal_number %></span>
+                  <% if @plot.building_name %>
+                    <span class="material-info-centred"><%= @plot.building_name %></span>
+                  <% end %>
+                  <% if @plot.road_name %>
+                    <span class="material-info-centred"><%= @plot.road_name %></span>
+                  <% end %>
+                  <% if @plot.locality %>
+                    <span class="material-info-centred"><%= @plot.locality %></span>
+                  <% elsif @plot.city %>
+                    <span class="material-info-centred"><%= @plot.city %></span>
+                  <% end %>
+                  <% if @plot.postcode %>
+                    <span class="material-info-centred"><%= @plot.postcode %></span>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>          
@@ -59,9 +61,11 @@
 
         <div class=<%="#{cell_class(column += 1)}"%>>
           <div class="values" class="branded-text">
-            <div class="value">
-              <div>
-                <span class="material-info-value"><%= @plot.uprn %></span>
+            <div class="branded-text">
+              <div class="value">
+                <div>
+                  <span class="material-info-value"><%= @plot.uprn %></span>
+                </div>
               </div>
             </div>
           </div>
@@ -78,13 +82,15 @@
 
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% if @material_info.selling_price&.nonzero? %>
-              <span class="material-info-value">£<%= number_with_delimiter(@material_info.selling_price) %></span>
-            <% else %>
-              <span class="material-info-value"><%= p_label(:selling_price_placeholder) %></span>
-            <% end %>
+         <div class="branded-text">
+          <div class="value">
+            <div>
+              <% if @material_info.selling_price&.nonzero? %>
+                <span class="material-info-value">£<%= number_with_delimiter(@material_info.selling_price) %></span>
+              <% else %>
+                <span class="material-info-value"><%= p_label(:selling_price_placeholder) %></span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -101,9 +107,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value">£<%= number_with_delimiter(@material_info.reservation_fee) %></span>
+           <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value">£<%= number_with_delimiter(@material_info.reservation_fee) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -120,14 +128,16 @@
 
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% leased = show_lease_length(@material_info.tenure, @material_info.lease_length) %>
-            <% _class = leased ? material_info_centred : material_info_value %>
-            <span class=<%="#{_class}"%>><%= t_tenure(@material_info.tenure) %></span>
-            <% if leased %>
-              <span class=<%="#{_class}"%>><%= @material_info.lease_length %> year lease</span>
-            <% end %>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <% leased = show_lease_length(@material_info.tenure, @material_info.lease_length) %>
+              <% _class = leased ? material_info_centred : material_info_value %>
+              <span class=<%="#{_class}"%>><%= t_tenure(@material_info.tenure) %></span>
+              <% if leased %>
+                <span class=<%="#{_class}"%>><%= @material_info.lease_length %> year lease</span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -144,9 +154,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value">£<%= number_with_delimiter(@material_info.service_charges) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value">£<%= number_with_delimiter(@material_info.service_charges) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -163,9 +175,11 @@
 
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="material-info-value"><%= t_council_tax_band(@material_info.council_tax_band) %></span>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <span class="material-info-value"><%= t_council_tax_band(@material_info.council_tax_band) %></span>
+            </div>
           </div>
         </div>
       </div>
@@ -181,15 +195,17 @@
 
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% floor = show_floor(@material_info.property_type) %>
-            <% _class = floor ? material_info_centred : material_info_value %>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <% floor = show_floor(@material_info.property_type) %>
+              <% _class = floor ? material_info_centred : material_info_value %>
 
-            <span class=<%="#{_class}"%>><%= t_property_type(@material_info.property_type) %></span>
-            <% if floor %>
-              <span class=<%="#{_class}"%>><%= t_floor(@material_info.floor) %> Floor</span>
-            <% end %>
+              <span class=<%="#{_class}"%>><%= t_property_type(@material_info.property_type) %></span>
+              <% if floor %>
+                <span class=<%="#{_class}"%>><%= t_floor(@material_info.floor) %> Floor</span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -206,9 +222,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= number_with_delimiter(@material_info.floorspace) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= number_with_delimiter(@material_info.floorspace) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -226,9 +244,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= @plot.completion_date %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @plot.completion_date %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -245,9 +265,11 @@
 
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="material-info-value"><%= t_epc_rating(@material_info.epc_rating) %></span>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <span class="material-info-value"><%= t_epc_rating(@material_info.epc_rating) %></span>
+            </div>
           </div>
         </div>
       </div>
@@ -264,9 +286,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= t_property_construction(@material_info.property_construction) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_property_construction(@material_info.property_construction) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -290,23 +314,25 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
+          <div class="branded-text">
+            <div class="value">
 
-            <% if bathrooms.positive? %>
-              <span class=<%="#{_class}"%>><%= bathrooms %> <%= 'Bathroom'.pluralize(bathrooms) %></span>
-            <% end %>
-            <% if bedrooms.positive? %>
-              <span class=<%="#{_class}"%>><%= bedrooms %> <%= 'Bedroom'.pluralize(bedrooms) %> </span>
-            <% end %>
+              <% if bathrooms.positive? %>
+                <span class=<%="#{_class}"%>><%= bathrooms %> <%= 'Bathroom'.pluralize(bathrooms) %></span>
+              <% end %>
+              <% if bedrooms.positive? %>
+                <span class=<%="#{_class}"%>><%= bedrooms %> <%= 'Bedroom'.pluralize(bedrooms) %> </span>
+              <% end %>
 
-            <% if floor_plan %>
-              <div class="guide">
-                <%= link_to floor_plan.file.url, class: "branded-btn-inverted", target: "_blank" do %>
-                  <%= icon "cloud-download" %>
-                  Floor Plan
-                <% end %>
-              </div>
-            <% end %>
+              <% if floor_plan %>
+                <div class="guide">
+                  <%= link_to floor_plan.file.url, class: "branded-btn-inverted", target: "_blank" do %>
+                    <%= icon "cloud-download" %>
+                    Floor Plan
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -323,13 +349,15 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% if @material_info.electricity_supply == 'electricty_other' %>
-                <span class="material-info-value"><%= @material_info.electricity_supply_other %></span>
-              <% else %>
-                <span class="material-info-value"><%= t_electricity_supply(@material_info.electricity_supply) %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% if @material_info.electricity_supply == 'electricty_other' %>
+                  <span class="material-info-value"><%= @material_info.electricity_supply_other %></span>
+                <% else %>
+                  <span class="material-info-value"><%= t_electricity_supply(@material_info.electricity_supply) %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -347,9 +375,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= t_water_supply(@material_info.water_supply) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_water_supply(@material_info.water_supply) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -367,13 +397,15 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% if @material_info.sewerage == 'sewerage_other' %>
-                <span class="material-info-value"><%= @material_info.sewerage_other %></span>
-              <% else %>
-                <span class="material-info-value"><%= t_sewerage(@material_info.sewerage) %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% if @material_info.sewerage == 'sewerage_other' %>
+                  <span class="material-info-value"><%= @material_info.sewerage_other %></span>
+                <% else %>
+                  <span class="material-info-value"><%= t_sewerage(@material_info.sewerage) %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -393,11 +425,13 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% @material_info.heating_fuels.each do |fuel| %>
-                <span class=<%="#{_class}"%>><%= fuel.name %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% @material_info.heating_fuels.each do |fuel| %>
+                  <span class=<%="#{_class}"%>><%= fuel.name %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -417,11 +451,13 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% @material_info.heating_sources.each do |source| %>
-                <span class=<%="#{_class}"%>><%= source.name %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% @material_info.heating_sources.each do |source| %>
+                  <span class=<%="#{_class}"%>><%= source.name %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -441,11 +477,13 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% @material_info.heating_outputs.each do |output| %>
-                <span class=<%="#{_class}"%>><%= output.name %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% @material_info.heating_outputs.each do |output| %>
+                  <span class=<%="#{_class}"%>><%= output.name %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -463,9 +501,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= t_broadband(@material_info.broadband) %></span>
+            <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_broadband(@material_info.broadband) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -483,13 +523,15 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% if @material_info.mobile_signal == 'restricted' %>
-                <span class="material-info-value"><%= @material_info.mobile_signal_restrictions %></span>
-              <% else %>
-                <span class="material-info-value"><%= t_mobile_signal(@material_info.mobile_signal) %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% if @material_info.mobile_signal == 'restricted' %>
+                  <span class="material-info-value"><%= @material_info.mobile_signal_restrictions %></span>
+                <% else %>
+                  <span class="material-info-value"><%= t_mobile_signal(@material_info.mobile_signal) %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -507,9 +549,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= t_parking(@material_info.parking) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_parking(@material_info.parking) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -527,9 +571,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= @material_info.warranty_num %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.warranty_num %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -547,9 +593,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= @material_info.mprn %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.mprn %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -567,9 +615,11 @@
 
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="material-info-value"><%= @material_info.mpan %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.mpan %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -587,8 +637,10 @@
         </div>
 
         <div class=<%="#{cell_class(column += 1)}"%>>
-          <div class="values" class="material-info-value">
-            <%= raw @material_info.send(attr) %>
+           <div class="branded-text">
+            <div class="values" class="material-info-value">
+              <%= raw @material_info.send(attr) %>
+            </div>
           </div>
         </div>
       <% end %>
