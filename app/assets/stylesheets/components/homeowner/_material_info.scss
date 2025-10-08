@@ -76,12 +76,8 @@
 }
 
 .material-info-lable {
-  border-bottom: 3px solid black;
+  @extend .branded_underlined_lable;
   white-space: nowrap;
-}
-
-.material-info-branded-text {
-  @extend .branded-text;
 }
 
 .material-info-centred {

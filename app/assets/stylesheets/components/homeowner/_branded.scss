@@ -27,6 +27,11 @@
   }
 }
 
+.branded_underlined_lable {
+  border-bottom: 3px solid black;
+  white-space: nowrap;
+}
+
 .branded-hero {
   top: 0;
   margin-top: 120px; // needed to prevent fixed navigation obscuring
@@ -47,8 +52,6 @@
 .branded-nav-text a {
   color: $primary-navy;
 }
-
-
 
 .branded-border {
   border-width: 1px;

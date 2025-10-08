@@ -2,10 +2,10 @@
 
 module MaterialInfoHelper
   def cell_class(column)
-    _column = column % 4
-    return "info-right" if _column == 2
+    c = column % 4
+    return "info-right" if c == 2
 
-    return "info" if _column < 2
+    return "info" if c < 2
 
     "info-left"
   end
