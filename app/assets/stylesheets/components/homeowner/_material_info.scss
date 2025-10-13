@@ -40,61 +40,84 @@
   }
 }
 
-@include media($tablet-landscape-down) {
-  .material_info {
-    margin: $spacing-small 20px;
-  }
-}
-
-@include media($tablet-portrait-down) {
-  .material_info {
-    .item {
-      border-bottom: 2px solid $ui-light-grey;
-      margin-bottom: 20px;
-
-      .label {
-        @include span-columns(6 of 12);
-      }
-      .values {
-        @include span-columns(6 of 12);
-
-        .value {
-          @include span-columns(12 of 12);
-
-          span {
-            width: 100%;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            text-align: center;
-          }
-
-          .guide {
-            display: flex;
-            justify-content: center;
-          }
-        }
-      }
-    }
-  }
-}
-
 .appliances-disclaimer {
   padding: 0 10;
 }
 
-@include media($mobile-down) {
-  .material_info {
-    .item {
-      border-bottom: 2px solid $ui-light-grey;
-      margin-bottom: 20px;
+.appliances-disclaimer a {
+  text-decoration: underline;
+}
 
-      .label {
-        @include span-columns(12 of 12);
-      }
-      .values {
-        @include span-columns(12 of 12);
-      }
-    }
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-left {
+  @extend .info;
+  @extend .branded-text;
+  margin-left: 60;
+}
+
+.info-right {
+  @extend .info;
+  @extend .branded-text;
+  margin-right: 60;
+}
+
+.material-info-lable {
+  @extend .branded_underlined_lable;
+  white-space: nowrap;
+}
+
+.material-info-centred {
+  @extend .branded-text;
+  text-align: center;  
+}
+
+.material-info-value {
+  @extend .material-info-centred;
+  padding-bottom: 10px;
+}
+
+@include media($tablet-landscape-down) {
+  .material_info {
+    margin: $spacing-small 20px;
+  }
+
+  .info-left {
+    margin-left: 0 !important;
+  }
+
+  .info-right {
+    margin-right: 0 !important;
+  }
+
+}
+
+@include media($mobile-down) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto !important;
+    grid-auto-rows: unset;
+  }
+
+  .info-right {
+    margin-right: 0 !important;
+  }
+
+  .info-left {
+    margin-right: 0 !important;
   }
 
   .appliances-disclaimer {
@@ -104,8 +127,4 @@
       text-decoration: underline;
     }
   }
-}
-
-.appliances-disclaimer a {
-  text-decoration: underline;
 }

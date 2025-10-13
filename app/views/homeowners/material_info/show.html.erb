@@ -3,197 +3,230 @@
   <%= render "components/homeowner/sub_menu", active_tab: "material", plot: @plot %>
 <% end %>
 
+<% material_info_centred = "material-info-centred" %>
+<% material_info_value = "material-info-value" %>
+<% info_left = "info-left" %>
+<% info_right = "info-right" %>
+
+<% column = 0 %>
+
 <div class="branded-body">
   <div class="material_info">
 
-    <% if @plot.address %>
-      <div class="item">
-        <div class="label">
-          <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:address) %></h5>
-          </div>
-        </div>
-
-        <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= @plot.prefix %> <%= @plot.postal_number %></span>
-              <% if @plot.building_name %>
-                <span class="branded-text"><%= @plot.building_name %></span>
-              <% end %>
-              <% if @plot.road_name %>
-                <span class="branded-text"><%= @plot.road_name %></span>
-              <% end %>
-              <% if @plot.locality %>
-                <span class="branded-text"><%= @plot.locality %></span>
-              <% elsif @plot.city %>
-                <span class="branded-text"><%= @plot.city %></span>
-              <% end %>
-              <% if @plot.postcode %>
-                <span class="branded-text"><%= @plot.postcode %></span>
-              <% end %>
+    <div class="container">
+      <% if @plot.address %>
+        <div class=<%="#{cell_class(column += 1)}"%>>
+          <div class="label">
+            <div class="branded-text">
+              <h5 class="branded_underlined_lable"><%= p_label(:address) %></h5>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
 
-    <div class="item">
+        <div class=<%="#{cell_class(column += 1)}"%>>
+          <div class="values">
+            <div class="branded-text">
+              <div class="value">
+                <div>
+                  <span class="material-info-centred"><%= @plot.prefix %> <%= @plot.postal_number %></span>
+                  <% if @plot.building_name %>
+                    <span class="material-info-centred"><%= @plot.building_name %></span>
+                  <% end %>
+                  <% if @plot.road_name %>
+                    <span class="material-info-centred"><%= @plot.road_name %></span>
+                  <% end %>
+                  <% if @plot.locality %>
+                    <span class="material-info-centred"><%= @plot.locality %></span>
+                  <% elsif @plot.city %>
+                    <span class="material-info-centred"><%= @plot.city %></span>
+                  <% end %>
+                  <% if @plot.postcode %>
+                    <span class="material-info-centred"><%= @plot.postcode %></span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @plot.uprn? %>
+        <div class=<%="#{cell_class(column += 1)}"%>>
+          <div class="label">
+            <div class="branded-text">
+              <h5 class="branded_underlined_lable"><%= p_label(:uprn) %></h5>
+            </div>
+          </div>
+        </div>
+
+        <div class=<%="#{cell_class(column += 1)}"%>>
+          <div class="values" class="branded-text">
+            <div class="branded-text">
+              <div class="value">
+                <div>
+                  <span class="material-info-value"><%= @plot.uprn %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:plot_number) %></h5>
-        </div>
-      </div>
-
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= @plot.number %></span>
-          </div>
+          <h5 class="branded_underlined_lable"><%= p_label(:selling_price) %></h5>
         </div>
       </div>
     </div>
 
-    <% if @plot.uprn? %>
-      <div class="item">
-        <div class="label">
-          <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:uprn) %></h5>
-          </div>
-        </div>
-
-        <div class="values" class="branded-text">
+    <div class=<%="#{cell_class(column += 1)}"%>>
+      <div class="values" class="branded-text">
+         <div class="branded-text">
           <div class="value">
             <div>
-              <span class="branded-text"><%= @plot.uprn %></span>
+              <% if @material_info.selling_price&.nonzero? %>
+                <span class="material-info-value">£<%= number_with_delimiter(@material_info.selling_price) %></span>
+              <% else %>
+                <span class="material-info-value"><%= p_label(:selling_price_placeholder) %></span>
+              <% end %>
             </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <div class="item">
-      <div class="label">
-        <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:selling_price) %></h5>
-        </div>
-      </div>
-
-      <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <% if @material_info.selling_price&.nonzero? %>
-              <span class="branded-text">£<%= number_with_delimiter(@material_info.selling_price) %></span>
-            <% else %>
-              <span class="branded-text"><%= p_label(:selling_price_placeholder) %></span>
-            <% end %>
           </div>
         </div>
       </div>
     </div>
 
     <% if @material_info.reservation_fee&.nonzero? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:reservation_fee) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:reservation_fee) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text">£<%= number_with_delimiter(@material_info.reservation_fee) %></span>
+           <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value">£<%= number_with_delimiter(@material_info.reservation_fee) %></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     <% end %>
 
-    <div class="item">
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:tenure) %></h5>
+          <h5 class="branded_underlined_lable"><%= p_label(:tenure) %></h5>
         </div>
       </div>
+    </div>
 
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_tenure(@material_info.tenure) %></span>
-            <% if show_lease_length(@material_info.tenure, @material_info.lease_length) %>
-              <span class="branded-text"><%= @material_info.lease_length %> year lease</span>
-            <% end %>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <% leased = show_lease_length(@material_info.tenure, @material_info.lease_length) %>
+              <% _class = leased ? material_info_centred : material_info_value %>
+              <span class=<%="#{_class}"%>><%= t_tenure(@material_info.tenure) %></span>
+              <% if leased %>
+                <span class=<%="#{_class}"%>><%= @material_info.lease_length %> year lease</span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <% if @material_info.service_charges&.nonzero? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:service_charges) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:service_charges) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text">£<%= number_with_delimiter(@material_info.service_charges) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value">£<%= number_with_delimiter(@material_info.service_charges) %></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     <% end %>
 
-    <div class="item">
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:council_tax_band) %></h5>
+          <h5 class="branded_underlined_lable"><%= p_label(:council_tax_band) %></h5>
         </div>
       </div>
+    </div>
 
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_council_tax_band(@material_info.council_tax_band) %></span>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <span class="material-info-value"><%= t_council_tax_band(@material_info.council_tax_band) %></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="item">
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:property_type) %></h5>
+          <h5 class="branded_underlined_lable"><%= p_label(:property_type) %></h5>
         </div>
       </div>
+    </div>
 
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_property_type(@material_info.property_type) %></span>
-            <% if show_floor(@material_info.property_type) %>
-              <span class="branded-text"><%= t_floor(@material_info.floor) %> Floor</span>
-            <% end %>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <% floor = show_floor(@material_info.property_type) %>
+              <% _class = floor ? material_info_centred : material_info_value %>
+
+              <span class=<%="#{_class}"%>><%= t_property_type(@material_info.property_type) %></span>
+              <% if floor %>
+                <span class=<%="#{_class}"%>><%= t_floor(@material_info.floor) %> Floor</span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <% if @material_info.floorspace&.nonzero? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:floorspace) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:floorspace) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= number_with_delimiter(@material_info.floorspace) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= number_with_delimiter(@material_info.floorspace) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -201,51 +234,63 @@
     <% end %>
 
     <% if @plot.completion_date %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:estimated_legal_completion_date) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:estimated_legal_completion_date) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= @plot.completion_date %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @plot.completion_date %></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     <% end %>
 
-    <div class="item">
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded-text"><%= p_label(:epc_rating) %></h5>
+          <h5 class="branded_underlined_lable"><%= p_label(:epc_rating) %></h5>
         </div>
       </div>
+    </div>
 
+    <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="values" class="branded-text">
-        <div class="value">
-          <div>
-            <span class="branded-text"><%= t_epc_rating(@material_info.epc_rating) %></span>
+        <div class="branded-text">
+          <div class="value">
+            <div>
+              <span class="material-info-value"><%= t_epc_rating(@material_info.epc_rating) %></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <% unless @material_info.property_construction_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:property_construction) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:property_construction) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= t_property_construction(@material_info.property_construction) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_property_construction(@material_info.property_construction) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -255,53 +300,64 @@
     <% bathrooms = num_plot_rooms(@plot, %i[bathroom ensuite]) %>
     <% bedrooms = num_plot_rooms(@plot, %i[bedroom]) %>
 
+    <% rooms = bathrooms.positive? && bedrooms.positive? %>
+    <% _class = rooms ? material_info_centred : material_info_value %>
+
     <% if bathrooms.positive? || bedrooms.positive? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:specification) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:specification) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
+          <div class="branded-text">
+            <div class="value">
 
-            <% if bathrooms.positive? %>
-              <span class="branded-text"><%= bathrooms %> <%= 'Bathroom'.pluralize(bathrooms) %></span>
-            <% end %>
-            <% if bedrooms.positive? %>
-              <span class="branded-text"><%= bedrooms %> <%= 'Bedroom'.pluralize(bedrooms) %> </span>
-            <% end %>
+              <% if bathrooms.positive? %>
+                <span class=<%="#{_class}"%>><%= bathrooms %> <%= 'Bathroom'.pluralize(bathrooms) %></span>
+              <% end %>
+              <% if bedrooms.positive? %>
+                <span class=<%="#{_class}"%>><%= bedrooms %> <%= 'Bedroom'.pluralize(bedrooms) %> </span>
+              <% end %>
 
-            <% if floor_plan %>
-              <div class="guide">
-                <%= link_to floor_plan.file.url, class: "branded-btn-inverted", target: "_blank" do %>
-                  <%= icon "cloud-download" %>
-                  Floor Plan
-                <% end %>
-              </div>
-            <% end %>
+              <% if floor_plan %>
+                <div class="guide">
+                  <%= link_to floor_plan.file.url, class: "branded-btn-inverted", target: "_blank" do %>
+                    <%= icon "cloud-download" %>
+                    Floor Plan
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     <% end %>
 
     <% unless @material_info.electricity_supply_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:electricity_supply) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:electricity_supply) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% if @material_info.electricity_supply == 'electricty_other' %>
-                <span class="branded-text"><%= @material_info.electricity_supply_other %></span>
-              <% else %>
-                <span class="branded-text"><%= t_electricity_supply(@material_info.electricity_supply) %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% if @material_info.electricity_supply == 'electricty_other' %>
+                  <span class="material-info-value"><%= @material_info.electricity_supply_other %></span>
+                <% else %>
+                  <span class="material-info-value"><%= t_electricity_supply(@material_info.electricity_supply) %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -309,17 +365,21 @@
     <% end %>
 
     <% unless @material_info.water_supply_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:water_supply) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:water_supply) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= t_water_supply(@material_info.water_supply) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_water_supply(@material_info.water_supply) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -327,21 +387,25 @@
     <% end %>
 
     <% unless @material_info.sewerage_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:sewerage) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:sewerage) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% if @material_info.sewerage == 'sewerage_other' %>
-                <span class="branded-text"><%= @material_info.sewerage_other %></span>
-              <% else %>
-                <span class="branded-text"><%= t_sewerage(@material_info.sewerage) %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% if @material_info.sewerage == 'sewerage_other' %>
+                  <span class="material-info-value"><%= @material_info.sewerage_other %></span>
+                <% else %>
+                  <span class="material-info-value"><%= t_sewerage(@material_info.sewerage) %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -349,19 +413,25 @@
     <% end %>
 
     <% if !@material_info.heating_fuels&.empty? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:heating_fuels) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:heating_fuels) %></h5>
           </div>
         </div>
+      </div>
 
+      <% _class = @material_info.heating_fuels.count > 1 ? material_info_centred : material_info_value %>
+
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% @material_info.heating_fuels.each do |fuel| %>
-                <span class="branded-text"><%= fuel.name %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% @material_info.heating_fuels.each do |fuel| %>
+                  <span class=<%="#{_class}"%>><%= fuel.name %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -369,19 +439,25 @@
     <% end %>
 
     <% if !@material_info.heating_sources&.empty? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:heating_sources) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:heating_sources) %></h5>
           </div>
         </div>
+      </div>
 
+      <% _class = @material_info.heating_sources.count > 1 ? material_info_centred : material_info_value %>
+
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% @material_info.heating_sources.each do |source| %>
-                <span class="branded-text"><%= source.name %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% @material_info.heating_sources.each do |source| %>
+                  <span class=<%="#{_class}"%>><%= source.name %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -389,19 +465,25 @@
     <% end %>
 
     <% if !@material_info.heating_outputs&.empty? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:heating_outputs) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:heating_outputs) %></h5>
           </div>
         </div>
+      </div>
 
+      <% _class = @material_info.heating_outputs.count > 1 ? material_info_centred : material_info_value %>
+
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% @material_info.heating_outputs.each do |output| %>
-                <span class="branded-text"><%= output.name %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% @material_info.heating_outputs.each do |output| %>
+                  <span class=<%="#{_class}"%>><%= output.name %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -409,17 +491,21 @@
     <% end %>
 
     <% unless @material_info.broadband_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:broadband) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:broadband) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= t_broadband(@material_info.broadband) %></span>
+            <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_broadband(@material_info.broadband) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -427,21 +513,25 @@
     <% end %>
 
     <% unless @material_info.mobile_signal_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:mobile_signal) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:mobile_signal) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <% if @material_info.mobile_signal == 'restricted' %>
-                <span class="branded-text"><%= @material_info.mobile_signal_restrictions %></span>
-              <% else %>
-                <span class="branded-text"><%= t_mobile_signal(@material_info.mobile_signal) %></span>
-              <% end %>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <% if @material_info.mobile_signal == 'restricted' %>
+                  <span class="material-info-value"><%= @material_info.mobile_signal_restrictions %></span>
+                <% else %>
+                  <span class="material-info-value"><%= t_mobile_signal(@material_info.mobile_signal) %></span>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -449,17 +539,21 @@
     <% end %>
 
     <% unless @material_info.parking_unassigned? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:parking) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:parking) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= t_parking(@material_info.parking) %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= t_parking(@material_info.parking) %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -467,17 +561,21 @@
     <% end %>
 
     <% if @material_info.warranty_num? %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:warranty_num) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:warranty_num) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= @material_info.warranty_num %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.warranty_num %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -485,17 +583,21 @@
     <% end %>
 
     <% if @material_info.mprn %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:mprn) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:mprn) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= @material_info.mprn %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.mprn %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -503,17 +605,21 @@
     <% end %>
 
     <% if @material_info.mpan %>
-      <div class="item">
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded-text"><%= p_label(:mpan) %></h5>
+            <h5 class="branded_underlined_lable"><%= p_label(:mpan) %></h5>
           </div>
         </div>
+      </div>
 
+      <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="values" class="branded-text">
-          <div class="value">
-            <div>
-              <span class="branded-text"><%= @material_info.mpan %></span>
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.mpan %></span>
+              </div>
             </div>
           </div>
         </div>
@@ -522,15 +628,19 @@
 
     <% %w[building_safety restrictions rights_and_easements flood_risk planning_permission_or_proposals accessibility coalfield_or_mining_areas other_considerations].each do |attr| %>
       <% if !@material_info.send(attr)&.empty? %>
-        <div class="item">
+        <div class=<%="#{cell_class(column += 1)}"%>>
           <div class="label">
             <div class="branded-text">
-              <h5 class="branded-text"><%= p_label(attr.to_sym) %></h5>
+              <h5 class="branded_underlined_lable"><%= p_label(attr.to_sym) %></h5>
             </div>
           </div>
+        </div>
 
-          <div class="values" class="branded-text">
-            <%= raw @material_info.send(attr) %>
+        <div class=<%="#{cell_class(column += 1)}"%>>
+           <div class="branded-text">
+            <div class="values" class="material-info-value">
+              <%= raw @material_info.send(attr) %>
+            </div>
           </div>
         </div>
       <% end %>

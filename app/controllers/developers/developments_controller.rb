@@ -162,6 +162,8 @@ module Developers
         :heating_fuels_updated,
         :heating_sources_updated,
         :heating_outputs_updated,
+        :lease_length,
+        :floor,
         heating_fuel_ids: [],
         heating_source_ids: [],
         heating_output_ids: []

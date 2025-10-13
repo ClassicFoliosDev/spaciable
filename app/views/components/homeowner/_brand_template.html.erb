@@ -540,6 +540,10 @@
 
   <% if brand.branded_button_text_color %>
 
+    .branded_underlined_lable {
+      border-bottom: 3px solid #<%= brand.branded_button_text_color %>;
+    }
+
     .branded-btn {
       color: <%= brand.branded_button_text_color %> !important;
       border-color: <%= brand.branded_button_text_color %>;
