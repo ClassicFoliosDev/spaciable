@@ -95,6 +95,12 @@
     margin: $spacing-small 20px;
   }
 
+  .container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto !important;
+    grid-auto-rows: unset;
+  }
+
   .info-left {
     margin-left: 0 !important;
   }
