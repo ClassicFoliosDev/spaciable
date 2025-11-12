@@ -18,7 +18,7 @@
         <div class=<%="#{cell_class(column += 1)}"%>>
           <div class="label">
             <div class="branded-text">
-              <h5 class="branded_underlined_lable"><%= p_label(:address) %></h5>
+              <h6 class="branded_underlined_lable"><%= p_label(:address) %></h6>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
         <div class=<%="#{cell_class(column += 1)}"%>>
           <div class="label">
             <div class="branded-text">
-              <h5 class="branded_underlined_lable"><%= p_label(:uprn) %></h5>
+              <h6 class="branded_underlined_lable"><%= p_label(:uprn) %></h6>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded_underlined_lable"><%= p_label(:selling_price) %></h5>
+          <h6 class="branded_underlined_lable"><%= p_label(:selling_price) %></h6>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:reservation_fee) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:reservation_fee) %></h6>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded_underlined_lable"><%= p_label(:tenure) %></h5>
+          <h6 class="branded_underlined_lable"><%= p_label(:tenure) %></h6>
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:service_charges) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:service_charges) %></h6>
           </div>
         </div>
       </div>
@@ -168,7 +168,7 @@
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded_underlined_lable"><%= p_label(:council_tax_band) %></h5>
+          <h6 class="branded_underlined_lable"><%= p_label(:council_tax_band) %></h6>
         </div>
       </div>
     </div>
@@ -188,7 +188,7 @@
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded_underlined_lable"><%= p_label(:property_type) %></h5>
+          <h6 class="branded_underlined_lable"><%= p_label(:property_type) %></h6>
         </div>
       </div>
     </div>
@@ -215,7 +215,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:floorspace) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:floorspace) %></h6>
           </div>
         </div>
       </div>
@@ -237,7 +237,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:estimated_legal_completion_date) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:estimated_legal_completion_date) %></h6>
           </div>
         </div>
       </div>
@@ -258,7 +258,7 @@
     <div class=<%="#{cell_class(column += 1)}"%>>
       <div class="label">
         <div class="branded-text">
-          <h5 class="branded_underlined_lable"><%= p_label(:epc_rating) %></h5>
+          <h6 class="branded_underlined_lable"><%= p_label(:epc_rating) %></h6>
         </div>
       </div>
     </div>
@@ -279,7 +279,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:property_construction) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:property_construction) %></h6>
           </div>
         </div>
       </div>
@@ -307,7 +307,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:specification) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:specification) %></h6>
           </div>
         </div>
       </div>
@@ -338,11 +338,77 @@
       </div>
     <% end %>
 
+    <% if @material_info.mpan %>
+      <div class=<%="#{cell_class(column += 1)}"%>>
+        <div class="label">
+          <div class="branded-text">
+            <h6 class="branded_underlined_lable"><%= p_label(:mpan) %></h6>
+          </div>
+        </div>
+      </div>
+
+      <div class=<%="#{cell_class(column += 1)}"%>>
+        <div class="values" class="branded-text">
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.mpan %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @material_info.mprn %>
+      <div class=<%="#{cell_class(column += 1)}"%>>
+        <div class="label">
+          <div class="branded-text">
+            <h6 class="branded_underlined_lable"><%= p_label(:mprn) %></h6>
+          </div>
+        </div>
+      </div>
+
+      <div class=<%="#{cell_class(column += 1)}"%>>
+        <div class="values" class="branded-text">
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.mprn %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @material_info.warranty_num? %>
+      <div class=<%="#{cell_class(column += 1)}"%>>
+        <div class="label">
+          <div class="branded-text">
+            <h6 class="branded_underlined_lable"><%= p_label(:warranty_num) %></h6>
+          </div>
+        </div>
+      </div>
+
+      <div class=<%="#{cell_class(column += 1)}"%>>
+        <div class="values" class="branded-text">
+          <div class="branded-text">
+            <div class="value">
+              <div>
+                <span class="material-info-value"><%= @material_info.warranty_num %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <% unless @material_info.electricity_supply_unassigned? %>
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:electricity_supply) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:electricity_supply) %></h6>
           </div>
         </div>
       </div>
@@ -368,7 +434,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:water_supply) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:water_supply) %></h6>
           </div>
         </div>
       </div>
@@ -390,7 +456,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:sewerage) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:sewerage) %></h6>
           </div>
         </div>
       </div>
@@ -416,7 +482,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:heating_fuels) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:heating_fuels) %></h6>
           </div>
         </div>
       </div>
@@ -442,7 +508,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:heating_sources) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:heating_sources) %></h6>
           </div>
         </div>
       </div>
@@ -468,7 +534,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:heating_outputs) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:heating_outputs) %></h6>
           </div>
         </div>
       </div>
@@ -494,7 +560,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:broadband) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:broadband) %></h6>
           </div>
         </div>
       </div>
@@ -516,7 +582,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:mobile_signal) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:mobile_signal) %></h6>
           </div>
         </div>
       </div>
@@ -542,7 +608,7 @@
       <div class=<%="#{cell_class(column += 1)}"%>>
         <div class="label">
           <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:parking) %></h5>
+            <h6 class="branded_underlined_lable"><%= p_label(:parking) %></h6>
           </div>
         </div>
       </div>
@@ -560,78 +626,12 @@
       </div>
     <% end %>
 
-    <% if @material_info.warranty_num? %>
-      <div class=<%="#{cell_class(column += 1)}"%>>
-        <div class="label">
-          <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:warranty_num) %></h5>
-          </div>
-        </div>
-      </div>
-
-      <div class=<%="#{cell_class(column += 1)}"%>>
-        <div class="values" class="branded-text">
-          <div class="branded-text">
-            <div class="value">
-              <div>
-                <span class="material-info-value"><%= @material_info.warranty_num %></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <% if @material_info.mprn %>
-      <div class=<%="#{cell_class(column += 1)}"%>>
-        <div class="label">
-          <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:mprn) %></h5>
-          </div>
-        </div>
-      </div>
-
-      <div class=<%="#{cell_class(column += 1)}"%>>
-        <div class="values" class="branded-text">
-          <div class="branded-text">
-            <div class="value">
-              <div>
-                <span class="material-info-value"><%= @material_info.mprn %></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <% if @material_info.mpan %>
-      <div class=<%="#{cell_class(column += 1)}"%>>
-        <div class="label">
-          <div class="branded-text">
-            <h5 class="branded_underlined_lable"><%= p_label(:mpan) %></h5>
-          </div>
-        </div>
-      </div>
-
-      <div class=<%="#{cell_class(column += 1)}"%>>
-        <div class="values" class="branded-text">
-          <div class="branded-text">
-            <div class="value">
-              <div>
-                <span class="material-info-value"><%= @material_info.mpan %></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
     <% %w[building_safety restrictions rights_and_easements flood_risk planning_permission_or_proposals accessibility coalfield_or_mining_areas other_considerations].each do |attr| %>
       <% if !@material_info.send(attr)&.empty? %>
         <div class=<%="#{cell_class(column += 1)}"%>>
           <div class="label">
             <div class="branded-text">
-              <h5 class="branded_underlined_lable"><%= p_label(attr.to_sym) %></h5>
+              <h6 class="branded_underlined_lable"><%= p_label(attr.to_sym) %></h6>
             </div>
           </div>
         </div>

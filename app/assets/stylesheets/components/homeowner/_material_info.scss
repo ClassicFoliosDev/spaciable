@@ -2,6 +2,10 @@
   margin: $spacing-small auto;
   @include outer-container(960px);
 
+  h6 {
+    font-size: 14;
+  }
+
   .item {
     @include row();
     padding-bottom: $spacing-medium;
@@ -66,28 +70,33 @@
 .info-left {
   @extend .info;
   @extend .branded-text;
+  font-size: 14px;
   margin-left: 60;
 }
 
 .info-right {
   @extend .info;
   @extend .branded-text;
+  font-size: 14px;
   margin-right: 60;
 }
 
 .material-info-lable {
   @extend .branded_underlined_lable;
+  font-size: 14px;
   white-space: nowrap;
 }
 
 .material-info-centred {
   @extend .branded-text;
+  font-size: 14px;
   text-align: center;  
 }
 
 .material-info-value {
   @extend .material-info-centred;
   padding-bottom: 10px;
+  font-size: 14px;
 }
 
 @include media($tablet-landscape-down) {
