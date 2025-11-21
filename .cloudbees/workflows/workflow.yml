@@ -30,7 +30,7 @@ jobs:
       - name: checkout
         uses: cloudbees-io/checkout@v1
       - name: Run cucumber
-        uses: docker://ruby:2.7.8-bullseye
+        uses: docker://ubuntu:22.04
         run: |-
           gem update --system 3.4.22
           bundle install
