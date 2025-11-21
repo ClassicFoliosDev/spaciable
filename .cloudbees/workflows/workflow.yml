@@ -32,7 +32,7 @@ jobs:
       - name: Run cucumber
         uses: docker://ubuntu:22.04
         run: |-
-|         echo "sudo apt-get install software-properties-common"
+          echo "sudo apt-get install software-properties-common"
           sudo apt-get install software-properties-common
           echo "sudo apt-add-repository -y ppa:rael-gc/rvm"
           sudo apt-add-repository -y ppa:rael-gc/rvm
