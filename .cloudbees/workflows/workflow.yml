@@ -30,7 +30,7 @@ jobs:
       - name: checkout
         uses: cloudbees-io/checkout@v1
       - name: Run cucumber
-        uses: docker://ubuntu:22.04
+        uses: docker://ubuntu:20.04
         run: |-
           echo "apt-get install software-properties-common"
           apt-get install software-properties-common
