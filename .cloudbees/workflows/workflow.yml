@@ -32,14 +32,14 @@ jobs:
       - name: Run cucumber
         uses: docker://ubuntu:22.04
         run: |-
-          echo "sudo apt-get install software-properties-common"
-          sudo apt-get install software-properties-common
-          echo "sudo apt-add-repository -y ppa:rael-gc/rvm"
-          sudo apt-add-repository -y ppa:rael-gc/rvm
-          echo "sudo apt-get update"
-          sudo apt-get update
-          echo "sudo apt-get install rvm"
-          sudo apt-get install rvm
+          echo "apt-get install software-properties-common"
+          apt-get install software-properties-common
+          echo "apt-add-repository -y ppa:rael-gc/rvm"
+          apt-add-repository -y ppa:rael-gc/rvm
+          echo "apt-get update"
+          apt-get update
+          echo "apt-get install rvm"
+          apt-get install rvm
           rvm use 2.7.8 --install
           gem update --system 3.4.22
           bundle install
