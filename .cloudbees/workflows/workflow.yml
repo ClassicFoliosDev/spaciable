@@ -33,27 +33,6 @@ jobs:
         uses: docker://ubuntu:20.04
         run: |-
           echo "apt-get update"
-          apt-get update
-          echo "apt-get install software-properties-common"
-          apt-get install software-properties-common
-          echo "apt-add-repository -y ppa:rael-gc/rvm"
-          apt-add-repository -y ppa:rael-gc/rvm
-          echo "apt-get update"
-          apt-get update
-          echo "apt-get install rvm"
-          apt-get install rvm
-          rvm use 2.7.8 --install
-          gem update --system 3.4.22
-          bundle install
-          export RAILS_ENV=test
-          echo "rails db:environment:set RAILS_ENV=test"
-          rails db:environment:set RAILS_ENV=test
-          echo "exec rake spotlight_seq:initialise[100]"
-          bundle exec rake spotlight_seq:initialise[100]
-          echo "bundle exec rake db:schema:load RAILS_ENV=test"
-          bundle exec rake db:schema:load RAILS_ENV=test
-          echo "bundle exec rake assets:precompile"
-          bundle exec rake assets:precompile
 
         shell: bash
   test-ruby:
@@ -74,3 +53,24 @@ jobs:
           gem update --system 3.4.22
           bundle install
         shell: bash
+
+  build:
+    steps:
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+        
+      - name: Configure AWS credentials
+        uses: cloudbees-io/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+        
+      - name: Deploy to Elastic Beanstalk
+        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
+        with:
+          application-name: :hoozzi
+          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
+          s3-key: spaciable-qa.zip
+          version-label: cloudbees-1
+          environment-name: qa-check
