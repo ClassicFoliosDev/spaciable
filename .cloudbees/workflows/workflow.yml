@@ -71,6 +71,6 @@ jobs:
         with:
           application-name: :hoozzi
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: spaciable-qa.zip
+          s3-key: spaciable-staging.zip
           version-label: cloudbees-1
-          environment-name: qa-check
+          environment-name: staging2
