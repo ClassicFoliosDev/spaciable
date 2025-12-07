@@ -72,5 +72,5 @@ jobs:
           application-name: hoozzi
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
           s3-key: spaciable-staging.zip
-          version-label: version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
+          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
           environment-name: staging2
