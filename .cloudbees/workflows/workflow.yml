@@ -65,6 +65,13 @@ jobs:
           aws-access-key-id: ${{ secrets.QA_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.QA_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
+
+      - name: Zip app
+        uses: docker://alpine:3.23.0
+        run: |-
+          apk update && apk add zip
+          zip -x */.git* -x .git* -r "EB_spaciable-staging.zip" ./
+        shell: sh
         
       - name: Deploy to Elastic Beanstalk
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
