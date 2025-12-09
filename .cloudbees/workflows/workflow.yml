@@ -65,14 +65,12 @@ jobs:
           aws-access-key-id: ${{ secrets.QA_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.QA_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
-
-      
         
       - name: Deploy to Elastic Beanstalk
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
           application-name: hoozzi
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: EB_spaciable-staging.zip
+          s3-key: spaciable-staging.zip
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
           environment-name: staging2
