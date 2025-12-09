@@ -69,8 +69,7 @@ jobs:
       - name: Zip app
         uses: docker://alpine:3.23.0
         run: |-
-          apk update && apk add zip
-          zip -x */.git* -x .git* -r "EB_spaciable-staging.zip" ./
+          echo "hello"
         shell: sh
         
       - name: Deploy to Elastic Beanstalk
