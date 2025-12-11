@@ -62,9 +62,14 @@ jobs:
       - name: Configure AWS credentials
         uses: cloudbees-io/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.QA_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.QA_AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.CODESHIP_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
+
+
+
+
+
 
       - name: Zip app
         uses: docker://alpine:3.23.0
