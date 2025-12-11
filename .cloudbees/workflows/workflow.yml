@@ -35,8 +35,8 @@ jobs:
           echo "apt-get update"
 
         shell: bash
-  test-ruby:
 
+  test-ruby:
     services:
       postgres:
         image: postgres:15
@@ -66,11 +66,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-
-
-
-
-
       - name: Zip app
         uses: docker://alpine:3.23.0
         run: |-
@@ -88,8 +83,8 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
-          application-name: hoozzi
+          application-name: staging-27
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
           s3-key: EB_spaciable-staging.zip
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: staging2
+          environment-name: Staging-27-env
