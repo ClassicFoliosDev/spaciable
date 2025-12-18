@@ -60,7 +60,7 @@ jobs:
       - test-ruby
     steps:
       - uses: docker://alpine
-      run "true"
+        run: "true"
 
   deploy:
     needs:
