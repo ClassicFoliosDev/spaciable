@@ -54,7 +54,17 @@ jobs:
           bundle install
         shell: bash
 
-  build:
+  tests:
+    needs:
+      - test-cucumber
+      - test-ruby
+    steps:
+      - uses: docker://alpine
+      run "true"
+
+  deploy:
+    needs:
+      - tests
     steps:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
@@ -72,19 +82,3 @@ jobs:
           apk update && apk add zip
           zip -x */.git* -x .git* -r "EB_spaciable-staging.zip" ./
         shell: sh
-
-      - name: S3 upload zip
-        uses: cloudbees-io/s3-upload-object@v1
-        with:
-          bucket-name: elasticbeanstalk-eu-west-1-297941596080
-          file-path: ./EB_spaciable-staging.zip
-          s3-path: EB_spaciable-staging.zip
-        
-      - name: Deploy to Elastic Beanstalk
-        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
-        with:
-          application-name: staging-27
-          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: EB_spaciable-staging.zip
-          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: Staging-27-env
