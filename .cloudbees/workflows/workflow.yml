@@ -18,6 +18,7 @@ permissions:
 
 jobs:
   build-streams:
+    if: ${{ startsWith(cloudbees.scm.branch, 'master') || ${{ startsWith(cloudbees.scm.branch, 'release') }}
     steps:
       - uses: docker://alpine
         run: |-
