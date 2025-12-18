@@ -17,6 +17,12 @@ permissions:
   scm-token-own: read
 
 jobs:
+  build-streams:
+    steps:
+      - uses: docker://alpine
+        run: |-
+          echo ${{ cloudbees.scm.branch }}
+
   test-cucumber:
 
     services:
@@ -64,6 +70,7 @@ jobs:
 
   deploy:
     needs:
+      - build-streams
       - tests
     steps:
       - name: Checkout
