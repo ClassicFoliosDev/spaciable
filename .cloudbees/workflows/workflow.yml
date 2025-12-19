@@ -23,8 +23,8 @@ jobs:
       run:
         working-directory: ./.cloudbees/scripts
     steps:
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v5
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
       - name: Make the script files executable
         run: pwd
 
