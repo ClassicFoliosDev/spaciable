@@ -26,13 +26,7 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v5
       - name: Make the script files executable
-        run: 
-          pwd
-          chmod +x stream_settings.sh
-      - name: Run the scripts
-        run: 
-          ./stream_settings.sh
-          echo $ZIP
+        run: pwd
 
   build-stream:
     if: ${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }}
