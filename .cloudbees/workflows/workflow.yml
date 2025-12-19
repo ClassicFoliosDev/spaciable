@@ -24,10 +24,12 @@ jobs:
       - name: Make the script files executable
         uses: docker://alpine
       - id: zip
+        uses: docker://alpine
         run: 
           pwd
           echo "step zip"
       - id: file
+        uses: docker://alpine
         run:
           echo $CI_BRANCH
           export BRANCH=$CI_BRANCH
@@ -35,7 +37,6 @@ jobs:
           source ./stream_settings.sh
           echo $ZIP
           echo $ENVIRONMENT
-      - id: 
 
   build-stream:
     if: ${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }}
