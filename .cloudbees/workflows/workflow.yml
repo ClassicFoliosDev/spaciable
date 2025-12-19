@@ -24,8 +24,9 @@ jobs:
       - name: Make the script files executable
         uses: docker://alpine
       - id: zip
-        run: pwd
-        echo "step zip"
+        run: 
+          pwd
+          echo "step zip"
       - id: file
         run:
           echo $CI_BRANCH
