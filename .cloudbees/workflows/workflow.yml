@@ -31,7 +31,8 @@ jobs:
         run: |-
           echo $CI_BRANCH
           export BRANCH=$CI_BRANCH
-          chmod +x stream_settings.sh
+          ls -la
+          chmod +x ./stream_settings.sh
           source ./stream_settings.sh
           echo $ZIP
           echo $ENVIRONMENT
