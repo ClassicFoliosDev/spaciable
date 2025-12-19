@@ -23,11 +23,18 @@ jobs:
         uses: cloudbees-io/checkout@v1
       - name: Make the script files executable
         uses: docker://alpine
-        run: 
-          pwd
+      - id: zip
+        run: pwd
+        echo "step zip"
+      - id: file
+        run:
+          echo $CI_BRANCH
+          export BRANCH=$CI_BRANCH
           chmod +x stream_settings.sh
-          ./stream_settings.sh
+          source ./stream_settings.sh
           echo $ZIP
+          echo $ENVIRONMENT
+      - id: 
 
   build-stream:
     if: ${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }}
