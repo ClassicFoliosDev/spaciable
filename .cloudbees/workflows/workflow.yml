@@ -20,7 +20,7 @@ jobs:
   identify-stream:
     steps:
       - name: Check out the repository to the runner
-        uses: actions/checkout@v5
+        uses: actions/checkout@v1
       - name: Make the script files executable
         uses: docker://alpine
         run: 
