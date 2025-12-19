@@ -21,14 +21,12 @@ jobs:
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
-      - name: Make the script files executable
-        uses: docker://alpine
       - id: zip
         uses: docker://alpine
         run: |-
           pwd
           echo "step zip"
-      - id: file
+      - id: environment
         uses: docker://alpine
         run: |-
           echo $CI_BRANCH
