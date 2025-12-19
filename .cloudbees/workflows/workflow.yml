@@ -25,10 +25,14 @@ jobs:
         uses: docker://alpine
         run: |-
           pwd
+          ls -la
+          cd .cloudbees/scripts
+          ls -la
           echo "step zip"
       - id: environment
         uses: docker://alpine
         run: |-
+          pwd
           echo $CI_BRANCH
           export BRANCH=$CI_BRANCH
           ls -la
