@@ -4,7 +4,7 @@ name: test-and-deploy
 "on":
   push:
     branches:
-      - "**"./
+      - "**"
 env:
   CI_BRANCH: ${{ cloudbees.scm.branch }}
   CI_BUILD_ID: ${{ cloudbees.run_id }}
