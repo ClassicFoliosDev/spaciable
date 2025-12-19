@@ -25,12 +25,12 @@ jobs:
         uses: docker://alpine
       - id: zip
         uses: docker://alpine
-        run: 
+        run: |-
           pwd
           echo "step zip"
       - id: file
         uses: docker://alpine
-        run:
+        run: |-
           echo $CI_BRANCH
           export BRANCH=$CI_BRANCH
           chmod +x stream_settings.sh
