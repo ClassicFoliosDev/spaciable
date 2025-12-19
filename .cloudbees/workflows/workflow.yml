@@ -17,29 +17,30 @@ permissions:
   scm-token-own: read
 
 jobs:
-  identify-stream:
+  check-qualification:
+    if: ! (${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }})
+    steps:
+      - uses: docker://alpine
+        run: "false"
+
+  set-environment:
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
       - id: zip
         uses: docker://alpine
         run: |-
+          export BRANCH=$CI_BRANCH
           cd .cloudbees/scripts
-          pwd
-          ls -la
-          echo "step zip"
       - id: environment
         uses: docker://alpine
         run: |-
-          pwd
           echo $CI_BRANCH
           export BRANCH=$CI_BRANCH
           cd .cloudbees/scripts
-          ls -la
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
           echo $ZIP
-          echo $ENVIRONMENT
 
   build-stream:
     if: ${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }}
@@ -95,7 +96,8 @@ jobs:
 
   deploy:
     needs:
-      - identify-stream
+      - check-qualification
+      - set-environment
       - build-stream
       - run-tests
     steps:
