@@ -24,9 +24,8 @@ jobs:
       - id: zip
         uses: docker://alpine
         run: |-
-          pwd
-          ls -la
           cd .cloudbees/scripts
+          pwd
           ls -la
           echo "step zip"
       - id: environment
@@ -35,6 +34,7 @@ jobs:
           pwd
           echo $CI_BRANCH
           export BRANCH=$CI_BRANCH
+          cd .cloudbees/scripts
           ls -la
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
