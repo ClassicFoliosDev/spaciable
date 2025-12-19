@@ -4,7 +4,7 @@ name: test-and-deploy
 "on":
   push:
     branches:
-      - "**"
+      - "**"./
 env:
   CI_BRANCH: ${{ cloudbees.scm.branch }}
   CI_BUILD_ID: ${{ cloudbees.run_id }}
@@ -17,7 +17,24 @@ permissions:
   scm-token-own: read
 
 jobs:
-  build-streams:
+  identify-stream:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./.cloudbees/scripts
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v5
+      - name: Make the script files executable
+        run: 
+          pwd
+          chmod +x stream_settings.sh
+      - name: Run the scripts
+        run: 
+          ./stream_settings.sh
+          echo $ZIP
+
+  build-stream:
     if: ${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }}
     steps:
       - uses: docker://alpine
@@ -61,7 +78,7 @@ jobs:
           bundle install
         shell: bash
 
-  tests:
+  run-tests:
     needs:
       - test-cucumber
       - test-ruby
@@ -71,8 +88,9 @@ jobs:
 
   deploy:
     needs:
-      - build-streams
-      - tests
+      - identify-stream
+      - build-stream
+      - run-tests
     steps:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
