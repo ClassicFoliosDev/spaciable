@@ -103,17 +103,8 @@ jobs:
       - check-qualification
       - set-environment
       - run-tests
-    env:
-      ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
-      ZIPFILE: ${{needs.set-environment.outputs.output_2}}
     
-    steps:
-      - name: set set-environment
-        uses: docker://alpine:3.23.0
-        run: |-
-          echo $ENVIRONMENT
-          echo $ZIPFILE
-      
+    steps:      
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         
@@ -124,9 +115,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
       - name: Zip app
+        env:
+          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
+          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
         run: |-
-          echo '1'
           echo $ENVIRONMENT
           echo $ZIPFILE
           apk update && apk add zip
