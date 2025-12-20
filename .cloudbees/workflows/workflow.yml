@@ -96,9 +96,9 @@ jobs:
 
   deploy:
     needs:
-      - check-qualification
-      - [set-environment]
-      - run-tests
+      check-qualification
+      [set-environment]
+      run-tests
     steps:
       - env:
           ENVIRONMENT: ${{needs.set-environment.outputs.output1}}
