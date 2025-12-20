@@ -116,35 +116,26 @@ jobs:
           aws-access-key-id: ${{ secrets.CODESHIP_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
+
       - name: Zip app
-        env:
-          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
-          echo $ZIPFILE
-          zip -x */.git* -x .git* -r $ZIPFILE ./
-          ls -la
+          zip -x */.git* -x .git* -r "EBstaging.zip" ./
         shell: sh
 
       - name: S3 upload zip
-        env:
-          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: cloudbees-io/s3-upload-object@v1
         with:
-          bucket-name: $AWS_BUCKET
-          file-path: ./$ZIPFILE
-          s3-path: $ZIPFILE
+          bucket-name: elasticbeanstalk-eu-west-1-297941596080
+          file-path: ./EBstaging.zip
+          s3-path: EBstaging.zip
         
       - name: Deploy to Elastic Beanstalk
-        env:
-          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
-          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
-          APPLICATION_NAME: ${{needs.set-environment.outputs.output_3}}
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
-          application-name: $APPLICATION_NAME
-          s3-bucket: $AWS_BUCKET
-          s3-key: $ZIPFILE
+          application-name: staging-27
+          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
+          s3-key: EBstaging.zip
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: $ENVIRONMENT
+          environment-name: Staging-27-env
