@@ -24,6 +24,8 @@ jobs:
         run: "false"
 
   set-environment:
+    needs:
+      - check-qualification
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
@@ -42,15 +44,9 @@ jobs:
           source ./stream_settings.sh
           echo $ZIP
 
-  build-stream:
-    if: ${{ startsWith(cloudbees.scm.branch, 'master') }} || ${{ startsWith(cloudbees.scm.branch, 'release') }}
-    steps:
-      - uses: docker://alpine
-        run: |-
-          echo ${{ cloudbees.scm.branch }}
-
   test-cucumber:
-
+    needs:
+      - check-qualification
     services:
       postgres:
         image: postgres:15
@@ -69,6 +65,8 @@ jobs:
         shell: bash
 
   test-ruby:
+    needs:
+      - check-qualification
     services:
       postgres:
         image: postgres:15
@@ -88,6 +86,7 @@ jobs:
 
   run-tests:
     needs:
+      - check-qualification
       - test-cucumber
       - test-ruby
     steps:
@@ -98,7 +97,6 @@ jobs:
     needs:
       - check-qualification
       - set-environment
-      - build-stream
       - run-tests
     steps:
       - name: Checkout
