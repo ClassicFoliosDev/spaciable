@@ -104,12 +104,13 @@ jobs:
       - set-environment
       - run-tests
     
-
     steps:
-      env:
-        ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
-        ZIPFILE: ${{needs.set-environment.outputs.output_2}}
-
+      - name: set set-environment
+        env:
+          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
+          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
+        uses: docker://alpine:3.23.0
+      
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         
