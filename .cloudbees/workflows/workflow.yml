@@ -111,7 +111,7 @@ jobs:
         uses: cloudbees-io/s3-upload-object@v1
         with:
           bucket-name: elasticbeanstalk-eu-west-1-297941596080
-          file-path: CB_staging_20251220172604.zip
+          file-path: ${{needs.set-environment.outputs.output_2}}
           s3-path: $ZIPFILE
         
       
