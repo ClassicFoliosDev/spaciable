@@ -121,7 +121,7 @@ jobs:
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
-          zip -x */.git* -x .git* -r $ZIPFILE ./
+          zip -x */.git* -x .git* -r "$ZIPFILE" ./
         shell: sh
 
       - name: S3 upload zip
