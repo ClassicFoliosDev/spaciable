@@ -95,7 +95,6 @@ jobs:
       - check-qualification
       - set-environment
       - test-cucumber
-      - test-ruby
     steps:
       - uses: docker://alpine
         run: "true"
@@ -128,10 +127,12 @@ jobs:
         shell: sh
 
       - name: S3 upload zip
+        env:
+          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: cloudbees-io/s3-upload-object@v1
         with:
           bucket-name: elasticbeanstalk-eu-west-1-297941596080
-          file-path: ./CB_staging_20251220172604.zip
-          s3-path: CB_staging_20251220172604.zip
+          file-path: ./$ZIPFILE
+          s3-path: $ZIPFILE
         
       
