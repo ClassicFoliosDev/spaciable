@@ -69,27 +69,6 @@ jobs:
 
         shell: bash
 
-  test-ruby:
-    needs:
-      - check-qualification
-      - set-environment
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-
-    steps:
-      - name: checkout
-        uses: cloudbees-io/checkout@v1
-      - name: Run ruby
-        uses: docker://ruby:2.7.8-bullseye
-        run: |-
-          gem update --system 3.4.22
-          bundle install
-        shell: bash
-
   run-tests:
     needs:
       - check-qualification
@@ -132,7 +111,7 @@ jobs:
         uses: cloudbees-io/s3-upload-object@v1
         with:
           bucket-name: elasticbeanstalk-eu-west-1-297941596080
-          file-path: ./$ZIPFILE
+          file-path: $ZIPFILE
           s3-path: $ZIPFILE
         
       
