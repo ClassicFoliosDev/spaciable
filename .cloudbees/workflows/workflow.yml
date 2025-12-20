@@ -32,7 +32,11 @@ jobs:
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
-      - name: Set AWS deployment locations 
+      - id: zip
+        uses: docker://alpine
+        run: |-
+          export BRANCH=$CI_BRANCH
+          cd .cloudbees/scripts
       - id: AWS
         uses: docker://alpine
         run: |-
@@ -45,6 +49,7 @@ jobs:
   test-cucumber:
     needs:
       - check-qualification
+      - set-environment
     services:
       postgres:
         image: postgres:15
@@ -65,6 +70,7 @@ jobs:
   test-ruby:
     needs:
       - check-qualification
+      - set-environment
     services:
       postgres:
         image: postgres:15
@@ -85,6 +91,7 @@ jobs:
   run-tests:
     needs:
       - check-qualification
+      - set-environment
       - test-cucumber
       - test-ruby
     steps:
