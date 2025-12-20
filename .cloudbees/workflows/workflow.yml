@@ -131,11 +131,4 @@ jobs:
           file-path: ./CB_staging_20251220172604.zip
           s3-path: CB_staging_20251220172604.zip
         
-      - name: Deploy to Elastic Beanstalk
-        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
-        with:
-          application-name: staging-27
-          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: CB_staging_20251220172604.zip
-          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: Staging-27-env
+      
