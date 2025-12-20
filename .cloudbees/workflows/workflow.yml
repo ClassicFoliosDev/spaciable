@@ -110,6 +110,9 @@ jobs:
           ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
           ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
+        run: |-
+          echo $ENVIRONMENT
+          echo $ZIPFILE
       
       - name: Checkout
         uses: cloudbees-io/checkout@v1
@@ -123,6 +126,7 @@ jobs:
       - name: Zip app
         uses: docker://alpine:3.23.0
         run: |-
+          echo '1'
           echo $ENVIRONMENT
           echo $ZIPFILE
           apk update && apk add zip
