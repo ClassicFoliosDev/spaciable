@@ -27,8 +27,8 @@ jobs:
     needs:
       - check-qualification
     outputs:
-      output_1: ${{ steps.AWS.outputs.output_1 }}
-      output_2: ${{ steps.AWS.outputs.output_2 }}
+      output_1: ${{ steps.AWS.outputs.variables }}
+      output_2: ${{ steps.AWS.outputs.variables }}
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
@@ -40,14 +40,11 @@ jobs:
       - id: AWS
         uses: docker://alpine
         run: |-
-          pwd
-          ls -la
           cd .cloudbees/scripts
-          pwd
-          ls -la
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
-          echo $ENVIRONMENT $ZIP >> "$GITHUB_OUTPUT"
+          echo $ENVIRONMENT  >> "$CLOUDBEES_OUTPUTS/variables"
+          echo $ZIP >> "$CLOUDBEES_OUTPUTS/variables"
 
   test-cucumber:
     needs:
@@ -107,6 +104,9 @@ jobs:
       - set-environment
       - run-tests
     steps:
+      - env: 
+          ENVIRONMENT: ${{needs.set-environment.outputs.output1}}
+          ZIP: ${{needs.set-environment.outputs.output2}}
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         
