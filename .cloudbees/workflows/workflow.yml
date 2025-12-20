@@ -117,7 +117,10 @@ jobs:
       - name: Zip app
         uses: docker://alpine:3.23.0
         run: |-
-          echo ${{needs.set-environment.outputs.output_1}} ${{needs.set-environment.outputs.output_2}}
+          echo "1"
+          echo ${{needs.set-environment.outputs.output_1}}
+          echo "2"
+          echo ${{needs.set-environment.outputs.output_2}}
           apk update && apk add zip
           zip -x */.git* -x .git* -r "EB_spaciable-staging.zip" ./
         shell: sh

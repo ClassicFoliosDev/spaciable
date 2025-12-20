@@ -9,5 +9,5 @@ then
 
 else
   export ENVIRONMENT="Staging-27-env"
-  export ZIP="CB_staging_$dt.zip"
+  export ZIPFILE="CB_staging_$dt.zip"
 fi
