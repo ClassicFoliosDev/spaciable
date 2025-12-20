@@ -103,11 +103,13 @@ jobs:
       - check-qualification
       - set-environment
       - run-tests
-    env:
-      ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
-      ZIPFILE: ${{needs.set-environment.outputs.output_2}}
+    
 
-    steps:  
+    steps:
+      env:
+        ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
+        ZIPFILE: ${{needs.set-environment.outputs.output_2}}
+
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         
