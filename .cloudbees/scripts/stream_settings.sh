@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dt=$(date +'%Y-%m-%d_%H:%M:%S')
+dt=$(date +'%Y%m%d%H%M%S')
 
 if [[ $CI_BRANCH == release* ]] 
 then
