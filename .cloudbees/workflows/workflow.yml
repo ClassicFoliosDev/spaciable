@@ -104,7 +104,7 @@ jobs:
       - set-environment
       - run-tests
     steps:
-      - env:
+      env:
           ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
           ZIPFILE: ${{needs.set-environment.outputs.output_2}}
       - name: Checkout
