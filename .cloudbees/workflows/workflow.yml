@@ -122,7 +122,11 @@ jobs:
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
+<<<<<<< HEAD
           zip -x */.git* -x .git* -r "$ZIPFILE" ./
+=======
+          zip -x */.git* -x .git* -r $ZIPFILE ./
+>>>>>>> 999CloudBees
         shell: sh
 
       - name: S3 upload zip
