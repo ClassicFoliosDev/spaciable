@@ -103,12 +103,12 @@ jobs:
       - check-qualification
       - set-environment
       - run-tests
+    env:
+      ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
+      ZIPFILE: ${{needs.set-environment.outputs.output_2}}
     
     steps:
       - name: set set-environment
-        env:
-          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
-          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
         run: |-
           echo $ENVIRONMENT
