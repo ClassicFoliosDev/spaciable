@@ -32,14 +32,11 @@ jobs:
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
-      - id: zip
-        uses: docker://alpine
-        run: |-
-          export BRANCH=$CI_BRANCH
-          cd .cloudbees/scripts
+      - name: Set AWS deployment locations 
       - id: AWS
         uses: docker://alpine
         run: |-
+          pwd
           cd .cloudbees/scripts
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
