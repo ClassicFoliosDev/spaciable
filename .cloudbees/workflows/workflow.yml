@@ -27,7 +27,8 @@ jobs:
     needs:
       - check-qualification
     outputs:
-      output_1: ${{ steps.AWS.outputs.variables }}
+      output_1: ${{ steps.AWS.outputs.environment }}
+      output_1: ${{ steps.AWS.outputs.zipfile }}
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
@@ -42,7 +43,8 @@ jobs:
           cd .cloudbees/scripts
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
-          echo $ENVIRONMENT $ZIPFILE >> "$CLOUDBEES_OUTPUTS/variables"
+          echo $ENVIRONMENT >> "$CLOUDBEES_OUTPUTS/environment"
+          echo $ZIPFILE >> "$CLOUDBEES_OUTPUTS/zipfile"
 
   test-cucumber:
     needs:
