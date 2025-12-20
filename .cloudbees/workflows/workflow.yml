@@ -26,6 +26,9 @@ jobs:
   set-environment:
     needs:
       - check-qualification
+    outputs:
+      output_1: ${{ steps.AWS.outputs.output_1 }}
+      output_2: ${{ steps.AWS.outputs.output_2 }}
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
@@ -34,15 +37,13 @@ jobs:
         run: |-
           export BRANCH=$CI_BRANCH
           cd .cloudbees/scripts
-      - id: environment
+      - id: AWS
         uses: docker://alpine
         run: |-
-          echo $CI_BRANCH
-          export BRANCH=$CI_BRANCH
           cd .cloudbees/scripts
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
-          echo $ZIP
+          echo $ENVIRONMENT $ZIP >> "$GITHUB_OUTPUT"
 
   test-cucumber:
     needs:
@@ -96,9 +97,12 @@ jobs:
   deploy:
     needs:
       - check-qualification
-      - set-environment
+      - [set-environment]
       - run-tests
     steps:
+      - env:
+          ENVIRONMENT: ${{needs.set-environment.outputs.output1}}
+          ZIP: ${{needs.set-environment.outputs.output2}}
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         
@@ -112,6 +116,7 @@ jobs:
       - name: Zip app
         uses: docker://alpine:3.23.0
         run: |-
+          echo $ENVIRONMENT $ZIP
           apk update && apk add zip
           zip -x */.git* -x .git* -r "EB_spaciable-staging.zip" ./
         shell: sh
