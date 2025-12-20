@@ -1,10 +1,8 @@
 #!/bin/bash
 
-echo $CI_BRANCH
+dt=$(date +'%Y-%m-%d_%H:%M:%S')
 
-dt=$(date +'%Y-%m-%d %H:%M')
-
-if [[ $BRANCH == release* ]] 
+if [[ $CI_BRANCH == release* ]] 
 then
   export ENVIRONMENT="production-environment"
   export ZIP="CB_master_$dt.zip"
