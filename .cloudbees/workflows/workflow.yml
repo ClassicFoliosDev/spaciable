@@ -123,6 +123,7 @@ jobs:
         run: |-
           apk update && apk add zip
           zip -x */.git* -x .git* -r "$ZIPFILE" ./
+          ls -la
         shell: sh
 
       - name: S3 upload zip
