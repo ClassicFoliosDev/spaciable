@@ -122,7 +122,8 @@ jobs:
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
-          zip -x */.git* -x .git* -r "CB_staging_20251220171310.zip" ./
+          echo $ZIPFILE
+          zip -x */.git* -x .git* -r $ZIPFILE ./
           ls -la
         shell: sh
 
