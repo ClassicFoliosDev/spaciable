@@ -41,7 +41,10 @@ jobs:
         uses: docker://alpine
         run: |-
           pwd
+          ls -la
           cd .cloudbees/scripts
+          pwd
+          ls -la
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
           echo $ENVIRONMENT $ZIP >> "$GITHUB_OUTPUT"
