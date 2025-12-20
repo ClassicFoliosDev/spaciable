@@ -11,6 +11,7 @@ env:
   CI_COMMITTER_NAME: ${{ cloudbees.event.head_commit.author.name }}
   CI_COMMITTER_USERNAME: ${{ cloudbees.event.head_commit.author.username }}
   CI_REPO_NAME: ${{ cloudbees.scm.repository}}
+  AWS_BUCKET: "elasticbeanstalk-eu-west-1-297941596080"
 
 permissions:
   scm-token-org: read
@@ -29,13 +30,13 @@ jobs:
     outputs:
       output_1: ${{ steps.AWS.outputs.environment }}
       output_2: ${{ steps.AWS.outputs.zipfile }}
+      output_3: ${{ steps.AWS.outputs.application }}
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
       - id: zip
         uses: docker://alpine
         run: |-
-          export BRANCH=$CI_BRANCH
           cd .cloudbees/scripts
       - id: AWS
         uses: docker://alpine
@@ -45,6 +46,7 @@ jobs:
           source ./stream_settings.sh
           echo $ENVIRONMENT >> "$CLOUDBEES_OUTPUTS/environment"
           echo $ZIPFILE >> "$CLOUDBEES_OUTPUTS/zipfile"
+          echo $APPLICATION_NAME >> "$CLOUDBEES_OUTPUTS/application"
 
   test-cucumber:
     needs:
@@ -116,12 +118,31 @@ jobs:
           aws-region: eu-west-1
       - name: Zip app
         env:
-          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
           ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
         run: |-
-          echo $ENVIRONMENT
-          echo $ZIPFILE
           apk update && apk add zip
           zip -x */.git* -x .git* -r $ZIPFILE ./
         shell: sh
+
+      - name: S3 upload zip
+        env:
+          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
+        uses: cloudbees-io/s3-upload-object@v1
+        with:
+          bucket-name: $AWS_BUCKET
+          file-path: ./$ZIPFILE
+          s3-path: $ZIPFILE
+        
+      - name: Deploy to Elastic Beanstalk
+        env:
+          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
+          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
+          APPLICATION_NAME: ${{needs.set-environment.outputs.output_3}}
+        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
+        with:
+          application-name: $APPLICATION_NAME
+          s3-bucket: $AWS_BUCKET
+          s3-key: $ZIPFILE
+          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
+          environment-name: $ENVIRONMENT
