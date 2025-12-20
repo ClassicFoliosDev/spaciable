@@ -118,6 +118,8 @@ jobs:
           aws-region: eu-west-1
 
       - name: Zip app
+        env:
+          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
