@@ -82,7 +82,7 @@ jobs:
           apk update && apk add zip
           zip -x */.git* -x .git* -r $ZIPFILE ./
           pwd
-          ls -la ${{ cloudbees.workspace }}$ZIPFILE
+          ls -la ${{ cloudbees.workspace }}/$ZIPFILE
         shell: sh
 
       - name: S3 upload zip
