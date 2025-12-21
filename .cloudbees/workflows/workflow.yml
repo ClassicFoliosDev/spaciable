@@ -48,32 +48,11 @@ jobs:
           echo $ZIPFILE >> "$CLOUDBEES_OUTPUTS/zipfile"
           echo $APPLICATION_NAME >> "$CLOUDBEES_OUTPUTS/application"
 
-  test-cucumber:
-    needs:
-      - check-qualification
-      - set-environment
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-
-    steps:
-      - name: checkout
-        uses: cloudbees-io/checkout@v1
-      - name: Run cucumber
-        uses: docker://ubuntu:20.04
-        run: |-
-          echo "apt-get update"
-
-        shell: bash
 
   run-tests:
     needs:
       - check-qualification
       - set-environment
-      - test-cucumber
     steps:
       - uses: docker://alpine
         run: "true"
@@ -111,7 +90,7 @@ jobs:
         uses: cloudbees-io/s3-upload-object@v1
         with:
           bucket-name: elasticbeanstalk-eu-west-1-297941596080
-          file-path: ${{needs.set-environment.outputs.output_2}}
+          file-path: ${{needs.set-environment.outputs.output_2}}_file
           s3-path: $ZIPFILE
         
       
