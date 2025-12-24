@@ -81,7 +81,7 @@ jobs:
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
-          zip -x */.git* -x .git* -r EB_spaciable-staging.zip ./
+          zip -x */.git* -x .git* -r $ZIPFILE ./
           pwd
         shell: sh
 
@@ -89,15 +89,15 @@ jobs:
         uses: cloudbees-io/s3-upload-object@v1
         with:
           bucket-name: $AWS_BUCKET
-          file-path: EB_spaciable-staging.zip
-          s3-path: EB_spaciable-staging.zip
+          file-path: $ZIPFILE
+          s3-path: $ZIPFILE
 
       - name: Deploy to Elastic Beanstalk
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
           application-name: staging-27
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: EB_spaciable-staging.zip
+          s3-key: $ZIPFILE
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
           environment-name: Staging-27-env
         
