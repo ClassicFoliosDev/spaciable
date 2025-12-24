@@ -12,6 +12,7 @@ env:
   CI_COMMITTER_USERNAME: ${{ cloudbees.event.head_commit.author.username }}
   CI_REPO_NAME: ${{ cloudbees.scm.repository}}
   AWS_BUCKET: "elasticbeanstalk-eu-west-1-297941596080"
+  ZIPFILE: CB-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
 
 permissions:
   scm-token-org: read
@@ -29,8 +30,7 @@ jobs:
       - check-qualification
     outputs:
       output_1: ${{ steps.AWS.outputs.environment }}
-      output_2: ${{ steps.AWS.outputs.zipfile }}
-      output_3: ${{ steps.AWS.outputs.application }}
+      output_2: ${{ steps.AWS.outputs.application }}
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
@@ -45,7 +45,6 @@ jobs:
           chmod +x ./stream_settings.sh
           source ./stream_settings.sh
           echo $ENVIRONMENT >> "$CLOUDBEES_OUTPUTS/environment"
-          echo $ZIPFILE >> "$CLOUDBEES_OUTPUTS/zipfile"
           echo $APPLICATION_NAME >> "$CLOUDBEES_OUTPUTS/application"
 
 
@@ -75,8 +74,6 @@ jobs:
           aws-region: eu-west-1
 
       - name: Zip app
-        env:
-          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
@@ -86,8 +83,6 @@ jobs:
         shell: sh
 
       - name: S3 upload zip
-        env:
-          ZIPFILE: ${{needs.set-environment.outputs.output_2}}
         uses: cloudbees-io/s3-upload-object@v1
         with:
           bucket-name: elasticbeanstalk-eu-west-1-297941596080
