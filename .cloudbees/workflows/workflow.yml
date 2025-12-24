@@ -90,15 +90,12 @@ jobs:
           s3-path: $ZIPFILE
 
       - name: Deploy to Elastic Beanstalk
-        env:
-          ENVIRONMENT: ${{needs.set-environment.outputs.output_1}}
-          APPLICATION_NAME: ${{needs.set-environment.outputs.output_2}}
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
-          application-name: $APPLICATION_NAME
+          application-name: ${{needs.set-environment.outputs.output_2}}
           s3-bucket: $AWS_BUCKET
           s3-key: $ZIPFILE
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: $ENVIRONMENT
+          environment-name: ${{needs.set-environment.outputs.output_1}}
         
       
