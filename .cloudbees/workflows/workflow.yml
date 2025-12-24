@@ -32,7 +32,7 @@ jobs:
       output_1: ${{ steps.AWS.outputs.environment }}
       output_2: ${{ steps.AWS.outputs.application }}
       output_3: ${{ steps.AWS.outputs.bucket }}
-      output_3: ${{ steps.AWS.outputs.zipfile }}
+      output_4: ${{ steps.AWS.outputs.zipfile }}
     steps:
       - name: Check out the repository to the runner
         uses: cloudbees-io/checkout@v1
