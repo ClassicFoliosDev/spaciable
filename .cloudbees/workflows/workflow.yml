@@ -97,7 +97,7 @@ jobs:
         with:
           application-name: staging-27
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: $ZIPFILE
+          s3-key: CB-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
           environment-name: Staging-27-env
         
