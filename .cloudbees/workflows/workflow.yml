@@ -48,8 +48,8 @@ jobs:
           source ./stream_settings.sh
           echo $ENVIRONMENT >> "$CLOUDBEES_OUTPUTS/environment"
           echo $APPLICATION_NAME >> "$CLOUDBEES_OUTPUTS/application"
-          echo $AWS_BUCKET >> >> "$CLOUDBEES_OUTPUTS/bucket"
-          echo $ZIPFILE >> >> "$CLOUDBEES_OUTPUTS/zipfile"
+          echo $AWS_BUCKET  >> "$CLOUDBEES_OUTPUTS/bucket"
+          echo $ZIPFILE >> "$CLOUDBEES_OUTPUTS/zipfile"
 
 
   run-tests:
