@@ -97,9 +97,9 @@ jobs:
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
           application-name: staging-27
-          s3-bucket: ${{needs.set-environment.outputs.output_3}}
+          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
           s3-key: ${{needs.set-environment.outputs.output_4}}
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: ${{needs.set-environment.outputs.output_1}}
+          environment-name: Staging-27-env
         
       
