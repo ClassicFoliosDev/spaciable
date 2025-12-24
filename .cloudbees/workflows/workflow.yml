@@ -83,7 +83,6 @@ jobs:
           apk update && apk add zip
           zip -x */.git* -x .git* -r EB_spaciable-staging.zip ./
           pwd
-          ls -la ${{ cloudbees.workspace }}/$ZIPFILE
         shell: sh
 
       - name: S3 upload zip
