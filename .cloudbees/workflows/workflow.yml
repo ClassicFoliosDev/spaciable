@@ -4,66 +4,30 @@ name: test-and-deploy
 "on":
   push:
     branches:
-      - "**"
+      - "master"
+      - "release*"
+      - "999*"
 env:
   CI_BRANCH: ${{ cloudbees.scm.branch }}
   CI_BUILD_ID: ${{ cloudbees.run_id }}
   CI_COMMITTER_NAME: ${{ cloudbees.event.head_commit.author.name }}
   CI_COMMITTER_USERNAME: ${{ cloudbees.event.head_commit.author.username }}
   CI_REPO_NAME: ${{ cloudbees.scm.repository}}
-  AWS_BUCKET: "elasticbeanstalk-eu-west-1-297941596080"
-  ZIPFILE: CB-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
 
 permissions:
   scm-token-org: read
   scm-token-own: read
 
 jobs:
-  check-qualification:
-    if: ${{ !startsWith(cloudbees.scm.branch, 'master') }} && ${{ !startsWith(cloudbees.scm.branch, '999') }}
-    steps:
-      - uses: docker://alpine
-        run: "false"
-
-  set-environment:
-    needs:
-      - check-qualification
-    outputs:
-      output_1: ${{ steps.AWS.outputs.environment }}
-      output_2: ${{ steps.AWS.outputs.application }}
-      output_3: ${{ steps.AWS.outputs.bucket }}
-      output_4: ${{ steps.AWS.outputs.zipfile }}
-    steps:
-      - name: Check out the repository to the runner
-        uses: cloudbees-io/checkout@v1
-      - id: zip
-        uses: docker://alpine
-        run: |-
-          cd .cloudbees/scripts
-      - id: AWS
-        uses: docker://alpine
-        run: |-
-          cd .cloudbees/scripts
-          chmod +x ./stream_settings.sh
-          source ./stream_settings.sh
-          echo $ENVIRONMENT >> "$CLOUDBEES_OUTPUTS/environment"
-          echo $APPLICATION_NAME >> "$CLOUDBEES_OUTPUTS/application"
-          echo $AWS_BUCKET  >> "$CLOUDBEES_OUTPUTS/bucket"
-          echo $ZIPFILE >> "$CLOUDBEES_OUTPUTS/zipfile"
-
 
   run-tests:
-    needs:
-      - check-qualification
-      - set-environment
     steps:
       - uses: docker://alpine
         run: "true"
 
-  deploy:
+  deploy-to-staging:
+    if: ${{ startsWith(cloudbees.scm.branch, '999') }}
     needs:
-      - check-qualification
-      - set-environment
       - run-tests
     
     steps:      
@@ -81,24 +45,55 @@ jobs:
         uses: docker://alpine:3.23.0
         run: |-
           apk update && apk add zip
-          zip -x */.git* -x .git* -r $ZIPFILE ./
+          zip -x */.git* -x .git* -r CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip ./
           pwd
         shell: sh
 
       - name: S3 upload zip
         uses: cloudbees-io/s3-upload-object@v1
         with:
-          bucket-name: $AWS_BUCKET
-          file-path: $ZIPFILE
-          s3-path: $ZIPFILE
+          bucket-name: "elasticbeanstalk-eu-west-1-297941596080"
+          file-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          s3-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+
+      
+  deploy-to-production:
+    if: ${{ startsWith(cloudbees.scm.branch, 'release') }}
+    needs:
+      - run-tests
+    
+    steps:      
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+        
+      - name: Configure AWS credentials
+        uses: cloudbees-io/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CODESHIP_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Zip app
+        uses: docker://alpine:3.23.0
+        run: |-
+          apk update && apk add zip
+          zip -x */.git* -x .git* -r CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip ./
+          pwd
+        shell: sh
+
+      - name: S3 upload zip
+        uses: cloudbees-io/s3-upload-object@v1
+        with:
+          bucket-name: "elasticbeanstalk-eu-west-1-297941596080"
+          file-path: CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          s3-path: CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
 
       - name: Deploy to Elastic Beanstalk
         uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
         with:
-          application-name: staging-27
+          application-name: prod-27
           s3-bucket: elasticbeanstalk-eu-west-1-297941596080
-          s3-key: CB-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          s3-key: CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
           version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
-          environment-name: Staging-27-env
+          environment-name: Production27
         
-      
