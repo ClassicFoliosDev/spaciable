@@ -21,9 +21,6 @@ permissions:
 jobs:
 
   test-cucumber:
-    needs:
-      - check-qualification
-      - set-environment
     services:
       postgres:
         image: postgres:15
@@ -42,9 +39,6 @@ jobs:
         shell: bash
 
   test-ruby:
-    needs:
-      - check-qualification
-      - set-environment
     services:
       postgres:
         image: postgres:15
@@ -100,9 +94,6 @@ jobs:
           bucket-name: "elasticbeanstalk-eu-west-1-297941596080"
           file-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
           s3-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
-
-
-        
       
   deploy-to-production:
     if: ${{ startsWith(cloudbees.scm.branch, 'release') }}
