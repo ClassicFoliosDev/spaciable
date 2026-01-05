@@ -6,7 +6,6 @@ name: test-and-deploy
     branches:
       - "master"
       - "release*"
-      - "999*"
 env:
   CI_BRANCH: ${{ cloudbees.scm.branch }}
   CI_BUILD_ID: ${{ cloudbees.run_id }}
@@ -65,7 +64,7 @@ jobs:
         run: "true"
 
   deploy-to-staging:
-    if: ${{ startsWith(cloudbees.scm.branch, '999') }}
+    if: ${{ startsWith(cloudbees.scm.branch, 'master') }}
     needs:
       - run-tests
     
@@ -94,6 +93,16 @@ jobs:
           bucket-name: "elasticbeanstalk-eu-west-1-297941596080"
           file-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
           s3-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+
+      - name: Deploy to Elastic Beanstalk
+        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
+        with:
+          application-name: staging-27
+          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
+          s3-key: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
+          environment-name: Staging-27-env
+        
       
   deploy-to-production:
     if: ${{ startsWith(cloudbees.scm.branch, 'release') }}
