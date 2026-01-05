@@ -20,7 +20,52 @@ permissions:
 
 jobs:
 
+  test-cucumber:
+    needs:
+      - check-qualification
+      - set-environment
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: checkout
+        uses: cloudbees-io/checkout@v1
+      - name: Run cucumber
+        uses: docker://ubuntu:20.04
+        run: |-
+          echo "apt-get update"
+
+        shell: bash
+
+  test-ruby:
+    needs:
+      - check-qualification
+      - set-environment
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: checkout
+        uses: cloudbees-io/checkout@v1
+      - name: Run ruby
+        uses: docker://ruby:2.7.8-bullseye
+        run: |-
+          gem update --system 3.4.22
+          bundle install
+        shell: bash
+
   run-tests:
+    needs:
+      - test-cucumber
+      - test-ruby
     steps:
       - uses: docker://alpine
         run: "true"
@@ -56,6 +101,8 @@ jobs:
           file-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
           s3-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
 
+
+        
       
   deploy-to-production:
     if: ${{ startsWith(cloudbees.scm.branch, 'release') }}
