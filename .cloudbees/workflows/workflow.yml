@@ -1,0 +1,145 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: test-and-deploy
+"on":
+  push:
+    branches:
+      - "master"
+      - "release*"
+env:
+  CI_BRANCH: ${{ cloudbees.scm.branch }}
+  CI_BUILD_ID: ${{ cloudbees.run_id }}
+  CI_COMMITTER_NAME: ${{ cloudbees.event.head_commit.author.name }}
+  CI_COMMITTER_USERNAME: ${{ cloudbees.event.head_commit.author.username }}
+  CI_REPO_NAME: ${{ cloudbees.scm.repository}}
+
+permissions:
+  scm-token-org: read
+  scm-token-own: read
+
+jobs:
+
+  test-cucumber:
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: checkout
+        uses: cloudbees-io/checkout@v1
+      - name: Run cucumber
+        uses: docker://ubuntu:20.04
+        run: |-
+          echo "apt-get update"
+
+        shell: bash
+
+  test-ruby:
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: checkout
+        uses: cloudbees-io/checkout@v1
+      - name: Run ruby
+        uses: docker://ruby:2.7.8-bullseye
+        run: |-
+          gem update --system 3.4.22
+          bundle install
+        shell: bash
+
+  run-tests:
+    needs:
+      - test-cucumber
+      - test-ruby
+    steps:
+      - uses: docker://alpine
+        run: "true"
+
+  deploy-to-staging:
+    if: ${{ startsWith(cloudbees.scm.branch, 'master') }}
+    needs:
+      - run-tests
+    
+    steps:      
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+        
+      - name: Configure AWS credentials
+        uses: cloudbees-io/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CODESHIP_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Zip app
+        uses: docker://alpine:3.23.0
+        run: |-
+          apk update && apk add zip
+          zip -x */.git* -x .git* -r CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip ./
+          pwd
+        shell: sh
+
+      - name: S3 upload zip
+        uses: cloudbees-io/s3-upload-object@v1
+        with:
+          bucket-name: "elasticbeanstalk-eu-west-1-297941596080"
+          file-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          s3-path: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+
+      - name: Deploy to Elastic Beanstalk
+        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
+        with:
+          application-name: staging-27
+          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
+          s3-key: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
+          environment-name: Staging-27-env
+        
+      
+  deploy-to-production:
+    if: ${{ startsWith(cloudbees.scm.branch, 'release') }}
+    needs:
+      - run-tests
+    
+    steps:      
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+        
+      - name: Configure AWS credentials
+        uses: cloudbees-io/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CODESHIP_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Zip app
+        uses: docker://alpine:3.23.0
+        run: |-
+          apk update && apk add zip
+          zip -x */.git* -x .git* -r CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip ./
+          pwd
+        shell: sh
+
+      - name: S3 upload zip
+        uses: cloudbees-io/s3-upload-object@v1
+        with:
+          bucket-name: "elasticbeanstalk-eu-west-1-297941596080"
+          file-path: CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          s3-path: CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+
+      - name: Deploy to Elastic Beanstalk
+        uses: cloudbees-io/aws-elastic-beanstalk-invoke-deployment@v1
+        with:
+          application-name: prod-27
+          s3-bucket: elasticbeanstalk-eu-west-1-297941596080
+          s3-key: CB-Prod-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
+          version-label: ${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
+          environment-name: Production27
