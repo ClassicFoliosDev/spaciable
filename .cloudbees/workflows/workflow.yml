@@ -5,6 +5,7 @@ name: test-and-deploy
   push:
     branches:
       - "master"
+      - "955*"
     tags:
       - "release**"
 env:
