@@ -106,7 +106,7 @@ jobs:
           environment-name: Staging-27-env
       
   deploy-to-production:
-    if: ${{ startsWith(cloudbees.scm.tag, 'release') }}
+    if: ${{ startsWith(github.ref_name, 'release') }}
     needs:
       - run-tests
     
