@@ -5,6 +5,7 @@ name: test-and-deploy
   push:
     branches:
       - "master"
+      - "955*"
     tags:
       - "release**"
 env:
@@ -19,6 +20,15 @@ permissions:
   scm-token-own: read
 
 jobs:
+
+ identify:
+    steps:      
+      - name: identify
+        uses: docker://alpine:3.23.0
+        run: |-
+          pwd
+          echo ${{ cloudbees.scm.branch }}
+        shell: sh
 
   test-cucumber:
     services:
@@ -35,6 +45,7 @@ jobs:
         uses: docker://ubuntu:20.04
         run: |-
           echo "apt-get update"
+          echo 
 
         shell: bash
 
