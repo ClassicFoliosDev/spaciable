@@ -5,7 +5,6 @@ name: test-and-deploy
   push:
     branches:
       - "master"
-      - "955*"
     tags:
       - "release**"
 env:
@@ -106,7 +105,7 @@ jobs:
           environment-name: Staging-27-env
       
   deploy-to-production:
-    if: ${{ startsWith(github.ref_name, 'release') }}
+    if: ${{ startsWith(cloudbees.scm.ref, 'release') }}
     needs:
       - run-tests
     
