@@ -21,7 +21,7 @@ permissions:
 
 jobs:
 
- identify:
+  identify:
     steps:      
       - name: identify
         uses: docker://alpine:3.23.0
