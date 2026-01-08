@@ -6,6 +6,7 @@ name: test-and-deploy
     branches:
       - "master"
       - "release**"
+      - "955*"
 env:
   CI_BRANCH: ${{ cloudbees.scm.branch }}
   CI_BUILD_ID: ${{ cloudbees.run_id }}
@@ -102,7 +103,22 @@ jobs:
           s3-key: CB-Master-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}.zip
           version-label: staging-27-cb-${{ cloudbees.scm.sha }}-${{ cloudbees.run_id }}
           environment-name: Staging-27-env
+
+  deploy-to-955:
+    if: ${{ startsWith(cloudbees.scm.branch, '955') }}
+    needs:
+      - run-tests
+    
+    steps:      
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
         
+      - name: Configure AWS credentials
+        uses: cloudbees-io/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CODESHIP_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CODESHIP_AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
       
   deploy-to-production:
     if: ${{ startsWith(cloudbees.scm.branch, 'release') }}
