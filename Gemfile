@@ -68,10 +68,6 @@ gem "devise_invitable", "~> 1.7.0"
 # Rollbar for exception monitoring, see https://rollbar.com/alliants/Hoozzi/#rails
 gem "rollbar"
 
-# New relic for performance monitoring, logging, and auditing
-# see https://rpm.newrelic.com
-gem "newrelic_rpm"
-
 # Frontend
 gem "bourbon"
 gem "font-awesome-rails", "~> 4.7.0.5"
