@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_24_125324) do
+ActiveRecord::Schema.define(version: 2026_02_28_143319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -866,7 +866,7 @@ ActiveRecord::Schema.define(version: 2025_09_24_125324) do
     t.integer "reservation_fee"
     t.integer "tenure", default: 0
     t.integer "lease_length"
-    t.integer "service_charges"
+    t.decimal "service_charges", precision: 10, scale: 2
     t.integer "council_tax_band", default: 0
     t.integer "property_type", default: 0
     t.integer "floor", default: 0

@@ -14,6 +14,7 @@ module ParkingEnum
       unallocated_car_park
       street_parking_permit
       street_parking_no_permit
+      allocated_space
     ]
   end
 end
