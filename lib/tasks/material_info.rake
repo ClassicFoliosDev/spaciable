@@ -5,6 +5,15 @@ namespace :material_info do
     create_heating_records
   end
 
+  task migrate_property_types: :environment do
+    MaterialInfo.all.each do | mi |
+      if mi.property_type_before_type_cast > 2
+        mi.property_type = mi.property_type_before_type_cast + 2
+        mi.save
+      end
+    end
+  end
+
   def create_heating_records
     HeatingFuel.create(name: "Gas")
     HeatingFuel.create(name: "Electric")

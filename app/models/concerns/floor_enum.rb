@@ -26,6 +26,7 @@ module FloorEnum
       seventeenth_
       eighteenth_
       nineteenth_
+      none_assigned
     ]
   end
 end

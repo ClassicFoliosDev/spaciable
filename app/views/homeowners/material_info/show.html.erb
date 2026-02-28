@@ -202,7 +202,7 @@
               <% _class = floor ? material_info_centred : material_info_value %>
 
               <span class=<%="#{_class}"%>><%= t_property_type(@material_info.property_type) %></span>
-              <% if floor %>
+              <% if floor && @material_info.floor_before_type_cast != MaterialInfo.floors[:none_assigned] %>
                 <span class=<%="#{_class}"%>><%= t_floor(@material_info.floor) %> Floor</span>
               <% end %>
             </div>

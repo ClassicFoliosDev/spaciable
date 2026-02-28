@@ -9,11 +9,14 @@ module PropertyTypeEnum
       detached
       semi
       terraced
+      end_terrace
+      mid_terrace
       bungalow
       apartment
       duplex
       maisonette
       studio
+      coach_house
     ]
   end
 end

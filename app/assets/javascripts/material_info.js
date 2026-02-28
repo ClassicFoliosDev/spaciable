@@ -116,6 +116,8 @@
       })
     })
 
+    tab_selected($('.tab').first())   
+
     create_dependencies(dependencies).forEach(function(dependency) {
       $(dependency.primary).selectmenu({
         select: function (event, ui) {
@@ -138,8 +140,6 @@
       //document.getElementsByClassName('btn-form-submit')[0].addEventListener("click", CheckMaterialInfoChanges);
       set_initial_mi_data() 
     }
-
-    tab_selected($('.tab').first())    
   })
 
   function create_validation(field, regex, info) {
