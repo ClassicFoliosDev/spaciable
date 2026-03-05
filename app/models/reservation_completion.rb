@@ -14,6 +14,8 @@ class ReservationCompletion
     def no_comp_since_last_res
       dev_plots = resolve_developments(ActiveRecord::Base.connection.execute(no_comp_since_last_res_q).values)
       dev_plots.each do |dev, plots|
+        next if plots.empty?
+
         NoCompMailer.no_comp_since_last_res(Development.find(dev), Plot.where(id: plots)).deliver_now
       end
     end
@@ -47,6 +49,8 @@ class ReservationCompletion
     def no_comp_since_last_comp
       dev_plots = resolve_developments(ActiveRecord::Base.connection.execute(no_comp_since_last_comp_q).values)
       dev_plots.each do |dev, plots|
+        next if plots.empty?
+
         NoCompMailer.no_comp_since_last_comp(Development.find(dev), Plot.where(id: plots)).deliver_now
       end
     end
