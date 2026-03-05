@@ -7,6 +7,7 @@ module Unlatch
     belongs_to :development, class_name: "::Development"
     belongs_to :developer, class_name: "Unlatch::Developer"
     has_many :documents, class_name: "Unlatch::Document", dependent: :destroy
+    has_many :lots, class_name: "Unlatch::Lot", dependent: :destroy
 
     scope :in_division,
           lambda { |division|

@@ -56,9 +56,14 @@ module Unlatch
         lots
       end
 
+      # strip leading zeros
+      def strip(lot_number)
+        lot_number.sub(/^0+/, "")
+      end
+
       # Find the associated Unlatch Program,and if found, create a child Lot
       def add(plot)
-        lot = lots(plot&.program)&.select { |l| l["lotNumber"].casecmp(plot.number).zero? }
+        lot = lots(plot&.program)&.select { |l| strip(l["lotNumber"]).casecmp(strip(plot.number)).zero? }
         return unless lot&.count == 1
 
         lot = Unlatch::Lot.create(id: lot[0]["lotId"],

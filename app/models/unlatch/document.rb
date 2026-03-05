@@ -26,7 +26,7 @@ module Unlatch
 
       private
 
-      # rubocop:disable LineLength, Style/RescueStandardError
+      # rubocop:disable LineLength, Style/RescueStandardError, Lint/SafeNavigationChain
       def POST(spaciable_doc, program)
         retries = 0
         developer = spaciable_doc.unlatch_developer
@@ -34,7 +34,11 @@ module Unlatch
         document = Unlatch::Document.find_by(program_id: program.id,
                                              document_id: spaciable_doc.id)
 
-        return if developer.blank?
+        # return if the documnet is already defined
+        return if document || developer.blank?
+
+        # return if this is a plot document but there aren't any associated lots
+        return if spaciable_doc.documentable.is_a?(Plot) && spaciable_doc.lots&.compact.empty?
 
         begin
           body = {
@@ -85,7 +89,7 @@ module Unlatch
         document
       end
     end
-    # rubocop:enable LineLength, Style/RescueStandardError
+    # rubocop:enable LineLength, Style/RescueStandardError, Lint/SafeNavigationChain
 
     # remove document from unlatch
     # rubocop:disable Style/RescueStandardError
