@@ -75,6 +75,7 @@ class Plot < ApplicationRecord
   delegate :build_steps, to: :parent
   delegate :title, to: :build_step, prefix: true
   delegate :free?, :essentials?, :elite?, :legacy?, to: :phase, allow_nil: true
+  delegate :suspended?, to: :developer, prefix: true
 
   alias_attribute :identity, :number
 
