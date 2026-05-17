@@ -5,7 +5,7 @@ module Admin
     skip_authorization_check
 
     def index
-      ability = Ability.new(current_user, primary: true)
+      ability = Ability.new(current_user)
       selected_id = params[:divisionId].to_i
       divisions = Division
                   .accessible_by(ability)

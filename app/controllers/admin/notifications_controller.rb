@@ -15,7 +15,7 @@ module Admin
     def new
       if current_user.cf_admin? ||
          Developer.accessible_by(current_ability).one?
-        current_user.assign_permissionable_ids
+        current_user.assign_role_based_ids
       end
     end
 

@@ -25,6 +25,11 @@ module PolymorphicPermissionable
       errors.add(id_attr, :select) if send(id_attr).blank?
     end
 
+    def assign_role_based_ids
+      assign_permissionable_ids
+      cancel_multi_role_ids
+    end
+
     def assign_permissionable_ids
       return unless permissionable
 
@@ -102,6 +107,13 @@ module PolymorphicPermissionable
       self.developer_id = permissionable.developer_id ||
                           permissionable.division&.developer_id
     end
+
+    def  cancel_multi_role_ids
+      self.developer_id = nil unless Developer.accessible_by(current_ability).one?
+      self.division_id = nil unless Division.accessible_by(current_ability).one?
+      self.development_id = nil unless Development.accessible_by(current_ability).one?
+    end
+
   end
   # rubocop:enable BlockLength
 end
