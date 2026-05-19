@@ -107,6 +107,13 @@ module ButtonsHelper
     end
   end
 
+  def revive_btn(resource, path)
+    content_tag(:button, data: resident_to_revive(resource, path),
+                         class: "btn reinvite-btn") do
+      icon "envelope"
+    end
+  end
+
   def clone_btn(clone_path, label = "", element:)
     return unless element && (can? :clone, element)
 

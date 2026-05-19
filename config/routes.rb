@@ -150,6 +150,7 @@ Rails.application.routes.draw do
   end
 
   post 'plots/:plot_id/residents/:id/reinvite', action: :reinvite, controller: 'residents'
+  post 'plots/:plot_id/residents/:id/revive', action: :revive, controller: 'residents'
 
   resources :developments do
     resources :phases

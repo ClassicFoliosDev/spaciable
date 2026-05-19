@@ -230,5 +230,14 @@ class Resident < ApplicationRecord
     false
   end
   # rubocop:enable Naming/PredicateName
+
+  def expired?
+    expired = true
+    plots.each { |plot| expired &= plot.expired?}
+
+    return false unless expired
+
+    return !extended?
+  end
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent

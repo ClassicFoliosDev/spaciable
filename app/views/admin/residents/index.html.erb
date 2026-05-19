@@ -39,6 +39,9 @@
         <td colspan="3"><em><%= t(".removed") %></em></td>
       <% end %>
       <td class="actions">
+          <% if resident.expired? %>
+            <%= (revive_btn resident, "#{url_for([resident.plot_residencies.first.plot, resident])}/revive") %>
+          <% end %>
           <% unless resident.invitation_accepted? %>
             <%= (reinvite_btn resident, "#{url_for([resident.plot_residencies.first.plot, resident])}/reinvite") %>
           <% end %>
