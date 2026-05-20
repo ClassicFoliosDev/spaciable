@@ -5,7 +5,6 @@ class ReviveResidentMailer < ApplicationMailer
 
   # rubocop:disable Style/RescueStandardError
   def revive_expired_resident(residency)
-    byebug
     residency_information(residency)
     @payment_link = residency.create_extension_payment_link
     @payment_logo = Payment::CHECKOUT_LOGO
