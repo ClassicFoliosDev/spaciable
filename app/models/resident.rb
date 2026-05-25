@@ -239,5 +239,16 @@ class Resident < ApplicationRecord
 
     return !extended?
   end
+  def suspended?
+    PlotResidency.joins(plot: :developer)
+                 .where(resident_id: id)
+                 .where(developers: {suspended: true}).any?
+  end
+
+  def active_for_authentication?
+    super && !suspended?
+  end
+
+
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
