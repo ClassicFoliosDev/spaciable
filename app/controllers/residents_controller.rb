@@ -8,7 +8,7 @@ class ResidentsController < ApplicationController
   load_and_authorize_resource :plot
   load_and_authorize_resource :resident
 
-  before_action :set_plot_residency, only: %i[update show edit reinvite]
+  before_action :set_plot_residency, only: %i[update show edit reinvite revive]
 
   def index
     @residents = @plot.residents
@@ -69,6 +69,11 @@ class ResidentsController < ApplicationController
   def reinvite
     ResidentInvitationService.call(@plot_residency, current_user, @plot.developer.to_s)
     render json: { message: t("resident_reinvited", resident: @resident.to_s) }
+  end
+
+  def revive
+    ReviveResidentJob.perform_later(@plot_residency)
+    render json: { message: t("resident_revived", resident: @resident.to_s) }
   end
 
   private

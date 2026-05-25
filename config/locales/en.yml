@@ -728,6 +728,12 @@ en:
     reinvite: "Reinvite"
     confirm_text: "Are you sure you really want to reinvite?"
 
+  revive:
+    cancel: "Cancel"
+    confirm_title: "Confirm revival"
+    revive: "Revive"
+    confirm_text: "Are you sure you want to invite this resident to revive their account?"
+
   edit:
     cancel: "Cancel"
     title: "Edit document title"
@@ -4565,6 +4571,7 @@ en:
       edit: "Customise"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
+  resident_revived: "An account reserrection email has successfully been sent to %{resident}."
 
   calendar:
     events:

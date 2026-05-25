@@ -231,6 +231,14 @@ class Resident < ApplicationRecord
   end
   # rubocop:enable Naming/PredicateName
 
+  def expired?
+    expired = true
+    plots.each { |plot| expired &= plot.expired?}
+
+    return false unless expired
+
+    return !extended?
+  end
   def suspended?
     PlotResidency.joins(plot: :developer)
                  .where(resident_id: id)

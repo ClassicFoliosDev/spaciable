@@ -1,0 +1,17 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto; padding-bottom: 20px;") %>
+
+<p><%= t("expiry_email.intro", name: @name) %></p>
+
+<P>When your Spaciable access expired, we sent you an email with the option to extend your access for £<%=@payment_charge%> per year.<P>
+
+<P>Even if you didn’t renew at the time, it’s not too late – you can still use your login details to access key information about your home and upload documents, which could be a major time-saver for any future sales.</P>
+
+<p>All you need to do to renew your access is confirm your details at the following secure link:</p>
+
+<a href="<%= @payment_link %>"><%= image_tag(@payment_logo, style: "display: block;width:200px;margin: 20px auto;") %></a>
+
+<p>We hope you’ve enjoyed using Spaciable and continue to do so.</p>
+
+<p>Kind regards,</p>
+
+<p>The Spaciable Team</p>
