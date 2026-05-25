@@ -21,8 +21,13 @@
             <%= l @resident.extended_until.to_date, format: :digits %>
         <% end %>
       </span>
+       <div class="section-data">
+        <% if @resident.expired? %>
+          <%= (revive_btn @resident, "#{url_for([@resident.plot_residencies.first.plot, @resident])}/revive") %>
+        <% end %>
+      </div>
     </span>
-    </span>
+
   </div>
 </div>
 
