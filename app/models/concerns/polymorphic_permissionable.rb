@@ -108,12 +108,11 @@ module PolymorphicPermissionable
                           permissionable.division&.developer_id
     end
 
-    def  cancel_multi_role_ids
+    def cancel_multi_role_ids
       self.developer_id = nil unless Developer.accessible_by(current_ability).one?
       self.division_id = nil unless Division.accessible_by(current_ability).one?
       self.development_id = nil unless Development.accessible_by(current_ability).one?
     end
-
   end
   # rubocop:enable BlockLength
 end

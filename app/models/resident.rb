@@ -233,22 +233,21 @@ class Resident < ApplicationRecord
 
   def expired?
     expired = true
-    plots.each { |plot| expired &= plot.expired?}
+    plots.each { |plot| expired &= plot.expired? }
 
     return false unless expired
 
-    return !extended?
+    !extended?
   end
+
   def suspended?
     PlotResidency.joins(plot: :developer)
                  .where(resident_id: id)
-                 .where(developers: {suspended: true}).any?
+                 .where(developers: { suspended: true }).any?
   end
 
   def active_for_authentication?
     super && !suspended?
   end
-
-
 end
 # rubocop:enable Metrics/ClassLength, Rails/HasManyOrHasOneDependent
