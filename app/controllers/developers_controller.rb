@@ -29,7 +29,7 @@ class DevelopersController < ApplicationController
                     divisions = @developer.divisions.accessible_by(current_ability)
                     paginate(sort(divisions, default: :division_name))
                   elsif @active_tab == "developments"
-                    developments = @developer.developments.accessible_by(current_ability)
+                    developments = @developer.developments.where(archive: params[:archive] == "true").accessible_by(current_ability)
                     paginate(sort(developments, default: :name))
                   elsif @active_tab == "documents"
                     documents = @developer.documents.accessible_by(current_ability)

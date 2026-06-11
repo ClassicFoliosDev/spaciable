@@ -9,6 +9,7 @@ module Developers
     load_resource :development, through: [:developer]
 
     def index
+      @developments = @developments.where(archive: params[:archive] == "true")
       @developments = paginate(sort(@developments, default: :name))
     end
 

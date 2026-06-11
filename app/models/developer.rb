@@ -366,6 +366,10 @@ class Developer < ApplicationRecord
     sync_docs_with_unlatch
   end
 
+  def archived_developments?
+    developments.where(archive: true).count.positive?
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and

@@ -3,14 +3,17 @@
 module DeveloperTabsHelper
   include TabsHelper
   include FaqTabsHelper
+  include DevelopmentTabsHelper
 
   def developer_tabs(developer, current_tab)
-    tabs = DEVELOPER_TABS.call(developer, FaqMenuBuilder.new)
-    Tabs.new(developer, tabs, current_tab, self).all
+    tabs = DEVELOPER_TABS.call(developer, FaqMenuBuilder.new, DevelopmentMenuBuilder.new)
+    t = Tabs.new(developer, tabs, current_tab, self).all
+    byebug
+    return t
   end
 
   # rubocop:disable Metrics/BlockLength
-  DEVELOPER_TABS = lambda do |developer, faqmenubuilder|
+  DEVELOPER_TABS = lambda do |developer, faqmenubuilder, developmentsmenubuilder|
     {
       divisions: {
         icon: :building,
@@ -22,7 +25,8 @@ module DeveloperTabsHelper
       developments: {
         icon: :building,
         link: [developer, active_tab: :developments],
-        permissions_on: -> { developer }
+        permissions_on: -> { developer },
+        menus: developmentsmenubuilder.menu_for(developer)
       },
       documents: {
         icon: "file-pdf-o",

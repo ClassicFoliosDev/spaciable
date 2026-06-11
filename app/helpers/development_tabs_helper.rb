@@ -55,4 +55,11 @@ module DevelopmentTabsHelper
     }
   end
   # rubocop:enable Metrics/BlockLength
+
+  class DevelopmentMenuBuilder
+    def menu_for(scope)
+      return unless scope.archived_developments?
+      [ { icon: "home", title: "Archive", active_tab: "1"} ]
+    end
+  end
 end
