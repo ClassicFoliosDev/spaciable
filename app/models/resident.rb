@@ -241,6 +241,8 @@ class Resident < ApplicationRecord
   end
 
   def suspended?
+    return false if bypass
+
     PlotResidency.joins(plot: :developer)
                  .where(resident_id: id)
                  .where(developers: { suspended: true }).any?

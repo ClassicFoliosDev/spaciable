@@ -2451,6 +2451,7 @@ en:
       surname: "Surname"
       email: "Email"
       phone: "Phone"
+      bypass: "Allow user access regardless of host developer suspension"
       international: "Use international dialling code for non-UK numbers"
       full_access_description:
         title_html: "Full Access User"
@@ -2474,6 +2475,7 @@ en:
     show:
       back: "Back"
       title: "%{resident}"
+      bypass: "Resident has access regardless of any developer suspension"
     update:
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
       plot_residency_already_exists: "Resident %{email} was updated successfully"

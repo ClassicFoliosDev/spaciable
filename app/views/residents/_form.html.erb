@@ -40,6 +40,9 @@
             include_blank: false,
             selected: locals[:role] %>
           </div>
+          <div>
+            <%= f.input :bypass, as: :boolean, label: t(".bypass") %>
+          </div>
         </fieldset>
       </div>
 
