@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_02_28_143319) do
+ActiveRecord::Schema.define(version: 2026_10_01_131413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1185,6 +1185,7 @@ ActiveRecord::Schema.define(version: 2026_02_28_143319) do
     t.datetime "ts_and_cs_accepted_at"
     t.datetime "extended_until"
     t.boolean "living", default: false
+    t.boolean "bypass", default: false
     t.index ["email"], name: "index_residents_on_email", unique: true
     t.index ["invitation_token"], name: "index_residents_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_residents_on_invitations_count"

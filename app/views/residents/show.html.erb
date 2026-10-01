@@ -22,6 +22,10 @@
         <%= label_tag :extended %>
         <span><%= l @resident.extended_until.to_date, format: :digits %></span>
       <% end %>
+      <% if @resident.bypass? %>
+        <p></p>
+        <p><%= t(".bypass")%></p>
+      <% end %>
     </div>
   </div>
 

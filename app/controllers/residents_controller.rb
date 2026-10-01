@@ -157,7 +157,7 @@ class ResidentsController < ApplicationController
   end
 
   def resident_params
-    params.require(:resident).permit(:title, :first_name, :last_name, :role, :email, :phone_number)
+    params.require(:resident).permit(:title, :first_name, :last_name, :role, :email, :phone_number, :bypass)
   end
 end
 # rubocop:enable Metrics/ClassLength
